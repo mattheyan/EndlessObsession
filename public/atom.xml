@@ -4,7 +4,7 @@
   <title><![CDATA[The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-04-14T15:11:42-04:00</updated>
+  <updated>2012-04-14T16:05:56-04:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Learning F# with TDD: Part 2]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2012/01/11/learning-f-with-tdd-part-2/"/>
+    <link href="http://endlessobsession.heroku.com/blog/learning-f-with-tdd-part-2"/>
     <updated>2012-01-11T21:50:53-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2012/01/11/learning-f-with-tdd-part-2</id>
+    <id>http://endlessobsession.heroku.com/blog/learning-f-with-tdd-part-2</id>
     <content type="html"><![CDATA[<p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on the testing aspects, and also talk about active patterns.</p>
 
 <h2>Running tests</h2>
@@ -154,9 +154,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[ExoWeb type loading changes]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/12/02/exoweb-type-loading-changes/"/>
+    <link href="http://endlessobsession.heroku.com/blog/exoweb-type-loading-changes"/>
     <updated>2011-12-02T09:19:55-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/12/02/exoweb-type-loading-changes</id>
+    <id>http://endlessobsession.heroku.com/blog/exoweb-type-loading-changes</id>
     <content type="html"><![CDATA[<p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in ExoWeb.</p>
 
 <h2>Batch loading</h2>
@@ -181,9 +181,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[Learning F# with TDD: Part 1]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/08/21/learning-fsharp-with-tdd-part-1/"/>
+    <link href="http://endlessobsession.heroku.com/blog/learning-fsharp-with-tdd-part-1"/>
     <updated>2011-08-21T15:59:03-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/08/21/learning-fsharp-with-tdd-part-1</id>
+    <id>http://endlessobsession.heroku.com/blog/learning-fsharp-with-tdd-part-1</id>
     <content type="html"><![CDATA[<p>I decided to dive into a few languages I&#8217;ve been meaning to learn by way of the <a href="http://osherove.com/tdd-kata-1/">calculator kata</a>.  First up: F#.</p>
 
 <p>First, some prerequisites.</p>
@@ -224,9 +224,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[Disable the audible beep in Mac Terminal]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal/"/>
+    <link href="http://endlessobsession.heroku.com/blog/disable-the-audible-beep-in-mac-terminal"/>
     <updated>2011-07-11T17:45:01-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal</id>
+    <id>http://endlessobsession.heroku.com/blog/disable-the-audible-beep-in-mac-terminal</id>
     <content type="html"><![CDATA[<p>This was starting to get on my nerves.  I really don&#8217;t need a fancy sound clip to keep reminding me that I deleted as far as I can go.  I always do that, since I&#8217;m a bit OCD.  This one took me too long to find, mainly becuase of tabs.</p>
 
 <p>Anyway, to disable the sounds, go to <strong><em>Terminal -> Preferences -> Settings (top tab group) -> Advanced (inner tab group)</em></strong>, look for the &#8220;Bell&#8221; group label and uncheck the &#8220;Audible Bell&#8221; option.  Note that this is specific to a particular settings configuration/theme, so if you switch themes the behavior will change.</p>
@@ -235,9 +235,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[Tfs Rollback]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/07/08/tfs-rollback-2/"/>
+    <link href="http://endlessobsession.heroku.com/blog/tfs-rollback-2"/>
     <updated>2011-07-08T08:14:52-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/07/08/tfs-rollback-2</id>
+    <id>http://endlessobsession.heroku.com/blog/tfs-rollback-2</id>
     <content type="html"><![CDATA[<p>Using the tf command line tool you can rollback all or part of a tfs checkin.  This is useful for two reasons: 1) If you at least want to roll back all changes in one or more file (not some changes in a file) then it saves you from having to manually revert changes (I&#8217;m a firm believer in not giving yourself the opportunity to goof up) , and 2) the checkin is actually marked as a <em>rollback</em>, so you don&#8217;t have to rely on checkin notes to identify it as such.</p>
 
 <p>As a side note, based on what I&#8217;ve seen in the way that tfs represents changes, this rollback changeset is simply an add, edit or delete, with the additional information that it was a rollback of a prior change.  The original checkin is still in the tfs history.</p>
@@ -300,9 +300,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[Visual Studio External Tools]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools/"/>
+    <link href="http://endlessobsession.heroku.com/blog/visual-studio-external-tools"/>
     <updated>2011-01-24T10:49:32-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools</id>
+    <id>http://endlessobsession.heroku.com/blog/visual-studio-external-tools</id>
     <content type="html"><![CDATA[<p>Here’s a neat visual studio tip.  You can run any external command from within visual studio, and add a button to the command bar or map it to a keyboard shortcut.  This is really important to me because I rely heavily on keyboard shortcuts.  I love that I can hit a combination of keys and perform a repetitive task automatically, plus the result can be incorporated into visual studio by way of the output window.</p>
 
 <p>Some examples of what you might use this for:</p>
@@ -358,9 +358,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[ExoWeb's Entity System]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/01/13/exowebs-entity-system/"/>
+    <link href="http://endlessobsession.heroku.com/blog/exowebs-entity-system"/>
     <updated>2011-01-13T06:34:46-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/01/13/exowebs-entity-system</id>
+    <id>http://endlessobsession.heroku.com/blog/exowebs-entity-system</id>
     <content type="html"><![CDATA[<p>Matt Hooper recently posted an <a href="http://mhoop.wordpress.com/2011/01/13/exowebs-entity-system/">overview of ExoWeb&#8217;s entity system</a>.</p>
 
 <p>From the post:</p>
@@ -373,9 +373,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[Intro to Client-Server Mapping in ExoWeb]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/01/10/into-to-client-server-mapping-in-exoweb/"/>
+    <link href="http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb"/>
     <updated>2011-01-10T10:28:34-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/01/10/into-to-client-server-mapping-in-exoweb</id>
+    <id>http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb</id>
     <content type="html"><![CDATA[<p>As a follow up to my <a href="www.google.com">Brief Introduction to ExoWeb</a>, I would like to go into more detail about the communications between client and server.</p>
 
 <p>The client interacts with the server in two basic ways.</p>
@@ -409,9 +409,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[A Brief Introduction to ExoWeb]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2011/01/10/a-brief-introduction-to-exoweb/"/>
+    <link href="http://endlessobsession.heroku.com/blog/a-brief-introduction-to-exoweb"/>
     <updated>2011-01-10T07:54:17-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2011/01/10/a-brief-introduction-to-exoweb</id>
+    <id>http://endlessobsession.heroku.com/blog/a-brief-introduction-to-exoweb</id>
     <content type="html"><![CDATA[<p><a href="http://mattheyan.posterous.com/2010/12/07/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
 
 <p>First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.</p>
@@ -557,9 +557,9 @@ match str with
   
   <entry>
     <title type="html"><![CDATA[Getting started with virtualenvwrapper]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/12/20/getting-started-with-virtualenvwrapper/"/>
+    <link href="http://endlessobsession.heroku.com/blog/getting-started-with-virtualenvwrapper"/>
     <updated>2010-12-20T21:22:33-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/12/20/getting-started-with-virtualenvwrapper</id>
+    <id>http://endlessobsession.heroku.com/blog/getting-started-with-virtualenvwrapper</id>
     <content type="html"><![CDATA[<p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn&#8217;t get very far at the time.  Recently I&#8217;ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/">RVM</a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.</p>
 
 <h2>Installing</h2>
@@ -626,9 +626,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[I wish I could remember what Amnesia is...]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/12/07/i-wish-i-could-remember-what-amnesia-is/"/>
+    <link href="http://endlessobsession.heroku.com/blog/i-wish-i-could-remember-what-amnesia-is"/>
     <updated>2010-12-07T19:12:16-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/12/07/i-wish-i-could-remember-what-amnesia-is</id>
+    <id>http://endlessobsession.heroku.com/blog/i-wish-i-could-remember-what-amnesia-is</id>
     <content type="html"><![CDATA[<p>One of my coworkers, Matt Hooper, recently released an open source project called Amnesia.  The aim of Amnesia is to &#8220;transacts all changes to a website to facilitate automated UI testing&#8221;.  Basically, you can run your tests and change and add data all day long and the changes, whether they come from the website or the tests themselves, will not last beyond the scope of the test.  Pretty cool, huh?</p>
 
 <p>The blog post where he announced it can be found <a href="http://mhoop.wordpress.com/2010/11/23/amnesia-1-0-released-database-rollbacks-for-automated-ui-tests/">here</a>, and the source and documentation is <a href="http://amnesia.codeplex.com/">hosted on Codeplex</a>.</p>
@@ -637,9 +637,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[The Exo-suite (and client scripts on Github)]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/12/07/exo-suite-and-client-scripts-on-github/"/>
+    <link href="http://endlessobsession.heroku.com/blog/exo-suite-and-client-scripts-on-github"/>
     <updated>2010-12-07T19:07:12-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/12/07/exo-suite-and-client-scripts-on-github</id>
+    <id>http://endlessobsession.heroku.com/blog/exo-suite-and-client-scripts-on-github</id>
     <content type="html"><![CDATA[<p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this point.</p>
 
 <p>Before I go any farther I&#8217;ll give you (and future self) my take on the purpose of these projects.</p>
@@ -690,9 +690,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[Installing VirtualBox Guest Additions]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/09/30/installing-virtualbox-guest-addition/"/>
+    <link href="http://endlessobsession.heroku.com/blog/installing-virtualbox-guest-addition"/>
     <updated>2010-09-30T17:19:32-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/09/30/installing-virtualbox-guest-addition</id>
+    <id>http://endlessobsession.heroku.com/blog/installing-virtualbox-guest-addition</id>
     <content type="html"><![CDATA[<p>First, a disclaimer:  you may not find this post useful unless you are interested in virtualbox or virtualization.  Also, there are plenty of other blogs that will tell you how to install the guest additions.  This is my personal reference.</p>
 
 <p>According to the <a href="http://www.virtualbox.org/wiki/VirtualBox">virtualbox wiki</a>, virtualbox is <em>the only professional-quality virtualization solution that is also Open Source Software</em>.  Alright, a big +1 for open source!  Not that I have ever cracked open the source&#8230; :P</p>
@@ -736,9 +736,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[Resize jQuery Dialog]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/08/16/resize-jquery-dialog/"/>
+    <link href="http://endlessobsession.heroku.com/blog/resize-jquery-dialog"/>
     <updated>2010-08-16T18:00:24-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/08/16/resize-jquery-dialog</id>
+    <id>http://endlessobsession.heroku.com/blog/resize-jquery-dialog</id>
     <content type="html"><![CDATA[<p>If you ever need to resize and reposition a jQuery dialog, the following script should do the trick:</p>
 
 <ul>
@@ -756,9 +756,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[IE "Unknown runtime error"]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/07/28/ie-unknown-runtime-error/"/>
+    <link href="http://endlessobsession.heroku.com/blog/ie-unknown-runtime-error"/>
     <updated>2010-07-28T11:58:58-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/07/28/ie-unknown-runtime-error</id>
+    <id>http://endlessobsession.heroku.com/blog/ie-unknown-runtime-error</id>
     <content type="html"><![CDATA[<p>I received a wonderful error from Internet Explorer today:  &#8220;Unknown runtime error&#8221;.</p>
 
 <p>It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being set.</p>
@@ -771,9 +771,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[Getting Things Done:  Smart Lists]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/07/27/getting-things-done-smart-lists/"/>
+    <link href="http://endlessobsession.heroku.com/blog/getting-things-done-smart-lists"/>
     <updated>2010-07-27T18:38:48-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/07/27/getting-things-done-smart-lists</id>
+    <id>http://endlessobsession.heroku.com/blog/getting-things-done-smart-lists</id>
     <content type="html"><![CDATA[<h3>Smart Lists</h3>
 
 <p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you&#8217;re reading this and you don&#8217;t know about it, you should check it out!</p>
@@ -806,9 +806,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[Sequenced SQL Records]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/07/27/sequenced-sql-records/"/>
+    <link href="http://endlessobsession.heroku.com/blog/sequenced-sql-records"/>
     <updated>2010-07-27T18:17:20-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/07/27/sequenced-sql-records</id>
+    <id>http://endlessobsession.heroku.com/blog/sequenced-sql-records</id>
     <content type="html"><![CDATA[<h3>How to sequence values in a table.  The non-so-elegant solution&#8230;</h3>
 
 <p>Imagine you have a table that contains records with a foreign key (string, int, guid, etc&#8230;) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc&#8230;) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key table.</p>
@@ -862,9 +862,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[Getting things done (GTD)]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/07/21/getting-things-done/"/>
+    <link href="http://endlessobsession.heroku.com/blog/getting-things-done"/>
     <updated>2010-07-21T06:10:40-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/07/21/getting-things-done</id>
+    <id>http://endlessobsession.heroku.com/blog/getting-things-done</id>
     <content type="html"><![CDATA[<p>Lately I&#8217;ve become somewhat obsessed with getting things done.  I wasn&#8217;t always this way, I swear!  In my younger days I was as disorganized and lazy as anyone.  And I procrastinated sometimes (understatement of the year).</p>
 
 <p>For me, getting things done has to be more than a state of mind or goal, it has to be a <strong>system</strong> and a <strong>habit</strong>.  I didn&#8217;t come to this conclusion all at once.  It happened gradually, and I&#8217;m always trying to be better.  The system looks something like this:</p>
@@ -939,9 +939,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[DataContractSerializer Read-Only Property Serialization Error]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/07/12/datacontractserializer-serialization-error/"/>
+    <link href="http://endlessobsession.heroku.com/blog/datacontractserializer-serialization-error"/>
     <updated>2010-07-12T17:55:36-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/07/12/datacontractserializer-serialization-error</id>
+    <id>http://endlessobsession.heroku.com/blog/datacontractserializer-serialization-error</id>
     <content type="html"><![CDATA[<p>I recently encountered an exception with a message that looked something like this:</p>
 
 <p>There was an error deserializing the object of type Foo.  No set method for property &#8221; in type &#8221;.</p>
@@ -969,9 +969,9 @@ South==0.7.1</p>
   
   <entry>
     <title type="html"><![CDATA[Extension Methods and Generic Type Parameters]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/06/24/extension-methods-and-generic-type-parameters/"/>
+    <link href="http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters"/>
     <updated>2010-06-24T03:40:28-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/06/24/extension-methods-and-generic-type-parameters</id>
+    <id>http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters</id>
     <content type="html"><![CDATA[<p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on stackoverflow</a></p>
 
 <p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question answered</a></p>

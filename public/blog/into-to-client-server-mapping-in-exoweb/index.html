@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Intro to Client-Server Mapping in ExoWeb - The Endless Obsession</title>
+  <meta name="author" content="Bryan Matthews">
+
+  
+  <meta name="description" content="As a follow up to my Brief Introduction to ExoWeb, I would like to go into more detail about the communications between client and server. The &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="The Endless Obsession" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">The Endless Obsession</a></h1>
+  
+    <h2>better code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:endlessobsession.heroku.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Intro to Client-Server Mapping in ExoWeb</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-10T10:28:34-05:00" pubdate data-updated="true">Jan 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>As a follow up to my <a href="www.google.com">Brief Introduction to ExoWeb</a>, I would like to go into more detail about the communications between client and server.</p>
+
+<p>The client interacts with the server in two basic ways.</p>
+
+<ol>
+<li><p>Pulling information: type and instance data.</p></li>
+<li><p>Pushing information: changes to the model and/or instructions to do something.</p></li>
+</ol>
+
+
+<p>The first type, pulling information, is pretty straightforward. Type information doesn’t change (frequently) so it is actually cached on the client if possible. Querying for instance data is similar to querying a database. You request an object of a particular type with a particular id, but you can also include a set of paths that tell the services what additional related data you are interested in. The primary component of a query might look something like this.</p>
+
+<pre><code>{ from: "Person", id: "1", and: ["this.Additional.Properties.To.Load"] }
+</code></pre>
+
+<p>The second type, pushing information, gets a little more interesting. If you’re going to sync data between two disconnected systems there are two primary approaches that you might take. First, you could send simple data from point A to point B, manipulate it, then send it back from point B to point A in the same form. As you could imagine this can get pretty expensive and tedious. Of course, you might just send the portions of data that have changed to cut down on overhead. The bigger problem, I think, is that you don’t really know what has happened unless you do full graph comparisons. Another approach is to keep track of <em>changes</em> as they occur and send those back and forth. This is what ExoWeb does.</p>
+
+<pre><code>changes: [ { type: "ValueChange", instance: { id: "1", type: "Person" }, property: "FirstName", oldValue: "Rob", newValue: "Robert" }, ... } ]
+</code></pre>
+
+<p>The client can also raise events, for example “save”, a built-in event. In response, the server can send back additional changes to the model.</p>
+
+<pre><code>changes: [ { type: "Save", idChanges: [ { type: "Person", from: "?4", to: "644" } ] }, ... ]
+</code></pre>
+
+<p>The payload isn’t limited to data. It can also include conditions, for example, permissions, or invalid data conditions. More on that later.</p>
+
+<p>This has been a very basic introduction to the way client-server communication works in ExoWeb. Look out for more updates in the future.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Bryan Matthews</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-10T10:28:34-05:00" pubdate data-updated="true">Jan 10<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/exoweb/'>exoweb</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/a-brief-introduction-to-exoweb" title="Previous Post: A Brief Introduction to ExoWeb">&laquo; A Brief Introduction to ExoWeb</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/exowebs-entity-system" title="Next Post: ExoWeb's Entity System">ExoWeb's Entity System &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/tfs-rollback-2">Tfs Rollback</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/mattheyan">@mattheyan</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'mattheyan',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("BryanMatthews", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/BryanMatthews" class="twitter-follow-button" data-show-count="false">Follow @BryanMatthews</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/mattheyan?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Bryan Matthews -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

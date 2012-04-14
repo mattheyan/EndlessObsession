@@ -4,7 +4,7 @@
   <title><![CDATA[Category: windows | The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/blog/categories/windows/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-04-14T15:11:42-04:00</updated>
+  <updated>2012-04-14T16:05:56-04:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Where's My Desktop!]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/02/10/wheres-my-desktop/"/>
+    <link href="http://endlessobsession.heroku.com/blog/wheres-my-desktop"/>
     <updated>2010-02-10T17:28:00-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/02/10/wheres-my-desktop</id>
+    <id>http://endlessobsession.heroku.com/blog/wheres-my-desktop</id>
     <content type="html"><![CDATA[<p>The other day I got into work really early, hoping to have a productive morning.  Unfortunately, my computer had other ideas.  When it finished booting up I was greeted by an empty desktop and a host of applications complaining about needing a password.  Geez, I don't even have coffee yet, how am I supposed to deal with this?!  (not that I drink coffee...)</p>
 
 <p>Anyway, being the lazy developer that I am, I promptly notified the IT staff and then fired up Google.  I found a few posts mentioning the fact that my profile was mapped to a different location on disk (C:\windows\system32\config\systemprofile), but not much in the way of an explanation.  They suggested copying files into that location, but that didn't seem like a good idea to me.  Eventually I was contacted by one of my helpful coworkers who helped me resolve the issue by running the disk error checking utility (chkdsk.exe) and rebooting.  Simple, huh?</p>

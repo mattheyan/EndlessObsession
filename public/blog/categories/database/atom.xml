@@ -4,7 +4,7 @@
   <title><![CDATA[Category: database | The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/blog/categories/database/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-04-14T15:11:42-04:00</updated>
+  <updated>2012-04-14T16:05:56-04:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Sequenced SQL Records]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/07/27/sequenced-sql-records/"/>
+    <link href="http://endlessobsession.heroku.com/blog/sequenced-sql-records"/>
     <updated>2010-07-27T18:17:20-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/07/27/sequenced-sql-records</id>
+    <id>http://endlessobsession.heroku.com/blog/sequenced-sql-records</id>
     <content type="html"><![CDATA[<h3>How to sequence values in a table.  The non-so-elegant solution...</h3>
 
 <p>Imagine you have a table that contains records with a foreign key (string, int, guid, etc...) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc...) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key table.</p>
@@ -71,9 +71,9 @@
   
   <entry>
     <title type="html"><![CDATA[Encryption and VARBINARY]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/02/10/encryption-and-varbinary/"/>
+    <link href="http://endlessobsession.heroku.com/blog/encryption-and-varbinary"/>
     <updated>2010-02-10T17:26:00-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/02/10/encryption-and-varbinary</id>
+    <id>http://endlessobsession.heroku.com/blog/encryption-and-varbinary</id>
     <content type="html"><![CDATA[<p>Data loss is a scary thing.  In one of the apps I have worked on it is particularly scary since some of the data is encrypted.  In the beginning it was encrypted in such a way that it would be (hopefully) impossible to retrieve without the proper authorization.  Essentially, the data would be junk if a finite number of users forgot their passwords.  This was always lurking in the back of my mind.  (You've never forgotten your password, have you?)  Luckily we dropped that approach, but I didn't anticipate how we would actually lose data.</p>
 
 <p>One day I discovered an interesting error was occurring.  (Only in hindsight can I refer to it as "interesting".)  It was a <em>CryptographicException</em>:  Length of the data to decrypt is invalid.  The application was attempting to load some encrypted data from the database and was repeatedly failing on a particular record.  This is not good.</p>

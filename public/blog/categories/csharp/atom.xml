@@ -4,7 +4,7 @@
   <title><![CDATA[Category: csharp | The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/blog/categories/csharp/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-04-14T15:11:42-04:00</updated>
+  <updated>2012-04-14T16:05:56-04:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Extension Methods and Generic Type Parameters]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/2010/06/24/extension-methods-and-generic-type-parameters/"/>
+    <link href="http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters"/>
     <updated>2010-06-24T03:40:28-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/2010/06/24/extension-methods-and-generic-type-parameters</id>
+    <id>http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters</id>
     <content type="html"><![CDATA[<p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on stackoverflow</a></p>
 
 <p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question answered</a></p>

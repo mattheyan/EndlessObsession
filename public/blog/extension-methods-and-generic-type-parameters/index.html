@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Extension Methods and Generic Type Parameters - The Endless Obsession</title>
+  <meta name="author" content="Bryan Matthews">
+
+  
+  <meta name="description" content="Edit 2010-06-29:  question on stackoverflow Edit 2010-07-01:  question answered This is going to be a short post, and I’ll get right to the point &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="The Endless Obsession" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">The Endless Obsession</a></h1>
+  
+    <h2>better code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:endlessobsession.heroku.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Extension Methods and Generic Type Parameters</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-24T03:40:28-04:00" pubdate data-updated="true">Jun 24<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on stackoverflow</a></p>
+
+<p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question answered</a></p>
+
+<p>This is going to be a short post, and I’ll get right to the point.</p>
+
+<p>I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.  The starting code looked something like this:</p>
+
+<ul>
+<li><p>context.GetGraphType<Bar>().Subscribe<Fizz>(</p></li>
+<li><p>(instance, evt) => e.Execute((Bar)instance.Instance)</p></li>
+<li><p>);</p></li>
+</ul>
+
+
+<p>It breaks down like this:</p>
+
+<ul>
+<li><p>Get some type</p></li>
+<li><p>Subscribe to an event</p></li>
+<li><p>When the event happens, do something</p></li>
+</ul>
+
+
+<p>It just so happens that we have all followed an unspoken convention: an Execute method with a single parameter that is of the type that is subscribing to the event (Bar).  You can imagine that once you have over a dozen of these subscriptions it can start to look a little silly.  More on that later.</p>
+
+<p>So, I wanted to rewrite it to look something like this:</p>
+
+<ul>
+<li>typeof(Bar).SubscribeTo<Fizz>(context);</li>
+</ul>
+
+
+<p>My hope was that it now reads something like “bar subscribes to the fizz event on the given context”, rather than “the context gets the bar type and subscribes to fizz and then does some stuff.”  Hopefully I’m not totally off base here.  I did check with a co-worker and he confirmed my thoughts.</p>
+
+<p>In order to accomplish the above I wanted to make use of an abstract generic base class for the events, something like:</p>
+
+<ul>
+<li><p>public abstract class Event<T></p></li>
+<li><p>{</p></li>
+<li><p>public abstract void Execute(T arg);</p></li>
+<li><p>}</p></li>
+</ul>
+
+
+<p>In the example, T is Bar - the type that subscribes to the event.  I implemented the SubscribeTo method as a local extension method.  Unfortunately, I got stuck when I tried to set up a generic type parameter that would be of type Bar.  Something like this:</p>
+
+<ul>
+<li><p>public static void SubscribeTo<TEvent>(this Type type, Context context)</p></li>
+<li><p>where TEvent : Event<the value of parameter 1></p></li>
+<li><p>{</p></li>
+<li><p>// do stuff&#8230;</p></li>
+<li><p>}</p></li>
+</ul>
+
+
+<p>If this were possible, one would be able to implement the change I proposed with type checking.  The compiler would verify that Fizz was a subclass of Event<Bar> and the extension method could treat it as such.</p>
+
+<p>Do you know of a way to implement what I have proposed, or an alternative that is very similar?</p>
+
+<p>Back to the convention I mentioned earlier.  In the spirit of utilizing conventions, I ended up using reflection to take advantage of it.  It isn’t checked by the compiler, but we have the next best thing.  The code runs on application start-up and the Execute method is retrieved when the event is subscribed to, not raised.  So, it will fail very early if there is a problem.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Bryan Matthews</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-24T03:40:28-04:00" pubdate data-updated="true">Jun 24<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/csharp/'>csharp</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/arguments-callee-caller" title="Previous Post: arguments...callee...caller...">&laquo; arguments...callee...caller...</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/datacontractserializer-serialization-error" title="Next Post: DataContractSerializer Read-Only Property Serialization Error">DataContractSerializer Read-Only Property Serialization Error &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/tfs-rollback-2">Tfs Rollback</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/mattheyan">@mattheyan</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'mattheyan',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("BryanMatthews", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/BryanMatthews" class="twitter-follow-button" data-show-count="false">Follow @BryanMatthews</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/mattheyan?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Bryan Matthews -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
