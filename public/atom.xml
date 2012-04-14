@@ -4,7 +4,7 @@
   <title><![CDATA[The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-04-14T14:22:22-04:00</updated>
+  <updated>2012-04-14T15:11:42-04:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -12,5 +12,1028 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Learning F# with TDD: Part 2]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2012/01/11/learning-f-with-tdd-part-2/"/>
+    <updated>2012-01-11T21:50:53-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2012/01/11/learning-f-with-tdd-part-2</id>
+    <content type="html"><![CDATA[<p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on the testing aspects, and also talk about active patterns.</p>
+
+<h2>Running tests</h2>
+
+<p>First, I noticed a little problem with running the tests.  If I right-clicked on a test method and selected &#8220;Run Test(s)&#8221;, then the test would run as expected.  However, if I selected &#8220;Run Test(s)&#8221; for a project or solution, the tests would not be found as described in the <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">getting started post</a>, so I would see something like &#8220;0 passed, 0 failed, 0 skipped, &#8230;&#8221;.</p>
+
+<p>The solution for me was to transition from using local spec methods to defining a &#8220;Tests&#8221; class, with the &#8220;TestFixtureAttribute&#8221;, and define my specs as static methods (they could be instance methods if needed of course).</p>
+
+<pre><code>[&lt;TestFixture&gt;]
+type Tests = class
+    new() = {}
+
+    [&lt;Scenario&gt;]
+    static member When_... () =
+        // test body
+
+end
+</code></pre>
+
+<p>Voila, tests run as expected!</p>
+
+<p>Now, a little explanation of how you write the specs&#8230;</p>
+
+<h2>Writing specs</h2>
+
+<p>From  <a href="http://www.navision-blog.de/2009/02/23/introducing-naturalspec-a-dsl-for-testing-part-i/">Introducing NaturalSpec – A Domain-specific language (DSL) for testing – Part I</a></p>
+
+<blockquote><p>With the Keyword “<strong>Given</strong>” I can create a test context (the objects I want to test). In this sample I created a list with 5 elements. With the keyword “<strong>When</strong>” I call a function which does something with my test context. In this case I want to remove the value 3. In the Assert section (keywords “<strong>It should</strong>” or “<strong>It shouldn’t</strong>”) I can give some observations, which should hold for my manipulated test context.</p></blockquote>
+
+<ul>
+<li><p>Create the object(s) to be tested using &#8220;Given&#8221;</p></li>
+<li><p>Pipe into &#8220;When&#8221; to call functions (or do other things)</p></li>
+<li><p>Pipe into &#8220;It should/shouldn&#8217;t&#8221; to set up assertions</p></li>
+<li><p>Finally, pipe into the &#8220;Verify&#8221; method to run the tests and print the output</p></li>
+</ul>
+
+
+<p>Here&#8217;s an example:</p>
+
+<pre><code>[&lt;TestFixture&gt;]
+type Tests = class
+    new() = {}
+
+    [&lt;Scenario&gt;]
+    static member When_getting_the_state_of_a_new_connection_it_should_be_closed () =
+        Given NewConnection()
+            |&gt; When getting DbConnection.State
+            |&gt; It should equal "Closed"
+            |&gt; Verify
+
+end
+</code></pre>
+
+<p>The NewConnection() method call is entirely fabricated. It serves as the test context in the example.</p>
+
+<p>&#8220;When getting&#8221; is followed by a method that takes as input the test context object type (presumably a connection object) and returns some value (string).</p>
+
+<p>The &#8220;equal&#8221; method, based on the previous information, takes in two strings and asserts that they are equals.</p>
+
+<p>And here&#8217;s the output:</p>
+
+<blockquote><p>Scenario: When getting the state of a new connection it should be closed</p>
+
+<p>  - Given &lt;fun:When_getting_the_state_of_a_new_connection_it_should_be_closed&#8230;</p>
+
+<p>     - When getting�</p>
+
+<p>      => It should equal &#8220;Closed&#8221;</p>
+
+<p>  ==> Result is: &#8220;Closed&#8221;</p>
+
+<p>  ==> OK</p>
+
+<p>  ==> Time: 0.2060s</p>
+
+<p>1 passed, 0 failed, 0 skipped, took 0.61 seconds (NUnit 2.5.10).</p></blockquote>
+
+<p>There&#8217;s room for improvement, but it&#8217;s good enough for now, so on to active patterns!</p>
+
+<h2>Active Patterns</h2>
+
+<p>From <a href="http://msdn.microsoft.com/en-us/library/dd233248.aspx">MSDN</a>:</p>
+
+<blockquote><p>Active patterns enable you to define named partitions that subdivide input data, so that you can use these names in a pattern matching expression just as you would for a discriminated union. You can use active patterns to decompose data in a customized manner for each partition.</p></blockquote>
+
+<p>One example they give is even and odd.  You can define a pattern for &#8220;Even&#8221; or &#8220;Odd&#8221; and use that in pattern matching like so:</p>
+
+<pre><code>match input with
+    | Even -&gt; // do something if even...
+    | Odd -&gt; // do something if odd...
+</code></pre>
+
+<p>Compare that with:</p>
+
+<pre><code>if (input % 2 === 0) {
+    // do something if even...
+}
+else {
+    // do something if odd...
+}
+</code></pre>
+
+<p>Of course, you could do something like this:</p>
+
+<pre><code>if (isEven(input)) {
+</code></pre>
+
+<p>&#8230;but that still doesn&#8217;t read quite as well in my opinion.</p>
+
+<p>Even more interesting, you can define partial active patterns that might match the given input, and if so, can transform the result in some way.  The example they gave was number parsing.</p>
+
+<pre><code>let (|Integer|_|) (str: string) =
+    let mutable i = 0
+    if System.Int32.TryParse(str, &amp;i) then Some(i)
+    else None
+
+let (|Float|_|) (str: string) =
+    let mutable f = 0.0
+    if System.Double.TryParse(str, &amp;f) then Some(f)
+    else None
+
+// Consuming code somewhere...
+match str with
+    | Integer i -&gt; printfn "%d : Integer" i
+    | Float f -&gt; printfn "%f : Floating point" f
+    | _ -&gt; printfn "%s : Not matched." str
+</code></pre>
+
+<p>This illustrates what makes pattern matching different from traditional control structures. It&#8217;s actually a <strong><em>reusable</em></strong> control structure plus potential augmentation of the input.</p>
+
+<p>Here&#8217;s a post where someone who really digs pattern matching <a href="http://lorgonblog.wordpress.com/2008/04/17/an-example-of-the-interplay-between-language-features-and-library-design-part-two/">attempts to explain why</a>, if you&#8217;re interested.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ExoWeb type loading changes]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/12/02/exoweb-type-loading-changes/"/>
+    <updated>2011-12-02T09:19:55-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/12/02/exoweb-type-loading-changes</id>
+    <content type="html"><![CDATA[<p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in ExoWeb.</p>
+
+<h2>Batch loading</h2>
+
+<p>Types are now batch loaded. This means that prior to type caching your pages should only send a single type request (or very few depending on your usage). This was implemented to cut down on the large number of requests sent from the browser, since browsers have limits on the number of concurrent request.</p>
+
+<p>You don’t have to do anything to enable this functionality.</p>
+
+<h2>Type loading and rules</h2>
+
+<p>We noticed that a surprisingly large number of types were being requested, and some of them didn’t seem like types that should be needed. I was able to track this down to the “AllowedValues” rule, which was force loading types when instantiated. Since this rule is very common, and often spans types, this would result in a cascading type loading effect. I changed the rule’s active type loading behavior to a passive approach: it becomes enabled when the relevant types are loaded.</p>
+
+<p>There are two possible side-effects of this change that come to mind.</p>
+
+<p>First, if you happen to have an allowed values property on a type that is neither the containing type of the property or the property type, then the rule may never be enabled, even if the data is all loaded and editable. This is an odd scenario that shouldn’t happen in practice. To illustrate, if type Person has a property Org of type Organization, and its allowed values are World.AllOrganizations, and type World is not used, then the rule will never be activated. The only way that this example makes sense is if the type World is a required type for the entire app (or feature area), and so will always be available.</p>
+
+<p>Second, if you are not actually referencing a type in your query paths but subsequently used that type in templates/scripts or expected a $extend to fire when the type was loaded, then in the past you may gotten away with this because of the overly aggressive nature of type loading. Now, types are only loaded because they are referenced in your queries or are otherwise required for object loading (i.e. due to lazy loading). One caveat: several other rules (e.g. CompareRule) may still force type loading to occur. They are less likely to actually change the nature of type loading, but still this behavior may also be changed in the future for other rules.</p>
+
+<p>The moral of the story: don’t depend on rules to perform type loading.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning F# with TDD: Part 1]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/08/21/learning-fsharp-with-tdd-part-1/"/>
+    <updated>2011-08-21T15:59:03-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/08/21/learning-fsharp-with-tdd-part-1</id>
+    <content type="html"><![CDATA[<p>I decided to dive into a few languages I&#8217;ve been meaning to learn by way of the <a href="http://osherove.com/tdd-kata-1/">calculator kata</a>.  First up: F#.</p>
+
+<p>First, some prerequisites.</p>
+
+<ul>
+<li><p>F#, obviously.  This comes with VS 2010 so you probably already have it.</p></li>
+<li><p>We&#8217;re doing TDD, so we need some sort of testing framework.  I decided to go with <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">NaturalSpec</a>.  This means we&#8217;ll need to download the package from <a href="https://github.com/forki/NaturalSpec">github</a>, build it, and also download and install <a href="http://www.nunit.org/index.php?p=download">NUnit</a> and <a href="http://testdriven.net/default.aspx">TestDriven.NET</a>.  The author has a good <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">blog post</a> on setting up and running the test project.</p></li>
+</ul>
+
+
+<p>Keep in mind that I&#8217;m extremely new to the language, so the code I ended up with probably doesn&#8217;t reflect what a seasoned F# programmer would write.  I tried to follow conventions that I could pick out as much as possible.  The first part of the kata is an add function.  Pretty simple.  In the interest of not getting bogged down in one language I didn&#8217;t take if very far, so I will only be able to make very broad observations at this point.</p>
+
+<p>Two positive things that I took away from it:  pattern matching and pipe.</p>
+
+<p>Pattern matching is something that I knew was popular in functional programming circle but had never experienced first hand.  Now that I have a taste of it I think it&#8217;s a handy abstraction, but I have a feeling that I haven&#8217;t even begun to scratch the surface of what it could mean.</p>
+
+<pre><code>let addNumbers (numbers : List) =
+    match numbers.Length with
+    | 0 -&gt; 0
+    | 1 -&gt; numbers.[0]
+    | _ -&gt; numbers |&gt; Seq.reduce (fun a b -&gt; a + b)
+</code></pre>
+
+<p>This is simply an alternative form of the familiar if-else branching logic, nothing special really, but it is pleasantly terse.</p>
+
+<p>Pipe is even more exciting.  Take the following for example.</p>
+
+<pre><code>numbers.Split ',' |&gt; Array.toList |&gt; List.map int |&gt; addNumbers
+</code></pre>
+
+<p>Using the pipe operator (that&#8217;s &#8220;|>&#8221;) you can stream a value through a series of transformations, in this case splitting the string, converting the array to a list, converting the items in the list to integers, and finally passing the list to a method called &#8220;addNumbers&#8221;.</p>
+
+<p>In any other language this would probably read similarly if your transformations are all instance methods, however, that breaks down as soon as you have to use global or static/class methods.  The pipe form always reads nicely from the beginning to the end.  Of course, this example could be a little simpler since our function can technically accept an array as its argument.</p>
+
+<p>To be continued&#8230;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Disable the audible beep in Mac Terminal]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal/"/>
+    <updated>2011-07-11T17:45:01-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal</id>
+    <content type="html"><![CDATA[<p>This was starting to get on my nerves.  I really don&#8217;t need a fancy sound clip to keep reminding me that I deleted as far as I can go.  I always do that, since I&#8217;m a bit OCD.  This one took me too long to find, mainly becuase of tabs.</p>
+
+<p>Anyway, to disable the sounds, go to <strong><em>Terminal -> Preferences -> Settings (top tab group) -> Advanced (inner tab group)</em></strong>, look for the &#8220;Bell&#8221; group label and uncheck the &#8220;Audible Bell&#8221; option.  Note that this is specific to a particular settings configuration/theme, so if you switch themes the behavior will change.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tfs Rollback]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/07/08/tfs-rollback-2/"/>
+    <updated>2011-07-08T08:14:52-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/07/08/tfs-rollback-2</id>
+    <content type="html"><![CDATA[<p>Using the tf command line tool you can rollback all or part of a tfs checkin.  This is useful for two reasons: 1) If you at least want to roll back all changes in one or more file (not some changes in a file) then it saves you from having to manually revert changes (I&#8217;m a firm believer in not giving yourself the opportunity to goof up) , and 2) the checkin is actually marked as a <em>rollback</em>, so you don&#8217;t have to rely on checkin notes to identify it as such.</p>
+
+<p>As a side note, based on what I&#8217;ve seen in the way that tfs represents changes, this rollback changeset is simply an add, edit or delete, with the additional information that it was a rollback of a prior change.  The original checkin is still in the tfs history.</p>
+
+<p>To do a rollback, first open up the visual studio command prompt.  You should have a shortcut in your start menu.  On my machine the command is: <em><strong>%comspec% /k &#8220;&#8221;c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat&#8221;&#8221; x86</strong></em>.</p>
+
+<p>Here&#8217;s the help for tf rollback (using the command <em>tf rollback /?</em>):</p>
+
+<p>TF - Team Foundation Version Control Tool, Version 10.0.30319.1</p>
+
+<p>Copyright (c) Microsoft Corporation.  All rights reserved.</p>
+
+<p>Rolls back the changes in a single or a range of changesets:</p>
+
+<p>tf rollback /changeset:changesetfrom~changesetto [itemspec] [/recursive]</p>
+
+<p>            [/lock:none|checkin|checkout] [/version:versionspec]</p>
+
+<p>            [/keepmergehistory] [/noprompt] [/login:username,[password]]</p>
+
+<p>tf rollback /toversion:versionspec itemspec [/recursive]</p>
+
+<p>            [/lock:none|checkin|checkout] [/version:versionspec]</p>
+
+<p>            [/keepmergehistory] [/noprompt] [/login:username,[password]]</p>
+
+<p>Versionspec:</p>
+
+<p>    Date/Time         D&#8221;any .Net Framework-supported format&#8221;</p>
+
+<p>                      or any of the date formats of the local machine</p>
+
+<p>    Changeset number  Cnnnnnn</p>
+
+<p>    Label             Llabelname</p>
+
+<p>    Latest version    T</p>
+
+<p>    Workspace         Wworkspacename;workspaceowner</p>
+
+<p>First, we need to make sure we are working within our workspace.</p>
+
+<p><strong><em>cd path\to\workspace\root</em></strong></p>
+
+<p>So, for example, we could rollback an entire changeset:</p>
+
+<p><strong><em>tf rollback /changeset:12345</em></strong></p>
+
+<p>Or, we can rollback a single item in the changeset:</p>
+
+<p><strong><em>tf rollback /changeset:12345 $/Path/To/Item</em></strong></p>
+
+<p>There is also a login param that you can pass if needed:</p>
+
+<p><strong><em>tf rollback /changeset:12345 /login:domain\username,password</em></strong></p>
+
+<p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Visual Studio External Tools]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools/"/>
+    <updated>2011-01-24T10:49:32-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools</id>
+    <content type="html"><![CDATA[<p>Here’s a neat visual studio tip.  You can run any external command from within visual studio, and add a button to the command bar or map it to a keyboard shortcut.  This is really important to me because I rely heavily on keyboard shortcuts.  I love that I can hit a combination of keys and perform a repetitive task automatically, plus the result can be incorporated into visual studio by way of the output window.</p>
+
+<p>Some examples of what you might use this for:</p>
+
+<ul>
+<li>Get latest on several team projects to start your day.</li>
+<li>Check out a specific set of files.</li>
+<li>Automate various git commands from within visual studio.</li>
+<li>Run a batch file with a set of arguments that you define when you run it.</li>
+<li>Launch another application (i.e.: web browser).</li>
+</ul>
+
+
+<p>What follows is inspired by Rob Conery&#8217;s Git series on tekpub.  You&#8217;ll have to watch the full video to see how he uses external tools to incorporate git in Visual Studio.</p>
+
+<hr />
+
+<p>To get started from the menu go to Tools -> External Tools.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384927410/"><img src="http://farm6.static.flickr.com/5216/5384927410_e1d55e1e57.jpg" alt="" /></a></p>
+
+<p>Then you should see a dialog that looks like this:</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384323203/"><img src="http://farm6.static.flickr.com/5215/5384323203_efb55aba83.jpg" alt="" /></a></p>
+
+<p>Some of the options are pretty self-explanatory.</p>
+
+<ul>
+<li>Title is obvious.</li>
+<li>Command is the path to the command to execute, also obvious.</li>
+<li>Arguments is pretty simple on the surface, but we have some interesting options at our disposal, which you can use to make the command contextual.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366343/"><img src="http://farm6.static.flickr.com/5216/5384366343_e368894d46.jpg" alt="" /></a></p>
+
+<ul>
+<li>We have similar options for the initial directory.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366357/"><img src="http://farm6.static.flickr.com/5217/5384366357_d33e12f2fa.jpg" alt="" /></a></p>
+
+<p>In this example I&#8217;m using the file name and extension of the current item (open document) to run using node, assuming it&#8217;s a JavaScript file.  I selected &#8220;Use Output window&#8221; so that the output will show up in visual studio, rather than launching a separate window.  This is handy if you don&#8217;t need to perform any additional tasks after the fact.</p>
+
+<p>So, now that you have your external command, you can run it from the &#8220;Tools&#8221; menu.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5385120864/"><img src="http://farm6.static.flickr.com/5217/5385120864_b21ca90a5b.jpg" alt="" /></a></p>
+
+<p>You can also add buttons to the toolbar, map keyboard shortcuts (search for &#8220;ExternalCommand1, &#8220;ExternalCommand2&#8221;, etc.), and maybe even add context menu items (though I haven&#8217;t figured that one out completely).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ExoWeb's Entity System]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/01/13/exowebs-entity-system/"/>
+    <updated>2011-01-13T06:34:46-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/01/13/exowebs-entity-system</id>
+    <content type="html"><![CDATA[<p>Matt Hooper recently posted an <a href="http://mhoop.wordpress.com/2011/01/13/exowebs-entity-system/">overview of ExoWeb&#8217;s entity system</a>.</p>
+
+<p>From the post:</p>
+
+<blockquote><p>We&#8217;ve done our best to make sure the parts and pieces that comprise the ExoWeb entity system work consistently, fit together cleanly and take advantage of JavaScripts language features.</p></blockquote>
+
+<p>Go check it out!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Intro to Client-Server Mapping in ExoWeb]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/01/10/into-to-client-server-mapping-in-exoweb/"/>
+    <updated>2011-01-10T10:28:34-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/01/10/into-to-client-server-mapping-in-exoweb</id>
+    <content type="html"><![CDATA[<p>As a follow up to my <a href="www.google.com">Brief Introduction to ExoWeb</a>, I would like to go into more detail about the communications between client and server.</p>
+
+<p>The client interacts with the server in two basic ways.</p>
+
+<ol>
+<li><p>Pulling information: type and instance data.</p></li>
+<li><p>Pushing information: changes to the model and/or instructions to do something.</p></li>
+</ol>
+
+
+<p>The first type, pulling information, is pretty straightforward. Type information doesn’t change (frequently) so it is actually cached on the client if possible. Querying for instance data is similar to querying a database. You request an object of a particular type with a particular id, but you can also include a set of paths that tell the services what additional related data you are interested in. The primary component of a query might look something like this.</p>
+
+<pre><code>{ from: "Person", id: "1", and: ["this.Additional.Properties.To.Load"] }
+</code></pre>
+
+<p>The second type, pushing information, gets a little more interesting. If you’re going to sync data between two disconnected systems there are two primary approaches that you might take. First, you could send simple data from point A to point B, manipulate it, then send it back from point B to point A in the same form. As you could imagine this can get pretty expensive and tedious. Of course, you might just send the portions of data that have changed to cut down on overhead. The bigger problem, I think, is that you don’t really know what has happened unless you do full graph comparisons. Another approach is to keep track of <em>changes</em> as they occur and send those back and forth. This is what ExoWeb does.</p>
+
+<pre><code>changes: [ { type: "ValueChange", instance: { id: "1", type: "Person" }, property: "FirstName", oldValue: "Rob", newValue: "Robert" }, ... } ]
+</code></pre>
+
+<p>The client can also raise events, for example “save”, a built-in event. In response, the server can send back additional changes to the model.</p>
+
+<pre><code>changes: [ { type: "Save", idChanges: [ { type: "Person", from: "?4", to: "644" } ] }, ... ]
+</code></pre>
+
+<p>The payload isn’t limited to data. It can also include conditions, for example, permissions, or invalid data conditions. More on that later.</p>
+
+<p>This has been a very basic introduction to the way client-server communication works in ExoWeb. Look out for more updates in the future.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Brief Introduction to ExoWeb]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2011/01/10/a-brief-introduction-to-exoweb/"/>
+    <updated>2011-01-10T07:54:17-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2011/01/10/a-brief-introduction-to-exoweb</id>
+    <content type="html"><![CDATA[<p><a href="http://mattheyan.posterous.com/2010/12/07/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
+
+<p>First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.</p>
+
+<h2>Client Server Mapping</h2>
+
+<p>When I say that ExoWeb is a client-server mapper what I mean is that it handles mapping from an object model on the server to the client (and vice versa) in much the same way that an ORM maps from a database schema to an object model.  The general idea is that you’re persisting objects and that you would like to be able to easily manipulate those objects in JavaScript code, without any extra work.</p>
+
+<p>For example, say you have a C# class that is persisted to a database using your choice of ORM.</p>
+
+<pre><code>public class Person
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string FullName
+    {
+        get
+        {
+            return FirstName + " " + LastName;
+        }
+    }
+}
+</code></pre>
+
+<p>You would want to be able to write JavaScript code to modify this object like so (ignoring the details of the syntax [1]).</p>
+
+<pre><code>person.set_FirstName("Bob");
+</code></pre>
+
+<p>ExoWeb aims to let you do this with very little effort.</p>
+
+<p>What are some of the things that you might want to do with the model?</p>
+
+<ul>
+<li><p>Have the full name automatically reflect the fact that the first name is now “Bob”</p></li>
+<li><p>Save these changes by simply calling a method</p></li>
+<li><p>“Round trip” to the server to perform complex or sensitive operations</p></li>
+<li><p>Display the person’s information in a view</p></li>
+</ul>
+
+
+<p>…which leads us to the next primary area of functionality.</p>
+
+<h2>View Model Mapping</h2>
+
+<p>You have a model on the client, so now you want to display some information to the user and possibly accept input.  What are some of the tools that you might want to have at your disposal?</p>
+
+<ul>
+<li><p>Create regions in your form that correspond to lists in the model</p></li>
+<li><p>Two-way binding of properties to inputs elements and form regions</p></li>
+<li><p>Respond to changes and redraw parts of the form as needed</p></li>
+<li><p>Attach behavior to the form such as clicking links, toggling regions, etc</p></li>
+<li><p>Take advantage of model metadata like formats, allowed values, validation rules, etc</p></li>
+<li><p>Allow for lazy loading of certain information when it is needed on the form</p></li>
+</ul>
+
+
+<p>That’s a glance at the basic features that we want from ExoWeb.  So, what does it actually look like?</p>
+
+<p><em>Disclaimer:  ExoWeb is under heavy development, so this stuff is always changing.  Feedback is welcome.</em></p>
+
+<h2>Setting up a Page</h2>
+
+<p>First off we have to include the ExoWeb script(s).  Take a look at the <a href="http://github.com/mattheyan/exoweb">github repo</a> to see what’s available.  The “dist” folder contains 3 scripts: exoweb-msajax.js, exoweb-msajax-nojquery.js, and jquery.exoweb-msajax.js.  For now we’ll just include exoweb-msajax.js.  ExoWeb currently also requires jQuery (1.3 or 1.4) and the MsAjax client libraries (specifically, MicrosoftAjax.js and MicrosoftAjaxTemplates.js).  These will be included in the repo in the near future.</p>
+
+<p><em>Side note:  ExoWeb currently uses the MsAjax client libraries, primarily for two purposes: observer and integrated template rendering.  In the near future these dependencies should be isolated so that other implementations could be used.  For example, better integration with jQuery is a personal goal of mine.</em></p>
+
+<p>Now that we have the right scripts included we need to set up the page’s context.  This tells ExoWeb what data to load and what to do before and after it is loaded.  We do this by calling the $exoweb function.  It accepts a JavaScript object with any of the following properties.</p>
+
+<ul>
+<li><p>model: A JavaScript object that defines the data to load from the server.</p></li>
+<li><p>types: An array of types to load.  This is usually not needed since types are automatically loaded based on the “model” parameter.</p></li>
+<li><p>init:  A function that is invoked as soon as model or type data has been requested.</p></li>
+<li><p>contextReady: A function that is invoked as soon as the model or type data has been loaded, but before the UI is rendered.</p></li>
+<li><p>domReady: A function that is invoked after the UI has been rendered.</p></li>
+</ul>
+
+
+<p>You can call $exoweb any number of times, and as an example our query might look something like this (please forgive the contrived example).</p>
+
+<pre><code>$exoweb({
+    init: function() {
+        ExoWeb.UI.Template.load("/path/to/template");
+    },
+    types: [
+        {
+            from: "CustomWidget",
+            and: ["this.CustomInformation"]
+        }
+    ],
+    model: {
+        widget: {
+            from: "Widget",
+            id: "1",
+            and: ["this.Type.DefaultPrice"]
+        }
+    },
+    contextReady: function() {
+        context.model.widget.doSomething();
+    },
+    domReady: function() {
+        $(".widget input[type=button].save").click(function() {
+            context.server.save(context.model.widget);
+        });
+    }
+});
+</code></pre>
+
+<p>During init we want to load an external template file.  I will talk more about this in the future, but for now I will say that ExoWeb allows you to bind parts of your form to a dynamic template that is selected based on the HTML element and the data that will be rendered.  This allows you to break out reusable templates for common display scenarios, but it also allows your form to be dynamic in the sense that the markup can change automatically based on user input.</p>
+
+<p>The types and model portions are what trigger requests to the server.  This will load up all of the metadata that is needed, as well as the instance data for the instances and paths that you specify.  When the context is ready it will have a model property that contains a property for each thing that you requested (in this case, the widget).</p>
+
+<p>Context ready allows you to perform custom operations after all of your data is loaded.  For example, if you have an add/edit page you can perform setup logic that may be needed only in the add scenario.</p>
+
+<p>DOM ready is a good place to put any DOM manipulation code that is specific to your page and it’s data and templates.  For general UI behavior I would recommend using jQuery to attach behavior as needed based on css selectors (a topic for another day).  Notice here the use of the “server” object, which is found on the context.  The server object allows you to save, round trip, raise events, and inspect the changes that have occurred.</p>
+
+<p>Now, to display this on the form we might write something like this.</p>
+
+<pre><code>&lt;div class="sys-template widget" sys:attach="dataview"
+    dataview:data="{~ context.model.widget, source= }"&gt;
+    &lt;h3&gt;Editing &lt;span&gt;{binding Name}&lt;/span&gt;&lt;/h3&gt;
+    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Type }"&gt;
+        &lt;label&gt;Type:&lt;/label&gt;
+        &lt;select class="sys-template" sys:value="{binding systemValue}"
+            sys:attach="dataview" dataview:data="{binding options}"&gt;
+            &lt;option value="{binding systemValue}"&gt;{binding displayValue}
+                &lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Price }"&gt;
+        &lt;label&gt;Price:&lt;/label&gt;
+        &lt;input type="text" sys:value="{binding displayValue}" /&gt;
+    &lt;/div&gt;
+    &lt;input type="button" class="save" value="Save" /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>The form is not rendered until the “widget” object has been loaded.  Also, notice the “@” extension that is used to incorporate metadata in the form.  For a pick list it will give you the list of options for a particular property.  Also, for other properties it allows you to automatically convert from and to a “system” or “display” format.  In a nutshell, the “display” format is a human-readable form of the underlying data that also includes format conditions for things like email, phone number, etc, while the “system” format is not intended to be shown to a user but instead can be used to uniquely identify an object.</p>
+
+<p>This has been a very brief introduction to ExoWeb.  There is much more to talk about and you can expect follow up posts in the near future.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting started with virtualenvwrapper]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/12/20/getting-started-with-virtualenvwrapper/"/>
+    <updated>2010-12-20T21:22:33-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/12/20/getting-started-with-virtualenvwrapper</id>
+    <content type="html"><![CDATA[<p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn&#8217;t get very far at the time.  Recently I&#8217;ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/">RVM</a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.</p>
+
+<h2>Installing</h2>
+
+<p><em>Note that I have tested this process on Ubuntu 10.04 and 11.04.  I have not tested on other environments.  Windows setup may follow in a later post.</em></p>
+
+<p><strong>The basic steps that I used are&#8230;</strong></p>
+
+<ul>
+<li><p>Install python</p></li>
+<li><p>Install virtualenv</p></li>
+<li><p>Install virtualenvwrapper</p></li>
+<li><p>Configure virtualenvwrapper</p></li>
+<li><p>Create a new virtual environment</p></li>
+<li><p>Install packages</p></li>
+</ul>
+
+
+<p>A script to accomplish most of this can be found <a href="http://github.com/mattheyan/environment">here</a> @<em>/linux/virtualenvwrapper.sh</em>.</p>
+
+<h4>1) Make sure that the script can be executed:</h4>
+
+<p><code>sudo chmod +x virtualenvwrapper.sh</code></p>
+
+<h4>2) Execute the script:</h4>
+
+<p><code>./virtualenvwrapper.sh</code></p>
+
+<h4>3) Initialize virtualenvwrapper:</h4>
+
+<p>The script mentioned above adds the following to ~/.bashrc, but will not take effect until you open a new terminal window.  I&#8217;m sure there&#8217;s a way to avoid having to do this.  In the code below, ~/.virtualenvs can be changed to any path you wish.  Also, the path may vary (<a href="http://www.doughellmann.com/docs/virtualenvwrapper/install.html#comment-83318419">link</a>).</p>
+
+<p><code>export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+</code></p>
+
+<h4>4) Create a new environment:</h4>
+
+<p><code>mkvirtualenv env</code></p>
+
+<h4>5) Begin working on your new environment:</h4>
+
+<p><code>workon env</code></p>
+
+<h4>6) Install packages</h4>
+
+<p>This can be done using pip (or easy_install, I believe) and the packages are installed in $WORKON_HOME/env/&#8230;</p>
+
+<p>You can list all of your required packages in a single pip requirements file and install at once.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Django==1.1.2
+django-tagging==0.3.1
+South==0.7.1</p>
+
+<p>Then, use pip to install the packages:</p>
+
+<p><code>pip install -r /path/to/requirements</code></p>
+
+<p><em>Update 12/29/2010:  Using a specific version of python would be nice, especially since it&#8217;s something that can be done easy enough with <a href="http://rvm.beginrescueend.com/">RVM</a>.  I will be investigating this so look out for a future post on the topic.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I wish I could remember what Amnesia is...]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/12/07/i-wish-i-could-remember-what-amnesia-is/"/>
+    <updated>2010-12-07T19:12:16-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/12/07/i-wish-i-could-remember-what-amnesia-is</id>
+    <content type="html"><![CDATA[<p>One of my coworkers, Matt Hooper, recently released an open source project called Amnesia.  The aim of Amnesia is to &#8220;transacts all changes to a website to facilitate automated UI testing&#8221;.  Basically, you can run your tests and change and add data all day long and the changes, whether they come from the website or the tests themselves, will not last beyond the scope of the test.  Pretty cool, huh?</p>
+
+<p>The blog post where he announced it can be found <a href="http://mhoop.wordpress.com/2010/11/23/amnesia-1-0-released-database-rollbacks-for-automated-ui-tests/">here</a>, and the source and documentation is <a href="http://amnesia.codeplex.com/">hosted on Codeplex</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Exo-suite (and client scripts on Github)]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/12/07/exo-suite-and-client-scripts-on-github/"/>
+    <updated>2010-12-07T19:07:12-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/12/07/exo-suite-and-client-scripts-on-github</id>
+    <content type="html"><![CDATA[<p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this point.</p>
+
+<p>Before I go any farther I&#8217;ll give you (and future self) my take on the purpose of these projects.</p>
+
+<h3>ExoGraph</h3>
+
+<p>&#8230;is essentially an enabler.</p>
+
+<p>From the codeplex site:</p>
+
+<blockquote><p>ExoGraph is a graph library that leverages type information to optimize graph operations and notifications. The library exposes type-level events for object initialization, property retrieval, property path changes, and custom domain events within a graph context.</p></blockquote>
+
+<p>This doesn&#8217;t sound very useful in and of itself, right?  Well, it&#8217;s not supposed to be.  It&#8217;s an enabler, remember?  That&#8217;s where ExoWeb and ExoRule come in&#8230;</p>
+
+<h3>ExoRule</h3>
+
+<p>&#8230;is a rules framework that leverages ExoGraph.  That is all for now.</p>
+
+<h3>ExoWeb</h3>
+
+<p>&#8230;is a JavaScript framework, basically.  It also relies on a supporting server-side web request handler as well as a working ExoGraph implementation.</p>
+
+<p>From the codeplex site, ExoWeb&#8230;</p>
+
+<blockquote><p>&#8230;aims to provide a rich JavaScript object model, intuitive UI code based on the fundamental languages of the web (HTML, CSS, and JavaScript), model- and UI-driven validation, and seamless synchronization of changes between client and server.</p></blockquote>
+
+<p>That may not be crystal-clear, but fortunately you can browse the source, which is what I really want to write about anyway.</p>
+
+<p>The JavaScript source is now <a href="http://github.com/mattheyan/exoweb">hosted on Github</a>.  If you take a look at the <a href="http://exoweb.codeplex.com/SourceControl/list/changesets">source on Codeplex</a> you&#8217;ll notice that there are 8 script files: exoweb.js, exoweb.model.js, exoweb.mapper.js, exoweb.view.js, exoweb.ui.js, exoweb.mock.js, exoweb.jquery.js, and start.debug.js.  The source on Github, however, has many more script files as well as specs (using jasmine) and a build process (using rake) that produces the scripts listed above.  It is loosely modeled after the <a href="http://github.com/jquery/jquery">jquery source</a>.</p>
+
+<p>I have a few goals in hosting the project on Github.</p>
+
+<ol>
+<li><p>Isolate classes and related functions in order to make it easier to manage, illuminate code structure, improve architecture and design, and limit dependencies.</p></li>
+<li><p>Allow for (hopefully) isolated testing of individual classes and functions.</p></li>
+<li><p>Isolate the bulk of the code which is not dependent on any particular JavaScript library or server-side technology.</p></li>
+<li><p>Take advantage of github&#8217;s popularity in open source software collaboration, and&#8230;well, I just like Github.</p></li>
+</ol>
+
+
+<p>At the time of this writing the project produces the destination scripts that more or less match the scripts in the original project (not the ones on codeplex, they&#8217;re old).  Also, a few of the source files have corresponding specs that pass, using <a href="http://nodejs.org/">nodejs</a> to run them.</p>
+
+<p>Finally, in writing the build script, I got the chance to learn a little <a href="http://rake.rubyforge.org/">rake</a> (ruby make), which I highly recommend.</p>
+
+<p>One of my other goals is to create working ExoGraph/ExoWeb implementations for django and rails.  The beginnings of the django implementation is currently <a href="http://github.com/mattheyan/django-exoweb">hosted on Github</a> as well.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing VirtualBox Guest Additions]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/09/30/installing-virtualbox-guest-addition/"/>
+    <updated>2010-09-30T17:19:32-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/09/30/installing-virtualbox-guest-addition</id>
+    <content type="html"><![CDATA[<p>First, a disclaimer:  you may not find this post useful unless you are interested in virtualbox or virtualization.  Also, there are plenty of other blogs that will tell you how to install the guest additions.  This is my personal reference.</p>
+
+<p>According to the <a href="http://www.virtualbox.org/wiki/VirtualBox">virtualbox wiki</a>, virtualbox is <em>the only professional-quality virtualization solution that is also Open Source Software</em>.  Alright, a big +1 for open source!  Not that I have ever cracked open the source&#8230; :P</p>
+
+<p>Another big plus for me is that it is cross-platform.  I use windows and linux machines, so this is very important to me.</p>
+
+<p><em>As an aside, VMware player appears to also be somewhat cross-platform (windows and linux, no OSX).  I have used it as well, but I feel better about my experience with virtualbox.  However, I don&#8217;t have any real solid reasons to explain why.  Feel free to try to change my mind if you must&#8230;</em></p>
+
+<p>So what are the guest additions?  From the <a href="http://www.virtualbox.org/wiki/VirtualBox">wiki</a>, it is <em>special software that can be installed inside Windows, Linux and Solaris virtual machines to improve performance and make integration much more seamless</em>.  Things like <em>mouse pointer integration and arbitrary screen solutions (e.g. by resizing the guest window)</em>.  That&#8217;s the kicker for me.  I install them in my linux guests so that the guest resolution will adjust to match the host window.</p>
+
+<p>Anyway, the point of this is how to actually install them.  <a href="http://digitizor.com/2009/05/26/how-to-install-virtualbox-guest-additions-for-a-linux-guest/">Here is a link</a> to a good set of instructions in case you don&#8217;t find these sufficient.</p>
+
+<p>First, mount the guest additions &#8220;disc&#8221; from the host window&#8217;s menu:  Devices > Install Guest Additions.</p>
+
+<p><img src="http://endlessobsession.com/wp-content/uploads/2010/09/install_guest_additions-300x185.png" alt="Mount Guest Additions Menu" /></p>
+
+<p>Now you should see the disc mounted in nautilus.  The next step is to copy the appropriate file to your home folder (or some other location on the guest machine).</p>
+
+<ul>
+<li>cp /media//VBoxLinuxAdditions-x86.run .</li>
+</ul>
+
+
+<p>Now, make the file runnable.</p>
+
+<ul>
+<li>sudo chmod +x VBoxLinuxAdditions-x86.run</li>
+</ul>
+
+
+<p>Finally, run the installer.</p>
+
+<ul>
+<li>sudo ./VBoxLinuxAdditions-x86.run</li>
+</ul>
+
+
+<p>That&#8217;s all!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Resize jQuery Dialog]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/08/16/resize-jquery-dialog/"/>
+    <updated>2010-08-16T18:00:24-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/08/16/resize-jquery-dialog</id>
+    <content type="html"><![CDATA[<p>If you ever need to resize and reposition a jQuery dialog, the following script should do the trick:</p>
+
+<ul>
+<li><p>function setDialogSize($dialogEl, width, height) {</p></li>
+<li><p>$dialogEl.dialog(&#8220;option&#8221;, &#8220;width&#8221;, width);</p></li>
+<li><p>$dialogEl.dialog(&#8220;option&#8221;, &#8220;height&#8221;, height);</p></li>
+<li><p>$dialogEl.dialog(&#8220;option&#8221;, &#8220;position&#8221;, $dialogEl.dialog(&#8220;option&#8221;, &#8220;position&#8221;));</p></li>
+<li><p>}</p></li>
+</ul>
+
+
+<p>If you change a UI component&#8217;s option it should respond by updating immediately to reflect the change.  If it doesn&#8217;t, it&#8217;s a bug.  I read that somewhere :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[IE "Unknown runtime error"]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/07/28/ie-unknown-runtime-error/"/>
+    <updated>2010-07-28T11:58:58-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/07/28/ie-unknown-runtime-error</id>
+    <content type="html"><![CDATA[<p>I received a wonderful error from Internet Explorer today:  &#8220;Unknown runtime error&#8221;.</p>
+
+<p>It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being set.</p>
+
+<p>I found out <a href="http://piecesofrakesh.blogspot.com/2007/02/ies-unknown-runtime-error-when-using.html">here</a> that the problem was because my HTML was invalid.  As the poster notes, IE is actually enforcing <a href="http://www.w3.org/TR/html4/struct/text.html#h-9.3.1">the spec</a>, which is good.  However, the error message is completely worthless, which is not good.  Sadly, this is what I expect from IE.</p>
+
+<p>In his example, he was attempting to inject an &#8220;li&#8221; into a &#8220;p&#8221;, which is obviously invalid.  He noted that IE&#8217;s behavior seemed to be inconsistent, since it was ok with an &#8220;ul&#8221;.  However, in my case I found that injecting an &#8220;ul&#8221; into a &#8220;p&#8221; caused the same problem.  This may have been changed recently, a la Windows Update&#8230;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Things Done:  Smart Lists]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/07/27/getting-things-done-smart-lists/"/>
+    <updated>2010-07-27T18:38:48-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/07/27/getting-things-done-smart-lists</id>
+    <content type="html"><![CDATA[<h3>Smart Lists</h3>
+
+<p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you&#8217;re reading this and you don&#8217;t know about it, you should check it out!</p>
+
+<p>Anyway, one thing that I discovered recently that has changed the way I use RTM is <a href="http://www.rememberthemilk.com/help/answers/smartlists/">smart lists</a>.  Seriously, I&#8217;m kicking myself for not knowing about this already!  Basically, smart lists are a way to save a search for later use, or, for the techies, a stored query.</p>
+
+<p>This may not seem like a big deal, but for me it is HUGE.  This means that I can organize my tasks logically without having to worry about the different views that I might want to simulate.</p>
+
+<p>To give you an idea of how this helps, here is my list of current smart lists (subject to change&#8230;a lot):</p>
+
+<ul>
+<li><p><strong><em>Big Projects</em></strong>:  Things that are going to take a long time.  These don&#8217;t normally show up on my day-to-day activity.  It allows me to get an idea of high-level things that I&#8217;m working towards.  There also shouldn&#8217;t be a lot of this due at the same time.</p></li>
+<li><p><strong><em>Blog</em></strong>:  Uses a &#8220;blog&#8221; tag so that I can track blogging stuff in separate logical lists (work, personal, etc&#8230;)</p></li>
+<li><p><strong><em>Important</em></strong>:  Priority 1 tasks from all lists.  This list should stay pretty sparse.</p></li>
+<li><p><strong><em>No Due</em></strong>:  Items that have not been assigned a due date are probably tentative or I may need to get rid of them.</p></li>
+<li><p><strong><em>No Estimate</em></strong>:  Since some of my lists take time estimates in to account, it pays for me to move tasks out of this list.</p></li>
+<li><p><strong><em>No Priority</em></strong>:  Much like no due, these tasks may need to be cleaned up.</p></li>
+<li><p><strong><em>Quick and Easy</em></strong>:  Time estimate is low.  This is ordered by due date, so I can use it to pick up easy tasks when I have a little time to spare.</p></li>
+<li><p><strong><em>This Week</em></strong>:  Everything that is due this week, except for today.</p></li>
+<li><p><strong><em>Today</em></strong>:  Self explanatory</p></li>
+<li><p><strong><em>Work Day</em></strong>:  This is the same as &#8220;Today&#8221;, except filtered by an &#8220;am&#8221; tag that I use to indicate things that should be or can be done during the work day.  Walking the dog is not one of these, if I had a dog that is&#8230;</p></li>
+</ul>
+
+
+<p>I have now switched to using the &#8220;Work Day&#8221; list only for &#8220;I Forgot the Milk&#8221; on my work computer.  This way, I don&#8217;t have to mentally filter out tasks that I can&#8217;t do until I get home.</p>
+
+<p>I have yet to realize the full potential of smart lists, but I know that they will make things run a lot smoother for me.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sequenced SQL Records]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/07/27/sequenced-sql-records/"/>
+    <updated>2010-07-27T18:17:20-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/07/27/sequenced-sql-records</id>
+    <content type="html"><![CDATA[<h3>How to sequence values in a table.  The non-so-elegant solution&#8230;</h3>
+
+<p>Imagine you have a table that contains records with a foreign key (string, int, guid, etc&#8230;) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc&#8230;) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key table.</p>
+
+<p>What follows is the answer I arrived at late this afternoon.  Please let me know if you have a better way.</p>
+
+<ul>
+<li><p>declare @dates table(num varchar(9), date datetime)</p></li>
+<li></li>
+<li><p>insert into @dates</p></li>
+<li><p>select &#8216;192837465&#8217;, cast(&#8216;1/3/2008&#8217; as datetime) union</p></li>
+<li><p>select &#8216;192837465&#8217;, cast(&#8216;3/12/2003&#8217; as datetime) union</p></li>
+<li><p>select &#8216;192837465&#8217;, cast(&#8216;5/22/2010&#8217; as datetime) union</p></li>
+<li><p>select &#8216;192837465&#8217;, cast(&#8216;2/1/2004&#8217; as datetime)</p></li>
+<li></li>
+<li><p>declare @keys table(num varchar(9), sequence int)</p></li>
+<li></li>
+<li><p>insert into @keys</p></li>
+<li><p>select &#8216;192837465&#8217;, 1 union</p></li>
+<li><p>select &#8216;192837465&#8217;, 2 union</p></li>
+<li><p>select &#8216;192837465&#8217;, 3</p></li>
+<li></li>
+<li><p>select</p></li>
+<li><p>k.num,</p></li>
+<li><p>k.sequence,</p></li>
+<li><p>date = (select MIN(t.date) from (select top 1 date from @dates where num = k.num order by date desc) t)</p></li>
+<li><p>from @keys k</p></li>
+<li><p>where sequence = 1</p></li>
+<li><p>union</p></li>
+<li><p>select</p></li>
+<li><p>k.num,</p></li>
+<li><p>k.sequence,</p></li>
+<li><p>date = (select MIN(t.date) from (select top 2 date from @dates where num = k.num order by date desc) t)</p></li>
+<li><p>from @keys k</p></li>
+<li><p>where sequence = 2</p></li>
+<li><p>union</p></li>
+<li><p>select</p></li>
+<li><p>k.num,</p></li>
+<li><p>k.sequence,</p></li>
+<li><p>date = (select MIN(t.date) from (select top 3 date from @dates where num = k.num order by date desc) t)</p></li>
+<li><p>from @keys k</p></li>
+<li><p>where sequence = 3</p></li>
+</ul>
+
+
+<p>I union the key table 3 times, filtering by each sequence number.  In each sub-query, the value is obtained by selecting the top N values, filtered by the foreign key and ordered by their value (descending), and then getting the min value.</p>
+
+<p>Kind of an odd-ball case, but I might find this humorous one day.  And Pete will laugh, because I laughed at my code.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting things done (GTD)]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/07/21/getting-things-done/"/>
+    <updated>2010-07-21T06:10:40-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/07/21/getting-things-done</id>
+    <content type="html"><![CDATA[<p>Lately I&#8217;ve become somewhat obsessed with getting things done.  I wasn&#8217;t always this way, I swear!  In my younger days I was as disorganized and lazy as anyone.  And I procrastinated sometimes (understatement of the year).</p>
+
+<p>For me, getting things done has to be more than a state of mind or goal, it has to be a <strong>system</strong> and a <strong>habit</strong>.  I didn&#8217;t come to this conclusion all at once.  It happened gradually, and I&#8217;m always trying to be better.  The system looks something like this:</p>
+
+<hr />
+
+<hr />
+
+<ul>
+<li><p><strong><em>Always</em></strong> write things down (requires discipline &amp; habit)</p></li>
+<li><p>Make sure its in your face or readily available</p></li>
+<li><p>Use a check list system to provide positive reinforcement</p></li>
+<li><p>Figure out how everything works together and stick with it</p></li>
+</ul>
+
+
+<h3>I think I was supposed to do something&#8230;</h3>
+
+<p>It started with the realization that I can be <strong><em>extremely</em></strong> forgetful.  At least, I think thats how it started&#8230;  So, the natural response to this realization was to start writing down EVERYTHING, with the understanding that if it isn&#8217;t written down I won&#8217;t remember it and, therefore, there is <strong><em>zero</em></strong> chance that it will be done.  That&#8217;s a little extreme, but sometimes it helps to think about things in terms of the worst-case scenario.  I started out using <a href="http://lifehacker.com/5321180/turn-gmail-into-your-ultimate-gtd-inbox">GMail</a>, Google tasks, Google calendar, and, eventually, <a href="http://rememberthemilk.com">remember the milk</a>.</p>
+
+<p>I&#8217;m going to jump ahead of myself and talk about ways to make sure you always write things down.  In the beginning I would write things on sheets of paper and even on my hand and arm at times.  This is convenient, but its not the most reliable system.  I use RTM pretty heavily at this point, so it gets a lot of my attention when it comes to efficiency.</p>
+
+<p>The first thing I did was make sure that RTM could be launched as a desktop app using the shortcut launching software of my choice (<a href="http://www.launchy.net/">launchy</a>).  I accomplished this using <a href="http://prism.mozillalabs.com/">Prism</a>, which allows you to use firefox to convert a website into a desktop application.  This is important to me for two reason:  isolation and convenience.  First, a website like RTM is different than most in that I don&#8217;t need to be connected to the rest of the web and I don&#8217;t need to arrive there from anywhere else.  In essence, it is less like a traditional website and more like a standalone application.  Second, I would like to be able to have RTM open and close in the blink of an eye.  Currently I can type Win+Space (to open launchy), then rtm (or any other query that finds my prism app), then Enter, and remember the milk is open pretty much immediately.  Then, thanks to RTM keyboard shortcuts, I can type in a new task (or do pretty much anything else) and my hands never have to leave the keyboard!  If I could get Vimium to play nice with RTM things would be even better!</p>
+
+<p>What I have been looking at more recently is the ability to add a task <strong><em>directly from launchy</em></strong>.  What makes this possible is the fact that remember the milk supports <a href="http://www.rememberthemilk.com/help/answers/sending/emailinbox.rtm">adding tasks via email</a>.  There was a solution for this that <a href="http://lifehacker.com/284127/take-launchy-beyond-application-launching">uses twitter</a>, but I have heard that it isn&#8217;t very reliable.  I would rather not go back to writing notes on my hand and hoping that I don&#8217;t need to wash them.  More recently there have been a couple of solutions that make use of the email API instead (<a href="http://lifehacker.com/5197116/remember-the-milk-for-launchy-adds-tasks-in-a-flash">lifehacker</a> and <a href="http://sheenonline.biz/2008/07/remember-the-milk-posting-directly-from-your-desktop/">sheenonline</a>).  I&#8217;m currently using a modified version of the second option, which I will try to finish up and post soon.</p>
+
+<p>Because of all of this, most basic task management can be accomplished with very little impact on my normal workflow.</p>
+
+<h3>Break the Procrastination Habit</h3>
+
+<p>Well, that&#8217;s great progress, but its not the end of the story.  The second realization was that if I write things down I won&#8217;t forget them, but that doesn&#8217;t mean I&#8217;ll actually do them.  I&#8217;m still lazy and I like to procrastinate.  I had defeated forgetfulness, now I set out on a glorious crusade against the forces of procrastination.  My first order of businesses was to make sure that the &#8220;things&#8221; were always before me, which would (in theory) increase the odds that they actually &#8220;get done&#8221;.</p>
+
+<p>I started out by <a href="http://www.rememberthemilk.com/services/gmail/">adding RTM to my GMail inbox</a> (the gadget, not the browser add-on) and my <a href="http://www.rememberthemilk.com/services/googlecalendar/">Google calendar</a>.  Of course, this is only useful as long as I&#8217;m using GMail or my calendar.  Since I use windows 7 at work, I installed the &#8221;<a href="http://gallery.live.com/liveItemDetail.aspx?li=55ccf415-af76-4a33-bad6-5bdaa370b214">I Forgot the Milk</a>&#8221; desktop gadget, which gives you basically the same view as the GMail gadget.  With the <a href="http://nes.bplaced.net/sidebar7.html">windows 7 sidebar gadget</a>, I can be sure that my tasks are <strong><em>always visible</em></strong> on my desktop.  There is also a handy little app that allows you to run the same interface as a <a href="http://www.adobe.com/cfusion/marketplace/index.cfm?event=marketplace.offering&amp;offeringid=10052&amp;marketplaceid=1">desktop app</a>, but I don&#8217;t have any use for it currently.</p>
+
+<h3>The Task List</h3>
+
+<p>Now that I&#8217;m using RTM, I need to figure out how to use its many feature effectively.  Here is a collection of notes about how I use RTM.  I will modify this as I refine the process.</p>
+
+<h4>List</h4>
+
+<p>I started out with only a couple of lists, but the number has grown.  The reason for this is that more lists means fewer tasks in each list, which means less tasks that I never see (and forget about) because they extend beyond the browser window.  Logical grouping is the main factor when deciding on lists, but a low task count is a close second.</p>
+
+<h4>Priorities</h4>
+
+<p>The tasks in RTM can be assigned a priority of 1-3 (or none).  This is useful because it determines the order of tasks in RTM and related apps.  I have bounced around between only assigning priorities to some tasks, then assigning to all tasks, then back to only some.  Recently I have started using the following rule-of-thumb to assigning priorities, rather than arbitrary choices.  I must resist the urge to make everything priority 1 :)</p>
+
+<ol>
+<li><p>High Priority:  These tasks absolutely have to be done.  You don&#8217;t want to forget about them, and your life will be adversely affected if you fail to complete.  If there is a due date assigned, it is probably not an optional due date (ex:  pay rent, schedule dentist appointment).</p></li>
+<li><p>Medium Priority:  These tasks are also important, but life will go on if they are not done.  If a due date is assigned it should be done by then, but is probably somewhat flexible (ex:  important phone call, write blog post).</p></li>
+<li><p>Low Priority:  These are less important tasks that don&#8217;t necessarily have to be done, but you have decided that you want to, as time permits.  These usually won&#8217;t have due dates, except in the case that it is something that happens at a certain date/time but is still optional, or something that you do at a regular interval (ex:  watch world cup final, clean bathroom sink).</p></li>
+<li><p>No Priority:  These are tasks that are things that you <strong><em>might </em></strong>want to do, but haven&#8217;t decided the if or when.</p></li>
+</ol>
+
+
+<h4>Due Date</h4>
+
+<p>I have been in the habit of assigning due dates to tasks and then postponing them repeatedly.  Kind of depressing&#8230;</p>
+
+<p>There are two ways that I use due date:  when something is due (really), and when I <strong><em>want</em></strong> to do something.  Differentiating between the two is something that I have not been able to figure out (suggestions welcome).  Because of the way that I use gadgets I think I am pretty much tied to using due date for both <strong><em>real</em></strong> due dates and <strong><em>pseudo</em></strong> due dates.</p>
+
+<h4>Repeat</h4>
+
+<p>I use this field to set things like daily, weekly, and monthly chores.  Pretty intuitive.</p>
+
+<h4>So far I have not used most of the other fields since they do not affect my workflow.</h4>
+
+<h3>What&#8217;s Next?</h3>
+
+<p>For a while now I have been using RTM almost exclusively.  This has worked pretty well so far, but is not perfect.  The next step is to figure out how GMail, Remember the Milk, and Google Calendar can work together.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DataContractSerializer Read-Only Property Serialization Error]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/07/12/datacontractserializer-serialization-error/"/>
+    <updated>2010-07-12T17:55:36-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/07/12/datacontractserializer-serialization-error</id>
+    <content type="html"><![CDATA[<p>I recently encountered an exception with a message that looked something like this:</p>
+
+<p>There was an error deserializing the object of type Foo.  No set method for property &#8221; in type &#8221;.</p>
+
+<p>Huh?</p>
+
+<p>This was coming out of WriteObject (or a similar method) of DataContractSerializer (or DataContractJsonSerializer, or some other flavor).</p>
+
+<p>If you see this error, don&#8217;t be thrown off by the bizarre error message.  If my experience holds true this error is in fact caused by a read-only property.  Unfortunately, the error message won&#8217;t give you any clues to what the property is, and the offending type is probably NOT the type Foo, as the error message suggests.</p>
+
+<p>Description of my scenario:</p>
+
+<ul>
+<li><p>Attempt to serialize an object with a property that is a list of WCF serializable objects (base type).</p></li>
+<li><p>The last item in the list is a sub type, &#8220;Foo&#8221;, that contains a property WITHOUT a setter. Serialization is ok.</p></li>
+<li><p>After the item of type &#8220;Foo&#8221;, another item of type &#8220;Bar&#8221; (a different sub type) is added. This type does NOT have any properties without a setter. Attempting to serialize the parent object now fails with message &#8220;There was an error deserializing the object of type Bar, My Assembly. No set method for property &#8221; in type &#8221;.&#8221;</p></li>
+</ul>
+
+
+<p>See this <a href="https://connect.microsoft.com/wcf/feedback/details/525090/wcf-serialization-error-message-does-not-specify-type-and-method?wa=wsignin1.0#tabs">ticket</a> and this <a href="http://stackoverflow.com/questions/1731572/error-using-wcf-and-datacontractserializer">stackoverflow post</a> (author describes a slightly different scenario) for more information.</p>
+
+<p>Good luck! :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Extension Methods and Generic Type Parameters]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/06/24/extension-methods-and-generic-type-parameters/"/>
+    <updated>2010-06-24T03:40:28-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/06/24/extension-methods-and-generic-type-parameters</id>
+    <content type="html"><![CDATA[<p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on stackoverflow</a></p>
+
+<p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question answered</a></p>
+
+<p>This is going to be a short post, and I’ll get right to the point.</p>
+
+<p>I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.  The starting code looked something like this:</p>
+
+<ul>
+<li><p>context.GetGraphType<Bar>().Subscribe<Fizz>(</p></li>
+<li><p>(instance, evt) => e.Execute((Bar)instance.Instance)</p></li>
+<li><p>);</p></li>
+</ul>
+
+
+<p>It breaks down like this:</p>
+
+<ul>
+<li><p>Get some type</p></li>
+<li><p>Subscribe to an event</p></li>
+<li><p>When the event happens, do something</p></li>
+</ul>
+
+
+<p>It just so happens that we have all followed an unspoken convention: an Execute method with a single parameter that is of the type that is subscribing to the event (Bar).  You can imagine that once you have over a dozen of these subscriptions it can start to look a little silly.  More on that later.</p>
+
+<p>So, I wanted to rewrite it to look something like this:</p>
+
+<ul>
+<li>typeof(Bar).SubscribeTo<Fizz>(context);</li>
+</ul>
+
+
+<p>My hope was that it now reads something like “bar subscribes to the fizz event on the given context”, rather than “the context gets the bar type and subscribes to fizz and then does some stuff.”  Hopefully I’m not totally off base here.  I did check with a co-worker and he confirmed my thoughts.</p>
+
+<p>In order to accomplish the above I wanted to make use of an abstract generic base class for the events, something like:</p>
+
+<ul>
+<li><p>public abstract class Event<T></p></li>
+<li><p>{</p></li>
+<li><p>public abstract void Execute(T arg);</p></li>
+<li><p>}</p></li>
+</ul>
+
+
+<p>In the example, T is Bar - the type that subscribes to the event.  I implemented the SubscribeTo method as a local extension method.  Unfortunately, I got stuck when I tried to set up a generic type parameter that would be of type Bar.  Something like this:</p>
+
+<ul>
+<li><p>public static void SubscribeTo<TEvent>(this Type type, Context context)</p></li>
+<li><p>where TEvent : Event<the value of parameter 1></p></li>
+<li><p>{</p></li>
+<li><p>// do stuff&#8230;</p></li>
+<li><p>}</p></li>
+</ul>
+
+
+<p>If this were possible, one would be able to implement the change I proposed with type checking.  The compiler would verify that Fizz was a subclass of Event<Bar> and the extension method could treat it as such.</p>
+
+<p>Do you know of a way to implement what I have proposed, or an alternative that is very similar?</p>
+
+<p>Back to the convention I mentioned earlier.  In the spirit of utilizing conventions, I ended up using reflection to take advantage of it.  It isn’t checked by the compiler, but we have the next best thing.  The code runs on application start-up and the Execute method is retrieved when the event is subscribed to, not raised.  So, it will fail very early if there is a problem.</p>
+]]></content>
+  </entry>
   
 </feed>

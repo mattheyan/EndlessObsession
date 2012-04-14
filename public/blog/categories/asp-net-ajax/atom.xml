@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: asp.net ajax | The Endless Obsession]]></title>
+  <link href="http://endlessobsession.heroku.com/blog/categories/asp-net-ajax/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.heroku.com/"/>
+  <updated>2012-04-14T15:11:42-04:00</updated>
+  <id>http://endlessobsession.heroku.com/</id>
+  <author>
+    <name><![CDATA[Bryan Matthews]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Web Service Syntax Error???]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/06/10/web-service-syntax-error/"/>
+    <updated>2010-06-10T20:37:00-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/06/10/web-service-syntax-error</id>
+    <content type="html"><![CDATA[<p><em>Originally posted April 7 2010</em></p>
+
+<p>Ok, I'll start this post off with some background.  A couple of years ago I wrote a SOAP web service that manages printing for multiple users through a web application.  Sounds familiar, right?  Anyway, the client that interacts with the web service uses the Microsoft AJAX JavaScript framework (version 1).  The web service is hosted on a different server and domain.  However, since this is an internal application with a small number of users they were content to enable cross-domain data access and be done with it.</p>
+
+<p>A few weeks ago one of my coworkers was revisiting the client portion, which just happened to be upgraded to the <a href="http://ajax.codeplex.com/">beta version of the AJAX JavaScript framework</a>.  He started to see a syntax error, which I determined was occurring when handling the web service response.  I knew that the client framework supported JSONP in some form, and I also noticed an interesting "jsonp" query string argument in the web service call.  Believe it or not, the client was trying to use JSONP, even though the web service response was XML!  This obviously would result in a syntax error when trying to deserialize.</p>
+
+<p>After looking over the JavaScript code I determined that the WebServiceProxy was using JSONP if either the protocol or host of the request was different than the current page.  I now know in hindsight that the documentation (at least in code) of WebServiceProxy.invoke clearly states this.  Luckily, the "enableJsonp" parameter can be set to <em>false</em> to override this behavior.</p>
+
+<p>So, the bottom line is:  if you're accessing a web service across domains and you don't want to use JSONP, you have to set the  "enableJsonp" argument to <em>false</em>.  Here's the method signature and documentation...</p>
+
+<p>WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {</p>
+
+<p>/// <summary locid="M:J#Sys.Net.WebServiceProxy.invoke"></summary></p>
+
+<p>/// <param name="servicePath" type="String">Path to the webservice</param></p>
+
+<p>/// <param name="methodName" type="String" mayBeNull="true" optional="true">Method to invoke</param></p>
+
+<p>/// <param name="useGet" type="Boolean" optional="true" mayBeNull="true">Controls whether requests use HttpGet</param></p>
+
+<p>/// <param name="params" mayBeNull="true" optional="true">Method args.</param></p>
+
+<p>/// <param name="onSuccess" type="Function" mayBeNull="true" optional="true">Success callback</param></p>
+
+<p>/// <param name="onFailure" type="Function" mayBeNull="true" optional="true">Failure callback</param></p>
+
+<p>/// <param name="userContext" mayBeNull="true" optional="true">Success callback</param></p>
+
+<p>/// <param name="timeout" type="Number" optional="true" mayBeNull="true">Timeout in milliseconds</param></p>
+
+<p>/// <param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true">Whether to use JSONP if the servicePath is for a different domain (default is true).</param></p>
+
+<p>/// <param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true">The name of the callback parameter for JSONP request (default is callback).</param></p>
+
+<p>/// <returns type="Sys.Net.WebRequest" mayBeNull="true">Returns the request that was sent (null for JSONP requests).</returns></p>
+]]></content>
+  </entry>
+  
+</feed>

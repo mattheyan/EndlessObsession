@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Blog Archives Recent Posts GitHub Repos Status updating&#8230; @mattheyan on GitHub $.domReady(function(){ if (!window.jXHR){ var jxhr = document. &hellip;">
+  <meta name="description" content="Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,7 +65,890 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/11/learning-f-with-tdd-part-2/">Learning F# With TDD: Part 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-11T21:50:53-05:00" pubdate data-updated="true">Jan 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on the testing aspects, and also talk about active patterns.</p>
+
+<h2>Running tests</h2>
+
+<p>First, I noticed a little problem with running the tests.  If I right-clicked on a test method and selected &#8220;Run Test(s)&#8221;, then the test would run as expected.  However, if I selected &#8220;Run Test(s)&#8221; for a project or solution, the tests would not be found as described in the <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">getting started post</a>, so I would see something like &#8220;0 passed, 0 failed, 0 skipped, &#8230;&#8221;.</p>
+
+<p>The solution for me was to transition from using local spec methods to defining a &#8220;Tests&#8221; class, with the &#8220;TestFixtureAttribute&#8221;, and define my specs as static methods (they could be instance methods if needed of course).</p>
+
+<pre><code>[&lt;TestFixture&gt;]
+type Tests = class
+    new() = {}
+
+    [&lt;Scenario&gt;]
+    static member When_... () =
+        // test body
+
+end
+</code></pre>
+
+<p>Voila, tests run as expected!</p>
+
+<p>Now, a little explanation of how you write the specs&#8230;</p>
+
+<h2>Writing specs</h2>
+
+<p>From  <a href="http://www.navision-blog.de/2009/02/23/introducing-naturalspec-a-dsl-for-testing-part-i/">Introducing NaturalSpec – A Domain-specific language (DSL) for testing – Part I</a></p>
+
+<blockquote><p>With the Keyword “<strong>Given</strong>” I can create a test context (the objects I want to test). In this sample I created a list with 5 elements. With the keyword “<strong>When</strong>” I call a function which does something with my test context. In this case I want to remove the value 3. In the Assert section (keywords “<strong>It should</strong>” or “<strong>It shouldn’t</strong>”) I can give some observations, which should hold for my manipulated test context.</p></blockquote>
+
+<ul>
+<li><p>Create the object(s) to be tested using &#8220;Given&#8221;</p></li>
+<li><p>Pipe into &#8220;When&#8221; to call functions (or do other things)</p></li>
+<li><p>Pipe into &#8220;It should/shouldn&#8217;t&#8221; to set up assertions</p></li>
+<li><p>Finally, pipe into the &#8220;Verify&#8221; method to run the tests and print the output</p></li>
+</ul>
+
+
+<p>Here&#8217;s an example:</p>
+
+<pre><code>[&lt;TestFixture&gt;]
+type Tests = class
+    new() = {}
+
+    [&lt;Scenario&gt;]
+    static member When_getting_the_state_of_a_new_connection_it_should_be_closed () =
+        Given NewConnection()
+            |&gt; When getting DbConnection.State
+            |&gt; It should equal "Closed"
+            |&gt; Verify
+
+end
+</code></pre>
+
+<p>The NewConnection() method call is entirely fabricated. It serves as the test context in the example.</p>
+
+<p>&#8220;When getting&#8221; is followed by a method that takes as input the test context object type (presumably a connection object) and returns some value (string).</p>
+
+<p>The &#8220;equal&#8221; method, based on the previous information, takes in two strings and asserts that they are equals.</p>
+
+<p>And here&#8217;s the output:</p>
+
+<blockquote><p>Scenario: When getting the state of a new connection it should be closed</p>
+
+<p>  - Given &lt;fun:When_getting_the_state_of_a_new_connection_it_should_be_closed&#8230;</p>
+
+<p>     - When getting�</p>
+
+<p>      => It should equal &#8220;Closed&#8221;</p>
+
+<p>  ==> Result is: &#8220;Closed&#8221;</p>
+
+<p>  ==> OK</p>
+
+<p>  ==> Time: 0.2060s</p>
+
+<p>1 passed, 0 failed, 0 skipped, took 0.61 seconds (NUnit 2.5.10).</p></blockquote>
+
+<p>There&#8217;s room for improvement, but it&#8217;s good enough for now, so on to active patterns!</p>
+
+<h2>Active Patterns</h2>
+
+<p>From <a href="http://msdn.microsoft.com/en-us/library/dd233248.aspx">MSDN</a>:</p>
+
+<blockquote><p>Active patterns enable you to define named partitions that subdivide input data, so that you can use these names in a pattern matching expression just as you would for a discriminated union. You can use active patterns to decompose data in a customized manner for each partition.</p></blockquote>
+
+<p>One example they give is even and odd.  You can define a pattern for &#8220;Even&#8221; or &#8220;Odd&#8221; and use that in pattern matching like so:</p>
+
+<pre><code>match input with
+    | Even -&gt; // do something if even...
+    | Odd -&gt; // do something if odd...
+</code></pre>
+
+<p>Compare that with:</p>
+
+<pre><code>if (input % 2 === 0) {
+    // do something if even...
+}
+else {
+    // do something if odd...
+}
+</code></pre>
+
+<p>Of course, you could do something like this:</p>
+
+<pre><code>if (isEven(input)) {
+</code></pre>
+
+<p>&#8230;but that still doesn&#8217;t read quite as well in my opinion.</p>
+
+<p>Even more interesting, you can define partial active patterns that might match the given input, and if so, can transform the result in some way.  The example they gave was number parsing.</p>
+
+<pre><code>let (|Integer|_|) (str: string) =
+    let mutable i = 0
+    if System.Int32.TryParse(str, &amp;i) then Some(i)
+    else None
+
+let (|Float|_|) (str: string) =
+    let mutable f = 0.0
+    if System.Double.TryParse(str, &amp;f) then Some(f)
+    else None
+
+// Consuming code somewhere...
+match str with
+    | Integer i -&gt; printfn "%d : Integer" i
+    | Float f -&gt; printfn "%f : Floating point" f
+    | _ -&gt; printfn "%s : Not matched." str
+</code></pre>
+
+<p>This illustrates what makes pattern matching different from traditional control structures. It&#8217;s actually a <strong><em>reusable</em></strong> control structure plus potential augmentation of the input.</p>
+
+<p>Here&#8217;s a post where someone who really digs pattern matching <a href="http://lorgonblog.wordpress.com/2008/04/17/an-example-of-the-interplay-between-language-features-and-library-design-part-two/">attempts to explain why</a>, if you&#8217;re interested.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/02/exoweb-type-loading-changes/">ExoWeb Type Loading Changes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-02T09:19:55-05:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in ExoWeb.</p>
+
+<h2>Batch loading</h2>
+
+<p>Types are now batch loaded. This means that prior to type caching your pages should only send a single type request (or very few depending on your usage). This was implemented to cut down on the large number of requests sent from the browser, since browsers have limits on the number of concurrent request.</p>
+
+<p>You don’t have to do anything to enable this functionality.</p>
+
+<h2>Type loading and rules</h2>
+
+<p>We noticed that a surprisingly large number of types were being requested, and some of them didn’t seem like types that should be needed. I was able to track this down to the “AllowedValues” rule, which was force loading types when instantiated. Since this rule is very common, and often spans types, this would result in a cascading type loading effect. I changed the rule’s active type loading behavior to a passive approach: it becomes enabled when the relevant types are loaded.</p>
+
+<p>There are two possible side-effects of this change that come to mind.</p>
+
+<p>First, if you happen to have an allowed values property on a type that is neither the containing type of the property or the property type, then the rule may never be enabled, even if the data is all loaded and editable. This is an odd scenario that shouldn’t happen in practice. To illustrate, if type Person has a property Org of type Organization, and its allowed values are World.AllOrganizations, and type World is not used, then the rule will never be activated. The only way that this example makes sense is if the type World is a required type for the entire app (or feature area), and so will always be available.</p>
+
+<p>Second, if you are not actually referencing a type in your query paths but subsequently used that type in templates/scripts or expected a $extend to fire when the type was loaded, then in the past you may gotten away with this because of the overly aggressive nature of type loading. Now, types are only loaded because they are referenced in your queries or are otherwise required for object loading (i.e. due to lazy loading). One caveat: several other rules (e.g. CompareRule) may still force type loading to occur. They are less likely to actually change the nature of type loading, but still this behavior may also be changed in the future for other rules.</p>
+
+<p>The moral of the story: don’t depend on rules to perform type loading.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/21/learning-fsharp-with-tdd-part-1/">Learning F# With TDD: Part 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-21T15:59:03-04:00" pubdate data-updated="true">Aug 21<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I decided to dive into a few languages I&#8217;ve been meaning to learn by way of the <a href="http://osherove.com/tdd-kata-1/">calculator kata</a>.  First up: F#.</p>
+
+<p>First, some prerequisites.</p>
+
+<ul>
+<li><p>F#, obviously.  This comes with VS 2010 so you probably already have it.</p></li>
+<li><p>We&#8217;re doing TDD, so we need some sort of testing framework.  I decided to go with <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">NaturalSpec</a>.  This means we&#8217;ll need to download the package from <a href="https://github.com/forki/NaturalSpec">github</a>, build it, and also download and install <a href="http://www.nunit.org/index.php?p=download">NUnit</a> and <a href="http://testdriven.net/default.aspx">TestDriven.NET</a>.  The author has a good <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">blog post</a> on setting up and running the test project.</p></li>
+</ul>
+
+
+<p>Keep in mind that I&#8217;m extremely new to the language, so the code I ended up with probably doesn&#8217;t reflect what a seasoned F# programmer would write.  I tried to follow conventions that I could pick out as much as possible.  The first part of the kata is an add function.  Pretty simple.  In the interest of not getting bogged down in one language I didn&#8217;t take if very far, so I will only be able to make very broad observations at this point.</p>
+
+<p>Two positive things that I took away from it:  pattern matching and pipe.</p>
+
+<p>Pattern matching is something that I knew was popular in functional programming circle but had never experienced first hand.  Now that I have a taste of it I think it&#8217;s a handy abstraction, but I have a feeling that I haven&#8217;t even begun to scratch the surface of what it could mean.</p>
+
+<pre><code>let addNumbers (numbers : List) =
+    match numbers.Length with
+    | 0 -&gt; 0
+    | 1 -&gt; numbers.[0]
+    | _ -&gt; numbers |&gt; Seq.reduce (fun a b -&gt; a + b)
+</code></pre>
+
+<p>This is simply an alternative form of the familiar if-else branching logic, nothing special really, but it is pleasantly terse.</p>
+
+<p>Pipe is even more exciting.  Take the following for example.</p>
+
+<pre><code>numbers.Split ',' |&gt; Array.toList |&gt; List.map int |&gt; addNumbers
+</code></pre>
+
+<p>Using the pipe operator (that&#8217;s &#8220;|>&#8221;) you can stream a value through a series of transformations, in this case splitting the string, converting the array to a list, converting the items in the list to integers, and finally passing the list to a method called &#8220;addNumbers&#8221;.</p>
+
+<p>In any other language this would probably read similarly if your transformations are all instance methods, however, that breaks down as soon as you have to use global or static/class methods.  The pipe form always reads nicely from the beginning to the end.  Of course, this example could be a little simpler since our function can technically accept an array as its argument.</p>
+
+<p>To be continued&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal/">Disable the Audible Beep in Mac Terminal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-11T17:45:01-04:00" pubdate data-updated="true">Jul 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This was starting to get on my nerves.  I really don&#8217;t need a fancy sound clip to keep reminding me that I deleted as far as I can go.  I always do that, since I&#8217;m a bit OCD.  This one took me too long to find, mainly becuase of tabs.</p>
+
+<p>Anyway, to disable the sounds, go to <strong><em>Terminal -> Preferences -> Settings (top tab group) -> Advanced (inner tab group)</em></strong>, look for the &#8220;Bell&#8221; group label and uncheck the &#8220;Audible Bell&#8221; option.  Note that this is specific to a particular settings configuration/theme, so if you switch themes the behavior will change.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/08/tfs-rollback-2/">Tfs Rollback</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T08:14:52-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Using the tf command line tool you can rollback all or part of a tfs checkin.  This is useful for two reasons: 1) If you at least want to roll back all changes in one or more file (not some changes in a file) then it saves you from having to manually revert changes (I&#8217;m a firm believer in not giving yourself the opportunity to goof up) , and 2) the checkin is actually marked as a <em>rollback</em>, so you don&#8217;t have to rely on checkin notes to identify it as such.</p>
+
+<p>As a side note, based on what I&#8217;ve seen in the way that tfs represents changes, this rollback changeset is simply an add, edit or delete, with the additional information that it was a rollback of a prior change.  The original checkin is still in the tfs history.</p>
+
+<p>To do a rollback, first open up the visual studio command prompt.  You should have a shortcut in your start menu.  On my machine the command is: <em><strong>%comspec% /k &#8220;&#8221;c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat&#8221;&#8221; x86</strong></em>.</p>
+
+<p>Here&#8217;s the help for tf rollback (using the command <em>tf rollback /?</em>):</p>
+
+<p>TF - Team Foundation Version Control Tool, Version 10.0.30319.1</p>
+
+<p>Copyright (c) Microsoft Corporation.  All rights reserved.</p>
+
+<p>Rolls back the changes in a single or a range of changesets:</p>
+
+<p>tf rollback /changeset:changesetfrom~changesetto [itemspec] [/recursive]</p>
+
+<p>            [/lock:none|checkin|checkout] [/version:versionspec]</p>
+
+<p>            [/keepmergehistory] [/noprompt] [/login:username,[password]]</p>
+
+<p>tf rollback /toversion:versionspec itemspec [/recursive]</p>
+
+<p>            [/lock:none|checkin|checkout] [/version:versionspec]</p>
+
+<p>            [/keepmergehistory] [/noprompt] [/login:username,[password]]</p>
+
+<p>Versionspec:</p>
+
+<p>    Date/Time         D&#8221;any .Net Framework-supported format&#8221;</p>
+
+<p>                      or any of the date formats of the local machine</p>
+
+<p>    Changeset number  Cnnnnnn</p>
+
+<p>    Label             Llabelname</p>
+
+<p>    Latest version    T</p>
+
+<p>    Workspace         Wworkspacename;workspaceowner</p>
+
+<p>First, we need to make sure we are working within our workspace.</p>
+
+<p><strong><em>cd path\to\workspace\root</em></strong></p>
+
+<p>So, for example, we could rollback an entire changeset:</p>
+
+<p><strong><em>tf rollback /changeset:12345</em></strong></p>
+
+<p>Or, we can rollback a single item in the changeset:</p>
+
+<p><strong><em>tf rollback /changeset:12345 $/Path/To/Item</em></strong></p>
+
+<p>There is also a login param that you can pass if needed:</p>
+
+<p><strong><em>tf rollback /changeset:12345 /login:domain\username,password</em></strong></p>
+
+<p>Enjoy!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/24/visual-studio-external-tools/">Visual Studio External Tools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T10:49:32-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here’s a neat visual studio tip.  You can run any external command from within visual studio, and add a button to the command bar or map it to a keyboard shortcut.  This is really important to me because I rely heavily on keyboard shortcuts.  I love that I can hit a combination of keys and perform a repetitive task automatically, plus the result can be incorporated into visual studio by way of the output window.</p>
+
+<p>Some examples of what you might use this for:</p>
+
+<ul>
+<li>Get latest on several team projects to start your day.</li>
+<li>Check out a specific set of files.</li>
+<li>Automate various git commands from within visual studio.</li>
+<li>Run a batch file with a set of arguments that you define when you run it.</li>
+<li>Launch another application (i.e.: web browser).</li>
+</ul>
+
+
+<p>What follows is inspired by Rob Conery&#8217;s Git series on tekpub.  You&#8217;ll have to watch the full video to see how he uses external tools to incorporate git in Visual Studio.</p>
+
+<hr />
+
+<p>To get started from the menu go to Tools -> External Tools.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384927410/"><img src="http://farm6.static.flickr.com/5216/5384927410_e1d55e1e57.jpg" alt="" /></a></p>
+
+<p>Then you should see a dialog that looks like this:</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384323203/"><img src="http://farm6.static.flickr.com/5215/5384323203_efb55aba83.jpg" alt="" /></a></p>
+
+<p>Some of the options are pretty self-explanatory.</p>
+
+<ul>
+<li>Title is obvious.</li>
+<li>Command is the path to the command to execute, also obvious.</li>
+<li>Arguments is pretty simple on the surface, but we have some interesting options at our disposal, which you can use to make the command contextual.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366343/"><img src="http://farm6.static.flickr.com/5216/5384366343_e368894d46.jpg" alt="" /></a></p>
+
+<ul>
+<li>We have similar options for the initial directory.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366357/"><img src="http://farm6.static.flickr.com/5217/5384366357_d33e12f2fa.jpg" alt="" /></a></p>
+
+<p>In this example I&#8217;m using the file name and extension of the current item (open document) to run using node, assuming it&#8217;s a JavaScript file.  I selected &#8220;Use Output window&#8221; so that the output will show up in visual studio, rather than launching a separate window.  This is handy if you don&#8217;t need to perform any additional tasks after the fact.</p>
+
+<p>So, now that you have your external command, you can run it from the &#8220;Tools&#8221; menu.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5385120864/"><img src="http://farm6.static.flickr.com/5217/5385120864_b21ca90a5b.jpg" alt="" /></a></p>
+
+<p>You can also add buttons to the toolbar, map keyboard shortcuts (search for &#8220;ExternalCommand1, &#8220;ExternalCommand2&#8221;, etc.), and maybe even add context menu items (though I haven&#8217;t figured that one out completely).</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/13/exowebs-entity-system/">ExoWeb&#8217;s Entity System</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-13T06:34:46-05:00" pubdate data-updated="true">Jan 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Matt Hooper recently posted an <a href="http://mhoop.wordpress.com/2011/01/13/exowebs-entity-system/">overview of ExoWeb&#8217;s entity system</a>.</p>
+
+<p>From the post:</p>
+
+<blockquote><p>We&#8217;ve done our best to make sure the parts and pieces that comprise the ExoWeb entity system work consistently, fit together cleanly and take advantage of JavaScripts language features.</p></blockquote>
+
+<p>Go check it out!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/10/into-to-client-server-mapping-in-exoweb/">Intro to Client-Server Mapping in ExoWeb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-10T10:28:34-05:00" pubdate data-updated="true">Jan 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As a follow up to my <a href="www.google.com">Brief Introduction to ExoWeb</a>, I would like to go into more detail about the communications between client and server.</p>
+
+<p>The client interacts with the server in two basic ways.</p>
+
+<ol>
+<li><p>Pulling information: type and instance data.</p></li>
+<li><p>Pushing information: changes to the model and/or instructions to do something.</p></li>
+</ol>
+
+
+<p>The first type, pulling information, is pretty straightforward. Type information doesn’t change (frequently) so it is actually cached on the client if possible. Querying for instance data is similar to querying a database. You request an object of a particular type with a particular id, but you can also include a set of paths that tell the services what additional related data you are interested in. The primary component of a query might look something like this.</p>
+
+<pre><code>{ from: "Person", id: "1", and: ["this.Additional.Properties.To.Load"] }
+</code></pre>
+
+<p>The second type, pushing information, gets a little more interesting. If you’re going to sync data between two disconnected systems there are two primary approaches that you might take. First, you could send simple data from point A to point B, manipulate it, then send it back from point B to point A in the same form. As you could imagine this can get pretty expensive and tedious. Of course, you might just send the portions of data that have changed to cut down on overhead. The bigger problem, I think, is that you don’t really know what has happened unless you do full graph comparisons. Another approach is to keep track of <em>changes</em> as they occur and send those back and forth. This is what ExoWeb does.</p>
+
+<pre><code>changes: [ { type: "ValueChange", instance: { id: "1", type: "Person" }, property: "FirstName", oldValue: "Rob", newValue: "Robert" }, ... } ]
+</code></pre>
+
+<p>The client can also raise events, for example “save”, a built-in event. In response, the server can send back additional changes to the model.</p>
+
+<pre><code>changes: [ { type: "Save", idChanges: [ { type: "Person", from: "?4", to: "644" } ] }, ... ]
+</code></pre>
+
+<p>The payload isn’t limited to data. It can also include conditions, for example, permissions, or invalid data conditions. More on that later.</p>
+
+<p>This has been a very basic introduction to the way client-server communication works in ExoWeb. Look out for more updates in the future.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/10/a-brief-introduction-to-exoweb/">A Brief Introduction to ExoWeb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-10T07:54:17-05:00" pubdate data-updated="true">Jan 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://mattheyan.posterous.com/2010/12/07/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
+
+<p>First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.</p>
+
+<h2>Client Server Mapping</h2>
+
+<p>When I say that ExoWeb is a client-server mapper what I mean is that it handles mapping from an object model on the server to the client (and vice versa) in much the same way that an ORM maps from a database schema to an object model.  The general idea is that you’re persisting objects and that you would like to be able to easily manipulate those objects in JavaScript code, without any extra work.</p>
+
+<p>For example, say you have a C# class that is persisted to a database using your choice of ORM.</p>
+
+<pre><code>public class Person
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string FullName
+    {
+        get
+        {
+            return FirstName + " " + LastName;
+        }
+    }
+}
+</code></pre>
+
+<p>You would want to be able to write JavaScript code to modify this object like so (ignoring the details of the syntax [1]).</p>
+
+<pre><code>person.set_FirstName("Bob");
+</code></pre>
+
+<p>ExoWeb aims to let you do this with very little effort.</p>
+
+<p>What are some of the things that you might want to do with the model?</p>
+
+<ul>
+<li><p>Have the full name automatically reflect the fact that the first name is now “Bob”</p></li>
+<li><p>Save these changes by simply calling a method</p></li>
+<li><p>“Round trip” to the server to perform complex or sensitive operations</p></li>
+<li><p>Display the person’s information in a view</p></li>
+</ul>
+
+
+<p>…which leads us to the next primary area of functionality.</p>
+
+<h2>View Model Mapping</h2>
+
+<p>You have a model on the client, so now you want to display some information to the user and possibly accept input.  What are some of the tools that you might want to have at your disposal?</p>
+
+<ul>
+<li><p>Create regions in your form that correspond to lists in the model</p></li>
+<li><p>Two-way binding of properties to inputs elements and form regions</p></li>
+<li><p>Respond to changes and redraw parts of the form as needed</p></li>
+<li><p>Attach behavior to the form such as clicking links, toggling regions, etc</p></li>
+<li><p>Take advantage of model metadata like formats, allowed values, validation rules, etc</p></li>
+<li><p>Allow for lazy loading of certain information when it is needed on the form</p></li>
+</ul>
+
+
+<p>That’s a glance at the basic features that we want from ExoWeb.  So, what does it actually look like?</p>
+
+<p><em>Disclaimer:  ExoWeb is under heavy development, so this stuff is always changing.  Feedback is welcome.</em></p>
+
+<h2>Setting up a Page</h2>
+
+<p>First off we have to include the ExoWeb script(s).  Take a look at the <a href="http://github.com/mattheyan/exoweb">github repo</a> to see what’s available.  The “dist” folder contains 3 scripts: exoweb-msajax.js, exoweb-msajax-nojquery.js, and jquery.exoweb-msajax.js.  For now we’ll just include exoweb-msajax.js.  ExoWeb currently also requires jQuery (1.3 or 1.4) and the MsAjax client libraries (specifically, MicrosoftAjax.js and MicrosoftAjaxTemplates.js).  These will be included in the repo in the near future.</p>
+
+<p><em>Side note:  ExoWeb currently uses the MsAjax client libraries, primarily for two purposes: observer and integrated template rendering.  In the near future these dependencies should be isolated so that other implementations could be used.  For example, better integration with jQuery is a personal goal of mine.</em></p>
+
+<p>Now that we have the right scripts included we need to set up the page’s context.  This tells ExoWeb what data to load and what to do before and after it is loaded.  We do this by calling the $exoweb function.  It accepts a JavaScript object with any of the following properties.</p>
+
+<ul>
+<li><p>model: A JavaScript object that defines the data to load from the server.</p></li>
+<li><p>types: An array of types to load.  This is usually not needed since types are automatically loaded based on the “model” parameter.</p></li>
+<li><p>init:  A function that is invoked as soon as model or type data has been requested.</p></li>
+<li><p>contextReady: A function that is invoked as soon as the model or type data has been loaded, but before the UI is rendered.</p></li>
+<li><p>domReady: A function that is invoked after the UI has been rendered.</p></li>
+</ul>
+
+
+<p>You can call $exoweb any number of times, and as an example our query might look something like this (please forgive the contrived example).</p>
+
+<pre><code>$exoweb({
+    init: function() {
+        ExoWeb.UI.Template.load("/path/to/template");
+    },
+    types: [
+        {
+            from: "CustomWidget",
+            and: ["this.CustomInformation"]
+        }
+    ],
+    model: {
+        widget: {
+            from: "Widget",
+            id: "1",
+            and: ["this.Type.DefaultPrice"]
+        }
+    },
+    contextReady: function() {
+        context.model.widget.doSomething();
+    },
+    domReady: function() {
+        $(".widget input[type=button].save").click(function() {
+            context.server.save(context.model.widget);
+        });
+    }
+});
+</code></pre>
+
+<p>During init we want to load an external template file.  I will talk more about this in the future, but for now I will say that ExoWeb allows you to bind parts of your form to a dynamic template that is selected based on the HTML element and the data that will be rendered.  This allows you to break out reusable templates for common display scenarios, but it also allows your form to be dynamic in the sense that the markup can change automatically based on user input.</p>
+
+<p>The types and model portions are what trigger requests to the server.  This will load up all of the metadata that is needed, as well as the instance data for the instances and paths that you specify.  When the context is ready it will have a model property that contains a property for each thing that you requested (in this case, the widget).</p>
+
+<p>Context ready allows you to perform custom operations after all of your data is loaded.  For example, if you have an add/edit page you can perform setup logic that may be needed only in the add scenario.</p>
+
+<p>DOM ready is a good place to put any DOM manipulation code that is specific to your page and it’s data and templates.  For general UI behavior I would recommend using jQuery to attach behavior as needed based on css selectors (a topic for another day).  Notice here the use of the “server” object, which is found on the context.  The server object allows you to save, round trip, raise events, and inspect the changes that have occurred.</p>
+
+<p>Now, to display this on the form we might write something like this.</p>
+
+<pre><code>&lt;div class="sys-template widget" sys:attach="dataview"
+    dataview:data="{~ context.model.widget, source= }"&gt;
+    &lt;h3&gt;Editing &lt;span&gt;{binding Name}&lt;/span&gt;&lt;/h3&gt;
+    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Type }"&gt;
+        &lt;label&gt;Type:&lt;/label&gt;
+        &lt;select class="sys-template" sys:value="{binding systemValue}"
+            sys:attach="dataview" dataview:data="{binding options}"&gt;
+            &lt;option value="{binding systemValue}"&gt;{binding displayValue}
+                &lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Price }"&gt;
+        &lt;label&gt;Price:&lt;/label&gt;
+        &lt;input type="text" sys:value="{binding displayValue}" /&gt;
+    &lt;/div&gt;
+    &lt;input type="button" class="save" value="Save" /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>The form is not rendered until the “widget” object has been loaded.  Also, notice the “@” extension that is used to incorporate metadata in the form.  For a pick list it will give you the list of options for a particular property.  Also, for other properties it allows you to automatically convert from and to a “system” or “display” format.  In a nutshell, the “display” format is a human-readable form of the underlying data that also includes format conditions for things like email, phone number, etc, while the “system” format is not intended to be shown to a user but instead can be used to uniquely identify an object.</p>
+
+<p>This has been a very brief introduction to ExoWeb.  There is much more to talk about and you can expect follow up posts in the near future.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/20/getting-started-with-virtualenvwrapper/">Getting Started With Virtualenvwrapper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-20T21:22:33-05:00" pubdate data-updated="true">Dec 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn&#8217;t get very far at the time.  Recently I&#8217;ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/">RVM</a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.</p>
+
+<h2>Installing</h2>
+
+<p><em>Note that I have tested this process on Ubuntu 10.04 and 11.04.  I have not tested on other environments.  Windows setup may follow in a later post.</em></p>
+
+<p><strong>The basic steps that I used are&#8230;</strong></p>
+
+<ul>
+<li><p>Install python</p></li>
+<li><p>Install virtualenv</p></li>
+<li><p>Install virtualenvwrapper</p></li>
+<li><p>Configure virtualenvwrapper</p></li>
+<li><p>Create a new virtual environment</p></li>
+<li><p>Install packages</p></li>
+</ul>
+
+
+<p>A script to accomplish most of this can be found <a href="http://github.com/mattheyan/environment">here</a> @<em>/linux/virtualenvwrapper.sh</em>.</p>
+
+<h4>1) Make sure that the script can be executed:</h4>
+
+<p><code>sudo chmod +x virtualenvwrapper.sh</code></p>
+
+<h4>2) Execute the script:</h4>
+
+<p><code>./virtualenvwrapper.sh</code></p>
+
+<h4>3) Initialize virtualenvwrapper:</h4>
+
+<p>The script mentioned above adds the following to ~/.bashrc, but will not take effect until you open a new terminal window.  I&#8217;m sure there&#8217;s a way to avoid having to do this.  In the code below, ~/.virtualenvs can be changed to any path you wish.  Also, the path may vary (<a href="http://www.doughellmann.com/docs/virtualenvwrapper/install.html#comment-83318419">link</a>).</p>
+
+<p><code>export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+</code></p>
+
+<h4>4) Create a new environment:</h4>
+
+<p><code>mkvirtualenv env</code></p>
+
+<h4>5) Begin working on your new environment:</h4>
+
+<p><code>workon env</code></p>
+
+<h4>6) Install packages</h4>
+
+<p>This can be done using pip (or easy_install, I believe) and the packages are installed in $WORKON_HOME/env/&#8230;</p>
+
+<p>You can list all of your required packages in a single pip requirements file and install at once.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Django==1.1.2
+django-tagging==0.3.1
+South==0.7.1</p>
+
+<p>Then, use pip to install the packages:</p>
+
+<p><code>pip install -r /path/to/requirements</code></p>
+
+<p><em>Update 12/29/2010:  Using a specific version of python would be nice, especially since it&#8217;s something that can be done easy enough with <a href="http://rvm.beginrescueend.com/">RVM</a>.  I will be investigating this so look out for a future post on the topic.</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -76,6 +959,26 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/01/11/learning-f-with-tdd-part-2/">Learning F# with TDD: Part 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/02/exoweb-type-loading-changes/">ExoWeb type loading changes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/21/learning-fsharp-with-tdd-part-1/">Learning F# with TDD: Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal/">Disable the audible beep in Mac Terminal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/08/tfs-rollback-2/">Tfs Rollback</a>
+      </li>
     
   </ul>
 </section>

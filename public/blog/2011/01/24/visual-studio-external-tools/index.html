@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Visual Studio External Tools - The Endless Obsession</title>
+  <meta name="author" content="Bryan Matthews">
+
+  
+  <meta name="description" content="Here’s a neat visual studio tip. You can run any external command from within visual studio, and add a button to the command bar or map it to a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="The Endless Obsession" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">The Endless Obsession</a></h1>
+  
+    <h2>better code</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:endlessobsession.heroku.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Visual Studio External Tools</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T10:49:32-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Here’s a neat visual studio tip.  You can run any external command from within visual studio, and add a button to the command bar or map it to a keyboard shortcut.  This is really important to me because I rely heavily on keyboard shortcuts.  I love that I can hit a combination of keys and perform a repetitive task automatically, plus the result can be incorporated into visual studio by way of the output window.</p>
+
+<p>Some examples of what you might use this for:</p>
+
+<ul>
+<li>Get latest on several team projects to start your day.</li>
+<li>Check out a specific set of files.</li>
+<li>Automate various git commands from within visual studio.</li>
+<li>Run a batch file with a set of arguments that you define when you run it.</li>
+<li>Launch another application (i.e.: web browser).</li>
+</ul>
+
+
+<p>What follows is inspired by Rob Conery&#8217;s Git series on tekpub.  You&#8217;ll have to watch the full video to see how he uses external tools to incorporate git in Visual Studio.</p>
+
+<hr />
+
+<p>To get started from the menu go to Tools -> External Tools.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384927410/"><img src="http://farm6.static.flickr.com/5216/5384927410_e1d55e1e57.jpg" alt="" /></a></p>
+
+<p>Then you should see a dialog that looks like this:</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384323203/"><img src="http://farm6.static.flickr.com/5215/5384323203_efb55aba83.jpg" alt="" /></a></p>
+
+<p>Some of the options are pretty self-explanatory.</p>
+
+<ul>
+<li>Title is obvious.</li>
+<li>Command is the path to the command to execute, also obvious.</li>
+<li>Arguments is pretty simple on the surface, but we have some interesting options at our disposal, which you can use to make the command contextual.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366343/"><img src="http://farm6.static.flickr.com/5216/5384366343_e368894d46.jpg" alt="" /></a></p>
+
+<ul>
+<li>We have similar options for the initial directory.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366357/"><img src="http://farm6.static.flickr.com/5217/5384366357_d33e12f2fa.jpg" alt="" /></a></p>
+
+<p>In this example I&#8217;m using the file name and extension of the current item (open document) to run using node, assuming it&#8217;s a JavaScript file.  I selected &#8220;Use Output window&#8221; so that the output will show up in visual studio, rather than launching a separate window.  This is handy if you don&#8217;t need to perform any additional tasks after the fact.</p>
+
+<p>So, now that you have your external command, you can run it from the &#8220;Tools&#8221; menu.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5385120864/"><img src="http://farm6.static.flickr.com/5217/5385120864_b21ca90a5b.jpg" alt="" /></a></p>
+
+<p>You can also add buttons to the toolbar, map keyboard shortcuts (search for &#8220;ExternalCommand1, &#8220;ExternalCommand2&#8221;, etc.), and maybe even add context menu items (though I haven&#8217;t figured that one out completely).</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Bryan Matthews</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T10:49:32-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools/" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/2011/01/24/visual-studio-external-tools/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/01/13/exowebs-entity-system/" title="Previous Post: ExoWeb's Entity System">&laquo; ExoWeb's Entity System</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/08/tfs-rollback-2/" title="Next Post: Tfs Rollback">Tfs Rollback &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/01/11/learning-f-with-tdd-part-2/">Learning F# with TDD: Part 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/02/exoweb-type-loading-changes/">ExoWeb type loading changes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/21/learning-fsharp-with-tdd-part-1/">Learning F# with TDD: Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/11/disable-the-audible-beep-in-mac-terminal/">Disable the audible beep in Mac Terminal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/07/08/tfs-rollback-2/">Tfs Rollback</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/mattheyan">@mattheyan</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'mattheyan',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("BryanMatthews", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/BryanMatthews" class="twitter-follow-button" data-show-count="false">Follow @BryanMatthews</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/mattheyan?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Bryan Matthews -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

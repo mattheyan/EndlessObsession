@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: msajax | The Endless Obsession]]></title>
+  <link href="http://endlessobsession.heroku.com/blog/categories/msajax/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.heroku.com/"/>
+  <updated>2012-04-14T15:11:42-04:00</updated>
+  <id>http://endlessobsession.heroku.com/</id>
+  <author>
+    <name><![CDATA[Bryan Matthews]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MS AJAX and JSON Date Serialization]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/06/10/ms-ajax-and-json-date-serialization/"/>
+    <updated>2010-06-10T19:25:00-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/06/10/ms-ajax-and-json-date-serialization</id>
+    <content type="html"><![CDATA[<p>I'm making heavy use of Microsoft AJAX right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That' s a little better, right?</p>
+
+<p>Anyway, one of the nice little features in MS AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several hours.</p>
+
+<p>At this point you're probably thinking, "I know what the problem is, you idiot!  It's local time!"  Hopefully you're more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/">JSON doesn't account for dates</a>, we're forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the JSON date format that the AJAX team decided on using.  You'll notice that he mentions several time that the string format represents a <strong>UTC</strong> date &amp; time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn't take that into account.</p>
+
+<p>if (Date.isInstanceOfType(object)) {
+stringBuilder.append('"\/Date(').
+append(object.getTime()).
+append(')\/"');
+break;
+}</p>
+
+<p>Since the date was going to be converted to a string anyway I went ahead and did the conversion ahead of time.  Something like this...</p>
+
+<p>var offset = obj.getTimezoneOffset() * 100 / 60;
+var offsetText = offset >= 1000 ? offset.toPrecision(4) : "0" +
+offset.toPrecision(3);
+return "/Date(" + (+obj).toString() + "-" + offsetText + ")/";</p>
+
+<p>There are, of course, other ways to do this.  You could convert the date to a UTC date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it's more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn't feel right.</p>
+
+<p>Moral of the story:  either make sure your dates are UTC or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don't have to face that problem.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/2010/02/10/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader/"/>
+    <updated>2010-02-10T17:20:00-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/2010/02/10/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader</id>
+    <content type="html"><![CDATA[<p><strong>Background</strong>:  I had an existing ASP.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br/>
+<em>By the way, if you haven’t heard of the Script Loader then you can read about it </em><a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a><em> and </em><a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with Bing…)!</em></p>
+
+<h2>Include the Script Loader</h2>
+
+<p>My first thought was to just include the script loader’s script file (“start.js”) early, before the page scripts that would use it.  Unfortunately, this line of code gave me grief.</p>
+
+<pre><code>if(typeof(Sys) !== "undefined") Sys.Application.notifyScriptLoaded();
+</code></pre>
+
+<p>It's automatically appended to script references so we’re stuck with it.  This line of code predates the Script Loader, unfortunately.  When it was written the AJAX JavaScript library lived in one big JavaScript file, so you either had it or you didn't.  Today, the start script defines <em>Sys</em> (so that you can do things like <em>Sys.require</em>), but it doesn’t define the <em>Application</em> namespace.  Therefore, the above line of code causes a “null or not an object” error.  In order to get around this you just have to make sure that the start script is injected farther down the page than other script references that may include the offending line of code.  In my case I used the ScriptManagerProxy control.</p>
+
+<h2>Define Your Scripts</h2>
+
+<p>This step is optional if you are just using the scripts from Microsoft or jQuery.</p>
+
+<pre><code>Sys.loader.defineScripts(   {      releaseUrl: "%/{0}.js",      debugUrl: "%/{0}.debug.js"   },   [      {         name: "MyScript",         executionDependencies: ["WebServices"],         isLoaded: !!(MyControl)      }   ]);
+</code></pre>
+
+<p>The first argument is named <em>defaultScriptInfo</em>, in case you’re wondering.  Sounds interesting, doesn’t it?  This is where you can put the common settings for all of the scripts that you are defining here.  No need to repeat yourself.  If you want you can pass <em>null</em> and be done with it.</p>
+
+<p>The second argument is an array of JavaScript objects that tell the Script Loader everything it needs to know about each individual script(s).  Here’s a breakdown of the properties:</p>
+
+<p><strong>name</strong>:  This one is pretty obvious.  I assume that you can use any arbitrary text here, but you may want to be selective since it will ultimately be used in JavaScript code.  This is the name that you will use in other script definitions to indicate that it is a dependency (“WebServices” in the above example).  It is also the attribute name that is tacked on to the Sys.scripts object.<br/>
+<strong>releaseUrl</strong>:  This is the url (sort of) that can be used to load our script in release mode.  This is the literal url, with two exceptions.  First, the special “%” character is a placeholder for “the place that I got this script from” (the script loader script).  This means that if you downloaded the start script form CDN, then all of the other scripts that you request will also come from CDN.  If you download it from your web server, then all of the other scripts will come from your web server.  Also, “{0}” is replaced with the script name.  This is useful if you’re defining a common url scheme.</p>
+
+<p><strong>debugUrl</strong>:  Same as <em>releaseUrl</em>, except that this url is used in debug mode.</p>
+
+<p><strong>dependencies </strong>and<strong> </strong><strong>executionDependencies</strong>:  An array of script names.  These are the scripts that must be present before your script can function.  These two attributes accomplish this in slightly different ways.  (<em><strong>Disclaimer</strong></em>:  my current understanding of these options is based on reading through code as well as some guess work.)  As I understand it, dependencies indicates that the script loader should wait for the dependencies before it attempts to load the script, whereas executionDependencies indicates that the script loader can fetch scripts in parallel and then execute them in the correct order (more on this later).</p>
+
+<p><strong>isLoaded</strong>:  Tells the script loader whether or not your script is already loaded.  This is useful for things like jQuery that may be commonly included as a static script reference, or for scripts that may or may not be included by the Script Manager.</p>
+
+<h2>Fix Your Script Files</h2>
+
+<p>If you have existing scripts that you want to load using the Script Loader, they probably look something like this:</p>
+
+<pre><code>&lt;start of file&gt;bunch o' code...&lt;end of file&gt;
+</code></pre>
+
+<p>In order to take full advantage of the script loader you will need to change your files to looks something like this:</p>
+
+<pre><code>&lt;start of file&gt;;(function() {   function execute () {      bunch o' code...   }
+
+   if (window.Sys &amp;&amp; Sys.loader) {      Sys.loader.registerScript("MyScript", null, execute);   }   else {      execute();   }}) ();&lt;end of file&gt;
+</code></pre>
+
+<p>That bit at the end looks for the Script Loader and if it is found it tells the Script Loader that it is ready to execute whenever its dependency are loaded.  Otherwise, it simply executes on the spot.  That way it can function with or without the Script Loader.</p>
+
+<p>With this in mind the distinction between <em>dependencies</em> and <em>executionDependencies</em> makes more sense.  You may not be able to change a script to match this format.  If that is the case, then the scripts cannot be fetched in parallel.</p>
+
+<h2>Using Your Scripts</h2>
+
+<pre><code>Sys.require([Sys.scripts.MyScript], function() {   bunch o' code...});
+</code></pre>
+
+<p>It's as simple as that!  The function that you provide as the second argument is executed whenever the required scripts have been loaded.</p>
+]]></content>
+  </entry>
+  
+</feed>
