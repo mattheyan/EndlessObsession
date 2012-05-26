@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="One of my coworkers, Matt Hooper, recently released an open source project called Amnesia. The aim of Amnesia is to &#8220;transacts all changes to a &hellip;">
+  <meta name="description" content="A while back I toyed with using virtualenv and virtualenvwrapper to manage isolated python packages for development, but I didn&#8217;t get very far &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,102 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getting-started-with-virtualenvwrapper">Getting Started With Virtualenvwrapper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-20T21:22:33-05:00" pubdate data-updated="true">Dec 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn&#8217;t get very far at the time.  Recently I&#8217;ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/">RVM</a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.</p>
+
+<h2>Installing</h2>
+
+<p><em>Note that I have tested this process on Ubuntu 10.04 and 11.04.  I have not tested on other environments.  Windows setup may follow in a later post.</em></p>
+
+<p><strong>The basic steps that I used are&#8230;</strong></p>
+
+<ul>
+<li><p>Install python</p></li>
+<li><p>Install virtualenv</p></li>
+<li><p>Install virtualenvwrapper</p></li>
+<li><p>Configure virtualenvwrapper</p></li>
+<li><p>Create a new virtual environment</p></li>
+<li><p>Install packages</p></li>
+</ul>
+
+
+<p>A script to accomplish most of this can be found <a href="http://github.com/mattheyan/environment">here</a> @<em>/linux/virtualenvwrapper.sh</em>.</p>
+
+<h4>1) Make sure that the script can be executed:</h4>
+
+<p><code>sudo chmod +x virtualenvwrapper.sh</code></p>
+
+<h4>2) Execute the script:</h4>
+
+<p><code>./virtualenvwrapper.sh</code></p>
+
+<h4>3) Initialize virtualenvwrapper:</h4>
+
+<p>The script mentioned above adds the following to ~/.bashrc, but will not take effect until you open a new terminal window.  I&#8217;m sure there&#8217;s a way to avoid having to do this.  In the code below, ~/.virtualenvs can be changed to any path you wish.  Also, the path may vary (<a href="http://www.doughellmann.com/docs/virtualenvwrapper/install.html#comment-83318419">link</a>).</p>
+
+<p><code>export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+</code></p>
+
+<h4>4) Create a new environment:</h4>
+
+<p><code>mkvirtualenv env</code></p>
+
+<h4>5) Begin working on your new environment:</h4>
+
+<p><code>workon env</code></p>
+
+<h4>6) Install packages</h4>
+
+<p>This can be done using pip (or easy_install, I believe) and the packages are installed in $WORKON_HOME/env/&#8230;</p>
+
+<p>You can list all of your required packages in a single pip requirements file and install at once.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Django==1.1.2
+django-tagging==0.3.1
+South==0.7.1</p>
+
+<p>Then, use pip to install the packages:</p>
+
+<p><code>pip install -r /path/to/requirements</code></p>
+
+<p><em>Update 12/29/2010:  Using a specific version of python would be nice, especially since it&#8217;s something that can be done easy enough with <a href="http://rvm.beginrescueend.com/">RVM</a>.  I will be investigating this so look out for a future post on the topic.</em></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -651,102 +747,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/extension-methods-and-generic-type-parameters">Extension Methods and Generic Type Parameters</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-24T03:40:28-04:00" pubdate data-updated="true">Jun 24<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on stackoverflow</a></p>
-
-<p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question answered</a></p>
-
-<p>This is going to be a short post, and I’ll get right to the point.</p>
-
-<p>I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.  The starting code looked something like this:</p>
-
-<ul>
-<li><p>context.GetGraphType<Bar>().Subscribe<Fizz>(</p></li>
-<li><p>(instance, evt) => e.Execute((Bar)instance.Instance)</p></li>
-<li><p>);</p></li>
-</ul>
-
-
-<p>It breaks down like this:</p>
-
-<ul>
-<li><p>Get some type</p></li>
-<li><p>Subscribe to an event</p></li>
-<li><p>When the event happens, do something</p></li>
-</ul>
-
-
-<p>It just so happens that we have all followed an unspoken convention: an Execute method with a single parameter that is of the type that is subscribing to the event (Bar).  You can imagine that once you have over a dozen of these subscriptions it can start to look a little silly.  More on that later.</p>
-
-<p>So, I wanted to rewrite it to look something like this:</p>
-
-<ul>
-<li>typeof(Bar).SubscribeTo<Fizz>(context);</li>
-</ul>
-
-
-<p>My hope was that it now reads something like “bar subscribes to the fizz event on the given context”, rather than “the context gets the bar type and subscribes to fizz and then does some stuff.”  Hopefully I’m not totally off base here.  I did check with a co-worker and he confirmed my thoughts.</p>
-
-<p>In order to accomplish the above I wanted to make use of an abstract generic base class for the events, something like:</p>
-
-<ul>
-<li><p>public abstract class Event<T></p></li>
-<li><p>{</p></li>
-<li><p>public abstract void Execute(T arg);</p></li>
-<li><p>}</p></li>
-</ul>
-
-
-<p>In the example, T is Bar - the type that subscribes to the event.  I implemented the SubscribeTo method as a local extension method.  Unfortunately, I got stuck when I tried to set up a generic type parameter that would be of type Bar.  Something like this:</p>
-
-<ul>
-<li><p>public static void SubscribeTo<TEvent>(this Type type, Context context)</p></li>
-<li><p>where TEvent : Event<the value of parameter 1></p></li>
-<li><p>{</p></li>
-<li><p>// do stuff&#8230;</p></li>
-<li><p>}</p></li>
-</ul>
-
-
-<p>If this were possible, one would be able to implement the change I proposed with type checking.  The compiler would verify that Fizz was a subclass of Event<Bar> and the extension method could treat it as such.</p>
-
-<p>Do you know of a way to implement what I have proposed, or an alternative that is very similar?</p>
-
-<p>Back to the convention I mentioned earlier.  In the spirit of utilizing conventions, I ended up using reflection to take advantage of it.  It isn’t checked by the compiler, but we have the next best thing.  The code runs on application start-up and the Execute method is retrieved when the event is subscribed to, not raised.  So, it will fail very early if there is a problem.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -764,6 +764,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
       </li>
     
@@ -777,10 +781,6 @@
     
       <li class="post">
         <a href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tfs-rollback-2">Tfs Rollback</a>
       </li>
     
   </ul>

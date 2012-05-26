@@ -1,0 +1,1 @@
+AutoExec Generate.bat source\_posts\*

@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on &hellip;">
+  <meta name="description" content="Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte. The event was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-26T16:51:00-04:00" pubdate data-updated="true">May 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I co-presented with <a href="http://bobbydimmick.com/">Bobby Dimmick</a> at the annual <a href="http://codecamp.developersguil1d.org/">Carolina Code Camp</a>, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with speakers.</p>
+
+<p><a href="http://www.flickr.com/photos/arturask/sets/72157629645140924/with/7162456222/">Pictures from the event</a></p>
+
+<p>Our presentation was entitled &#8220;Building rich, model-centric, event-driven web apps using EF, Razor &amp; open source&#8221;.  The approach we took was to build a demo application from the ground up, and document the process so that it was reproducible.  The app is hosted at <a href="http://todoapp.exosuite.com">todoapp.exosuite.com</a> and the walkthrough is at <a href="http://todoapp.exosuite.com/walkthrough">todoapp.exosuite.com/walkthrough</a>.</p>
+
+<p><img src="../images/todoapp.png" alt="Screenshot" /></p>
+
+<p>You can build the app yourself by following the walkthrough.  I promise, I did it many times!  :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -850,102 +894,6 @@ match str with
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/getting-started-with-virtualenvwrapper">Getting Started With Virtualenvwrapper</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-20T21:22:33-05:00" pubdate data-updated="true">Dec 20<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn&#8217;t get very far at the time.  Recently I&#8217;ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/">RVM</a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.</p>
-
-<h2>Installing</h2>
-
-<p><em>Note that I have tested this process on Ubuntu 10.04 and 11.04.  I have not tested on other environments.  Windows setup may follow in a later post.</em></p>
-
-<p><strong>The basic steps that I used are&#8230;</strong></p>
-
-<ul>
-<li><p>Install python</p></li>
-<li><p>Install virtualenv</p></li>
-<li><p>Install virtualenvwrapper</p></li>
-<li><p>Configure virtualenvwrapper</p></li>
-<li><p>Create a new virtual environment</p></li>
-<li><p>Install packages</p></li>
-</ul>
-
-
-<p>A script to accomplish most of this can be found <a href="http://github.com/mattheyan/environment">here</a> @<em>/linux/virtualenvwrapper.sh</em>.</p>
-
-<h4>1) Make sure that the script can be executed:</h4>
-
-<p><code>sudo chmod +x virtualenvwrapper.sh</code></p>
-
-<h4>2) Execute the script:</h4>
-
-<p><code>./virtualenvwrapper.sh</code></p>
-
-<h4>3) Initialize virtualenvwrapper:</h4>
-
-<p>The script mentioned above adds the following to ~/.bashrc, but will not take effect until you open a new terminal window.  I&#8217;m sure there&#8217;s a way to avoid having to do this.  In the code below, ~/.virtualenvs can be changed to any path you wish.  Also, the path may vary (<a href="http://www.doughellmann.com/docs/virtualenvwrapper/install.html#comment-83318419">link</a>).</p>
-
-<p><code>export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-</code></p>
-
-<h4>4) Create a new environment:</h4>
-
-<p><code>mkvirtualenv env</code></p>
-
-<h4>5) Begin working on your new environment:</h4>
-
-<p><code>workon env</code></p>
-
-<h4>6) Install packages</h4>
-
-<p>This can be done using pip (or easy_install, I believe) and the packages are installed in $WORKON_HOME/env/&#8230;</p>
-
-<p>You can list all of your required packages in a single pip requirements file and install at once.</p>
-
-<p><strong>Example:</strong></p>
-
-<p>Django==1.1.2
-django-tagging==0.3.1
-South==0.7.1</p>
-
-<p>Then, use pip to install the packages:</p>
-
-<p><code>pip install -r /path/to/requirements</code></p>
-
-<p><em>Update 12/29/2010:  Using a specific version of python would be nice, especially since it&#8217;s something that can be done easy enough with <a href="http://rvm.beginrescueend.com/">RVM</a>.  I will be investigating this so look out for a future post on the topic.</em></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -961,6 +909,10 @@ South==0.7.1</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
       </li>
     
@@ -974,10 +926,6 @@ South==0.7.1</p>
     
       <li class="post">
         <a href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/tfs-rollback-2">Tfs Rollback</a>
       </li>
     
   </ul>

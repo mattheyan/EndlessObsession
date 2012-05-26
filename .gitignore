@@ -10,6 +10,4 @@ source/_stash
 source/stylesheets/screen.css
 vendor
 node_modules
-startserver.bat
-website - dev.url
-website - heroku.url
+drafts

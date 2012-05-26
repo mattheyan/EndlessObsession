@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>IE "Unknown runtime error" - The Endless Obsession</title>
+  <title>Carolina Code Camp 2012 Presentation - The Endless Obsession</title>
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="I received a wonderful error from Internet Explorer today: &#8220;Unknown runtime error&#8221;. It seemed to be an Internet Explorer issue only, &hellip;">
+  <meta name="description" content="Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte. The event was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/ie-unknown-runtime-error">
+  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/carolina-code-camp-2012-presentation">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">IE "Unknown Runtime Error"</h1>
+      <h1 class="entry-title">Carolina Code Camp 2012 Presentation</h1>
     
     
       <p class="meta">
@@ -83,20 +83,22 @@
   
 
 
-<time datetime="2010-07-28T11:58:58-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
+<time datetime="2012-05-26T16:51:00-04:00" pubdate data-updated="true">May 26<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I received a wonderful error from Internet Explorer today:  &#8220;Unknown runtime error&#8221;.</p>
+<div class="entry-content"><p>Recently I co-presented with <a href="http://bobbydimmick.com/">Bobby Dimmick</a> at the annual <a href="http://codecamp.developersguil1d.org/">Carolina Code Camp</a>, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with speakers.</p>
 
-<p>It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being set.</p>
+<p><a href="http://www.flickr.com/photos/arturask/sets/72157629645140924/with/7162456222/">Pictures from the event</a></p>
 
-<p>I found out <a href="http://piecesofrakesh.blogspot.com/2007/02/ies-unknown-runtime-error-when-using.html">here</a> that the problem was because my HTML was invalid.  As the poster notes, IE is actually enforcing <a href="http://www.w3.org/TR/html4/struct/text.html#h-9.3.1">the spec</a>, which is good.  However, the error message is completely worthless, which is not good.  Sadly, this is what I expect from IE.</p>
+<p>Our presentation was entitled &#8220;Building rich, model-centric, event-driven web apps using EF, Razor &amp; open source&#8221;.  The approach we took was to build a demo application from the ground up, and document the process so that it was reproducible.  The app is hosted at <a href="http://todoapp.exosuite.com">todoapp.exosuite.com</a> and the walkthrough is at <a href="http://todoapp.exosuite.com/walkthrough">todoapp.exosuite.com/walkthrough</a>.</p>
 
-<p>In his example, he was attempting to inject an &#8220;li&#8221; into a &#8220;p&#8221;, which is obviously invalid.  He noted that IE&#8217;s behavior seemed to be inconsistent, since it was ok with an &#8220;ul&#8221;.  However, in my case I found that injecting an &#8220;ul&#8221; into a &#8220;p&#8221; caused the same problem.  This may have been changed recently, a la Windows Update&#8230;</p>
+<p><img src="../images/todoapp.png" alt="Screenshot" /></p>
+
+<p>You can build the app yourself by following the walkthrough.  I promise, I did it many times!  :)</p>
 </div>
 
 
@@ -119,21 +121,15 @@
   
 
 
-<time datetime="2010-07-28T11:58:58-04:00" pubdate data-updated="true">Jul 28<span>th</span>, 2010</time>
+<time datetime="2012-05-26T16:51:00-04:00" pubdate data-updated="true">May 26<span>th</span>, 2012</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programming/'>programming</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/ie-unknown-runtime-error" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/ie-unknown-runtime-error" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/carolina-code-camp-2012-presentation" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/carolina-code-camp-2012-presentation" >Tweet</a>
   
   
   
@@ -142,10 +138,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/getting-things-done-smart-lists" title="Previous Post: Getting Things Done:  Smart Lists">&laquo; Getting Things Done:  Smart Lists</a>
+        <a class="basic-alignment left" href="/blog/learning-f-with-tdd-part-2" title="Previous Post: Learning F# with TDD: Part 2">&laquo; Learning F# with TDD: Part 2</a>
       
-      
-        <a class="basic-alignment right" href="/blog/resize-jquery-dialog" title="Next Post: Resize jQuery Dialog">Resize jQuery Dialog &raquo;</a>
       
     </p>
   </footer>
