@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="A while back I toyed with using virtualenv and virtualenvwrapper to manage isolated python packages for development, but I didn&#8217;t get very far &hellip;">
+  <meta name="description" content="A while back I talked about the ExoWeb project and scripts that are now hosted on github. That post was a little vague because not much has been &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,181 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/a-brief-introduction-to-exoweb">A Brief Introduction to ExoWeb</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-10T07:54:17-05:00" pubdate data-updated="true">Jan 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://mattheyan.posterous.com/2010/12/07/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
+
+<p>First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.</p>
+
+<h2>Client Server Mapping</h2>
+
+<p>When I say that ExoWeb is a client-server mapper what I mean is that it handles mapping from an object model on the server to the client (and vice versa) in much the same way that an ORM maps from a database schema to an object model.  The general idea is that you’re persisting objects and that you would like to be able to easily manipulate those objects in JavaScript code, without any extra work.</p>
+
+<p>For example, say you have a C# class that is persisted to a database using your choice of ORM.</p>
+
+<pre><code>public class Person
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string FullName
+    {
+        get
+        {
+            return FirstName + " " + LastName;
+        }
+    }
+}
+</code></pre>
+
+<p>You would want to be able to write JavaScript code to modify this object like so (ignoring the details of the syntax [1]).</p>
+
+<pre><code>person.set_FirstName("Bob");
+</code></pre>
+
+<p>ExoWeb aims to let you do this with very little effort.</p>
+
+<p>What are some of the things that you might want to do with the model?</p>
+
+<ul>
+<li><p>Have the full name automatically reflect the fact that the first name is now “Bob”</p></li>
+<li><p>Save these changes by simply calling a method</p></li>
+<li><p>“Round trip” to the server to perform complex or sensitive operations</p></li>
+<li><p>Display the person’s information in a view</p></li>
+</ul>
+
+
+<p>…which leads us to the next primary area of functionality.</p>
+
+<h2>View Model Mapping</h2>
+
+<p>You have a model on the client, so now you want to display some information to the user and possibly accept input.  What are some of the tools that you might want to have at your disposal?</p>
+
+<ul>
+<li><p>Create regions in your form that correspond to lists in the model</p></li>
+<li><p>Two-way binding of properties to inputs elements and form regions</p></li>
+<li><p>Respond to changes and redraw parts of the form as needed</p></li>
+<li><p>Attach behavior to the form such as clicking links, toggling regions, etc</p></li>
+<li><p>Take advantage of model metadata like formats, allowed values, validation rules, etc</p></li>
+<li><p>Allow for lazy loading of certain information when it is needed on the form</p></li>
+</ul>
+
+
+<p>That’s a glance at the basic features that we want from ExoWeb.  So, what does it actually look like?</p>
+
+<p><em>Disclaimer:  ExoWeb is under heavy development, so this stuff is always changing.  Feedback is welcome.</em></p>
+
+<h2>Setting up a Page</h2>
+
+<p>First off we have to include the ExoWeb script(s).  Take a look at the <a href="http://github.com/mattheyan/exoweb">github repo</a> to see what’s available.  The “dist” folder contains 3 scripts: exoweb-msajax.js, exoweb-msajax-nojquery.js, and jquery.exoweb-msajax.js.  For now we’ll just include exoweb-msajax.js.  ExoWeb currently also requires jQuery (1.3 or 1.4) and the MsAjax client libraries (specifically, MicrosoftAjax.js and MicrosoftAjaxTemplates.js).  These will be included in the repo in the near future.</p>
+
+<p><em>Side note:  ExoWeb currently uses the MsAjax client libraries, primarily for two purposes: observer and integrated template rendering.  In the near future these dependencies should be isolated so that other implementations could be used.  For example, better integration with jQuery is a personal goal of mine.</em></p>
+
+<p>Now that we have the right scripts included we need to set up the page’s context.  This tells ExoWeb what data to load and what to do before and after it is loaded.  We do this by calling the $exoweb function.  It accepts a JavaScript object with any of the following properties.</p>
+
+<ul>
+<li><p>model: A JavaScript object that defines the data to load from the server.</p></li>
+<li><p>types: An array of types to load.  This is usually not needed since types are automatically loaded based on the “model” parameter.</p></li>
+<li><p>init:  A function that is invoked as soon as model or type data has been requested.</p></li>
+<li><p>contextReady: A function that is invoked as soon as the model or type data has been loaded, but before the UI is rendered.</p></li>
+<li><p>domReady: A function that is invoked after the UI has been rendered.</p></li>
+</ul>
+
+
+<p>You can call $exoweb any number of times, and as an example our query might look something like this (please forgive the contrived example).</p>
+
+<pre><code>$exoweb({
+    init: function() {
+        ExoWeb.UI.Template.load("/path/to/template");
+    },
+    types: [
+        {
+            from: "CustomWidget",
+            and: ["this.CustomInformation"]
+        }
+    ],
+    model: {
+        widget: {
+            from: "Widget",
+            id: "1",
+            and: ["this.Type.DefaultPrice"]
+        }
+    },
+    contextReady: function() {
+        context.model.widget.doSomething();
+    },
+    domReady: function() {
+        $(".widget input[type=button].save").click(function() {
+            context.server.save(context.model.widget);
+        });
+    }
+});
+</code></pre>
+
+<p>During init we want to load an external template file.  I will talk more about this in the future, but for now I will say that ExoWeb allows you to bind parts of your form to a dynamic template that is selected based on the HTML element and the data that will be rendered.  This allows you to break out reusable templates for common display scenarios, but it also allows your form to be dynamic in the sense that the markup can change automatically based on user input.</p>
+
+<p>The types and model portions are what trigger requests to the server.  This will load up all of the metadata that is needed, as well as the instance data for the instances and paths that you specify.  When the context is ready it will have a model property that contains a property for each thing that you requested (in this case, the widget).</p>
+
+<p>Context ready allows you to perform custom operations after all of your data is loaded.  For example, if you have an add/edit page you can perform setup logic that may be needed only in the add scenario.</p>
+
+<p>DOM ready is a good place to put any DOM manipulation code that is specific to your page and it’s data and templates.  For general UI behavior I would recommend using jQuery to attach behavior as needed based on css selectors (a topic for another day).  Notice here the use of the “server” object, which is found on the context.  The server object allows you to save, round trip, raise events, and inspect the changes that have occurred.</p>
+
+<p>Now, to display this on the form we might write something like this.</p>
+
+<pre><code>&lt;div class="sys-template widget" sys:attach="dataview"
+    dataview:data="{~ context.model.widget, source= }"&gt;
+    &lt;h3&gt;Editing &lt;span&gt;{binding Name}&lt;/span&gt;&lt;/h3&gt;
+    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Type }"&gt;
+        &lt;label&gt;Type:&lt;/label&gt;
+        &lt;select class="sys-template" sys:value="{binding systemValue}"
+            sys:attach="dataview" dataview:data="{binding options}"&gt;
+            &lt;option value="{binding systemValue}"&gt;{binding displayValue}
+                &lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Price }"&gt;
+        &lt;label&gt;Price:&lt;/label&gt;
+        &lt;input type="text" sys:value="{binding displayValue}" /&gt;
+    &lt;/div&gt;
+    &lt;input type="button" class="save" value="Save" /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>The form is not rendered until the “widget” object has been loaded.  Also, notice the “@” extension that is used to incorporate metadata in the form.  For a pick list it will give you the list of options for a particular property.  Also, for other properties it allows you to automatically convert from and to a “system” or “display” format.  In a nutshell, the “display” format is a human-readable form of the underlying data that also includes format conditions for things like email, phone number, etc, while the “system” format is not intended to be shown to a user but instead can be used to uniquely identify an object.</p>
+
+<p>This has been a very brief introduction to ExoWeb.  There is much more to talk about and you can expect follow up posts in the near future.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -690,63 +865,6 @@ South==0.7.1</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/datacontractserializer-serialization-error">DataContractSerializer Read-Only Property Serialization Error</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-12T17:55:36-04:00" pubdate data-updated="true">Jul 12<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I recently encountered an exception with a message that looked something like this:</p>
-
-<p>There was an error deserializing the object of type Foo.  No set method for property &#8221; in type &#8221;.</p>
-
-<p>Huh?</p>
-
-<p>This was coming out of WriteObject (or a similar method) of DataContractSerializer (or DataContractJsonSerializer, or some other flavor).</p>
-
-<p>If you see this error, don&#8217;t be thrown off by the bizarre error message.  If my experience holds true this error is in fact caused by a read-only property.  Unfortunately, the error message won&#8217;t give you any clues to what the property is, and the offending type is probably NOT the type Foo, as the error message suggests.</p>
-
-<p>Description of my scenario:</p>
-
-<ul>
-<li><p>Attempt to serialize an object with a property that is a list of WCF serializable objects (base type).</p></li>
-<li><p>The last item in the list is a sub type, &#8220;Foo&#8221;, that contains a property WITHOUT a setter. Serialization is ok.</p></li>
-<li><p>After the item of type &#8220;Foo&#8221;, another item of type &#8220;Bar&#8221; (a different sub type) is added. This type does NOT have any properties without a setter. Attempting to serialize the parent object now fails with message &#8220;There was an error deserializing the object of type Bar, My Assembly. No set method for property &#8221; in type &#8221;.&#8221;</p></li>
-</ul>
-
-
-<p>See this <a href="https://connect.microsoft.com/wcf/feedback/details/525090/wcf-serialization-error-message-does-not-specify-type-and-method?wa=wsignin1.0#tabs">ticket</a> and this <a href="http://stackoverflow.com/questions/1731572/error-using-wcf-and-datacontractserializer">stackoverflow post</a> (author describes a slightly different scenario) for more information.</p>
-
-<p>Good luck! :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -764,6 +882,10 @@ South==0.7.1</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/should-you-write-awesome-code">Should you write awesome code?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
       </li>
     
@@ -777,10 +899,6 @@ South==0.7.1</p>
     
       <li class="post">
         <a href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a>
       </li>
     
   </ul>

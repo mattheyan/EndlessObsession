@@ -4,7 +4,7 @@
   <title><![CDATA[The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-05-26T16:53:49-04:00</updated>
+  <updated>2012-06-28T23:05:04-04:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Should you write awesome code?]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/should-you-write-awesome-code"/>
+    <updated>2012-06-28T22:48:00-04:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/should-you-write-awesome-code</id>
+    <content type="html"><![CDATA[<p>I ran across this provacative post on the tubes: <a href="http://jhovgaard.net/how-i-stopped-writing-awesome-code">How I stopped writing awesome code</a>. The following is my reaction and thoughts (hastily thrown together). Go to the link and read it first or what follows probably won&#8217;t make much sense.</p>
+
+<p>I certainly agree that some of the practices he mention can have little benefit in the short term. Many people pointed out in the comments that the short term gains of &#8220;trimming the fat&#8221; can come back to haunt you on long term projects, and I&#8217;ll second that.</p>
+
+<p>Someone in the comments described how they have frequently inherited projects where it looked like the developer(s) had this mindset and it usually turned out to be a mess/headache to maintain. I think the mental burden he described to understand concepts/tools like IOC, ORMs, etc. is only one side of the coin. The other side is that not following best practices and using powerful tools that are available can be just as frustrating to a developer who inherits the project (or even your future self), especially in the event that the app has to be significantly enhanced or changed. That said, I have also had the experience where I found that I had over-engineered a project too early and ended up &#8220;stuck&#8221; with some of those poor decisions later on. I think the key is to not try to over-engineer too early, but rather follow only tried and true best practices that require little added effort and could yield future gains, improve and refactor as the project grows, and never be satisfied with where things are today. For what it&#8217;s worth, in the case where I made regrettable engineering decisions early on, I was also deviating from common/best practices, i.e. trying to be clever.</p>
+
+<p>As for F12, I don&#8217;t think you can ever really get around the limitations of the IDE with respect to interfaces and abstract/virtual members. I have been in the habit lately of using Shift+F12 (symbol search) rather than &#8220;Go to Definition&#8221; unless I know for sure that there is a single implementation of the member that I&#8217;m trying to get at. Resharper is also a good choice to improve the IDE experience. As irritating as F12 can be, I wouldn&#8217;t use that as reason to avoid using useful language features.</p>
+
+<p>Finally, to tie it together with an anecdote: I can think of two projects off the top of my head that seem to fall into the too extremes. One was hastily thrown together by a freelance developer to meet a client need. The source control wasn&#8217;t hosted on a popular OSS hosting services, it was just offered up for download on the blog.  There were no unit tests.  Most of the code was in a single class file with a number of supporting classes that were essentially just data containers.  On the one hand, I ended up having to significantly enhance that project and found it to be very frustrating and painful.  On the other hand, if he hadn&#8217;t thrown it together it may be that nothing like it would have existed at all and I would have been forced to start from square 1 (and making my own mistakes as a result).  The other project was a highly engineered and conformed to a highly detailed open specification, complete with interfaces, IOC, and unit tests galore.  On the one hand, when I discovered a bug I was able to easily verify the bug via unit test, fix it, and see it go green.  On the other hand, the project is not very active now (has been somewhat superseded by other technology) so you could argue that the effort was wasted.</p>
+
+<p>Its all about balance&#8230;</p>
+
+<p>Also, someone pointed out that its possible to write tests as UI acceptance tests that actually interact with the web browser (using Selenium) and mimic user behavior. I happen to use WatiN instead in my day-to-day, but what&#8217;s important is that you can verify the behavior that your clients are going to be looking for in an automated fashion. Do it!</p>
+
+<p>Thanks to Jonas for provoking critical thought!  :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Carolina Code Camp 2012 Presentation]]></title>
@@ -951,36 +974,6 @@ South==0.7.1</p>
 <h3>What&#8217;s Next?</h3>
 
 <p>For a while now I have been using RTM almost exclusively.  This has worked pretty well so far, but is not perfect.  The next step is to figure out how GMail, Remember the Milk, and Google Calendar can work together.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[DataContractSerializer Read-Only Property Serialization Error]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/datacontractserializer-serialization-error"/>
-    <updated>2010-07-12T17:55:36-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/datacontractserializer-serialization-error</id>
-    <content type="html"><![CDATA[<p>I recently encountered an exception with a message that looked something like this:</p>
-
-<p>There was an error deserializing the object of type Foo.  No set method for property &#8221; in type &#8221;.</p>
-
-<p>Huh?</p>
-
-<p>This was coming out of WriteObject (or a similar method) of DataContractSerializer (or DataContractJsonSerializer, or some other flavor).</p>
-
-<p>If you see this error, don&#8217;t be thrown off by the bizarre error message.  If my experience holds true this error is in fact caused by a read-only property.  Unfortunately, the error message won&#8217;t give you any clues to what the property is, and the offending type is probably NOT the type Foo, as the error message suggests.</p>
-
-<p>Description of my scenario:</p>
-
-<ul>
-<li><p>Attempt to serialize an object with a property that is a list of WCF serializable objects (base type).</p></li>
-<li><p>The last item in the list is a sub type, &#8220;Foo&#8221;, that contains a property WITHOUT a setter. Serialization is ok.</p></li>
-<li><p>After the item of type &#8220;Foo&#8221;, another item of type &#8220;Bar&#8221; (a different sub type) is added. This type does NOT have any properties without a setter. Attempting to serialize the parent object now fails with message &#8220;There was an error deserializing the object of type Bar, My Assembly. No set method for property &#8221; in type &#8221;.&#8221;</p></li>
-</ul>
-
-
-<p>See this <a href="https://connect.microsoft.com/wcf/feedback/details/525090/wcf-serialization-error-message-does-not-specify-type-and-method?wa=wsignin1.0#tabs">ticket</a> and this <a href="http://stackoverflow.com/questions/1731572/error-using-wcf-and-datacontractserializer">stackoverflow post</a> (author describes a slightly different scenario) for more information.</p>
-
-<p>Good luck! :)</p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte. The event was &hellip;">
+  <meta name="description" content="I ran across this provacative post on the tubes: How I stopped writing awesome code. The following is my reaction and thoughts (hastily thrown &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/should-you-write-awesome-code">Should You Write Awesome Code?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T22:48:00-04:00" pubdate data-updated="true">Jun 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I ran across this provacative post on the tubes: <a href="http://jhovgaard.net/how-i-stopped-writing-awesome-code">How I stopped writing awesome code</a>. The following is my reaction and thoughts (hastily thrown together). Go to the link and read it first or what follows probably won&#8217;t make much sense.</p>
+
+<p>I certainly agree that some of the practices he mention can have little benefit in the short term. Many people pointed out in the comments that the short term gains of &#8220;trimming the fat&#8221; can come back to haunt you on long term projects, and I&#8217;ll second that.</p>
+
+<p>Someone in the comments described how they have frequently inherited projects where it looked like the developer(s) had this mindset and it usually turned out to be a mess/headache to maintain. I think the mental burden he described to understand concepts/tools like IOC, ORMs, etc. is only one side of the coin. The other side is that not following best practices and using powerful tools that are available can be just as frustrating to a developer who inherits the project (or even your future self), especially in the event that the app has to be significantly enhanced or changed. That said, I have also had the experience where I found that I had over-engineered a project too early and ended up &#8220;stuck&#8221; with some of those poor decisions later on. I think the key is to not try to over-engineer too early, but rather follow only tried and true best practices that require little added effort and could yield future gains, improve and refactor as the project grows, and never be satisfied with where things are today. For what it&#8217;s worth, in the case where I made regrettable engineering decisions early on, I was also deviating from common/best practices, i.e. trying to be clever.</p>
+
+<p>As for F12, I don&#8217;t think you can ever really get around the limitations of the IDE with respect to interfaces and abstract/virtual members. I have been in the habit lately of using Shift+F12 (symbol search) rather than &#8220;Go to Definition&#8221; unless I know for sure that there is a single implementation of the member that I&#8217;m trying to get at. Resharper is also a good choice to improve the IDE experience. As irritating as F12 can be, I wouldn&#8217;t use that as reason to avoid using useful language features.</p>
+
+<p>Finally, to tie it together with an anecdote: I can think of two projects off the top of my head that seem to fall into the too extremes. One was hastily thrown together by a freelance developer to meet a client need. The source control wasn&#8217;t hosted on a popular OSS hosting services, it was just offered up for download on the blog.  There were no unit tests.  Most of the code was in a single class file with a number of supporting classes that were essentially just data containers.  On the one hand, I ended up having to significantly enhance that project and found it to be very frustrating and painful.  On the other hand, if he hadn&#8217;t thrown it together it may be that nothing like it would have existed at all and I would have been forced to start from square 1 (and making my own mistakes as a result).  The other project was a highly engineered and conformed to a highly detailed open specification, complete with interfaces, IOC, and unit tests galore.  On the one hand, when I discovered a bug I was able to easily verify the bug via unit test, fix it, and see it go green.  On the other hand, the project is not very active now (has been somewhat superseded by other technology) so you could argue that the effort was wasted.</p>
+
+<p>Its all about balance&#8230;</p>
+
+<p>Also, someone pointed out that its possible to write tests as UI acceptance tests that actually interact with the web browser (using Selenium) and mimic user behavior. I happen to use WatiN instead in my day-to-day, but what&#8217;s important is that you can verify the behavior that your clients are going to be looking for in an automated fashion. Do it!</p>
+
+<p>Thanks to Jonas for provoking critical thought!  :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -719,181 +769,6 @@ match str with
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/a-brief-introduction-to-exoweb">A Brief Introduction to ExoWeb</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-10T07:54:17-05:00" pubdate data-updated="true">Jan 10<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://mattheyan.posterous.com/2010/12/07/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
-
-<p>First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.</p>
-
-<h2>Client Server Mapping</h2>
-
-<p>When I say that ExoWeb is a client-server mapper what I mean is that it handles mapping from an object model on the server to the client (and vice versa) in much the same way that an ORM maps from a database schema to an object model.  The general idea is that you’re persisting objects and that you would like to be able to easily manipulate those objects in JavaScript code, without any extra work.</p>
-
-<p>For example, say you have a C# class that is persisted to a database using your choice of ORM.</p>
-
-<pre><code>public class Person
-{
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string FullName
-    {
-        get
-        {
-            return FirstName + " " + LastName;
-        }
-    }
-}
-</code></pre>
-
-<p>You would want to be able to write JavaScript code to modify this object like so (ignoring the details of the syntax [1]).</p>
-
-<pre><code>person.set_FirstName("Bob");
-</code></pre>
-
-<p>ExoWeb aims to let you do this with very little effort.</p>
-
-<p>What are some of the things that you might want to do with the model?</p>
-
-<ul>
-<li><p>Have the full name automatically reflect the fact that the first name is now “Bob”</p></li>
-<li><p>Save these changes by simply calling a method</p></li>
-<li><p>“Round trip” to the server to perform complex or sensitive operations</p></li>
-<li><p>Display the person’s information in a view</p></li>
-</ul>
-
-
-<p>…which leads us to the next primary area of functionality.</p>
-
-<h2>View Model Mapping</h2>
-
-<p>You have a model on the client, so now you want to display some information to the user and possibly accept input.  What are some of the tools that you might want to have at your disposal?</p>
-
-<ul>
-<li><p>Create regions in your form that correspond to lists in the model</p></li>
-<li><p>Two-way binding of properties to inputs elements and form regions</p></li>
-<li><p>Respond to changes and redraw parts of the form as needed</p></li>
-<li><p>Attach behavior to the form such as clicking links, toggling regions, etc</p></li>
-<li><p>Take advantage of model metadata like formats, allowed values, validation rules, etc</p></li>
-<li><p>Allow for lazy loading of certain information when it is needed on the form</p></li>
-</ul>
-
-
-<p>That’s a glance at the basic features that we want from ExoWeb.  So, what does it actually look like?</p>
-
-<p><em>Disclaimer:  ExoWeb is under heavy development, so this stuff is always changing.  Feedback is welcome.</em></p>
-
-<h2>Setting up a Page</h2>
-
-<p>First off we have to include the ExoWeb script(s).  Take a look at the <a href="http://github.com/mattheyan/exoweb">github repo</a> to see what’s available.  The “dist” folder contains 3 scripts: exoweb-msajax.js, exoweb-msajax-nojquery.js, and jquery.exoweb-msajax.js.  For now we’ll just include exoweb-msajax.js.  ExoWeb currently also requires jQuery (1.3 or 1.4) and the MsAjax client libraries (specifically, MicrosoftAjax.js and MicrosoftAjaxTemplates.js).  These will be included in the repo in the near future.</p>
-
-<p><em>Side note:  ExoWeb currently uses the MsAjax client libraries, primarily for two purposes: observer and integrated template rendering.  In the near future these dependencies should be isolated so that other implementations could be used.  For example, better integration with jQuery is a personal goal of mine.</em></p>
-
-<p>Now that we have the right scripts included we need to set up the page’s context.  This tells ExoWeb what data to load and what to do before and after it is loaded.  We do this by calling the $exoweb function.  It accepts a JavaScript object with any of the following properties.</p>
-
-<ul>
-<li><p>model: A JavaScript object that defines the data to load from the server.</p></li>
-<li><p>types: An array of types to load.  This is usually not needed since types are automatically loaded based on the “model” parameter.</p></li>
-<li><p>init:  A function that is invoked as soon as model or type data has been requested.</p></li>
-<li><p>contextReady: A function that is invoked as soon as the model or type data has been loaded, but before the UI is rendered.</p></li>
-<li><p>domReady: A function that is invoked after the UI has been rendered.</p></li>
-</ul>
-
-
-<p>You can call $exoweb any number of times, and as an example our query might look something like this (please forgive the contrived example).</p>
-
-<pre><code>$exoweb({
-    init: function() {
-        ExoWeb.UI.Template.load("/path/to/template");
-    },
-    types: [
-        {
-            from: "CustomWidget",
-            and: ["this.CustomInformation"]
-        }
-    ],
-    model: {
-        widget: {
-            from: "Widget",
-            id: "1",
-            and: ["this.Type.DefaultPrice"]
-        }
-    },
-    contextReady: function() {
-        context.model.widget.doSomething();
-    },
-    domReady: function() {
-        $(".widget input[type=button].save").click(function() {
-            context.server.save(context.model.widget);
-        });
-    }
-});
-</code></pre>
-
-<p>During init we want to load an external template file.  I will talk more about this in the future, but for now I will say that ExoWeb allows you to bind parts of your form to a dynamic template that is selected based on the HTML element and the data that will be rendered.  This allows you to break out reusable templates for common display scenarios, but it also allows your form to be dynamic in the sense that the markup can change automatically based on user input.</p>
-
-<p>The types and model portions are what trigger requests to the server.  This will load up all of the metadata that is needed, as well as the instance data for the instances and paths that you specify.  When the context is ready it will have a model property that contains a property for each thing that you requested (in this case, the widget).</p>
-
-<p>Context ready allows you to perform custom operations after all of your data is loaded.  For example, if you have an add/edit page you can perform setup logic that may be needed only in the add scenario.</p>
-
-<p>DOM ready is a good place to put any DOM manipulation code that is specific to your page and it’s data and templates.  For general UI behavior I would recommend using jQuery to attach behavior as needed based on css selectors (a topic for another day).  Notice here the use of the “server” object, which is found on the context.  The server object allows you to save, round trip, raise events, and inspect the changes that have occurred.</p>
-
-<p>Now, to display this on the form we might write something like this.</p>
-
-<pre><code>&lt;div class="sys-template widget" sys:attach="dataview"
-    dataview:data="{~ context.model.widget, source= }"&gt;
-    &lt;h3&gt;Editing &lt;span&gt;{binding Name}&lt;/span&gt;&lt;/h3&gt;
-    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Type }"&gt;
-        &lt;label&gt;Type:&lt;/label&gt;
-        &lt;select class="sys-template" sys:value="{binding systemValue}"
-            sys:attach="dataview" dataview:data="{binding options}"&gt;
-            &lt;option value="{binding systemValue}"&gt;{binding displayValue}
-                &lt;/option&gt;
-        &lt;/select&gt;
-    &lt;/div&gt;
-    &lt;div class="sys-template" sys:attach="dataview" dataview:data="{@ Price }"&gt;
-        &lt;label&gt;Price:&lt;/label&gt;
-        &lt;input type="text" sys:value="{binding displayValue}" /&gt;
-    &lt;/div&gt;
-    &lt;input type="button" class="save" value="Save" /&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p>The form is not rendered until the “widget” object has been loaded.  Also, notice the “@” extension that is used to incorporate metadata in the form.  For a pick list it will give you the list of options for a particular property.  Also, for other properties it allows you to automatically convert from and to a “system” or “display” format.  In a nutshell, the “display” format is a human-readable form of the underlying data that also includes format conditions for things like email, phone number, etc, while the “system” format is not intended to be shown to a user but instead can be used to uniquely identify an object.</p>
-
-<p>This has been a very brief introduction to ExoWeb.  There is much more to talk about and you can expect follow up posts in the near future.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -909,6 +784,10 @@ match str with
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/should-you-write-awesome-code">Should you write awesome code?</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
       </li>
     
@@ -922,10 +801,6 @@ match str with
     
       <li class="post">
         <a href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a>
       </li>
     
   </ul>
