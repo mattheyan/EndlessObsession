@@ -13,16 +13,24 @@ footer: true
 
 #### Determine status in all users' workspaces
 
+```
 tf status $/path/to/item /recursive /user:*
+```
 
+```
 tf status $/path/to/item.txt /user:*
+```
 
 
 #### Get a list of merge candidates
 
+```
 tf merge /candidate /recursive $/source $/target
+```
 
 
 #### Completely destroy a folder
 
+```
 tf destroy $/path/to/item /noprompt /silent
+```
