@@ -34,3 +34,11 @@ tf merge /candidate /recursive $/source $/target
 ```
 tf destroy $/path/to/item /noprompt /silent
 ```
+
+#### Checkin with code reviewer
+
+*From notes in "Community Content" on the [MSDN documentation page (2005 version)](http://msdn.microsoft.com/en-us/library/c327ca1z.aspx)*
+
+```
+tf checkin /notes:"Code Reviewer=Some person" $/path/to/item
+```
