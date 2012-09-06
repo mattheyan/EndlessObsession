@@ -42,3 +42,8 @@ tf destroy $/path/to/item /noprompt /silent
 ```
 tf checkin /notes:"Code Reviewer=Some person" $/path/to/item
 ```
+
+#### List merge conflicts
+```
+tf resolve /recursive /preview
+```
