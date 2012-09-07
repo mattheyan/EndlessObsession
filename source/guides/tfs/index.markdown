@@ -44,6 +44,9 @@ tf checkin /notes:"Code Reviewer=Some person" $/path/to/item
 ```
 
 #### List merge conflicts
+
+*Note: if there are merge conflicts then this operation will return a non-zero exit code.*
+
 ```
 tf resolve /recursive /preview
 ```
