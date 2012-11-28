@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ExoWeb's Entity System - The Endless Obsession</title>
+  <title>Chrome select excessive padding - The Endless Obsession</title>
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Matt Hooper recently posted an overview of ExoWeb&#8217;s entity system. From the post: We&#8217;ve done our best to make sure the parts and pieces &hellip;">
+  <meta name="description" content="Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC. This is what it looked &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/exowebs-entity-system">
+  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/chrome-select-excessive-padding">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">ExoWeb's Entity System</h1>
+      <h1 class="entry-title">Chrome Select Excessive Padding</h1>
     
     
       <p class="meta">
@@ -85,20 +85,34 @@
   
 
 
-<time datetime="2011-01-13T06:34:46-05:00" pubdate data-updated="true">Jan 13<span>th</span>, 2011</time>
+<time datetime="2012-11-27T19:41:00-05:00" pubdate data-updated="true">Nov 27<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Matt Hooper recently posted an <a href="http://mhoop.wordpress.com/2011/01/13/exowebs-entity-system/">overview of ExoWeb&#8217;s entity system</a>.</p>
+<div class="entry-content"><p>Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC.  This is what it looked like.</p>
 
-<p>From the post:</p>
+<p><img src="../images/select-pad.png" alt="Screenshot of excessive padding" /></p>
 
-<blockquote><p>We&#8217;ve done our best to make sure the parts and pieces that comprise the ExoWeb entity system work consistently, fit together cleanly and take advantage of JavaScripts language features.</p></blockquote>
+<p>I did some digging on the web and found a <a href="http://code.google.com/p/chromium/issues/detail?id=146745">chromium bug report</a>.</p>
 
-<p>Go check it out!</p>
+<p>One of the comments near the end of the page gives the solution to the problem.</p>
+
+<blockquote><p>Actually that is the problem. Windows has a service called &#8220;Tablet PC Input Service&#8221;. When this is running Windows 7 thinks it&#8217;s a tablet instead of a desktop. Once I turned this off and restarted chrome the drop down spacing is correct. But as soon as I turn the service back on the extra spacing comes back.</p></blockquote>
+
+<p>Sure enough, there was a service running on my laptop called &#8220;Tablet PC Input Service&#8221;.</p>
+
+<p><img src="../images/tablet-pc-input-service.png" alt="Screenshot of excessive padding" /></p>
+
+<p>&#8230;and when I stopped the service <em><strong>and restarted chrome</strong></em>, the padding went back to normal.</p>
+
+<p><img src="../images/select-nopad.png" alt="Screenshot of excessive padding" /></p>
+
+<p>My laptop is a touchscreen and turning off this service doesn&#8217;t seem to affect touchscreen functionality.  Don&#8217;t forget to change the service startup type to &#8220;Manual&#8221; or &#8220;Disabled&#8221; so that it doesn&#8217;t start back up the next time you log on.</p>
+
+<p>This <a href="http://productforums.google.com/forum/#!topic/chrome/EIgNjmURGbo">Google Groups post</a> might also be relevant.</p>
 </div>
 
 
@@ -121,21 +135,15 @@
   
 
 
-<time datetime="2011-01-13T06:34:46-05:00" pubdate data-updated="true">Jan 13<span>th</span>, 2011</time>
+<time datetime="2012-11-27T19:41:00-05:00" pubdate data-updated="true">Nov 27<span>th</span>, 2012</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/exoweb/'>exoweb</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/programming/'>programming</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/exowebs-entity-system" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/exowebs-entity-system" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/chrome-select-excessive-padding" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/chrome-select-excessive-padding" >Tweet</a>
   
   
   
@@ -144,10 +152,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/into-to-client-server-mapping-in-exoweb" title="Previous Post: Intro to Client-Server Mapping in ExoWeb">&laquo; Intro to Client-Server Mapping in ExoWeb</a>
+        <a class="basic-alignment left" href="/blog/should-you-write-awesome-code" title="Previous Post: Should you write awesome code?">&laquo; Should you write awesome code?</a>
       
-      
-        <a class="basic-alignment right" href="/blog/visual-studio-external-tools" title="Next Post: Visual Studio External Tools">Visual Studio External Tools &raquo;</a>
       
     </p>
   </footer>

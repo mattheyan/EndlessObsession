@@ -135,6 +135,10 @@
         <lastmod>2012-09-04T21:24:44-04:00</lastmod>
     </url>
     <url>
+        <loc>http://endlessobsession.heroku.com/blog/chrome-select-excessive-padding</loc>
+        <lastmod>2012-11-27T20:04:53-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://endlessobsession.heroku.com/404.html</loc>
         <lastmod>2012-04-14T16:08:44-04:00</lastmod>
     </url>
@@ -144,7 +148,7 @@
     </url>
     <url>
         <loc>http://endlessobsession.heroku.com/blog/archives/</loc>
-        <lastmod>2012-09-04T21:24:44-04:00</lastmod>
+        <lastmod>2012-11-27T20:04:53-05:00</lastmod>
     </url>
     <url>
         <loc>http://endlessobsession.heroku.com/guides/git/</loc>
@@ -160,6 +164,6 @@
     </url>
     <url>
         <loc>http://endlessobsession.heroku.com/</loc>
-        <lastmod>2012-09-04T21:24:44-04:00</lastmod>
+        <lastmod>2012-11-27T20:04:53-05:00</lastmod>
     </url>
 </urlset>

@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Background: I had an existing ASP.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only &hellip;">
+  <meta name="description" content="Data loss is a scary thing. In one of the apps I have worked on it is particularly scary since some of the data is encrypted. In the beginning it was &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/encryption-and-varbinary">Encryption and VARBINARY</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-10T17:26:00-05:00" pubdate data-updated="true">Feb 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Data loss is a scary thing.  In one of the apps I have worked on it is particularly scary since some of the data is encrypted.  In the beginning it was encrypted in such a way that it would be (hopefully) impossible to retrieve without the proper authorization.  Essentially, the data would be junk if a finite number of users forgot their passwords.  This was always lurking in the back of my mind.  (You&#8217;ve never forgotten your password, have you?)  Luckily we dropped that approach, but I didn&#8217;t anticipate how we would actually lose data.</p>
+
+<p>One day I discovered an interesting error was occurring.  (Only in hindsight can I refer to it as &#8220;interesting&#8221;.)  It was a <em>CryptographicException</em>:  Length of the data to decrypt is invalid.  The application was attempting to load some encrypted data from the database and was repeatedly failing on a particular record.  This is not good.</p>
+
+<p>At first I thought:  &#8220;Maybe there is a character or combination of characters in the source text that is causing the problem.&#8221;  Looking back I can see that it was a poor attempt at an explanation.  To be fair, I was alerted to the problem by a user who also informed me that he had used a random text generation feature (possibly for the first time), so I was a little biased.  I was able to verify that the data was an odd size (as expected) and the encryption algorithm expected blocks of a certain number of bytes.  However, I could not reproduce the bug since I had no idea what the original source text was.</p>
+
+<p>Fast-forward a week or two.  The problem occurs again, but this time the user is working with a known value.  I crack open the test system and, lo and behold, the error is reproducible!  After doing some debugging and tracing I come to the conclusion that SQL Server is truncating my data.  (How rude!?)  From there it didn&#8217;t take long for me to discover an interesting property of the column in question.  Getting info on the table told me that the &#8220;TrimTrailingSpace&#8221; property was true (which corresponds to <a href="http://msdn.microsoft.com/en-us/library/ms187403.aspx"><em>ANSI PADDING</em></a>).  It doesn&#8217;t take a genius to figure out that something is wrong with that.</p>
+
+<p>Luckily I found <a href="http://support.microsoft.com/kb/296559"><em>this article</em></a>, which indicates that any alter of the column will turn off &#8220;TrimTrailingSpace&#8221;, just what I wanted.  So, what did I do?  Something like this:</p>
+
+<p>ALTER TABLE MyTable
+ALTER COLUMN MyColumn VARBINARY(xxx);</p>
+
+<p>Problem solved!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -173,6 +222,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/should-you-write-awesome-code">Should you write awesome code?</a>
       </li>
     
@@ -186,10 +239,6 @@
     
       <li class="post">
         <a href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a>
       </li>
     
   </ul>
