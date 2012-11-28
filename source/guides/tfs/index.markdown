@@ -50,3 +50,16 @@ tf checkin /notes:"Code Reviewer=Some person" $/path/to/item
 ```
 tf resolve /recursive /preview
 ```
+
+#### Undo change in another user's workspace
+```
+tf undo /workspace:WORKSPACE;USER $/path/to/item
+```
+
+#### Delete a user's workspace
+
+http://msdn.microsoft.com/en-us/library/ms245474.aspx#TFWorkspace
+
+```
+tf workspace /delete OtherWorkspace;DOMAIN\OtherUser
+```

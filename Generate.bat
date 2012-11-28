@@ -1,1 +1,1 @@
-rake generate
+bundle exec rake generate
