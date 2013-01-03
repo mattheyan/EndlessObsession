@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC. This is what it looked &hellip;">
+  <meta name="description" content="Recently I ran into an odd problem when writing a text file to disk using .NET&#8217;s File.OpenWrite. using (var fileWriter = new StreamWriter(File. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-03T12:29:00-05:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I ran into an odd problem when writing a text file to disk using .NET&#8217;s <code>File.OpenWrite</code>.</p>
+
+<pre><code>using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
+{
+    fileWriter.WriteLine("abc");
+}
+</code></pre>
+
+<p>You might expect that after executing this code the text in the file would be &#8220;abc&#8221;.  Not quite.  In my case I was sometimes seeing results like this&#8230;</p>
+
+<pre><code>abc
+some other text
+</code></pre>
+
+<p>&#8230;where &#8220;some other text&#8221; is the last bit of text in the file before writing.</p>
+
+<p>It turns out that the <a href="http://msdn.microsoft.com/en-us/library/system.io.file.openwrite.aspx" title="System.IO.File.OpenWrite">documentation for File.OpenWrite</a> contains the answer.</p>
+
+<blockquote><p>If you overwrite a longer string (such as &#8220;This is a test of the OpenWrite method&#8221;) with a shorter string (such as &#8220;Second run&#8221;), the file will contain a mix of the strings (&#8220;Second runtest of the OpenWrite method&#8221;).</p></blockquote>
+
+<p><code>OpenWrite</code> behaves much like the dreaded insert mode in word processors and text editors.</p>
+
+<p>The solution that I chose is pretty simple.  Just <a href="http://stackoverflow.com/questions/2695444/clearing-content-of-text-file-using-c-sharp" title="Stack Overflow - Clearing content of text file using C#">clear the file&#8217;s contents</a> beforehand.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -722,48 +780,6 @@ match str with
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/exowebs-entity-system">ExoWeb&#8217;s Entity System</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-13T06:34:46-05:00" pubdate data-updated="true">Jan 13<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Matt Hooper recently posted an <a href="http://mhoop.wordpress.com/2011/01/13/exowebs-entity-system/">overview of ExoWeb&#8217;s entity system</a>.</p>
-
-<p>From the post:</p>
-
-<blockquote><p>We&#8217;ve done our best to make sure the parts and pieces that comprise the ExoWeb entity system work consistently, fit together cleanly and take advantage of JavaScripts language features.</p></blockquote>
-
-<p>Go check it out!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -779,6 +795,10 @@ match str with
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a>
       </li>
     
@@ -792,10 +812,6 @@ match str with
     
       <li class="post">
         <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a>
       </li>
     
   </ul>
@@ -866,7 +882,7 @@ match str with
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Bryan Matthews -
+  Copyright &copy; 2013 - Bryan Matthews -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

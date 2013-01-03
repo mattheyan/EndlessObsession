@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Data loss is a scary thing. In one of the apps I have worked on it is particularly scary since some of the data is encrypted. In the beginning it was &hellip;">
+  <meta name="description" content="The other day I got into work really early, hoping to have a productive morning. Unfortunately, my computer had other ideas. When it finished booting &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/wheres-my-desktop">Where&#8217;s My Desktop!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-10T17:28:00-05:00" pubdate data-updated="true">Feb 10<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The other day I got into work really early, hoping to have a productive morning.  Unfortunately, my computer had other ideas.  When it finished booting up I was greeted by an empty desktop and a host of applications complaining about needing a password.  Geez, I don&#8217;t even have coffee yet, how am I supposed to deal with this?!  (not that I drink coffee&#8230;)</p>
+
+<p>Anyway, being the lazy developer that I am, I promptly notified the IT staff and then fired up Google.  I found a few posts mentioning the fact that my profile was mapped to a different location on disk (C:\windows\system32\config\systemprofile), but not much in the way of an explanation.  They suggested copying files into that location, but that didn&#8217;t seem like a good idea to me.  Eventually I was contacted by one of my helpful coworkers who helped me resolve the issue by running the disk error checking utility (chkdsk.exe) and rebooting.  Simple, huh?</p>
+
+<p>So, what did I learn from all of this?  Apparently, if Windows discovers that your profile is corrupted it will allow you to log in using a temporary profile so that you can fix the problem.  Running chkdsk (with both options selected) may work, as it did for me, or it may also be possible to backup your files and have Windows regenerate some of the files that may be corrupt (but don&#8217;t take my word for it).</p>
+
+<p>I&#8217;ll keep that info filed away for future reference, but I will probably never have this problem again <em>crosses fingers</em>&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -222,6 +264,10 @@ ALTER COLUMN MyColumn VARBINARY(xxx);</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a>
       </li>
     
@@ -235,10 +281,6 @@ ALTER COLUMN MyColumn VARBINARY(xxx);</p>
     
       <li class="post">
         <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a>
       </li>
     
   </ul>
@@ -309,7 +351,7 @@ ALTER COLUMN MyColumn VARBINARY(xxx);</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Bryan Matthews -
+  Copyright &copy; 2013 - Bryan Matthews -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: database - The Endless Obsession</title>
+  <title>File.OpenWrite Gotcha - The Endless Obsession</title>
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Category: database">
+  <meta name="description" content="Recently I ran into an odd problem when writing a text file to disk using .NET&#8217;s File.OpenWrite. using (var fileWriter = new StreamWriter(File. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://endlessobsession.heroku.comblog/categories/database">
+  <link rel="canonical" href="http://endlessobsession.heroku.com/blog/file-dot-openwrite-gotcha">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,49 +65,100 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Database</h1>
+    
+      <h1 class="entry-title">File.OpenWrite Gotcha</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-03T12:29:00-05:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2013</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>Recently I ran into an odd problem when writing a text file to disk using .NET&#8217;s <code>File.OpenWrite</code>.</p>
 
-  
-  <h2>2010</h2>
+<pre><code>using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
+{
+    fileWriter.WriteLine("abc");
+}
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/sequenced-sql-records">Sequenced SQL Records</a></h1>
-<time datetime="2010-07-27T18:17:20-04:00" pubdate><span class='month'>Jul</span> <span class='day'>27</span> <span class='year'>2010</span></time>
+<p>You might expect that after executing this code the text in the file would be &#8220;abc&#8221;.  Not quite.  In my case I was sometimes seeing results like this&#8230;</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/database/'>database</a></span>
-</footer>
+<pre><code>abc
+some other text
+</code></pre>
 
+<p>&#8230;where &#8220;some other text&#8221; is the last bit of text in the file before writing.</p>
 
-</article>
+<p>It turns out that the <a href="http://msdn.microsoft.com/en-us/library/system.io.file.openwrite.aspx" title="System.IO.File.OpenWrite">documentation for File.OpenWrite</a> contains the answer.</p>
 
+<blockquote><p>If you overwrite a longer string (such as &#8220;This is a test of the OpenWrite method&#8221;) with a shorter string (such as &#8220;Second run&#8221;), the file will contain a mix of the strings (&#8220;Second runtest of the OpenWrite method&#8221;).</p></blockquote>
 
+<p><code>OpenWrite</code> behaves much like the dreaded insert mode in word processors and text editors.</p>
 
-<article>
-  
-<h1><a href="/blog/encryption-and-varbinary">Encryption and VARBINARY</a></h1>
-<time datetime="2010-02-10T17:26:00-05:00" pubdate><span class='month'>Feb</span> <span class='day'>10</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/database/'>database</a></span>
-</footer>
-
-
-</article>
-
+<p>The solution that I chose is pretty simple.  Just <a href="http://stackoverflow.com/questions/2695444/clearing-content-of-text-file-using-c-sharp" title="Stack Overflow - Clearing content of text file using C#">clear the file&#8217;s contents</a> beforehand.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Bryan Matthews</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-03T12:29:00-05:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.heroku.com/blog/file-dot-openwrite-gotcha" data-via="BryanMatthews" data-counturl="http://endlessobsession.heroku.com/blog/file-dot-openwrite-gotcha" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/chrome-select-excessive-padding" title="Previous Post: Chrome select excessive padding">&laquo; Chrome select excessive padding</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

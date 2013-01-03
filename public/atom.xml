@@ -4,7 +4,7 @@
   <title><![CDATA[The Endless Obsession]]></title>
   <link href="http://endlessobsession.heroku.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2012-11-27T20:05:07-05:00</updated>
+  <updated>2013-01-03T12:48:50-05:00</updated>
   <id>http://endlessobsession.heroku.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[File.OpenWrite Gotcha]]></title>
+    <link href="http://endlessobsession.heroku.com/blog/file-dot-openwrite-gotcha"/>
+    <updated>2013-01-03T12:29:00-05:00</updated>
+    <id>http://endlessobsession.heroku.com/blog/file-dot-openwrite-gotcha</id>
+    <content type="html"><![CDATA[<p>Recently I ran into an odd problem when writing a text file to disk using .NET&#8217;s <code>File.OpenWrite</code>.</p>
+
+<pre><code>using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
+{
+    fileWriter.WriteLine("abc");
+}
+</code></pre>
+
+<p>You might expect that after executing this code the text in the file would be &#8220;abc&#8221;.  Not quite.  In my case I was sometimes seeing results like this&#8230;</p>
+
+<pre><code>abc
+some other text
+</code></pre>
+
+<p>&#8230;where &#8220;some other text&#8221; is the last bit of text in the file before writing.</p>
+
+<p>It turns out that the <a href="http://msdn.microsoft.com/en-us/library/system.io.file.openwrite.aspx" title="System.IO.File.OpenWrite">documentation for File.OpenWrite</a> contains the answer.</p>
+
+<blockquote><p>If you overwrite a longer string (such as &#8220;This is a test of the OpenWrite method&#8221;) with a shorter string (such as &#8220;Second run&#8221;), the file will contain a mix of the strings (&#8220;Second runtest of the OpenWrite method&#8221;).</p></blockquote>
+
+<p><code>OpenWrite</code> behaves much like the dreaded insert mode in word processors and text editors.</p>
+
+<p>The solution that I chose is pretty simple.  Just <a href="http://stackoverflow.com/questions/2695444/clearing-content-of-text-file-using-c-sharp" title="Stack Overflow - Clearing content of text file using C#">clear the file&#8217;s contents</a> beforehand.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Chrome select excessive padding]]></title>
@@ -870,62 +901,6 @@ South==0.7.1</p>
 <p>I have now switched to using the &#8220;Work Day&#8221; list only for &#8220;I Forgot the Milk&#8221; on my work computer.  This way, I don&#8217;t have to mentally filter out tasks that I can&#8217;t do until I get home.</p>
 
 <p>I have yet to realize the full potential of smart lists, but I know that they will make things run a lot smoother for me.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sequenced SQL Records]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/sequenced-sql-records"/>
-    <updated>2010-07-27T18:17:20-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/sequenced-sql-records</id>
-    <content type="html"><![CDATA[<h3>How to sequence values in a table.  The non-so-elegant solution&#8230;</h3>
-
-<p>Imagine you have a table that contains records with a foreign key (string, int, guid, etc&#8230;) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc&#8230;) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key table.</p>
-
-<p>What follows is the answer I arrived at late this afternoon.  Please let me know if you have a better way.</p>
-
-<ul>
-<li><p>declare @dates table(num varchar(9), date datetime)</p></li>
-<li></li>
-<li><p>insert into @dates</p></li>
-<li><p>select &#8216;192837465&#8217;, cast(&#8216;1/3/2008&#8217; as datetime) union</p></li>
-<li><p>select &#8216;192837465&#8217;, cast(&#8216;3/12/2003&#8217; as datetime) union</p></li>
-<li><p>select &#8216;192837465&#8217;, cast(&#8216;5/22/2010&#8217; as datetime) union</p></li>
-<li><p>select &#8216;192837465&#8217;, cast(&#8216;2/1/2004&#8217; as datetime)</p></li>
-<li></li>
-<li><p>declare @keys table(num varchar(9), sequence int)</p></li>
-<li></li>
-<li><p>insert into @keys</p></li>
-<li><p>select &#8216;192837465&#8217;, 1 union</p></li>
-<li><p>select &#8216;192837465&#8217;, 2 union</p></li>
-<li><p>select &#8216;192837465&#8217;, 3</p></li>
-<li></li>
-<li><p>select</p></li>
-<li><p>k.num,</p></li>
-<li><p>k.sequence,</p></li>
-<li><p>date = (select MIN(t.date) from (select top 1 date from @dates where num = k.num order by date desc) t)</p></li>
-<li><p>from @keys k</p></li>
-<li><p>where sequence = 1</p></li>
-<li><p>union</p></li>
-<li><p>select</p></li>
-<li><p>k.num,</p></li>
-<li><p>k.sequence,</p></li>
-<li><p>date = (select MIN(t.date) from (select top 2 date from @dates where num = k.num order by date desc) t)</p></li>
-<li><p>from @keys k</p></li>
-<li><p>where sequence = 2</p></li>
-<li><p>union</p></li>
-<li><p>select</p></li>
-<li><p>k.num,</p></li>
-<li><p>k.sequence,</p></li>
-<li><p>date = (select MIN(t.date) from (select top 3 date from @dates where num = k.num order by date desc) t)</p></li>
-<li><p>from @keys k</p></li>
-<li><p>where sequence = 3</p></li>
-</ul>
-
-
-<p>I union the key table 3 times, filtering by each sequence number.  In each sub-query, the value is obtained by selecting the top N values, filtered by the foreign key and ordered by their value (descending), and then getting the min value.</p>
-
-<p>Kind of an odd-ball case, but I might find this humorous one day.  And Pete will laugh, because I laughed at my code.</p>
 ]]></content>
   </entry>
   
