@@ -2,172 +2,166 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>
-            http://endlessobsession.heroku.com/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader
+            http://endlessobsession.com/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader
         </loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/encryption-and-varbinary</loc>
+        <loc>http://endlessobsession.com/blog/encryption-and-varbinary</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/wheres-my-desktop</loc>
+        <loc>http://endlessobsession.com/blog/wheres-my-desktop</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/pdf-embed-weirdness</loc>
+        <loc>http://endlessobsession.com/blog/pdf-embed-weirdness</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://endlessobsession.heroku.com/blog/add-javascript-to-a-pdf-document-with-itextsharp
+            http://endlessobsession.com/blog/add-javascript-to-a-pdf-document-with-itextsharp
         </loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/tiny-mce-spellchecker-gotcha</loc>
+        <loc>http://endlessobsession.com/blog/tiny-mce-spellchecker-gotcha</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/ms-ajax-and-json-date-serialization</loc>
+        <loc>http://endlessobsession.com/blog/ms-ajax-and-json-date-serialization</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/web-service-syntax-error</loc>
+        <loc>http://endlessobsession.com/blog/web-service-syntax-error</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/arguments-callee-caller</loc>
+        <loc>http://endlessobsession.com/blog/arguments-callee-caller</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters
-        </loc>
+        <loc>http://endlessobsession.com/blog/extension-methods-and-generic-type-parameters</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://endlessobsession.heroku.com/blog/datacontractserializer-serialization-error
-        </loc>
+        <loc>http://endlessobsession.com/blog/datacontractserializer-serialization-error</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/getting-things-done</loc>
+        <loc>http://endlessobsession.com/blog/getting-things-done</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/sequenced-sql-records</loc>
+        <loc>http://endlessobsession.com/blog/sequenced-sql-records</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/getting-things-done-smart-lists</loc>
+        <loc>http://endlessobsession.com/blog/getting-things-done-smart-lists</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/ie-unknown-runtime-error</loc>
+        <loc>http://endlessobsession.com/blog/ie-unknown-runtime-error</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/resize-jquery-dialog</loc>
+        <loc>http://endlessobsession.com/blog/resize-jquery-dialog</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/installing-virtualbox-guest-addition</loc>
+        <loc>http://endlessobsession.com/blog/installing-virtualbox-guest-addition</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/exo-suite-and-client-scripts-on-github</loc>
+        <loc>http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/i-wish-i-could-remember-what-amnesia-is</loc>
+        <loc>http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/getting-started-with-virtualenvwrapper</loc>
+        <loc>http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/a-brief-introduction-to-exoweb</loc>
-        <lastmod>2012-04-14T15:11:11-04:00</lastmod>
+        <loc>http://endlessobsession.com/blog/a-brief-introduction-to-exoweb</loc>
+        <lastmod>2013-10-05T12:48:32-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb</loc>
+        <loc>http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb</loc>
         <lastmod>2012-04-14T15:09:34-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/exowebs-entity-system</loc>
+        <loc>http://endlessobsession.com/blog/exowebs-entity-system</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/visual-studio-external-tools</loc>
+        <loc>http://endlessobsession.com/blog/visual-studio-external-tools</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/tfs-rollback-2</loc>
+        <loc>http://endlessobsession.com/blog/tfs-rollback-2</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://endlessobsession.heroku.com/blog/disable-the-audible-beep-in-mac-terminal
-        </loc>
+        <loc>http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/learning-fsharp-with-tdd-part-1</loc>
+        <loc>http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/exoweb-type-loading-changes</loc>
+        <loc>http://endlessobsession.com/blog/exoweb-type-loading-changes</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/learning-f-with-tdd-part-2</loc>
+        <loc>http://endlessobsession.com/blog/learning-f-with-tdd-part-2</loc>
         <lastmod>2012-04-14T14:53:26-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/carolina-code-camp-2012-presentation</loc>
+        <loc>http://endlessobsession.com/blog/carolina-code-camp-2012-presentation</loc>
         <lastmod>2012-05-26T16:53:36-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/should-you-write-awesome-code</loc>
+        <loc>http://endlessobsession.com/blog/should-you-write-awesome-code</loc>
         <lastmod>2012-09-04T21:24:44-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/chrome-select-excessive-padding</loc>
+        <loc>http://endlessobsession.com/blog/chrome-select-excessive-padding</loc>
         <lastmod>2012-11-27T20:04:53-05:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/file-dot-openwrite-gotcha</loc>
+        <loc>http://endlessobsession.com/blog/file-dot-openwrite-gotcha</loc>
         <lastmod>2013-01-03T12:48:36-05:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/404.html</loc>
+        <loc>http://endlessobsession.com/404.html</loc>
         <lastmod>2012-04-14T16:08:44-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/about/</loc>
+        <loc>http://endlessobsession.com/about/</loc>
         <lastmod>2012-04-22T21:44:22-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/blog/archives/</loc>
-        <lastmod>2013-01-03T12:48:36-05:00</lastmod>
+        <loc>http://endlessobsession.com/blog/archives/</loc>
+        <lastmod>2013-10-05T12:48:32-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/guides/git/</loc>
+        <loc>http://endlessobsession.com/guides/git/</loc>
         <lastmod>2012-10-28T17:38:44-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/guides/</loc>
+        <loc>http://endlessobsession.com/guides/</loc>
         <lastmod>2012-10-28T17:38:02-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/guides/tfs/</loc>
+        <loc>http://endlessobsession.com/guides/tfs/</loc>
         <lastmod>2012-09-07T14:04:17-04:00</lastmod>
     </url>
     <url>
-        <loc>http://endlessobsession.heroku.com/</loc>
-        <lastmod>2013-01-03T12:48:36-05:00</lastmod>
+        <loc>http://endlessobsession.com/</loc>
+        <lastmod>2013-10-05T12:48:32-04:00</lastmod>
     </url>
 </urlset>

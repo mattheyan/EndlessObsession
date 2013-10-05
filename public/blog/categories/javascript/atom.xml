@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: javascript | The Endless Obsession]]></title>
-  <link href="http://endlessobsession.heroku.com/blog/categories/javascript/atom.xml" rel="self"/>
-  <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2013-01-03T18:22:00-05:00</updated>
-  <id>http://endlessobsession.heroku.com/</id>
+  <link href="http://endlessobsession.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-05T12:49:34-04:00</updated>
+  <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ExoWeb's Entity System]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/exowebs-entity-system"/>
+    <link href="http://endlessobsession.com/blog/exowebs-entity-system"/>
     <updated>2011-01-13T06:34:46-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/exowebs-entity-system</id>
+    <id>http://endlessobsession.com/blog/exowebs-entity-system</id>
     <content type="html"><![CDATA[<p>Matt Hooper recently posted an <a href="http://mhoop.wordpress.com/2011/01/13/exowebs-entity-system/">overview of ExoWeb's entity system</a>.</p>
 
 <p>From the post:</p>
@@ -30,9 +30,9 @@
   
   <entry>
     <title type="html"><![CDATA[Intro to Client-Server Mapping in ExoWeb]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb"/>
+    <link href="http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb"/>
     <updated>2011-01-10T10:28:34-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/into-to-client-server-mapping-in-exoweb</id>
+    <id>http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb</id>
     <content type="html"><![CDATA[<p>As a follow up to my <a href="www.google.com">Brief Introduction to ExoWeb</a>, I would like to go into more detail about the communications between client and server.</p>
 
 <p>The client interacts with the server in two basic ways.</p>
@@ -66,10 +66,10 @@
   
   <entry>
     <title type="html"><![CDATA[A Brief Introduction to ExoWeb]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/a-brief-introduction-to-exoweb"/>
+    <link href="http://endlessobsession.com/blog/a-brief-introduction-to-exoweb"/>
     <updated>2011-01-10T07:54:17-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/a-brief-introduction-to-exoweb</id>
-    <content type="html"><![CDATA[<p><a href="http://mattheyan.posterous.com/2010/12/07/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
+    <id>http://endlessobsession.com/blog/a-brief-introduction-to-exoweb</id>
+    <content type="html"><![CDATA[<p><a href="/blog/exo-suite-and-client-scripts-on-github">A while back</a> I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.</p>
 
 <p>First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.</p>
 
@@ -214,9 +214,9 @@
   
   <entry>
     <title type="html"><![CDATA[The Exo-suite (and client scripts on Github)]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/exo-suite-and-client-scripts-on-github"/>
+    <link href="http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github"/>
     <updated>2010-12-07T19:07:12-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/exo-suite-and-client-scripts-on-github</id>
+    <id>http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github</id>
     <content type="html"><![CDATA[<p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this point.</p>
 
 <p>Before I go any farther I'll give you (and future self) my take on the purpose of these projects.</p>
@@ -267,9 +267,9 @@
   
   <entry>
     <title type="html"><![CDATA[arguments...callee...caller...]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/arguments-callee-caller"/>
+    <link href="http://endlessobsession.com/blog/arguments-callee-caller"/>
     <updated>2010-06-10T20:40:00-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/arguments-callee-caller</id>
+    <id>http://endlessobsession.com/blog/arguments-callee-caller</id>
     <content type="html"><![CDATA[<p><em>Originally posted May 3 2010</em></p>
 
 <p>Recently I spent some time looking at generating a stack trace in JavaScript for the purpose of error reporting.  There are plenty of <a href="http://eriwen.com/javascript/stacktrace-update/">existing</a> <a href="http://helephant.com/2007/05/diy-javascript-stack-trace/">projects</a> out there that solve this problem, so I wouldn't recommend rolling your own.</p>

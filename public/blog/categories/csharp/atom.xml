@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: csharp | The Endless Obsession]]></title>
-  <link href="http://endlessobsession.heroku.com/blog/categories/csharp/atom.xml" rel="self"/>
-  <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2013-01-03T18:22:00-05:00</updated>
-  <id>http://endlessobsession.heroku.com/</id>
+  <link href="http://endlessobsession.com/blog/categories/csharp/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-05T12:49:34-04:00</updated>
+  <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Extension Methods and Generic Type Parameters]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters"/>
+    <link href="http://endlessobsession.com/blog/extension-methods-and-generic-type-parameters"/>
     <updated>2010-06-24T03:40:28-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/extension-methods-and-generic-type-parameters</id>
+    <id>http://endlessobsession.com/blog/extension-methods-and-generic-type-parameters</id>
     <content type="html"><![CDATA[<p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on stackoverflow</a></p>
 
 <p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question answered</a></p>

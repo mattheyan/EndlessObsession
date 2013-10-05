@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: msajax | The Endless Obsession]]></title>
-  <link href="http://endlessobsession.heroku.com/blog/categories/msajax/atom.xml" rel="self"/>
-  <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2013-01-03T18:22:00-05:00</updated>
-  <id>http://endlessobsession.heroku.com/</id>
+  <link href="http://endlessobsession.com/blog/categories/msajax/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-05T12:49:34-04:00</updated>
+  <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[MS AJAX and JSON Date Serialization]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/ms-ajax-and-json-date-serialization"/>
+    <link href="http://endlessobsession.com/blog/ms-ajax-and-json-date-serialization"/>
     <updated>2010-06-10T19:25:00-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/ms-ajax-and-json-date-serialization</id>
+    <id>http://endlessobsession.com/blog/ms-ajax-and-json-date-serialization</id>
     <content type="html"><![CDATA[<p>I'm making heavy use of Microsoft AJAX right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That' s a little better, right?</p>
 
 <p>Anyway, one of the nice little features in MS AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several hours.</p>
@@ -46,9 +46,9 @@ return "/Date(" + (+obj).toString() + "-" + offsetText + ")/";</p>
   
   <entry>
     <title type="html"><![CDATA[The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader"/>
+    <link href="http://endlessobsession.com/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader"/>
     <updated>2010-02-10T17:20:00-05:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader</id>
+    <id>http://endlessobsession.com/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader</id>
     <content type="html"><![CDATA[<p><strong>Background</strong>:  I had an existing ASP.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br/>
 <em>By the way, if you haven’t heard of the Script Loader then you can read about it </em><a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a><em> and </em><a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with Bing…)!</em></p>
 

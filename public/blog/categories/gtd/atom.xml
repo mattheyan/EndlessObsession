@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: gtd | The Endless Obsession]]></title>
-  <link href="http://endlessobsession.heroku.com/blog/categories/gtd/atom.xml" rel="self"/>
-  <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2013-01-03T18:22:00-05:00</updated>
-  <id>http://endlessobsession.heroku.com/</id>
+  <link href="http://endlessobsession.com/blog/categories/gtd/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-05T12:49:34-04:00</updated>
+  <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Getting Things Done:  Smart Lists]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/getting-things-done-smart-lists"/>
+    <link href="http://endlessobsession.com/blog/getting-things-done-smart-lists"/>
     <updated>2010-07-27T18:38:48-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/getting-things-done-smart-lists</id>
+    <id>http://endlessobsession.com/blog/getting-things-done-smart-lists</id>
     <content type="html"><![CDATA[<h3>Smart Lists</h3>
 
 <p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you're reading this and you don't know about it, you should check it out!</p>
@@ -50,9 +50,9 @@
   
   <entry>
     <title type="html"><![CDATA[Getting things done (GTD)]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/getting-things-done"/>
+    <link href="http://endlessobsession.com/blog/getting-things-done"/>
     <updated>2010-07-21T06:10:40-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/getting-things-done</id>
+    <id>http://endlessobsession.com/blog/getting-things-done</id>
     <content type="html"><![CDATA[<p>Lately I've become somewhat obsessed with getting things done.  I wasn't always this way, I swear!  In my younger days I was as disorganized and lazy as anyone.  And I procrastinated sometimes (understatement of the year).</p>
 
 <p>For me, getting things done has to be more than a state of mind or goal, it has to be a <strong>system</strong> and a <strong>habit</strong>.  I didn't come to this conclusion all at once.  It happened gradually, and I'm always trying to be better.  The system looks something like this:</p>

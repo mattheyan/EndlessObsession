@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: asp.net ajax | The Endless Obsession]]></title>
-  <link href="http://endlessobsession.heroku.com/blog/categories/asp-net-ajax/atom.xml" rel="self"/>
-  <link href="http://endlessobsession.heroku.com/"/>
-  <updated>2013-01-03T18:22:00-05:00</updated>
-  <id>http://endlessobsession.heroku.com/</id>
+  <link href="http://endlessobsession.com/blog/categories/asp-net-ajax/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-05T12:49:34-04:00</updated>
+  <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Web Service Syntax Error???]]></title>
-    <link href="http://endlessobsession.heroku.com/blog/web-service-syntax-error"/>
+    <link href="http://endlessobsession.com/blog/web-service-syntax-error"/>
     <updated>2010-06-10T20:37:00-04:00</updated>
-    <id>http://endlessobsession.heroku.com/blog/web-service-syntax-error</id>
+    <id>http://endlessobsession.com/blog/web-service-syntax-error</id>
     <content type="html"><![CDATA[<p><em>Originally posted April 7 2010</em></p>
 
 <p>Ok, I'll start this post off with some background.  A couple of years ago I wrote a SOAP web service that manages printing for multiple users through a web application.  Sounds familiar, right?  Anyway, the client that interacts with the web service uses the Microsoft AJAX JavaScript framework (version 1).  The web service is hosted on a different server and domain.  However, since this is an internal application with a small number of users they were content to enable cross-domain data access and be done with it.</p>
