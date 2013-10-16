@@ -4,7 +4,7 @@
   <title><![CDATA[The Endless Obsession]]></title>
   <link href="http://endlessobsession.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.com/"/>
-  <updated>2013-10-15T21:10:38-04:00</updated>
+  <updated>2013-10-15T21:28:50-04:00</updated>
   <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]></name>
@@ -12,6 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress post excerpts and 'couldn't parse YAML']]></title>
+    <link href="http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml"/>
+    <updated>2013-10-15T21:14:00-04:00</updated>
+    <id>http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml</id>
+    <content type="html"><![CDATA[This evening I noticed a syntax error in my blog's ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn't bother to determine. However, I also noticed that the post summaries were rather large and didn't appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[File.OpenWrite Gotcha]]></title>
@@ -163,14 +171,6 @@
     <updated>2010-07-28T11:58:58-04:00</updated>
     <id>http://endlessobsession.com/blog/ie-unknown-runtime-error</id>
     <content type="html"><![CDATA[I received a wonderful error from Internet Explorer today - "Unknown runtime error"...]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Getting Things Done:  Smart Lists]]></title>
-    <link href="http://endlessobsession.com/blog/getting-things-done-smart-lists"/>
-    <updated>2010-07-27T18:38:48-04:00</updated>
-    <id>http://endlessobsession.com/blog/getting-things-done-smart-lists</id>
-    <content type="html"><![CDATA[In my first GTD post, I described some of the strategies that I employ to help me get things done. Remember the Milk has become a increasingly large part of that. If you're reading this and you don't know about it, you should check it out! Anyway, one thing that I discovered recently that has changed the way I use RTM is smart lists...]]></content>
   </entry>
   
 </feed>

@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="How to sequence values in a table.  The non-so-elegant solution&#8230; Imagine you have a table that contains records with a foreign key (string, &hellip;">
+  <meta name="description" content="Smart Lists In my first gtd post, I described some of the strategies that I employ to help me get things done. Remember the Milk has become a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,68 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/getting-things-done-smart-lists">Getting Things Done: Smart Lists</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-27T18:38:48-04:00" pubdate data-updated="true">Jul 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Smart Lists</h3>
+
+<p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you&#8217;re reading this and you don&#8217;t know about it, you should check it out!</p>
+
+<p>Anyway, one thing that I discovered recently that has changed the way I use RTM is <a href="http://www.rememberthemilk.com/help/answers/smartlists/">smart lists</a>.  Seriously, I&#8217;m kicking myself for not knowing about this already!  Basically, smart lists are a way to save a search for later use, or, for the techies, a stored query.</p>
+
+<p>This may not seem like a big deal, but for me it is HUGE.  This means that I can organize my tasks logically without having to worry about the different views that I might want to simulate.</p>
+
+<p>To give you an idea of how this helps, here is my list of current smart lists (subject to change&#8230;a lot):</p>
+
+<ul>
+<li><p><strong><em>Big Projects</em></strong>:  Things that are going to take a long time.  These don&#8217;t normally show up on my day-to-day activity.  It allows me to get an idea of high-level things that I&#8217;m working towards.  There also shouldn&#8217;t be a lot of this due at the same time.</p></li>
+<li><p><strong><em>Blog</em></strong>:  Uses a &#8220;blog&#8221; tag so that I can track blogging stuff in separate logical lists (work, personal, etc&#8230;)</p></li>
+<li><p><strong><em>Important</em></strong>:  Priority 1 tasks from all lists.  This list should stay pretty sparse.</p></li>
+<li><p><strong><em>No Due</em></strong>:  Items that have not been assigned a due date are probably tentative or I may need to get rid of them.</p></li>
+<li><p><strong><em>No Estimate</em></strong>:  Since some of my lists take time estimates in to account, it pays for me to move tasks out of this list.</p></li>
+<li><p><strong><em>No Priority</em></strong>:  Much like no due, these tasks may need to be cleaned up.</p></li>
+<li><p><strong><em>Quick and Easy</em></strong>:  Time estimate is low.  This is ordered by due date, so I can use it to pick up easy tasks when I have a little time to spare.</p></li>
+<li><p><strong><em>This Week</em></strong>:  Everything that is due this week, except for today.</p></li>
+<li><p><strong><em>Today</em></strong>:  Self explanatory</p></li>
+<li><p><strong><em>Work Day</em></strong>:  This is the same as &#8220;Today&#8221;, except filtered by an &#8220;am&#8221; tag that I use to indicate things that should be or can be done during the work day.  Walking the dog is not one of these, if I had a dog that is&#8230;</p></li>
+</ul>
+
+
+<p>I have now switched to using the &#8220;Work Day&#8221; list only for &#8220;I Forgot the Milk&#8221; on my work computer.  This way, I don&#8217;t have to mentally filter out tasks that I can&#8217;t do until I get home.</p>
+
+<p>I have yet to realize the full potential of smart lists, but I know that they will make things run a lot smoother for me.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -757,58 +819,6 @@ return &#8220;/Date(&#8221; + (+obj).toString() + &#8220;-&#8221; + offsetText +
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/pdf-embed-weirdness">PDF Embed Weirdness</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-10T18:55:00-04:00" pubdate data-updated="true">Jun 10<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>Originally posted April 5 2010</em></p>
-
-<p>The other day I was working on a web page where the user does some stuff and then as the result a nice, shiny PDF is embedded in the page.  I noticed that in Internet Explorer (I was using IE8) the embedded region showed up as a blank rectangle with a little icon in the upper left-hand corner.  Weird…</p>
-
-<p>One of my co-workers suggested that I try embedding a static PDF file.  In my case the source URL was an aspx page that dynamically renders the PDF.  But that can’t possibly matter, right?  I mean, as long as the content type is correct and the file is intact.  I guess it does.</p>
-
-<p>I won’t bore you with the details, but I determined through trial and error that the following conditions had to be met for the embedded PDF to display in IE8:</p>
-
-<p>1)  The “type” attribute must be specified as “application/pdf”, regardless of the fact that the external resource has the correct content type header.  Because of my own ignorance I freely accept that there is probably a good reason for this.  Besides, its good practice anyway – especially in my case (“what does this Page.aspx render as???”).</p>
-
-<p>2)  The URL must include “pdf” or “.pdf” (not sure if the “.” is necessary), even if on the query string!  Really?  I didn’t believe it myself, but I tested a gratuitous number of times and eventually disbelief gave way to sheer exhaustion.</p>
-
-<p>3)  Embed tag must be injected into the page with all attribute values at once (using jQuery) rather than injecting the tag and then setting attribute values (like type and src).  This may be a jQuery issue, but its worth mentioning anyway.</p>
-
-<p>So, the moral of the story is…</p>
-
-<p>If it doesn’t work then first reduce the problem to its simplest form.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -826,6 +836,10 @@ return &#8220;/Date(&#8221; + (+obj).toString() + &#8220;-&#8221; + offsetText +
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and &#8216;couldn&#8217;t parse YAML&#8217;</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a>
       </li>
     
@@ -839,10 +853,6 @@ return &#8220;/Date(&#8221; + (+obj).toString() + &#8220;-&#8221; + offsetText +
     
       <li class="post">
         <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
       </li>
     
   </ul>

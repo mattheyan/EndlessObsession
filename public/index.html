@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Recently I ran into an odd problem when writing a text file to disk using .NET&#8217;s File.OpenWrite. using (var fileWriter = new StreamWriter(File. &hellip;">
+  <meta name="description" content="This evening I noticed a syntax error in my blog&#8217;s ATOM feed. The error seemed to stem from the text in one of my more recent posts, what &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress Post Excerpts and &#8216;Couldn&#8217;t Parse YAML&#8217;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T21:14:00-04:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This evening I noticed a syntax error in my blog&#8217;s ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn&#8217;t bother to determine. However, I also noticed that the post summaries were rather large and didn&#8217;t appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.</p>
+
+<p>I discovered that the YAML that lives in each post&#8217;s header (more on that later) <a href="https://github.com/imathis/octopress/issues/1146">could include an &#8220;excerpt&#8221; property</a> where I could write my own summary of the post.</p>
+
+<p>For example, here&#8217;s the header of this post:</p>
+
+<pre><code>---
+layout: post
+title: "Octopress post excerpts and 'couldn't parse YAML'"
+date: 2013-10-15 21:14
+excerpt: This evening I noticed a syntax error in my blog's ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn't bother to determine. However, I also noticed that the post summaries were rather large and didn't appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.
+comments: true
+categories: 
+---
+</code></pre>
+
+<p>This worked so well that I promptly went through all of my posts and threw up some quick excerpts without much thought. Unfortunately I soon ran into an error: <a href="https://github.com/imathis/octopress/issues/57">&#8216;parse&#8217;: couldn&#8217;t parse YAML</a>.</p>
+
+<p>I hadn&#8217;t thought about it until now, but the configuration at the head of each post is YAML. I don&#8217;t know much about YAML, but apparently something was wrong with one of my excerpts.</p>
+
+<p>Fortunately I was able to track it down to the &#8220;:&#8221; character, which is somehow significant in YAML syntax. <a href="http://yamllint.com/">YAML Lint</a> was an invaluable resource.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -582,91 +638,6 @@ some other text
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/visual-studio-external-tools">Visual Studio External Tools</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-24T10:49:32-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here’s a neat visual studio tip.  You can run any external command from within visual studio, and add a button to the command bar or map it to a keyboard shortcut.  This is really important to me because I rely heavily on keyboard shortcuts.  I love that I can hit a combination of keys and perform a repetitive task automatically, plus the result can be incorporated into visual studio by way of the output window.</p>
-
-<p>Some examples of what you might use this for:</p>
-
-<ul>
-<li>Get latest on several team projects to start your day.</li>
-<li>Check out a specific set of files.</li>
-<li>Automate various git commands from within visual studio.</li>
-<li>Run a batch file with a set of arguments that you define when you run it.</li>
-<li>Launch another application (i.e.: web browser).</li>
-</ul>
-
-
-<p>What follows is inspired by Rob Conery&#8217;s Git series on tekpub.  You&#8217;ll have to watch the full video to see how he uses external tools to incorporate git in Visual Studio.</p>
-
-<hr />
-
-<p>To get started from the menu go to Tools -> External Tools.</p>
-
-<p><a href="http://www.flickr.com/photos/mattheyan/5384927410/"><img src="http://farm6.static.flickr.com/5216/5384927410_e1d55e1e57.jpg" alt="" /></a></p>
-
-<p>Then you should see a dialog that looks like this:</p>
-
-<p><a href="http://www.flickr.com/photos/mattheyan/5384323203/"><img src="http://farm6.static.flickr.com/5215/5384323203_efb55aba83.jpg" alt="" /></a></p>
-
-<p>Some of the options are pretty self-explanatory.</p>
-
-<ul>
-<li>Title is obvious.</li>
-<li>Command is the path to the command to execute, also obvious.</li>
-<li>Arguments is pretty simple on the surface, but we have some interesting options at our disposal, which you can use to make the command contextual.</li>
-</ul>
-
-
-<p><a href="http://www.flickr.com/photos/mattheyan/5384366343/"><img src="http://farm6.static.flickr.com/5216/5384366343_e368894d46.jpg" alt="" /></a></p>
-
-<ul>
-<li>We have similar options for the initial directory.</li>
-</ul>
-
-
-<p><a href="http://www.flickr.com/photos/mattheyan/5384366357/"><img src="http://farm6.static.flickr.com/5217/5384366357_d33e12f2fa.jpg" alt="" /></a></p>
-
-<p>In this example I&#8217;m using the file name and extension of the current item (open document) to run using node, assuming it&#8217;s a JavaScript file.  I selected &#8220;Use Output window&#8221; so that the output will show up in visual studio, rather than launching a separate window.  This is handy if you don&#8217;t need to perform any additional tasks after the fact.</p>
-
-<p>So, now that you have your external command, you can run it from the &#8220;Tools&#8221; menu.</p>
-
-<p><a href="http://www.flickr.com/photos/mattheyan/5385120864/"><img src="http://farm6.static.flickr.com/5217/5385120864_b21ca90a5b.jpg" alt="" /></a></p>
-
-<p>You can also add buttons to the toolbar, map keyboard shortcuts (search for &#8220;ExternalCommand1, &#8220;ExternalCommand2&#8221;, etc.), and maybe even add context menu items (though I haven&#8217;t figured that one out completely).</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -682,6 +653,10 @@ some other text
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and &#8216;couldn&#8217;t parse YAML&#8217;</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a>
       </li>
     
@@ -695,10 +670,6 @@ some other text
     
       <li class="post">
         <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Bryan Matthews">
 
   
-  <meta name="description" content="Matt Hooper recently posted an overview of ExoWeb&#8217;s entity system. From the post: We&#8217;ve done our best to make sure the parts and pieces &hellip;">
+  <meta name="description" content="Here’s a neat visual studio tip. You can run any external command from within visual studio, and add a button to the command bar or map it to a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,91 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/visual-studio-external-tools">Visual Studio External Tools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T10:49:32-05:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here’s a neat visual studio tip.  You can run any external command from within visual studio, and add a button to the command bar or map it to a keyboard shortcut.  This is really important to me because I rely heavily on keyboard shortcuts.  I love that I can hit a combination of keys and perform a repetitive task automatically, plus the result can be incorporated into visual studio by way of the output window.</p>
+
+<p>Some examples of what you might use this for:</p>
+
+<ul>
+<li>Get latest on several team projects to start your day.</li>
+<li>Check out a specific set of files.</li>
+<li>Automate various git commands from within visual studio.</li>
+<li>Run a batch file with a set of arguments that you define when you run it.</li>
+<li>Launch another application (i.e.: web browser).</li>
+</ul>
+
+
+<p>What follows is inspired by Rob Conery&#8217;s Git series on tekpub.  You&#8217;ll have to watch the full video to see how he uses external tools to incorporate git in Visual Studio.</p>
+
+<hr />
+
+<p>To get started from the menu go to Tools -> External Tools.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384927410/"><img src="http://farm6.static.flickr.com/5216/5384927410_e1d55e1e57.jpg" alt="" /></a></p>
+
+<p>Then you should see a dialog that looks like this:</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384323203/"><img src="http://farm6.static.flickr.com/5215/5384323203_efb55aba83.jpg" alt="" /></a></p>
+
+<p>Some of the options are pretty self-explanatory.</p>
+
+<ul>
+<li>Title is obvious.</li>
+<li>Command is the path to the command to execute, also obvious.</li>
+<li>Arguments is pretty simple on the surface, but we have some interesting options at our disposal, which you can use to make the command contextual.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366343/"><img src="http://farm6.static.flickr.com/5216/5384366343_e368894d46.jpg" alt="" /></a></p>
+
+<ul>
+<li>We have similar options for the initial directory.</li>
+</ul>
+
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5384366357/"><img src="http://farm6.static.flickr.com/5217/5384366357_d33e12f2fa.jpg" alt="" /></a></p>
+
+<p>In this example I&#8217;m using the file name and extension of the current item (open document) to run using node, assuming it&#8217;s a JavaScript file.  I selected &#8220;Use Output window&#8221; so that the output will show up in visual studio, rather than launching a separate window.  This is handy if you don&#8217;t need to perform any additional tasks after the fact.</p>
+
+<p>So, now that you have your external command, you can run it from the &#8220;Tools&#8221; menu.</p>
+
+<p><a href="http://www.flickr.com/photos/mattheyan/5385120864/"><img src="http://farm6.static.flickr.com/5217/5385120864_b21ca90a5b.jpg" alt="" /></a></p>
+
+<p>You can also add buttons to the toolbar, map keyboard shortcuts (search for &#8220;ExternalCommand1, &#8220;ExternalCommand2&#8221;, etc.), and maybe even add context menu items (though I haven&#8217;t figured that one out completely).</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -735,68 +820,6 @@ South==0.7.1</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/getting-things-done-smart-lists">Getting Things Done: Smart Lists</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-27T18:38:48-04:00" pubdate data-updated="true">Jul 27<span>th</span>, 2010</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Smart Lists</h3>
-
-<p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you&#8217;re reading this and you don&#8217;t know about it, you should check it out!</p>
-
-<p>Anyway, one thing that I discovered recently that has changed the way I use RTM is <a href="http://www.rememberthemilk.com/help/answers/smartlists/">smart lists</a>.  Seriously, I&#8217;m kicking myself for not knowing about this already!  Basically, smart lists are a way to save a search for later use, or, for the techies, a stored query.</p>
-
-<p>This may not seem like a big deal, but for me it is HUGE.  This means that I can organize my tasks logically without having to worry about the different views that I might want to simulate.</p>
-
-<p>To give you an idea of how this helps, here is my list of current smart lists (subject to change&#8230;a lot):</p>
-
-<ul>
-<li><p><strong><em>Big Projects</em></strong>:  Things that are going to take a long time.  These don&#8217;t normally show up on my day-to-day activity.  It allows me to get an idea of high-level things that I&#8217;m working towards.  There also shouldn&#8217;t be a lot of this due at the same time.</p></li>
-<li><p><strong><em>Blog</em></strong>:  Uses a &#8220;blog&#8221; tag so that I can track blogging stuff in separate logical lists (work, personal, etc&#8230;)</p></li>
-<li><p><strong><em>Important</em></strong>:  Priority 1 tasks from all lists.  This list should stay pretty sparse.</p></li>
-<li><p><strong><em>No Due</em></strong>:  Items that have not been assigned a due date are probably tentative or I may need to get rid of them.</p></li>
-<li><p><strong><em>No Estimate</em></strong>:  Since some of my lists take time estimates in to account, it pays for me to move tasks out of this list.</p></li>
-<li><p><strong><em>No Priority</em></strong>:  Much like no due, these tasks may need to be cleaned up.</p></li>
-<li><p><strong><em>Quick and Easy</em></strong>:  Time estimate is low.  This is ordered by due date, so I can use it to pick up easy tasks when I have a little time to spare.</p></li>
-<li><p><strong><em>This Week</em></strong>:  Everything that is due this week, except for today.</p></li>
-<li><p><strong><em>Today</em></strong>:  Self explanatory</p></li>
-<li><p><strong><em>Work Day</em></strong>:  This is the same as &#8220;Today&#8221;, except filtered by an &#8220;am&#8221; tag that I use to indicate things that should be or can be done during the work day.  Walking the dog is not one of these, if I had a dog that is&#8230;</p></li>
-</ul>
-
-
-<p>I have now switched to using the &#8220;Work Day&#8221; list only for &#8220;I Forgot the Milk&#8221; on my work computer.  This way, I don&#8217;t have to mentally filter out tasks that I can&#8217;t do until I get home.</p>
-
-<p>I have yet to realize the full potential of smart lists, but I know that they will make things run a lot smoother for me.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -814,6 +837,10 @@ South==0.7.1</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and &#8216;couldn&#8217;t parse YAML&#8217;</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a>
       </li>
     
@@ -827,10 +854,6 @@ South==0.7.1</p>
     
       <li class="post">
         <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a>
       </li>
     
   </ul>
