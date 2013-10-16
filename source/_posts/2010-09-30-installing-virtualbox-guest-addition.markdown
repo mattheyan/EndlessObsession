@@ -4,6 +4,7 @@ layout: post
 slug: installing-virtualbox-guest-addition
 status: publish
 title: Installing VirtualBox Guest Additions
+excerpt: The VirtualBox guest additions. What they are and how to install them.
 wordpress_id: '116'
 ---
 

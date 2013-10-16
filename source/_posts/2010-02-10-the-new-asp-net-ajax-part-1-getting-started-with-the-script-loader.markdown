@@ -5,6 +5,7 @@ slug: the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader
 status: publish
 title: 'The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader'
 wordpress_id: '5'
+excerpt: I had an existing ASP.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader. I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation. Here is what I have found so far...
 categories:
 - msajax
 tags:

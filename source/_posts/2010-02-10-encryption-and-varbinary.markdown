@@ -5,6 +5,7 @@ slug: encryption-and-varbinary
 status: publish
 title: Encryption and VARBINARY
 wordpress_id: '6'
+excerpt: A tale of encrypted data in SQL server and the "TrimTrailingSpace" option.
 categories:
 - database
 tags:

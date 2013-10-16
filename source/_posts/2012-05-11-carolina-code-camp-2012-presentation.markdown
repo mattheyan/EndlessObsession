@@ -3,6 +3,7 @@ layout: post
 title: "Carolina Code Camp 2012 Presentation"
 date: 2012-05-26 16:51
 comments: true
+excerpt: Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with speakers.
 categories: 
 
 ---

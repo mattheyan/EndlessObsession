@@ -4,6 +4,7 @@ title: "Chrome select excessive padding"
 date: 2012-11-27 19:41
 published: true
 comments: true
+excerpt: Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC. Here's how to fix that.
 categories: 
 ---
 

@@ -4,6 +4,7 @@ layout: post
 slug: disable-the-audible-beep-in-mac-terminal
 status: publish
 title: Disable the audible beep in Mac Terminal
+excerpt: How to disable that annoying beep in Mac Terminal when you accidentally hit the wrong key.
 wordpress_id: '204'
 ---
 

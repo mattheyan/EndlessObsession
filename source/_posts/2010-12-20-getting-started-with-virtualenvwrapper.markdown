@@ -4,6 +4,7 @@ layout: post
 slug: getting-started-with-virtualenvwrapper
 status: publish
 title: Getting started with virtualenvwrapper
+excerpt: A while back I toyed with using virtualenv and virtualenvwrapper to manage isolated python packages for development, but I didn't get very far at the time. Recently I've been dabbling in ruby and have used RVM to manage ruby environments and gems. This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.
 wordpress_id: '160'
 ---
 

@@ -5,6 +5,7 @@ slug: ie-unknown-runtime-error
 status: publish
 title: IE "Unknown runtime error"
 wordpress_id: '99'
+excerpt: I received a wonderful error from Internet Explorer today - "Unknown runtime error"...
 categories:
 - programming
 tags:

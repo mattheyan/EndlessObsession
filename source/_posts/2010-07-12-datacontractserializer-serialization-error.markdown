@@ -3,6 +3,7 @@ date: '2010-07-12 17:55:36'
 layout: post
 slug: datacontractserializer-serialization-error
 status: publish
+excerpt: I recently encountered an exception with a message that looked something like this - "There was an error deserializing the object of type Foo.  No set method for property '' in type ''." Huh?
 title: DataContractSerializer Read-Only Property Serialization Error
 wordpress_id: '69'
 ---
