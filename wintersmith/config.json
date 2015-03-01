@@ -1,9 +1,9 @@
 {
   "locals": {
     "url": "http://localhost:8080",
-    "name": "The Wintersmith's blog",
-    "owner": "Someone",
-    "description": "Ramblings of an immor(t)al demigod"
+    "name": "The Endless Obsession",
+    "owner": "Bryan Matthews",
+    "description": "better code"
   },
   "plugins": [
     "./plugins/paginator.coffee"
