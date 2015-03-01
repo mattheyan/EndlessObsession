@@ -27,7 +27,7 @@
   "paginator": {
     "articles": "blog",
     "filename": "blog/page/%d/index.html",
-    "perPage": 3
+    "perPage": 10
   },
   "blog": {
     "postsDir": "blog",

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+- var articles = _.first(env.helpers.getArticles(contents), 20);
+feed(xmlns='http://www.w3.org/2005/Atom')
+  title= '' + locals.title + ''
+  link(href=locals.url + '/atom.xml', rel='self')
+  link(href=locals.url)
+  updated= moment(articles[0].date).format()
+  id= locals.url
+  author
+    name
+        | <![CDATA[
+        = locals.owner
+        | ]]>
+  generator(uri='http://wintersmith.io/')= Wintersmith
+  for article in articles
+    - var permalink = locals.url + article.url
+    entry
+        title(type='html')
+            | <![CDATA[
+            = article.title
+            | ]]>
+        link(href=permalink)
+        updated= moment(article.date).format()
+        id= permalink
+        //- passing locals.url resolves all relative urls to absolute
+        content(type='html')
+            | <![CDATA[
+            = article.metadata.excerpt || article.getHtml(locals.url)
+            | ]]>
