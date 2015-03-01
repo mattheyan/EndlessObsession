@@ -1,0 +1,38 @@
+{
+  "locals": {
+    "url": "http://endlessobsession.com",
+    "title": "The Endless Obsession",
+    "subtitle": "better code",
+    "owner": "Bryan Matthews",
+    "description": "The technical blog of Bryan Matthews"
+  },
+  "plugins": [
+    "./plugins/paginator.coffee",
+    "./plugins/blog.coffee",
+    "wintersmith-contents",
+    "wintersmith-sitemap"
+  ],
+  "require": {
+    "moment": "moment",
+    "_": "underscore",
+    "typogr": "typogr"
+  },
+  "jade": {
+    "pretty": true
+  },
+  "markdown": {
+    "smartLists": true,
+    "smartypants": true
+  },
+  "paginator": {
+    "articles": "blog",
+    "filename": "blog/page/%d/index.html",
+    "perPage": 10
+  },
+  "blog": {
+    "postsDir": "blog",
+    "template": "post.jade",
+    "filenameTemplate": "/blog/:slug/index.html",
+    "stripTrailingSlash": true
+  }
+}
