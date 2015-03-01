@@ -1,9 +1,6 @@
 ---
-layout: page
-title: "Team Foundation Server"
-comments: true
-sharing: true
-footer: true
+template: page.jade
+title: Team Foundation Server
 ---
 
 ## Command-Line 

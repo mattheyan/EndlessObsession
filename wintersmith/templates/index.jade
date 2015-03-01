@@ -1,29 +1,27 @@
 extends layout
 
 block content
-  include author
   each article in articles
-    article.article.intro
-      header
-        p.date
-          span= moment.utc(article.date).format('DD. MMMM YYYY')
-        h2
-          a(href=article.url)= article.title
-      section.content
-        if article.intro.length > 0
-          | !{ typogr(article.intro).typogrify() }
-        if article.hasMore
-          p.more
-            a(href=article.url) more
-
-block prepend footer
-  div.nav
-    if prevPage
-      a(href=prevPage.url) « Newer
-    else
-      a(href='/blog/archives') « Archives
-    if nextPage
-      a(href=nextPage.url) Next page »
-
-
-
+    section
+      include author
+      article
+        header
+          time(datetime=moment.utc(article.date).format('YYYY-MM-DD'), pubdate)= moment.utc(article.date).format('MMM Do, YYYY')
+          h2
+            a(rel='article', href=article.url)= article.title
+        section
+          if article.intro.length > 0
+            | !{ typogr(article.intro).typogrify() }
+          if article.hasMore
+            p
+              a(rel='more', href=article.url)= 'Continue reading'
+  nav(role='navigation')
+    ul
+      if prevPage
+        li
+          a(rel='prev', href=prevPage.url)= 'Newer'
+      li
+        a(rel='archives', href='/blog/archives')= 'Archives'
+      if nextPage
+        li
+          a(rel='next', href=nextPage.url)= 'Older'
