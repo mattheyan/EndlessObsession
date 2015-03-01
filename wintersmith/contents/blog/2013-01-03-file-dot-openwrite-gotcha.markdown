@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "File.OpenWrite Gotcha"
+slug: "file-dot-openwrite-gotcha"
 date: 2013-01-03 12:29
 comments: true
 excerpt: An odd problem when writing a text file to disk using .NET's "File.OpenWrite".
