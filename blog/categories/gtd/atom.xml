@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gtd | The Endless Obsession]]></title>
+  <link href="http://endlessobsession.com/blog/categories/gtd/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-15T21:28:50-04:00</updated>
+  <id>http://endlessobsession.com/</id>
+  <author>
+    <name><![CDATA[Bryan Matthews]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Things Done:  Smart Lists]]></title>
+    <link href="http://endlessobsession.com/blog/getting-things-done-smart-lists"/>
+    <updated>2010-07-27T18:38:48-04:00</updated>
+    <id>http://endlessobsession.com/blog/getting-things-done-smart-lists</id>
+    <content type="html"><![CDATA[<h3>Smart Lists</h3>
+
+<p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you're reading this and you don't know about it, you should check it out!</p>
+
+<p>Anyway, one thing that I discovered recently that has changed the way I use RTM is <a href="http://www.rememberthemilk.com/help/answers/smartlists/">smart lists</a>.  Seriously, I'm kicking myself for not knowing about this already!  Basically, smart lists are a way to save a search for later use, or, for the techies, a stored query.</p>
+
+<p>This may not seem like a big deal, but for me it is HUGE.  This means that I can organize my tasks logically without having to worry about the different views that I might want to simulate.</p>
+
+<p>To give you an idea of how this helps, here is my list of current smart lists (subject to change...a lot):</p>
+
+<ul>
+<li><p><strong><em>Big Projects</em></strong>:  Things that are going to take a long time.  These don't normally show up on my day-to-day activity.  It allows me to get an idea of high-level things that I'm working towards.  There also shouldn't be a lot of this due at the same time.</p></li>
+<li><p><strong><em>Blog</em></strong>:  Uses a "blog" tag so that I can track blogging stuff in separate logical lists (work, personal, etc...)</p></li>
+<li><p><strong><em>Important</em></strong>:  Priority 1 tasks from all lists.  This list should stay pretty sparse.</p></li>
+<li><p><strong><em>No Due</em></strong>:  Items that have not been assigned a due date are probably tentative or I may need to get rid of them.</p></li>
+<li><p><strong><em>No Estimate</em></strong>:  Since some of my lists take time estimates in to account, it pays for me to move tasks out of this list.</p></li>
+<li><p><strong><em>No Priority</em></strong>:  Much like no due, these tasks may need to be cleaned up.</p></li>
+<li><p><strong><em>Quick and Easy</em></strong>:  Time estimate is low.  This is ordered by due date, so I can use it to pick up easy tasks when I have a little time to spare.</p></li>
+<li><p><strong><em>This Week</em></strong>:  Everything that is due this week, except for today.</p></li>
+<li><p><strong><em>Today</em></strong>:  Self explanatory</p></li>
+<li><p><strong><em>Work Day</em></strong>:  This is the same as "Today", except filtered by an "am" tag that I use to indicate things that should be or can be done during the work day.  Walking the dog is not one of these, if I had a dog that is...</p></li>
+</ul>
+
+
+<p>I have now switched to using the "Work Day" list only for "I Forgot the Milk" on my work computer.  This way, I don't have to mentally filter out tasks that I can't do until I get home.</p>
+
+<p>I have yet to realize the full potential of smart lists, but I know that they will make things run a lot smoother for me.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting things done (GTD)]]></title>
+    <link href="http://endlessobsession.com/blog/getting-things-done"/>
+    <updated>2010-07-21T06:10:40-04:00</updated>
+    <id>http://endlessobsession.com/blog/getting-things-done</id>
+    <content type="html"><![CDATA[<p>Lately I've become somewhat obsessed with getting things done.  I wasn't always this way, I swear!  In my younger days I was as disorganized and lazy as anyone.  And I procrastinated sometimes (understatement of the year).</p>
+
+<p>For me, getting things done has to be more than a state of mind or goal, it has to be a <strong>system</strong> and a <strong>habit</strong>.  I didn't come to this conclusion all at once.  It happened gradually, and I'm always trying to be better.  The system looks something like this:</p>
+
+<hr />
+
+<hr />
+
+<ul>
+<li><p><strong><em>Always</em></strong> write things down (requires discipline &amp; habit)</p></li>
+<li><p>Make sure its in your face or readily available</p></li>
+<li><p>Use a check list system to provide positive reinforcement</p></li>
+<li><p>Figure out how everything works together and stick with it</p></li>
+</ul>
+
+
+<h3>I think I was supposed to do something...</h3>
+
+<p>It started with the realization that I can be <strong><em>extremely</em></strong> forgetful.  At least, I think thats how it started...  So, the natural response to this realization was to start writing down EVERYTHING, with the understanding that if it isn't written down I won't remember it and, therefore, there is <strong><em>zero</em></strong> chance that it will be done.  That's a little extreme, but sometimes it helps to think about things in terms of the worst-case scenario.  I started out using <a href="http://lifehacker.com/5321180/turn-gmail-into-your-ultimate-gtd-inbox">GMail</a>, Google tasks, Google calendar, and, eventually, <a href="http://rememberthemilk.com">remember the milk</a>.</p>
+
+<p>I'm going to jump ahead of myself and talk about ways to make sure you always write things down.  In the beginning I would write things on sheets of paper and even on my hand and arm at times.  This is convenient, but its not the most reliable system.  I use RTM pretty heavily at this point, so it gets a lot of my attention when it comes to efficiency.</p>
+
+<p>The first thing I did was make sure that RTM could be launched as a desktop app using the shortcut launching software of my choice (<a href="http://www.launchy.net/">launchy</a>).  I accomplished this using <a href="http://prism.mozillalabs.com/">Prism</a>, which allows you to use firefox to convert a website into a desktop application.  This is important to me for two reason:  isolation and convenience.  First, a website like RTM is different than most in that I don't need to be connected to the rest of the web and I don't need to arrive there from anywhere else.  In essence, it is less like a traditional website and more like a standalone application.  Second, I would like to be able to have RTM open and close in the blink of an eye.  Currently I can type Win+Space (to open launchy), then rtm (or any other query that finds my prism app), then Enter, and remember the milk is open pretty much immediately.  Then, thanks to RTM keyboard shortcuts, I can type in a new task (or do pretty much anything else) and my hands never have to leave the keyboard!  If I could get Vimium to play nice with RTM things would be even better!</p>
+
+<p>What I have been looking at more recently is the ability to add a task <strong><em>directly from launchy</em></strong>.  What makes this possible is the fact that remember the milk supports <a href="http://www.rememberthemilk.com/help/answers/sending/emailinbox.rtm">adding tasks via email</a>.  There was a solution for this that <a href="http://lifehacker.com/284127/take-launchy-beyond-application-launching">uses twitter</a>, but I have heard that it isn't very reliable.  I would rather not go back to writing notes on my hand and hoping that I don't need to wash them.  More recently there have been a couple of solutions that make use of the email API instead (<a href="http://lifehacker.com/5197116/remember-the-milk-for-launchy-adds-tasks-in-a-flash">lifehacker</a> and <a href="http://sheenonline.biz/2008/07/remember-the-milk-posting-directly-from-your-desktop/">sheenonline</a>).  I'm currently using a modified version of the second option, which I will try to finish up and post soon.</p>
+
+<p>Because of all of this, most basic task management can be accomplished with very little impact on my normal workflow.</p>
+
+<h3>Break the Procrastination Habit</h3>
+
+<p>Well, that's great progress, but its not the end of the story.  The second realization was that if I write things down I won't forget them, but that doesn't mean I'll actually do them.  I'm still lazy and I like to procrastinate.  I had defeated forgetfulness, now I set out on a glorious crusade against the forces of procrastination.  My first order of businesses was to make sure that the "things" were always before me, which would (in theory) increase the odds that they actually "get done".</p>
+
+<p>I started out by <a href="http://www.rememberthemilk.com/services/gmail/">adding RTM to my GMail inbox</a> (the gadget, not the browser add-on) and my <a href="http://www.rememberthemilk.com/services/googlecalendar/">Google calendar</a>.  Of course, this is only useful as long as I'm using GMail or my calendar.  Since I use windows 7 at work, I installed the "<a href="http://gallery.live.com/liveItemDetail.aspx?li=55ccf415-af76-4a33-bad6-5bdaa370b214">I Forgot the Milk</a>" desktop gadget, which gives you basically the same view as the GMail gadget.  With the <a href="http://nes.bplaced.net/sidebar7.html">windows 7 sidebar gadget</a>, I can be sure that my tasks are <strong><em>always visible</em></strong> on my desktop.  There is also a handy little app that allows you to run the same interface as a <a href="http://www.adobe.com/cfusion/marketplace/index.cfm?event=marketplace.offering&amp;offeringid=10052&amp;marketplaceid=1">desktop app</a>, but I don't have any use for it currently.</p>
+
+<h3>The Task List</h3>
+
+<p>Now that I'm using RTM, I need to figure out how to use its many feature effectively.  Here is a collection of notes about how I use RTM.  I will modify this as I refine the process.</p>
+
+<h4>List</h4>
+
+<p>I started out with only a couple of lists, but the number has grown.  The reason for this is that more lists means fewer tasks in each list, which means less tasks that I never see (and forget about) because they extend beyond the browser window.  Logical grouping is the main factor when deciding on lists, but a low task count is a close second.</p>
+
+<h4>Priorities</h4>
+
+<p>The tasks in RTM can be assigned a priority of 1-3 (or none).  This is useful because it determines the order of tasks in RTM and related apps.  I have bounced around between only assigning priorities to some tasks, then assigning to all tasks, then back to only some.  Recently I have started using the following rule-of-thumb to assigning priorities, rather than arbitrary choices.  I must resist the urge to make everything priority 1 :)</p>
+
+<ol>
+<li><p>High Priority:  These tasks absolutely have to be done.  You don't want to forget about them, and your life will be adversely affected if you fail to complete.  If there is a due date assigned, it is probably not an optional due date (ex:  pay rent, schedule dentist appointment).</p></li>
+<li><p>Medium Priority:  These tasks are also important, but life will go on if they are not done.  If a due date is assigned it should be done by then, but is probably somewhat flexible (ex:  important phone call, write blog post).</p></li>
+<li><p>Low Priority:  These are less important tasks that don't necessarily have to be done, but you have decided that you want to, as time permits.  These usually won't have due dates, except in the case that it is something that happens at a certain date/time but is still optional, or something that you do at a regular interval (ex:  watch world cup final, clean bathroom sink).</p></li>
+<li><p>No Priority:  These are tasks that are things that you <strong><em>might </em></strong>want to do, but haven't decided the if or when.</p></li>
+</ol>
+
+
+<h4>Due Date</h4>
+
+<p>I have been in the habit of assigning due dates to tasks and then postponing them repeatedly.  Kind of depressing...</p>
+
+<p>There are two ways that I use due date:  when something is due (really), and when I <strong><em>want</em></strong> to do something.  Differentiating between the two is something that I have not been able to figure out (suggestions welcome).  Because of the way that I use gadgets I think I am pretty much tied to using due date for both <strong><em>real</em></strong> due dates and <strong><em>pseudo</em></strong> due dates.</p>
+
+<h4>Repeat</h4>
+
+<p>I use this field to set things like daily, weekly, and monthly chores.  Pretty intuitive.</p>
+
+<h4>So far I have not used most of the other fields since they do not affect my workflow.</h4>
+
+<h3>What's Next?</h3>
+
+<p>For a while now I have been using RTM almost exclusively.  This has worked pretty well so far, but is not perfect.  The next step is to figure out how GMail, Remember the Milk, and Google Calendar can work together.</p>
+]]></content>
+  </entry>
+  
+</feed>
