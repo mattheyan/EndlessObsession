@@ -1,9 +1,10 @@
 {
   "locals": {
     "url": "http://localhost:8080",
-    "name": "The Endless Obsession",
+    "title": "The Endless Obsession",
+    "subtitle": "better code",
     "owner": "Bryan Matthews",
-    "description": "better code"
+    "description": "The technical blog of Bryan Matthews"
   },
   "plugins": [
     "./plugins/paginator.coffee"
