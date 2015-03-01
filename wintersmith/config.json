@@ -8,7 +8,9 @@
   },
   "plugins": [
     "./plugins/paginator.coffee",
-    "./plugins/blog.coffee"
+    "./plugins/blog.coffee",
+    "wintersmith-contents",
+    "wintersmith-sitemap"
   ],
   "require": {
     "moment": "moment",
