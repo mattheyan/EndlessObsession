@@ -71,9 +71,16 @@ html {
 			}
 
 			body > nav > form {
-				position: absolute;
-				right: 0;
-				top: 0;
+				display: none;
+			}
+
+			@media only screen and (min-width: 550px){
+				body > nav > form {
+					display: inline;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 			}
 
 				body > nav > form > fieldset {
