@@ -1,151 +1,88 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Learning F# with TDD: Part 2 - The Endless Obsession</title>
-  <meta name="author" content="Bryan Matthews">
-
-  
-  <meta name="description" content="Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://endlessobsession.com/blog/learning-f-with-tdd-part-2">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="The Endless Obsession" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-17782995-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">The Endless Obsession</a></h1>
-  
-    <h2>better code</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:endlessobsession.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <!--<li><a href="/guides">Guides</a></li>-->
-  <li><a href="/about">About</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">Learning F# With TDD: Part 2</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-11T21:50:53-05:00" pubdate data-updated="true">Jan 11<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I&#8217;ll elaborate a little bit on the testing aspects, and also talk about active patterns.</p>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Learning F# with TDD: Part 2 - The Endless Obsession
+    </title>
+    <meta name="author" content="Bryan Matthews">
+    <meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://endlessobsession.com" rel="canonical">
+    <link href="/infinity-symbol.png" rel="icon">
+    <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
+    <link href="/stylesheets/normalize.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/layout.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme.css" media="screen, projection" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <header role="banner">
+      <hgroup>
+        <h1><a href="http://endlessobsession.com">The Endless Obsession</a></h1><small>better code</small>
+      </hgroup>
+      <nav role="complementary">
+        <ul>
+          <li><a href="/atom.xml" title="RSS">RSS</a></li>
+          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+        </ul>
+      </nav>
+    </header>
+    <nav role="navigation">
+      <ul>
+        <li><a href="http://endlessobsession.com">Home</a></li>
+        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+      </ul>
+      <form action="http://google.com/search">
+        <fieldset role="search">
+          <input type="hidden" name="q" value="site:http://endlessobsession.com">
+          <input type="text" name="q" results="0" placeholder="Search" class="search">
+        </fieldset>
+      </form>
+    </nav>
+    <main>
+      <article>
+        <header>
+          <time datetime="2012-01-11" pubdate>Jan 11th, 2012</time>
+          <h2>Learning F# with TDD: Part 2</h2>
+        </header>
+        <section><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I’ll elaborate a little bit on the testing aspects, and also talk about active&nbsp;patterns.</p>
 <!--more-->
-
-
-<h2>Running tests</h2>
-
-<p>First, I noticed a little problem with running the tests.  If I right-clicked on a test method and selected &#8220;Run Test(s)&#8221;, then the test would run as expected.  However, if I selected &#8220;Run Test(s)&#8221; for a project or solution, the tests would not be found as described in the <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">getting started post</a>, so I would see something like &#8220;0 passed, 0 failed, 0 skipped, &#8230;&#8221;.</p>
-
-<p>The solution for me was to transition from using local spec methods to defining a &#8220;Tests&#8221; class, with the &#8220;TestFixtureAttribute&#8221;, and define my specs as static methods (they could be instance methods if needed of course).</p>
-
+<h2 id="running-tests">Running&nbsp;tests</h2>
+<p>First, I noticed a little problem with running the tests.  If I right-clicked on a test method and selected “Run Test(s)”, then the test would run as expected.  However, if I selected “Run Test(s)” for a project or solution, the tests would not be found as described in the <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">getting started post</a>, so I would see something like “0 passed, 0 failed, 0 skipped,&nbsp;…”.</p>
+<p>The solution for me was to transition from using local spec methods to defining a “Tests” class, with the “TestFixtureAttribute”, and define my specs as static methods (they could be instance methods if needed of&nbsp;course).</p>
 <pre><code>[&lt;TestFixture&gt;]
-type Tests = class
-    new() = {}
+type Tests = class
+    new() = {}
 
     [&lt;Scenario&gt;]
-    static member When_... () =
+    static member When_... () =
         // test body
 
 end
-</code></pre>
-
-<p>Voila, tests run as expected!</p>
-
-<p>Now, a little explanation of how you write the specs&#8230;</p>
-
-<h2>Writing specs</h2>
-
-<p>From  <a href="http://www.navision-blog.de/2009/02/23/introducing-naturalspec-a-dsl-for-testing-part-i/">Introducing NaturalSpec – A Domain-specific language (DSL) for testing – Part I</a></p>
-
-<blockquote><p>With the Keyword “<strong>Given</strong>” I can create a test context (the objects I want to test). In this sample I created a list with 5 elements. With the keyword “<strong>When</strong>” I call a function which does something with my test context. In this case I want to remove the value 3. In the Assert section (keywords “<strong>It should</strong>” or “<strong>It shouldn’t</strong>”) I can give some observations, which should hold for my manipulated test context.</p></blockquote>
-
+</code></pre><p>Voila, tests run as&nbsp;expected!</p>
+<p>Now, a little explanation of how you write the&nbsp;specs…</p>
+<h2 id="writing-specs">Writing&nbsp;specs</h2>
+<p>From  <a href="http://www.navision-blog.de/2009/02/23/introducing-naturalspec-a-dsl-for-testing-part-i/">Introducing NaturalSpec – A Domain-specific language (<span class="caps">DSL</span>) for testing – Part&nbsp;I</a></p>
+<blockquote>
+<p>With the Keyword “<strong>Given</strong>” I can create a test context (the objects I want to test). In this sample I created a list with 5 elements. With the keyword “<strong>When</strong>” I call a function which does something with my test context. In this case I want to remove the value 3. In the Assert section (keywords “<strong>It should</strong>” or “<strong>It shouldn’t</strong>”) I can give some observations, which should hold for my manipulated test&nbsp;context.</p>
+</blockquote>
 <ul>
-<li><p>Create the object(s) to be tested using &#8220;Given&#8221;</p></li>
-<li><p>Pipe into &#8220;When&#8221; to call functions (or do other things)</p></li>
-<li><p>Pipe into &#8220;It should/shouldn&#8217;t&#8221; to set up assertions</p></li>
-<li><p>Finally, pipe into the &#8220;Verify&#8221; method to run the tests and print the output</p></li>
+<li>Create the object(s) to be tested using&nbsp;“Given”</li>
 </ul>
-
-
-<p>Here&#8217;s an example:</p>
-
+<ul>
+<li>Pipe into “When” to call functions (or do other&nbsp;things)</li>
+</ul>
+<ul>
+<li>Pipe into “It should/shouldn’t” to set up&nbsp;assertions</li>
+</ul>
+<ul>
+<li>Finally, pipe into the “Verify” method to run the tests and print the&nbsp;output</li>
+</ul>
+<p>Here’s an&nbsp;example:</p>
 <pre><code>[&lt;TestFixture&gt;]
 type Tests = class
     new() = {}
@@ -154,70 +91,51 @@ type Tests = class
     static member When_getting_the_state_of_a_new_connection_it_should_be_closed () =
         Given NewConnection()
             |&gt; When getting DbConnection.State
-            |&gt; It should equal "Closed"
+            |&gt; It should equal &quot;Closed&quot;
             |&gt; Verify
 
 end
-</code></pre>
+</code></pre><p>The NewConnection() method call is entirely fabricated. It serves as the test context in the&nbsp;example.</p>
+<p>“When getting” is followed by a method that takes as input the test context object type (presumably a connection object) and returns some value&nbsp;(string).</p>
+<p>The “equal” method, based on the previous information, takes in two strings and asserts that they are&nbsp;equals.</p>
+<p>And here’s the&nbsp;output:</p>
+<blockquote>
+<p>Scenario: When getting the state of a new connection it should be&nbsp;closed</p>
+<ul>
+<li>Given&nbsp;&lt;fun:When_getting_the_state_of_a_new_connection_it_should_be_closed…</li>
+</ul>
+<pre><code> - When getting 
 
-<p>The NewConnection() method call is entirely fabricated. It serves as the test context in the example.</p>
 
-<p>&#8220;When getting&#8221; is followed by a method that takes as input the test context object type (presumably a connection object) and returns some value (string).</p>
 
-<p>The &#8220;equal&#8221; method, based on the previous information, takes in two strings and asserts that they are equals.</p>
 
-<p>And here&#8217;s the output:</p>
-
-<blockquote><p>Scenario: When getting the state of a new connection it should be closed</p>
-
-<p>  - Given &lt;fun:When_getting_the_state_of_a_new_connection_it_should_be_closed&#8230;</p>
-
-<p>     - When getting�</p>
-
-<p>      => It should equal &#8220;Closed&#8221;</p>
-
-<p>  ==> Result is: &#8220;Closed&#8221;</p>
-
-<p>  ==> OK</p>
-
-<p>  ==> Time: 0.2060s</p>
-
-<p>1 passed, 0 failed, 0 skipped, took 0.61 seconds (NUnit 2.5.10).</p></blockquote>
-
-<p>There&#8217;s room for improvement, but it&#8217;s good enough for now, so on to active patterns!</p>
-
-<h2>Active Patterns</h2>
-
-<p>From <a href="http://msdn.microsoft.com/en-us/library/dd233248.aspx">MSDN</a>:</p>
-
-<blockquote><p>Active patterns enable you to define named partitions that subdivide input data, so that you can use these names in a pattern matching expression just as you would for a discriminated union. You can use active patterns to decompose data in a customized manner for each partition.</p></blockquote>
-
-<p>One example they give is even and odd.  You can define a pattern for &#8220;Even&#8221; or &#8220;Odd&#8221; and use that in pattern matching like so:</p>
-
+  =&gt; It should equal &quot;Closed&quot;
+</code></pre><p>  ==&gt; Result is:&nbsp;“Closed”</p>
+<p>  ==&gt;&nbsp;<span class="caps">OK</span></p>
+<p>  ==&gt; Time:&nbsp;0.2060s</p>
+<p>1 passed, 0 failed, 0 skipped, took 0.61 seconds (NUnit&nbsp;2.5.10).</p>
+</blockquote>
+<p>There’s room for improvement, but it’s good enough for now, so on to active&nbsp;patterns!</p>
+<h2 id="active-patterns">Active&nbsp;Patterns</h2>
+<p>From <a href="http://msdn.microsoft.com/en-us/library/dd233248.aspx"><span class="caps">MSDN</span></a>:</p>
+<blockquote>
+<p>Active patterns enable you to define named partitions that subdivide input data, so that you can use these names in a pattern matching expression just as you would for a discriminated union. You can use active patterns to decompose data in a customized manner for each&nbsp;partition.</p>
+</blockquote>
+<p>One example they give is even and odd.  You can define a pattern for “Even” or “Odd” and use that in pattern matching like&nbsp;so:</p>
 <pre><code>match input with
     | Even -&gt; // do something if even...
     | Odd -&gt; // do something if odd...
-</code></pre>
-
-<p>Compare that with:</p>
-
+</code></pre><p>Compare that&nbsp;with:</p>
 <pre><code>if (input % 2 === 0) {
     // do something if even...
 }
 else {
     // do something if odd...
 }
-</code></pre>
-
-<p>Of course, you could do something like this:</p>
-
+</code></pre><p>Of course, you could do something like&nbsp;this:</p>
 <pre><code>if (isEven(input)) {
-</code></pre>
-
-<p>&#8230;but that still doesn&#8217;t read quite as well in my opinion.</p>
-
-<p>Even more interesting, you can define partial active patterns that might match the given input, and if so, can transform the result in some way.  The example they gave was number parsing.</p>
-
+</code></pre><p>…but that still doesn’t read quite as well in my&nbsp;opinion.</p>
+<p>Even more interesting, you can define partial active patterns that might match the given input, and if so, can transform the result in some way.  The example they gave was number&nbsp;parsing.</p>
 <pre><code>let (|Integer|_|) (str: string) =
     let mutable i = 0
     if System.Int32.TryParse(str, &amp;i) then Some(i)
@@ -230,198 +148,21 @@ let (|Float|_|) (str: string) =
 
 // Consuming code somewhere...
 match str with
-    | Integer i -&gt; printfn "%d : Integer" i
-    | Float f -&gt; printfn "%f : Floating point" f
-    | _ -&gt; printfn "%s : Not matched." str
-</code></pre>
-
-<p>This illustrates what makes pattern matching different from traditional control structures. It&#8217;s actually a <strong><em>reusable</em></strong> control structure plus potential augmentation of the input.</p>
-
-<p>Here&#8217;s a post where someone who really digs pattern matching <a href="http://lorgonblog.wordpress.com/2008/04/17/an-example-of-the-interplay-between-language-features-and-library-design-part-two/">attempts to explain why</a>, if you&#8217;re interested.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">Bryan Matthews</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-11T21:50:53-05:00" pubdate data-updated="true">Jan 11<span>th</span>, 2012</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://endlessobsession.com/blog/learning-f-with-tdd-part-2" data-via="BryanMatthews" data-counturl="http://endlessobsession.com/blog/learning-f-with-tdd-part-2" >Tweet</a>
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/exoweb-type-loading-changes" title="Previous Post: ExoWeb type loading changes">&laquo; ExoWeb type loading changes</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/carolina-code-camp-2012-presentation" title="Next Post: Carolina Code Camp 2012 Presentation">Carolina Code Camp 2012 Presentation &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and 'couldn't parse YAML'</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/should-you-write-awesome-code">Should you write awesome code?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a>
-      </li>
-    
-  </ul>
+    | Integer i -&gt; printfn &quot;%d : Integer&quot; i
+    | Float f -&gt; printfn &quot;%f : Floating point&quot; f
+    | _ -&gt; printfn &quot;%s : Not matched.&quot; str
+</code></pre><p>This illustrates what makes pattern matching different from traditional control structures. It’s actually a <strong><em>reusable</em></strong> control structure plus potential augmentation of the&nbsp;input.</p>
+<p>Here’s a post where someone who really digs pattern matching <a href="http://lorgonblog.wordpress.com/2008/04/17/an-example-of-the-interplay-between-language-features-and-library-design-part-two/">attempts to explain why</a>, if you’re&nbsp;interested.</p>
 </section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/mattheyan">@mattheyan</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'mattheyan',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("BryanMatthews", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/BryanMatthews" class="twitter-follow-button" data-show-count="false">Follow @BryanMatthews</a>
-  
-</section>
-
-
-
-<section class="googleplus">
-  <h1>
-    <a href="https://plus.google.com/mattheyan?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
-
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Bryan Matthews -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-<script type="text/javascript">
-      var disqus_shortname = 'endlessobsession';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
+        <section>
+          <h2>Comments</h2>
+          <div id="disqus_thread"></div>
+        </section>
+      </article>
+    </main>
+    <footer>
+      <div class="nav"><a href="/">« Full blog</a></div>
+      <script type="text/javascript" src="/javascripts/disqus.js"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+    </footer>
+  </body>
 </html>

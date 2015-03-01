@@ -1,0 +1,71 @@
+body {
+	vertical-align: baseline;
+}
+
+	body > header[role='banner'] {
+		padding-top: 25px;
+		padding-bottom: 25px;
+		position: relative;
+	}
+
+		body > header[role='banner'] nav[role='complementary'] ul li {
+			padding-left: 5px;
+			border: none;
+		}
+
+nav {
+	padding: 3px 0;
+}
+
+	nav ul,
+	nav ul li {
+		display: inline;
+	}
+
+	nav ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		vertical-align: middle;
+	}
+
+		nav ul li {
+			padding: 0 5px;
+			vertical-align:  middle;
+		}
+
+		nav ul li + li {
+			border-left-width: 1px;
+			border-left-style: solid;
+			border-left-color: black;
+			padding-left: 10px;
+		}
+
+	nav form {
+		display: inline;
+	}
+
+		nav form fieldset {
+			display: inline;
+		}
+
+hgroup {
+	margin: 10px 0;
+}
+
+	hgroup h1, hgroup h2, hgroup h3, hgroup h4, hgroup h5 {
+		margin: 0;
+	}
+
+pre {
+	overflow: auto;
+}
+
+*[role='search'] input[type='text'] {
+	-moz-border-radius: 0.4em;
+	-webkit-border-radius: 0.4em;
+	-o-border-radius: 0.4em;
+	-ms-border-radius: 0.4em;
+	-khtml-border-radius: 0.4em;
+	border-radius: 0.4em;
+}
