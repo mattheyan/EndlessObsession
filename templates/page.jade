@@ -16,11 +16,13 @@ block content
     header
       h2= page.metadata.title
     section!= typogr(page.html).typogrify()
-    section
-      h2= 'Comments'
-      div#disqus_thread
+    if locals.disqusName
+      section
+        h2= 'Comments'
+        div#disqus_thread
 
 block prepend footer
   div.nav
     a(href=contents.index.url) « Full blog
-  script(type='text/javascript', src='/javascripts/disqus.js')
+  if locals.disqusName
+    script(type='text/javascript', src='/javascripts/disqus.js?v=2.0.0&name=' + locals.disqusName)
