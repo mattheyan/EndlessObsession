@@ -4,7 +4,9 @@
     "title": "The Endless Obsession",
     "subtitle": "better code",
     "owner": "Bryan Matthews",
-    "description": "The technical blog of Bryan Matthews"
+    "description": "The technical blog of Bryan Matthews",
+    "googleAnalyticsID": "UA-17782995-1",
+    "disqusName": "endlessobsession"
   },
   "plugins": [
     "./plugins/paginator.coffee",

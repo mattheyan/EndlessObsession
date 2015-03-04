@@ -19,9 +19,9 @@ html(lang='en')
       link(href='/infinity-symbol.png', rel='icon')
       link(href='/atom.xml', rel='alternate', type='application/atom+xml', title=locals.title)
 
-      link(href='/stylesheets/normalize.css', media='screen, projection' rel='stylesheet' type='text/css')
-      link(href='/stylesheets/layout.css', media='screen, projection' rel='stylesheet' type='text/css')
-      link(href='/stylesheets/theme.css', media='screen, projection' rel='stylesheet' type='text/css')
+      link(href='/stylesheets/normalize-3.0.2.css', media='screen, projection' rel='stylesheet' type='text/css')
+      link(href='/stylesheets/layout.css?v=1.0.0', media='screen, projection' rel='stylesheet' type='text/css')
+      link(href='/stylesheets/theme.css?v=1.0.0', media='screen, projection' rel='stylesheet' type='text/css')
   body
     header(role='banner')
       hgroup
@@ -55,4 +55,5 @@ html(lang='en')
       block footer
         small Copyright &copy; #{ new Date().getFullYear() } - #{ locals.owner } &mdash; powered by&nbsp;
             a(href='https://github.com/jnordberg/wintersmith') Wintersmith
-  
+      if locals.googleAnalyticsID
+        script(type='text/javascript', src='/javascripts/analytics.js?v=1.0.0&id=' + locals.googleAnalyticsID)
