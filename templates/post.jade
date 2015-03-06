@@ -21,9 +21,11 @@ block content
       section
         h2= 'Comments'
         div#disqus_thread
+  nav(role='navigation')
+    ul
+      li
+        a(href=contents.index.url) « Full blog
 
 block prepend footer
-  div.nav
-    a(href=contents.index.url) « Full blog
   if locals.disqusName
     script(type='text/javascript', src='/javascripts/disqus.js?v=2.0.0&name=' + locals.disqusName)
