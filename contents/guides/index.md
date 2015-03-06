@@ -12,3 +12,7 @@ Includes tips, gotcha, and useful commands for Team Foundation Server, mainly re
 [Git](/guides/git)
 
 Includes tips, gotcha, and useful commands for Git.
+
+[Regular Expressions](/guides/regex)
+
+Concise highlights of regular expression syntax.
