@@ -14,6 +14,12 @@ Source control is an invaluable tool in every software developer's toolbelt.
 Google "why you should use source control" and you'll find plenty of good
 arguments for why it's essential.
 
+http://www.makeuseof.com/tag/git-version-control-youre-developer/
+http://fullstack.info/why-you-should-use-an-scm/
+http://www.lornajane.net/wp-content/uploads/2013/01/source-control-whitepaper-v1.1.pdf
+https://msdn.microsoft.com/en-us/library/ms181368.aspx
+
+
 It's an essential collaboration tool
 and a second brain. One that actually
 
