@@ -6,6 +6,7 @@
     "owner": "Bryan Matthews",
     "description": "The technical blog of Bryan Matthews"
   },
+  "port": 8080,
   "plugins": [
     "./plugins/paginator.coffee",
     "./plugins/blog.coffee",
