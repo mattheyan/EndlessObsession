@@ -2,7 +2,6 @@
 layout: post
 title: "Things You Should Start Doing as a Software Developer"
 slug: "things-you-should-start-doing-as-a-software-developer"
-date: 2015-04-17 17:29
 comments: true
 categories: 
 ---

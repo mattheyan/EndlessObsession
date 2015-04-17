@@ -2,7 +2,6 @@
 layout: post
 title: "Source Control Etiquette"
 slug: "source-control-etiquette"
-date: 2015-04-17 17:29
 comments: true
 categories: 
 ---
