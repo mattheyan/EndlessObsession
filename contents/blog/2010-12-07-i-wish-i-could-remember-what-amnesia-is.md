@@ -4,7 +4,6 @@ layout: post
 slug: i-wish-i-could-remember-what-amnesia-is
 status: publish
 title: I wish I could remember what Amnesia is...
-excerpt: Matt Hooper wrote a blog post describing his "Amnesia" project.
 wordpress_id: '137'
 ---
 

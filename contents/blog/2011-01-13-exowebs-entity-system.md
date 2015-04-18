@@ -4,7 +4,6 @@ layout: post
 slug: exowebs-entity-system
 status: publish
 title: ExoWeb's Entity System
-excerpt: Matt Hooper recently posted an overview of ExoWeb's entity system.
 wordpress_id: '188'
 categories:
 - exoweb

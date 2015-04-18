@@ -4,7 +4,6 @@ layout: post
 slug: add-javascript-to-a-pdf-document-with-itextsharp
 status: publish
 title: Add JavaScript to a PDF Document with iTextSharp
-excerpt: The goal was to have a PDF document print automatically from a web page. I decided to pass on coming up with a cross-browser (read - works in IE) method for automatically printing the document on the client, and instead decided to insert JavaScript into the generated PDF document that would cause it to print when opened. This is what I came up with.
 wordpress_id: '9'
 categories:
 - pdf

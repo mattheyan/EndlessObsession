@@ -4,7 +4,6 @@ layout: post
 slug: exoweb-type-loading-changes
 status: publish
 title: ExoWeb type loading changes
-excerpt: Types are now batch loaded in ExoWeb. The following is an explanation of the changes.
 wordpress_id: '215'
 ---
 

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 - var articles = _.first(env.helpers.getArticles(contents), 20);
+- var canonicalUrl = locals.url.lastIndexOf('/') === locals.url.length - 1 ? locals.url : locals.url + '/';
 feed(xmlns='http://www.w3.org/2005/Atom')
   title= '' + locals.title + ''
-  link(href=locals.url + '/atom.xml', rel='self')
-  link(href=locals.url)
+  link(href=canonicalUrl + 'atom.xml', rel='self')
+  link(href=canonicalUrl)
   updated= moment(articles[0].date).format()
-  id= locals.url
+  id= canonicalUrl
   author
     name
         | <![CDATA[
         = locals.owner
         | ]]>
-  generator(uri='http://wintersmith.io/')= Wintersmith
+  generator(uri='http://wintersmith.io/') Wintersmith
   for article in articles
-    - var permalink = locals.url + article.url
+    - var permalink = canonicalUrl + (article.url.indexOf('/') === 0 ? article.url.substring(1) : article.url)
     entry
         title(type='html')
             | <![CDATA[

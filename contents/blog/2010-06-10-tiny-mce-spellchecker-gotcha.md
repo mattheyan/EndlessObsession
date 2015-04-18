@@ -5,7 +5,6 @@ slug: tiny-mce-spellchecker-gotcha
 status: publish
 title: Tiny MCE Spellchecker Gotcha
 wordpress_id: '10'
-excerpt: Today I ran into a problem with the spell checking feature. I'll go ahead and state up front - this was **NOT** a problem with tinymce. This was my own doing. It seemed that, although the spell checker was able to report misspellings in the editor, when you clicked on a misspelled word the highlighting would disappear and no context menu was shown. Strange...
 categories:
 - javascript
 tags:

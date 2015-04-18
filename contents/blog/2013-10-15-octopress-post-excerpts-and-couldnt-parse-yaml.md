@@ -3,7 +3,6 @@ layout: post
 title: "Octopress post excerpts and 'couldn't parse YAML'"
 slug: "octopress-post-excerpts-and-couldnt-parse-yaml"
 date: 2013-10-15 21:14
-excerpt: This evening I noticed a syntax error in my blog's ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn't bother to determine. However, I also noticed that the post summaries were rather large and didn't appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.
 comments: true
 categories: 
 ---
