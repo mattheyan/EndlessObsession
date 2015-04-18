@@ -1,5 +1,5 @@
 html {
-	background: #252525 url('/images/line-tile.png?1334426298') top left;
+	background: #888 url('/images/line-tile.png?1334426298') top left;
 }
 
 	body {
@@ -17,7 +17,7 @@ html {
 		}
 
 		body > header {
-			background: #333;
+			background: #222233;
 		}
 
 				body > header > hgroup > h1 {
@@ -179,7 +179,7 @@ blockquote {
 }
 
 pre {
-	background: #002b36 url('/images/noise.png?1334426298') top left;
+	background: #222233 url('/images/noise.png?1334426298') top left;
 	font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
 	-moz-border-top-left-radius: 0.4em;
 	-moz-border-top-right-radius: 0.4em;
