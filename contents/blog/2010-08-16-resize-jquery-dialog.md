@@ -4,7 +4,6 @@ layout: post
 slug: resize-jquery-dialog
 status: publish
 title: Resize jQuery Dialog
-excerpt: If you ever need to resize and reposition a jQuery dialog, the following script should do the trick...
 wordpress_id: '106'
 ---
 

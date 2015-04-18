@@ -4,7 +4,6 @@ layout: post
 slug: ms-ajax-and-json-date-serialization
 status: publish
 title: MS AJAX and JSON Date Serialization
-excerpt: One of the nice little features in MS AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works! Well, mostly of the time anyway. Today I found out that you have to be careful with dates. When I called a web service in this manner, and the object was a Date or contained a Date, the deserialized DateTime object on the server was off by several hours.
 wordpress_id: '11'
 categories:
 - msajax

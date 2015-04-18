@@ -4,7 +4,6 @@ layout: post
 slug: tfs-rollback-2
 status: publish
 title: Tfs Rollback
-excerpt: How to rollback all or part of a checkin in TFS using the commandline tool.
 wordpress_id: '202'
 ---
 

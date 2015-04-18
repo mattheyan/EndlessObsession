@@ -4,7 +4,6 @@ layout: post
 slug: learning-fsharp-with-tdd-part-1
 status: publish
 title: 'Learning F# with TDD: Part 1'
-excerpt: I decided to dive into a few languages I've been meaning to learn by way of Roy Osherove's calculator kata. First up - F#.
 wordpress_id: '206'
 ---
 
