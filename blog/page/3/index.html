@@ -47,6 +47,20 @@
       <section>
         <article>
           <header>
+            <time datetime="2010-07-28" pubdate>Jul 28th, 2010</time>
+            <h2><a rel="article" href="/blog/ie-unknown-runtime-error">IE &quot;Unknown runtime error&quot;</a></h2>
+          </header>
+          <section><p>I received a wonderful error from Internet Explorer today:  “Unknown runtime&nbsp;error”.</p>
+<p>It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being&nbsp;set.</p>
+<p>I found out <a href="http://piecesofrakesh.blogspot.com/2007/02/ies-unknown-runtime-error-when-using.html">here</a> that the problem was because my <span class="caps">HTML</span> was invalid.  As the poster notes, IE is actually enforcing <a href="http://www.w3.org/TR/html4/struct/text.html#h-9.3.1">the spec</a>, which is good.  However, the error message is completely worthless, which is not good.  Sadly, this is what I expect from&nbsp;<span class="caps">IE</span>.</p>
+<p>In his example, he was attempting to inject an “li” into a “p”, which is obviously invalid.  He noted that <span class="caps">IE</span>’s behavior seemed to be inconsistent, since it was ok with an “ul”.  However, in my case I found that injecting an “ul” into a “p” caused the same problem.  This may have been changed recently, a la Windows&nbsp;Update…</p>
+
+          </section>
+        </article>
+      </section>
+      <section>
+        <article>
+          <header>
             <time datetime="2010-07-27" pubdate>Jul 27th, 2010</time>
             <h2><a rel="article" href="/blog/getting-things-done-smart-lists">Getting Things Done:  Smart Lists</a></h2>
           </header>
@@ -415,69 +429,6 @@ return “/Date(“ + (+obj).toString() + “-“ + offsetText +&nbsp;“)/“;<
 <p>At any rate, the second factor was even more tricky.  The behavior that depends on knowing when the editor changes  (the reason we’re subscribing to the onChange event in the first place) also has to know what the current value is.  It is essentially a property change eventing mechanism.  This is all well and good, except that I was getting the editor’s value through the editor object’s <a href="http://wiki.moxiecode.com/index.php/TinyMCE:API/tinymce.Editor/getContent">getContent</a> method, without so much as skimming the documentation for it (it seemed pretty straightforward).  The documentation states that the function will “<em>cleanup the content before it gets returned using the different cleanup rules options</em>.”</p>
 <p>If you think about it for a minute, you can see why this is a problem.  The editor’s content is essentially going to be the html that is displayed, right?  So, if the function is going to return the editor’s content, then it seems reasonable for it to “<em>cleanup the content</em>“ first.  And what would cleaning up the content involve?  That’s right!  It removes the html that wraps the text to signify that a word is misspelled.  After all, we wouldn’t want to store that in the&nbsp;database.</p>
 <p>So at this point I’ve determined what the problem is.  Luckily, it doesn’t appear that I need to call the getContent method after all.  The original text area’s value is updated anyway, so I just read the value directly from the text area.  Problem solved!  Now I can go&nbsp;home…</p>
-
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-            <h2><a rel="article" href="/blog/add-javascript-to-a-pdf-document-with-itextsharp">Add JavaScript to a PDF Document with iTextSharp</a></h2>
-          </header>
-          <section><p><em>Originally posted June 8&nbsp;2010</em></p>
-<p><em><strong>Update 3/6/2015</strong></em>: The iTextSharp project’s license changed to be more restrictive, so it may not be practical for you to use it. Scroll to the bottom to see an alternative solution using&nbsp;PdfSharp.  </p>
-<p>As you might have guessed from the title, this post is of the “get it done” variety.  So, the code may be a little rough.  Its the sort of code that works, but isn’t fully understood (by me at least).  I wasn’t able to find a clear example on the net, so I pieced together examples and guesses based on reading the code and interpreting method and class&nbsp;names.</p>
-<p>Why guess?  Well, <a href="http://sourceforge.net/projects/itextsharp/">iTextSharp</a> is a pretty robust open source project which is useful for creating and manipulating <span class="caps">PDF</span> documents.  The problem is, it doesn’t seem to have any useful documentation online.  It <strong><em>is</em></strong> open source, so you can read the code all day.  Also, there are some tutorials that you can download from the <a href="http://sourceforge.net/projects/itextsharp/files/">files page</a> (in the examples&nbsp;folder).</p>
-<p>The goal was to have a <span class="caps">PDF</span> document print automatically from a web page.  I decided to pass on coming up with a cross-browser (read: works in IE) method for automatically printing the document on the client, and instead decided to insert JavaScript into the generated PDF document that would cause it to print when opened.  This is what I came up&nbsp;with.</p>
-<pre><code>PdfReader reader = new PdfReader(inputStreamOrFile);
-int pageCount = reader.NumberOfPages;
-Rectangle pageSize = reader.GetPageSize(1);
-
-// Setup writer
-PdfDocument document = new PdfDocument(pageSize);
-PdfWriter writer = PdfWriter.GetInstance(document, outputStreamOrFile);
-
-document.Open();
-
-// Copy each page
-PdfContentByte content = writer.DirectContent;
-for (int i = 0; i &lt; pageCount; i++)
-{
-    document.NewPage();
-
-    PdfImportedPage page = writer.GetImportedPage(reader, i + 1); // page numbers are one-based
-
-    content.AddTemplate(page, 0, 0); // x and y correspond to position on the page?
-}
-
-// Insert JavaScript to print the document after a fraction of a second (allow time to become visible).
-string jsText = &quot;var res = app.setTimeOut(&#39;var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);&#39;, 200);&quot;;
-
-//string jsTextNoWait = &quot;var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);&quot;;
-
-PdfAction js = PdfAction.JavaScript(jsText, writer);
-
-writer.AddJavaScript(js);
-
-document.Close()
-</code></pre><p>As for the JavaScript, the call to setTimeOut is there so that the <span class="caps">PDF</span> is rendered before the print dialog is shown.  Otherwise, the users will see the print dialog and a blank page, which may be confusing.  If the PDF is not visible anyway (as in my case) then you don’t really need the timeout.  The actual printing is based on the documentation of Acrobat JavaScript from <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">Adobe’s website</a>.  In this example, the <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">iteration level</a> is set to “full”, meaning that the user will get the print dialog and progress feedback.  You can also use “automatic” (no dialog, includes progress) and “silent” (no dialog or&nbsp;progress).</p>
-<p><em><strong>Update 3/6/2015</strong></em>:</p>
-<p>Because iTextSharp moved to the <span class="caps">AGPL</span>, we migrated the code over to use <a href="https://www.nuget.org/packages/PdfSharp">PdfSharp</a>.</p>
-<p>The JavaScript function text is the&nbsp;same:</p>
-<pre><code>const string jsText = &quot;var res = app.setTimeOut(&#39;var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);&#39;, 200);&quot;;
-</code></pre><p>And here is how it can be added to a PdfSharp <code>PdfDocument</code> object:</p>
-<pre><code>PdfDictionary dict = new PdfDictionary(document);
-
-// According to the PDF Reference the dictionary requires two elements.
-// A key /S that specifies the action name, and a key /JS that set the JavaScript to run.
-dict.Elements[&quot;/S&quot;] = new PdfName(&quot;/JavaScript&quot;);
-dict.Elements[&quot;/JS&quot;] = new PdfName(&quot;/&quot; + jsText);
-
-document.Internals.AddObject(dict);
-
-document.Internals.Catalog.Elements[&quot;/OpenAction&quot;] = PdfInternals.GetReference(dict);
-</code></pre><p>At this point you can save your document to a stream or&nbsp;file.</p>
 
           </section>
         </article>

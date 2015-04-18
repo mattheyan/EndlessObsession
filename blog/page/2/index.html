@@ -47,6 +47,73 @@
       <section>
         <article>
           <header>
+            <time datetime="2011-07-08" pubdate>Jul 8th, 2011</time>
+            <h2><a rel="article" href="/blog/tfs-rollback-2">Tfs Rollback</a></h2>
+          </header>
+          <section><p>Using the tf command line tool you can rollback all or part of a tfs checkin.  This is useful for two reasons: 1) If you at least want to roll back all changes in one or more file (not some changes in a file) then it saves you from having to manually revert changes (I’m a firm believer in not giving yourself the opportunity to goof up) , and 2) the checkin is actually marked as a <em>rollback</em>, so you don’t have to rely on checkin notes to identify it as&nbsp;such.</p>
+<p>As a side note, based on what I’ve seen in the way that tfs represents changes, this rollback changeset is simply an add, edit or delete, with the additional information that it was a rollback of a prior change.  The original checkin is still in the tfs&nbsp;history.</p>
+<p>To do a rollback, first open up the visual studio command prompt.  You should have a shortcut in your start menu.  On my machine the command is: <em><strong>%comspec% /k “”c:\Program Files (x86)\Microsoft Visual Studio 10.0\<span class="caps">VC</span>\vcvarsall.bat”” x86</strong></em>.</p>
+<p>Here’s the help for tf rollback (using the command <em>tf rollback /?</em>):</p>
+<p><span class="caps">TF</span> - Team Foundation Version Control Tool, Version&nbsp;10.0.30319.1</p>
+<p>Copyright (c) Microsoft Corporation.  All rights&nbsp;reserved.</p>
+<p>Rolls back the changes in a single or a range of&nbsp;changesets:</p>
+<p>tf rollback /changeset:changesetfrom~changesetto [itemspec]&nbsp;[/recursive]</p>
+<pre><code>        [/lock:none|checkin|checkout] [/version:versionspec]
+
+
+
+
+        [/keepmergehistory] [/noprompt] [/login:username,[password]]
+</code></pre><p>tf rollback /toversion:versionspec itemspec&nbsp;[/recursive]</p>
+<pre><code>        [/lock:none|checkin|checkout] [/version:versionspec]
+
+
+
+
+        [/keepmergehistory] [/noprompt] [/login:username,[password]]
+</code></pre><p>Versionspec:</p>
+<pre><code>Date/Time         D&quot;any .Net Framework-supported format&quot;
+
+
+
+
+                  or any of the date formats of the local machine
+
+
+
+
+Changeset number  Cnnnnnn
+
+
+
+
+Label             Llabelname
+
+
+
+
+Latest version    T
+
+
+
+
+Workspace         Wworkspacename;workspaceowner
+</code></pre><p>First, we need to make sure we are working within our&nbsp;workspace.</p>
+<p><strong><em>cd&nbsp;path\to\workspace\root</em></strong></p>
+<p>So, for example, we could rollback an entire&nbsp;changeset:</p>
+<p><strong><em>tf rollback&nbsp;/changeset:12345</em></strong></p>
+<p>Or, we can rollback a single item in the&nbsp;changeset:</p>
+<p><strong><em>tf rollback /changeset:12345&nbsp;$/Path/To/Item</em></strong></p>
+<p>There is also a login param that you can pass if&nbsp;needed:</p>
+<p><strong><em>tf rollback /changeset:12345&nbsp;/login:domain\username,password</em></strong></p>
+<p>Enjoy!</p>
+
+          </section>
+        </article>
+      </section>
+      <section>
+        <article>
+          <header>
             <time datetime="2011-01-24" pubdate>Jan 24th, 2011</time>
             <h2><a rel="article" href="/blog/visual-studio-external-tools">Visual Studio External Tools</a></h2>
           </header>
@@ -243,20 +310,6 @@
 <li>}</li>
 </ul>
 <p>If you change a <span class="caps">UI</span> component’s option it should respond by updating immediately to reflect the change.  If it doesn’t, it’s a bug.  I read that somewhere&nbsp;:)</p>
-
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-07-28" pubdate>Jul 28th, 2010</time>
-            <h2><a rel="article" href="/blog/ie-unknown-runtime-error">IE &quot;Unknown runtime error&quot;</a></h2>
-          </header>
-          <section><p>I received a wonderful error from Internet Explorer today:  “Unknown runtime&nbsp;error”.</p>
-<p>It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being&nbsp;set.</p>
-<p>I found out <a href="http://piecesofrakesh.blogspot.com/2007/02/ies-unknown-runtime-error-when-using.html">here</a> that the problem was because my <span class="caps">HTML</span> was invalid.  As the poster notes, IE is actually enforcing <a href="http://www.w3.org/TR/html4/struct/text.html#h-9.3.1">the spec</a>, which is good.  However, the error message is completely worthless, which is not good.  Sadly, this is what I expect from&nbsp;<span class="caps">IE</span>.</p>
-<p>In his example, he was attempting to inject an “li” into a “p”, which is obviously invalid.  He noted that <span class="caps">IE</span>’s behavior seemed to be inconsistent, since it was ok with an “ul”.  However, in my case I found that injecting an “ul” into a “p” caused the same problem.  This may have been changed recently, a la Windows&nbsp;Update…</p>
 
           </section>
         </article>

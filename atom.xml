@@ -3,13 +3,310 @@
   <title>The Endless Obsession</title>
   <link href="http://endlessobsession.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.com/"/>
-  <updated>2013-10-15T21:14:00-04:00</updated>
+  <updated>2015-04-18T15:20:00-04:00</updated>
   <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]>
     </name>
   </author>
   <generator uri="http://wintersmith.io/">Wintersmith</generator>
+  <entry>
+    <title type="html"><![CDATA[So Long Octopress, Hello Wintersmith]]>
+    </title>
+    <link href="http://endlessobsession.com/blog/so-long-octopress-hello-wintersmith"/>
+    <updated>2015-04-18T15:20:00-04:00</updated>
+    <id>http://endlessobsession.com/blog/so-long-octopress-hello-wintersmith</id>
+    <content type="html"><![CDATA[&lt;p&gt;&lt;a href=&quot;http://octopress.org/&quot;&gt;Octopress&lt;/a&gt; has been a popular hacker’s blog for quite a
+while, and so I made the switch a few years ago in order to escape the clutches
+of Wordpress. Now I have a hack-able blog that also costs me nothing to host.&lt;/p&gt;
+&lt;p&gt;Unfortunately, Octopress isn’t a good long-term fit. At the end of the day the
+deal-breaker for me is the fact that it runs on ruby.&lt;/p&gt;
+&lt;p&gt;Don’t get me wrong, ruby itself is just fine. But, if you’ve worked with ruby on
+Windows you know that its full of pain all the way down. If you’re thinking
+about it, do yourself a favor and just don’t do it.&lt;/p&gt;
+&lt;p&gt;Sure, I could have run Linux on a separate partition, or on a VM, or in the
+cloud, etc. I have no problem doing that, except that it requires managing yet
+another machine/OS. I’m already investing enough time automating Windows-based
+workstations, so why &lt;del&gt;waste&lt;/del&gt; spend my time on it if I don’t have to?&lt;/p&gt;
+&lt;p&gt;So I set out to find an alternative that would work reliably on Windows, and
+&lt;strong&gt;run on node.js&lt;/strong&gt;. I targeted node because it generally &lt;em&gt;just works&lt;/em&gt; on Windows,
+and node and JavaScript in general are skills that I’m more interested in developing.
+What I found was &lt;a href=&quot;https://github.com/jnordberg/wintersmith&quot;&gt;Wintersmith&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;what-is-wintersmith-&quot;&gt;What is Wintersmith?&lt;/h3&gt;
+&lt;p&gt;Withersmith is described as a “flexible static site generator”. Much like Jekyll
+and Octopress, it automates creating a static site from separate templates and
+content. For my purposes, content means primarily markdown files for blog posts.&lt;/p&gt;
+&lt;p&gt;From what I can tell, Wintersmith is closer to Jekyll than it is to Octopress.
+In other words, its not focussed on being a blog, but due to its flexibility you
+can easily use it to build your blog.&lt;/p&gt;
+&lt;h3 id=&quot;taking-wintersmith-for-a-test-drive&quot;&gt;Taking Wintersmith for a Test Drive&lt;/h3&gt;
+&lt;p&gt;Before I migrated my blog, I first had to determine if it would meet my needs,
+and whether I’d want to use it. The first step is to install Wintersmith.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install wintersmith -g
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Since Wintersmith is a tool, it should be installed globally, thus the &lt;code&gt;-g&lt;/code&gt; flag.&lt;/p&gt;
+&lt;p&gt;Next, use wintersmith to scaffold a new site.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wintersmith new &amp;lt;path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;At this point you can &lt;code&gt;cd&lt;/code&gt; into the new directory that was created, and run
+&lt;code&gt;wintersmith preview&lt;/code&gt;, then navigate to the URL that prints out on the console.&lt;/p&gt;
+&lt;p&gt;Conveniently, the starter site that is generated is a simple blog, so it looks
+like a good starting point. However, it will take some work to make it more or
+less on-par with the Octopress version. And I’m only going to go as far as
+“good enough”.&lt;/p&gt;
+&lt;h3 id=&quot;a-fresh-start&quot;&gt;A Fresh Start&lt;/h3&gt;
+&lt;p&gt;Before I dive into the nitty gritty of the migration, I want to make a quick note
+about source control. Since I was using Octopress previously, my blog had been
+a fork of the Octopress repository. As you might imagine, not only is this a
+terrible way to distribute a blog generator, but it also meant that my repository’s
+history was a mess.&lt;/p&gt;
+&lt;p&gt;In order to get a fresh start, I chose to move to an orphan branch and seed it
+with the existing Octopress repository files. From there I could create a branch
+for the migration, and then merge that into master when complete.&lt;/p&gt;
+&lt;p&gt;The end result would be two different branch graphs. One would be the old Octopress
+blog, and the other would be my new Wintersmith blog. The new wintersmith blog
+history would look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;* d4e924a    [master] Add new post &amp;#39;...
+|\
+| * 043ed82  [octopress-to-wintersmith] Update templates and styles
+| * 5a51c39  Migrate content to Wintersmith structure
+|/
+* 8de24a8    Import files from Octopress
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Alternatively I could have chosen to re-create the master branch from the
+beginning of my fork of Octopress, but that would have been more difficult so I
+decided against it. After all, I do need to start writing content again…&lt;/p&gt;
+&lt;h3 id=&quot;migrating-the-site&quot;&gt;Migrating the Site&lt;/h3&gt;
+&lt;p&gt;1) Remove old Octopress files&lt;/p&gt;
+&lt;p&gt;Once I had my new orphan branch set up, the first thing to do is remove a bunch
+of files and directories that will no longer be needed. For me this was:
+&lt;code&gt;.themes/&lt;/code&gt;, &lt;code&gt;sass/&lt;/code&gt;, &lt;code&gt;_config.yml&lt;/code&gt;, &lt;code&gt;.rbenv-version&lt;/code&gt;, &lt;code&gt;.rvmrc&lt;/code&gt;, &lt;code&gt;.slugignore&lt;/code&gt;,
+&lt;code&gt;CHANGELOG.markdown&lt;/code&gt;, &lt;code&gt;README.markdown&lt;/code&gt;, &lt;code&gt;Rakefile&lt;/code&gt;, &lt;code&gt;Gemfile&lt;/code&gt;, &lt;code&gt;Gemfile.lock&lt;/code&gt;,
+&lt;code&gt;config.rb&lt;/code&gt;, and &lt;code&gt;config.ru&lt;/code&gt;. You might also have stuff in &lt;code&gt;.gitignore&lt;/code&gt; that is
+no longer needed.&lt;/p&gt;
+&lt;p&gt;2) Add new Wintersmith files&lt;/p&gt;
+&lt;p&gt;Assuming that you have node and wintersmith installed, and have created a
+wintersmith site using the &lt;code&gt;wintersmith new &amp;lt;path&amp;gt;&lt;/code&gt; command, copy everything
+that wintersmith generated (except for the readme) into your repository.&lt;/p&gt;
+&lt;p&gt;3) Basic configuration&lt;/p&gt;
+&lt;p&gt;Fill in the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;owner&lt;/code&gt;, and description fields in &lt;code&gt;config.json&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;4) Move content (posts) to the new location&lt;/p&gt;
+&lt;p&gt;Octopress puts post markdown files in the &lt;code&gt;source\_posts&lt;/code&gt; directory. Wintersmith,
+on the other hand, looks in the &lt;code&gt;contents\articles&lt;/code&gt; directory. In my case, I
+was prefixing my URLs with ‘blog’, and so the posts will end up in &lt;code&gt;contents\blog&lt;/code&gt;
+instead, so you may need to tweak the commands below to fit your scenario.&lt;/p&gt;
+&lt;p&gt;You could try &lt;code&gt;remove \contents\articles&lt;/code&gt; or &lt;code&gt;rm .\contents\articles -r -force&lt;/code&gt;
+in the case of PowerShell.&lt;/p&gt;
+&lt;p&gt;Then, to preserve source control history to some extent, &lt;code&gt;git mv source\_posts
+contents\blog&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;5) Tweak the ‘Paginator’ Plugin&lt;/p&gt;
+&lt;p&gt;At this point, the paginator won’t find any articles to list out, because it
+expects to find sub-directories, each with a single &lt;code&gt;index.md&lt;/code&gt; file. This makes
+sense because it closely aligns with the way that the desired URLs will ultimately
+map to the ‘.htm[l]’ files that wintersmith generates, but it is slightly
+inconvenient in a number of ways, so I chose to preserve the Octopress approach
+of a list of ‘.md’ files at the top-level. In order to accomplish this, you have
+to customize the process a bit.&lt;/p&gt;
+&lt;p&gt;Edit the &lt;code&gt;getArticles&lt;/code&gt; function in &lt;code&gt;plugins\paginator.coffee&lt;/code&gt; so that it looks
+like this (based on
+&lt;a href=&quot;http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/&quot;&gt;Marco Carag’s blog&lt;/a&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;getArticles = (contents) -&amp;gt;
+    # helper that returns a list of articles found in *contents*
+    articles = []
+    for key, value of contents[options.articles]
+        articles.push value if value instanceof env.plugins.Page
+
+    articles.sort (a, b) -&amp;gt; b.date - a.date
+    return articles
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You should now have a functional site, however there are many differences
+between the old site and the new site (including URLs), so unless you want a
+bunch of links to break, there is still work left to do.&lt;/p&gt;
+&lt;p&gt;6) Customize URLs&lt;/p&gt;
+&lt;p&gt;Article URLs look something like ‘/articles/yyyy-mm-dd-some-slug/‘, but I want
+them to be ‘/blog/some-slug’ for backwards compatibility.&lt;/p&gt;
+&lt;p&gt;Create a file &lt;code&gt;plugins\blog.coffee&lt;/code&gt; and paste in the following code (based on
+&lt;a href=&quot;http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/&quot;&gt;Marco Carag’s blog&lt;/a&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;path = require &amp;#39;path&amp;#39;
+slugify = require &amp;#39;slugg&amp;#39;
+
+replaceAll = (string, map) -&amp;gt;
+  re = new RegExp Object.keys(map).join(&amp;#39;|&amp;#39;), &amp;#39;gi&amp;#39;
+  return string.replace re, (match) -&amp;gt; map[match]
+
+    module.exports = (env, callback) -&amp;gt;
+
+  defaults =
+    postsDir: &amp;#39;articles&amp;#39; # directory containing blog posts
+    template: &amp;#39;article.jade&amp;#39;
+    filenameTemplate: &amp;#39;/:year/:month/:day/:file/index.html&amp;#39;
+    stripTrailingSlash: false
+
+  # assign defaults for any option not set in the config file
+  options = env.config.blog or {}
+  for key, value of defaults
+    options[key] ?= defaults[key]
+
+  class BlogpostPage extends env.plugins.MarkdownPage
+    ### DRYer subclass of MarkdownPage ###
+
+    getUrl: (base) -&amp;gt;
+      result = super(base)
+      if (options.stripTrailingSlash and result[result.length - 1] == &amp;#39;/&amp;#39;)
+        return result.substr(0, result.length - 1)
+      else
+        return result
+
+    getTemplate: -&amp;gt;
+      @metadata.template or options.template or super()
+
+    @property &amp;#39;rawFilenameTemplate&amp;#39;, &amp;#39;getRawFilenameTemplate&amp;#39;
+    getRawFilenameTemplate: -&amp;gt;
+      @metadata.filenameTemplate or options.filenameTemplate or super()
+
+    getFilenameTemplate: -&amp;gt;
+      raw = @rawFilenameTemplate
+
+      if raw[0] is &amp;#39;/&amp;#39;
+        # already an absolute path
+        return raw
+      else
+        # prevent base page class from resolving paths
+        return &amp;#39;/&amp;#39; + raw
+
+    getFilename: -&amp;gt;
+      rawFileNameTemplate = @rawFilenameTemplate
+
+      dirname = path.dirname @filepath.relative
+
+      filename = super()
+
+      # enable custom &amp;#39;slug&amp;#39; metadata propery
+      filename = replaceAll filename,
+        &amp;#39;:slug&amp;#39;: @slug
+
+      if rawFileNameTemplate[0] is &amp;#39;/&amp;#39;
+        # remove leading slash from filename template
+        filename = &amp;#39;/&amp;#39; + filename
+
+      if filename[0] is &amp;#39;/&amp;#39;
+        # filenames starting with a slash are absolute paths in the content tree
+        return filename.slice(1)
+      else
+        # otherwise they are resolved from their directory in the tree
+        return path.join dirname, filename
+
+    @property &amp;#39;slug&amp;#39;, &amp;#39;getSlug&amp;#39;
+    getSlug: -&amp;gt;
+      @metadata.slug or slugify(@title+&amp;#39;&amp;#39;)
+
+  # register the plugin
+  prefix = if options.postsDir then options.postsDir + &amp;#39;/&amp;#39; else &amp;#39;&amp;#39;
+  env.registerContentPlugin &amp;#39;posts&amp;#39;, prefix + &amp;#39;**/*.*(markdown|mkd|md)&amp;#39;, BlogpostPage
+
+  # done!
+  callback()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You’ll also need to add it to the ‘plugins’ key in &lt;code&gt;config.json&lt;/code&gt;. This will
+allow you to customize features of your blog posts, including URLs, default jade
+template, etc. You’ll also need to install the ‘slugg’ module via npm (and save
+it in your package.json file) -&amp;gt; &lt;code&gt;npm install slugg --save-dev&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Add this to &lt;code&gt;config.json&lt;/code&gt; to set a default template:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;blog&amp;quot;: {
+    &amp;quot;template&amp;quot;: &amp;quot;article.jade&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This also enables URL customization, and the default template is
+“/:year/:month/:day/:file/index.html”, so your article URLs will now look like
+‘/yyyy/mm/dd/some-slug/‘.&lt;/p&gt;
+&lt;p&gt;For backwards compatibility I need by URLs to look like ‘/blog/some-slug’, so I
+changed the template to “/blog/:slug/index.html” (:slug is an optional ‘slug’
+key in the markdown file, or the slug based on the title, I needed a ‘slug’
+option b/c some of my Octopress slugs were different from what Wintersmith would
+generate, its a good idea to hard-code them all for the import, and I will
+probably do this moving forward as well, so that I have more control over the
+URLs).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;blog&amp;quot;: {
+    &amp;quot;template&amp;quot;: &amp;quot;article.jade&amp;quot;,
+    &amp;quot;filenameTemplate&amp;quot;: &amp;quot;/blog/:slug/index.html&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;There is a trailing slash in the URL links to posts, so use the
+‘stripTrailingSlash’ option to remove it. This is not a functional change, but
+it helps to be able to more easily compare the old and new output.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;blog&amp;quot;: {
+    &amp;quot;template&amp;quot;: &amp;quot;article.jade&amp;quot;,
+    &amp;quot;filenameTemplate&amp;quot;: &amp;quot;/blog/:slug/index.html&amp;quot;,
+    &amp;quot;stripTrailingSlash&amp;quot;: true
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;7) Fix Archive and Paging Links&lt;/p&gt;
+&lt;p&gt;My article URLs are correct, but the archive and “paging” links are
+‘/archive.html’ and ‘/page/1/‘, respectively. I want them to be ‘/blog/archives’
+and ‘/blog/page/1’ instead.&lt;/p&gt;
+&lt;p&gt;Before making these changes, I want the contents structure to more accurately
+match the generated site structure, so move the blog files that I currently have
+into a ‘blog’ folder.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;blog&amp;quot;: {
+    &amp;quot;postsDir&amp;quot;: &amp;quot;blog&amp;quot;,
+    &amp;quot;template&amp;quot;: &amp;quot;article.jade&amp;quot;,
+    &amp;quot;filenameTemplate&amp;quot;: &amp;quot;/blog/:slug/index.html&amp;quot;,
+    &amp;quot;stripTrailingSlash&amp;quot;: true
+},
+&amp;quot;paginator&amp;quot;: {
+    &amp;quot;articles&amp;quot;: &amp;quot;blog&amp;quot;,
+    &amp;quot;filename&amp;quot;: &amp;quot;blog/page/%d/index.html&amp;quot;,
+    &amp;quot;perPage&amp;quot;: 3
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Move the archive template into the ‘blog folder’: &lt;code&gt;mv .\contents\archive.json
+.\contents\blog\archives\index.json&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In ‘index.jade’: change &lt;code&gt;a(href=&amp;#39;/archive.html&amp;#39;)&lt;/code&gt; to &lt;code&gt;a(href=&amp;#39;/blog/archives&amp;#39;)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, I renamed the ‘article.jade’ template to ‘post.jade’.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;blog&amp;quot;: {
+    &amp;quot;postsDir&amp;quot;: &amp;quot;blog&amp;quot;,
+    &amp;quot;template&amp;quot;: &amp;quot;post.jade&amp;quot;,
+    &amp;quot;filenameTemplate&amp;quot;: &amp;quot;/blog/:slug/index.html&amp;quot;,
+    &amp;quot;stripTrailingSlash&amp;quot;: true
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;8) Atom Feed and Sitemap&lt;/p&gt;
+&lt;p&gt;Now the last couple of things to take care of are generating an Atom feed, and
+generating a sitemap.&lt;/p&gt;
+&lt;p&gt;The sitemap is relatively easy:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm install wintersmith-contents --save&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm install wintersmith-sitemap --save&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Add ‘wintersmith-contents’ and ‘wintersmith-sitemap’ to the ‘plugins’ key in
+&lt;code&gt;config.json&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The Atom feed will be a bit trickier, so we’ll need to create a custom template
+for it: &lt;code&gt;templates\atom.jade&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
+- var articles = _.first(env.helpers.getArticles(contents), 20);
+- var canonicalUrl = locals.url.lastIndexOf(&amp;#39;/&amp;#39;) === locals.url.length - 1 ? locals.url : locals.url + &amp;#39;/&amp;#39;;
+feed(xmlns=&amp;#39;http://www.w3.org/2005/Atom&amp;#39;)
+  title= &amp;#39;&amp;#39; + locals.title + &amp;#39;&amp;#39;
+  link(href=canonicalUrl + &amp;#39;atom.xml&amp;#39;, rel=&amp;#39;self&amp;#39;)
+  link(href=canonicalUrl)
+  updated= moment(articles[0].date).format()
+  id= canonicalUrl
+  author
+    name
+        | &amp;lt;![CDATA[
+        = locals.owner
+        | ]]&amp;gt;
+  generator(uri=&amp;#39;http://wintersmith.io/&amp;#39;) Wintersmith
+  for article in articles
+    - var permalink = canonicalUrl + (article.url.indexOf(&amp;#39;/&amp;#39;) === 0 ? article.url.substring(1) : article.url)
+    entry
+        title(type=&amp;#39;html&amp;#39;)
+            | &amp;lt;![CDATA[
+            = article.title
+            | ]]&amp;gt;
+        link(href=permalink)
+        updated= moment(article.date).format()
+        id= permalink
+        //- passing locals.url resolves all relative urls to absolute
+        content(type=&amp;#39;html&amp;#39;)
+            | &amp;lt;![CDATA[
+            = article.metadata.excerpt || article.getHtml(locals.url)
+            | ]]&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;wrap-up&quot;&gt;Wrap Up&lt;/h3&gt;
+&lt;p&gt;I’m sure I left out a few details, but that should get you 80% of the way there.
+If you have questions feel free to hit up the comments below.&lt;/p&gt;
+]]>
+    </content>
+  </entry>
   <entry>
     <title type="html"><![CDATA[Octopress post excerpts and 'couldn't parse YAML']]>
     </title>
@@ -726,19 +1023,6 @@ South==0.7.1&lt;/p&gt;
 &lt;li&gt;}&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;If you change a UI component’s option it should respond by updating immediately to reflect the change.  If it doesn’t, it’s a bug.  I read that somewhere :)&lt;/p&gt;
-]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[IE &quot;Unknown runtime error&quot;]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/ie-unknown-runtime-error"/>
-    <updated>2010-07-28T11:58:58-04:00</updated>
-    <id>http://endlessobsession.com/blog/ie-unknown-runtime-error</id>
-    <content type="html"><![CDATA[&lt;p&gt;I received a wonderful error from Internet Explorer today:  “Unknown runtime error”.&lt;/p&gt;
-&lt;p&gt;It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being set.&lt;/p&gt;
-&lt;p&gt;I found out &lt;a href=&quot;http://piecesofrakesh.blogspot.com/2007/02/ies-unknown-runtime-error-when-using.html&quot;&gt;here&lt;/a&gt; that the problem was because my HTML was invalid.  As the poster notes, IE is actually enforcing &lt;a href=&quot;http://www.w3.org/TR/html4/struct/text.html#h-9.3.1&quot;&gt;the spec&lt;/a&gt;, which is good.  However, the error message is completely worthless, which is not good.  Sadly, this is what I expect from IE.&lt;/p&gt;
-&lt;p&gt;In his example, he was attempting to inject an “li” into a “p”, which is obviously invalid.  He noted that IE’s behavior seemed to be inconsistent, since it was ok with an “ul”.  However, in my case I found that injecting an “ul” into a “p” caused the same problem.  This may have been changed recently, a la Windows Update…&lt;/p&gt;
 ]]>
     </content>
   </entry>
