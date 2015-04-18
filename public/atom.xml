@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[The Endless Obsession]]></title>
+  <link href="http://endlessobsession.com/atom.xml" rel="self"/>
+  <link href="http://endlessobsession.com/"/>
+  <updated>2013-10-15T21:28:50-04:00</updated>
+  <id>http://endlessobsession.com/</id>
+  <author>
+    <name><![CDATA[Bryan Matthews]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress post excerpts and 'couldn't parse YAML']]></title>
+    <link href="http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml"/>
+    <updated>2013-10-15T21:14:00-04:00</updated>
+    <id>http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml</id>
+    <content type="html"><![CDATA[This evening I noticed a syntax error in my blog's ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn't bother to determine. However, I also noticed that the post summaries were rather large and didn't appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[File.OpenWrite Gotcha]]></title>
+    <link href="http://endlessobsession.com/blog/file-dot-openwrite-gotcha"/>
+    <updated>2013-01-03T12:29:00-05:00</updated>
+    <id>http://endlessobsession.com/blog/file-dot-openwrite-gotcha</id>
+    <content type="html"><![CDATA[An odd problem when writing a text file to disk using .NET's "File.OpenWrite".]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chrome select excessive padding]]></title>
+    <link href="http://endlessobsession.com/blog/chrome-select-excessive-padding"/>
+    <updated>2012-11-27T19:41:00-05:00</updated>
+    <id>http://endlessobsession.com/blog/chrome-select-excessive-padding</id>
+    <content type="html"><![CDATA[Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC. Here's how to fix that.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Should you write awesome code?]]></title>
+    <link href="http://endlessobsession.com/blog/should-you-write-awesome-code"/>
+    <updated>2012-06-28T22:48:00-04:00</updated>
+    <id>http://endlessobsession.com/blog/should-you-write-awesome-code</id>
+    <content type="html"><![CDATA[My reaction to a post entitled "Should you write awesome code?"]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Carolina Code Camp 2012 Presentation]]></title>
+    <link href="http://endlessobsession.com/blog/carolina-code-camp-2012-presentation"/>
+    <updated>2012-05-26T16:51:00-04:00</updated>
+    <id>http://endlessobsession.com/blog/carolina-code-camp-2012-presentation</id>
+    <content type="html"><![CDATA[Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with speakers.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning F# with TDD: Part 2]]></title>
+    <link href="http://endlessobsession.com/blog/learning-f-with-tdd-part-2"/>
+    <updated>2012-01-11T21:50:53-05:00</updated>
+    <id>http://endlessobsession.com/blog/learning-f-with-tdd-part-2</id>
+    <content type="html"><![CDATA[Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec. This time around I'll elaborate a little bit on the testing aspects, and also talk about active patterns.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ExoWeb type loading changes]]></title>
+    <link href="http://endlessobsession.com/blog/exoweb-type-loading-changes"/>
+    <updated>2011-12-02T09:19:55-05:00</updated>
+    <id>http://endlessobsession.com/blog/exoweb-type-loading-changes</id>
+    <content type="html"><![CDATA[Types are now batch loaded in ExoWeb. The following is an explanation of the changes.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Learning F# with TDD: Part 1]]></title>
+    <link href="http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1"/>
+    <updated>2011-08-21T15:59:03-04:00</updated>
+    <id>http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1</id>
+    <content type="html"><![CDATA[I decided to dive into a few languages I've been meaning to learn by way of Roy Osherove's calculator kata. First up - F#.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Disable the audible beep in Mac Terminal]]></title>
+    <link href="http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal"/>
+    <updated>2011-07-11T17:45:01-04:00</updated>
+    <id>http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal</id>
+    <content type="html"><![CDATA[How to disable that annoying beep in Mac Terminal when you accidentally hit the wrong key.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tfs Rollback]]></title>
+    <link href="http://endlessobsession.com/blog/tfs-rollback-2"/>
+    <updated>2011-07-08T08:14:52-04:00</updated>
+    <id>http://endlessobsession.com/blog/tfs-rollback-2</id>
+    <content type="html"><![CDATA[How to rollback all or part of a checkin in TFS using the commandline tool.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Visual Studio External Tools]]></title>
+    <link href="http://endlessobsession.com/blog/visual-studio-external-tools"/>
+    <updated>2011-01-24T10:49:32-05:00</updated>
+    <id>http://endlessobsession.com/blog/visual-studio-external-tools</id>
+    <content type="html"><![CDATA[An introduction to creating custom external tools in Visual Studio.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ExoWeb's Entity System]]></title>
+    <link href="http://endlessobsession.com/blog/exowebs-entity-system"/>
+    <updated>2011-01-13T06:34:46-05:00</updated>
+    <id>http://endlessobsession.com/blog/exowebs-entity-system</id>
+    <content type="html"><![CDATA[Matt Hooper recently posted an overview of ExoWeb's entity system.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Intro to Client-Server Mapping in ExoWeb]]></title>
+    <link href="http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb"/>
+    <updated>2011-01-10T10:28:34-05:00</updated>
+    <id>http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb</id>
+    <content type="html"><![CDATA[An introduction to client-server mapping in ExoWeb.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Brief Introduction to ExoWeb]]></title>
+    <link href="http://endlessobsession.com/blog/a-brief-introduction-to-exoweb"/>
+    <updated>2011-01-10T07:54:17-05:00</updated>
+    <id>http://endlessobsession.com/blog/a-brief-introduction-to-exoweb</id>
+    <content type="html"><![CDATA[A Brief Introduction to ExoWeb. What it is and what it can do.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting started with virtualenvwrapper]]></title>
+    <link href="http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper"/>
+    <updated>2010-12-20T21:22:33-05:00</updated>
+    <id>http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper</id>
+    <content type="html"><![CDATA[A while back I toyed with using virtualenv and virtualenvwrapper to manage isolated python packages for development, but I didn't get very far at the time. Recently I've been dabbling in ruby and have used RVM to manage ruby environments and gems. This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I wish I could remember what Amnesia is...]]></title>
+    <link href="http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is"/>
+    <updated>2010-12-07T19:12:16-05:00</updated>
+    <id>http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is</id>
+    <content type="html"><![CDATA[Matt Hooper wrote a blog post describing his "Amnesia" project.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Exo-suite (and client scripts on Github)]]></title>
+    <link href="http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github"/>
+    <updated>2010-12-07T19:07:12-05:00</updated>
+    <id>http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github</id>
+    <content type="html"><![CDATA[The ExoWeb client scripts are now hosted on Github...]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing VirtualBox Guest Additions]]></title>
+    <link href="http://endlessobsession.com/blog/installing-virtualbox-guest-addition"/>
+    <updated>2010-09-30T17:19:32-04:00</updated>
+    <id>http://endlessobsession.com/blog/installing-virtualbox-guest-addition</id>
+    <content type="html"><![CDATA[The VirtualBox guest additions. What they are and how to install them.]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Resize jQuery Dialog]]></title>
+    <link href="http://endlessobsession.com/blog/resize-jquery-dialog"/>
+    <updated>2010-08-16T18:00:24-04:00</updated>
+    <id>http://endlessobsession.com/blog/resize-jquery-dialog</id>
+    <content type="html"><![CDATA[If you ever need to resize and reposition a jQuery dialog, the following script should do the trick...]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[IE "Unknown runtime error"]]></title>
+    <link href="http://endlessobsession.com/blog/ie-unknown-runtime-error"/>
+    <updated>2010-07-28T11:58:58-04:00</updated>
+    <id>http://endlessobsession.com/blog/ie-unknown-runtime-error</id>
+    <content type="html"><![CDATA[I received a wonderful error from Internet Explorer today - "Unknown runtime error"...]]></content>
+  </entry>
+  
+</feed>
