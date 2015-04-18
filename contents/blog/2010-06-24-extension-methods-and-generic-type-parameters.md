@@ -4,7 +4,6 @@ layout: post
 slug: extension-methods-and-generic-type-parameters
 status: publish
 title: Extension Methods and Generic Type Parameters
-excerpt: I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.
 wordpress_id: '14'
 categories:
 - csharp

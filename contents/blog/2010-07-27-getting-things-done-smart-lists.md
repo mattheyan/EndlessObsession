@@ -5,7 +5,6 @@ slug: getting-things-done-smart-lists
 status: publish
 title: 'Getting Things Done:  Smart Lists'
 wordpress_id: '94'
-excerpt: In my first GTD post, I described some of the strategies that I employ to help me get things done. Remember the Milk has become a increasingly large part of that. If you're reading this and you don't know about it, you should check it out! Anyway, one thing that I discovered recently that has changed the way I use RTM is smart lists...
 categories:
 - gtd
 tags:

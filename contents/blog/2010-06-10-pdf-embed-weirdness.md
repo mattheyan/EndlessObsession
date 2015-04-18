@@ -5,7 +5,6 @@ slug: pdf-embed-weirdness
 status: publish
 title: PDF Embed Weirdness
 wordpress_id: '8'
-excerpt: The other day I was working on a web page where the user does some stuff and then as the result a nice, shiny PDF is embedded in the page. I noticed that in Internet Explorer (I was using IE8) the embedded region showed up as a blank rectangle with a little icon in the upper left-hand corner. Weird...
 categories:
 - pdf
 tags:

@@ -4,7 +4,6 @@ layout: post
 slug: exo-suite-and-client-scripts-on-github
 status: publish
 title: The Exo-suite (and client scripts on Github)
-excerpt: The ExoWeb client scripts are now hosted on Github...
 wordpress_id: '127'
 categories:
 - exoweb

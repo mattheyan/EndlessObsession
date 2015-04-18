@@ -1,4 +1,5 @@
 doctype html
+- var canonicalUrl = locals.url.lastIndexOf('/') === locals.url.length - 1 ? locals.url : locals.url + '/';
 html(lang='en')
   head
     block head
@@ -39,11 +40,11 @@ html(lang='en')
     nav(role='navigation')
       ul
         li
-          a(href=locals.url)= 'Home'
+          a(href=canonicalUrl)= 'Home'
         li
-          a(href=locals.url + '/about', rel='author')= 'About'
+          a(href=canonicalUrl + 'about', rel='author')= 'About'
         li
-          a(href=locals.url + '/blog/archives')= 'Archives'
+          a(href=canonicalUrl + 'blog/archives')= 'Archives'
       form(action='http://google.com/search')
         fieldset(role='search')
           input(type='hidden', name='q', value='site:' + locals.url)

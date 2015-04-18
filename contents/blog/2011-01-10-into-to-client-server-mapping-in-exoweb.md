@@ -5,7 +5,6 @@ slug: into-to-client-server-mapping-in-exoweb
 status: publish
 title: Intro to Client-Server Mapping in ExoWeb
 wordpress_id: '187'
-excerpt: An introduction to client-server mapping in ExoWeb.
 categories:
 - exoweb
 - javascript

@@ -5,7 +5,6 @@ slug: web-service-syntax-error
 status: publish
 title: Web Service Syntax Error???
 wordpress_id: '12'
-excerpt: Ok, I'll start this post off with some background. A couple of years ago I wrote a SOAP web service that manages printing for multiple users through a web application. Sounds familiar, right?
 categories:
 - asp.net ajax
 tags:

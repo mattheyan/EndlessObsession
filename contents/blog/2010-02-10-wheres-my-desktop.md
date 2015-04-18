@@ -4,7 +4,6 @@ layout: post
 slug: wheres-my-desktop
 status: publish
 title: Where's My Desktop!
-excerpt: The other day I got into work really early, hoping to have a productive morning. Unfortunately, my computer had other ideas. When it finished booting up I was greeted by an empty desktop and a host of applications complaining about needing a password.
 wordpress_id: '7'
 categories:
 - windows

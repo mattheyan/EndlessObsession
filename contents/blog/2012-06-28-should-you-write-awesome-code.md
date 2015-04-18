@@ -3,7 +3,6 @@ layout: post
 title: "Should you write awesome code?"
 date: 2012-06-28 22:48
 comments: true
-excerpt: My reaction to a post entitled "Should you write awesome code?"
 categories: 
 ---
 
