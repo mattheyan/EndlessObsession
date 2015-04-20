@@ -28,7 +28,7 @@ So I set out to find an alternative that would work reliably on Windows, and
 and node and JavaScript in general are skills that I'm more interested in developing.
 What I found was [Wintersmith](https://github.com/jnordberg/wintersmith).
 
---------------------------------------
+--------------------------------------------------------------------------------
 
 ### What is Wintersmith?
 
