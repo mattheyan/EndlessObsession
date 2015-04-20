@@ -18,7 +18,8 @@
   "require": {
     "moment": "moment",
     "_": "underscore",
-    "typogr": "typogr"
+    "typogr": "typogr",
+    "htmlToText": "html-to-text"
   },
   "jade": {
     "pretty": true

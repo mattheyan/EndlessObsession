@@ -5,6 +5,7 @@ slug: sequenced-sql-records
 status: publish
 title: Sequenced SQL Records
 wordpress_id: '83'
+excerpt: Imagine you have a table that contains records with a foreign key (string, int, guid, etc...) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc...) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key table.
 categories:
 - database
 tags:

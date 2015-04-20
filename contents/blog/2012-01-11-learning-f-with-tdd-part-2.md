@@ -5,6 +5,7 @@ slug: learning-f-with-tdd-part-2
 status: publish
 title: 'Learning F# with TDD: Part 2'
 wordpress_id: '247'
+excerpt: Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec. This time around I'll elaborate a little bit on the testing aspects, and also talk about active patterns.
 ---
 
 [Last time](http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/) I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I'll elaborate a little bit on the testing aspects, and also talk about active patterns.

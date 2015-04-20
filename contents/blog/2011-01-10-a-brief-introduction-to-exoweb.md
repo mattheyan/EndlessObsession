@@ -4,6 +4,7 @@ layout: post
 slug: a-brief-introduction-to-exoweb
 status: publish
 title: A Brief Introduction to ExoWeb
+excerpt: A Brief Introduction to ExoWeb. What it is and what it can do.
 wordpress_id: '186'
 categories:
 - exoweb

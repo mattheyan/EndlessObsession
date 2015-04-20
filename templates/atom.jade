@@ -25,6 +25,7 @@ feed(xmlns='http://www.w3.org/2005/Atom')
         id= permalink
         //- passing locals.url resolves all relative urls to absolute
         content(type='html')
+            - var excerpt = (function() { var e = article.metadata.excerpt; if (!e) { var articleText = htmlToText.fromString(article.getHtml(locals.url)); var idx = articleText.search(/(\s|[\r\n])\-\-\-\-*(\s|[\r\n])/ig); if (idx > 0) { e = articleText.substring(0, idx - 1); } else { e = articleText; } } return e; }());
             | <![CDATA[
-            = article.metadata.excerpt || article.getHtml(locals.url)
+            = excerpt
             | ]]>

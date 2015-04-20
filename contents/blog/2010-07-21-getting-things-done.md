@@ -4,6 +4,7 @@ layout: post
 slug: getting-things-done
 status: publish
 title: Getting things done (GTD)
+excerpt: Lately I've become somewhat obsessed with getting things done. I wasn't always this way, I swear! In my younger days I was as disorganized and lazy as anyone. And I procrastinated sometimes (understatement of the year).
 wordpress_id: '56'
 categories:
 - gtd

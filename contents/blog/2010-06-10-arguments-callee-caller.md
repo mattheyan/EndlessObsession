@@ -4,6 +4,7 @@ layout: post
 slug: arguments-callee-caller
 status: publish
 title: arguments...callee...caller...
+excerpt: Recently I spent some time looking at generating a stack trace in JavaScript for the purpose of error reporting. As a result of this I came across some odd behavior in JavaScript.
 wordpress_id: '13'
 categories:
 - javascript

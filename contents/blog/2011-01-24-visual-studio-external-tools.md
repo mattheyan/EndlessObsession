@@ -4,6 +4,7 @@ layout: post
 slug: visual-studio-external-tools
 status: publish
 title: Visual Studio External Tools
+excerpt: An introduction to creating custom external tools in Visual Studio.
 wordpress_id: '199'
 ---
 
