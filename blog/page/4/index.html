@@ -51,58 +51,31 @@
             <h2><a rel="article" href="/blog/add-javascript-to-a-pdf-document-with-itextsharp">Add JavaScript to a PDF Document with iTextSharp</a></h2>
           </header>
           <section><p><em>Originally posted June 8&nbsp;2010</em></p>
-<p><em><strong>Update 3/6/2015</strong></em>: The iTextSharp project’s license changed to be more restrictive, so it may not be practical for you to use it. Scroll to the bottom to see an alternative solution using&nbsp;PdfSharp.  </p>
 <p>As you might have guessed from the title, this post is of the “get it done” variety.  So, the code may be a little rough.  Its the sort of code that works, but isn’t fully understood (by me at least).  I wasn’t able to find a clear example on the net, so I pieced together examples and guesses based on reading the code and interpreting method and class&nbsp;names.</p>
 <p>Why guess?  Well, <a href="http://sourceforge.net/projects/itextsharp/">iTextSharp</a> is a pretty robust open source project which is useful for creating and manipulating <span class="caps">PDF</span> documents.  The problem is, it doesn’t seem to have any useful documentation online.  It <strong><em>is</em></strong> open source, so you can read the code all day.  Also, there are some tutorials that you can download from the <a href="http://sourceforge.net/projects/itextsharp/files/">files page</a> (in the examples&nbsp;folder).</p>
 <p>The goal was to have a <span class="caps">PDF</span> document print automatically from a web page.  I decided to pass on coming up with a cross-browser (read: works in IE) method for automatically printing the document on the client, and instead decided to insert JavaScript into the generated PDF document that would cause it to print when opened.  This is what I came up&nbsp;with.</p>
-<pre><code>PdfReader reader = new PdfReader(inputStreamOrFile);
-int pageCount = reader.NumberOfPages;
-Rectangle pageSize = reader.GetPageSize(1);
-
-// Setup writer
-PdfDocument document = new PdfDocument(pageSize);
-PdfWriter writer = PdfWriter.GetInstance(document, outputStreamOrFile);
-
-document.Open();
-
-// Copy each page
-PdfContentByte content = writer.DirectContent;
-for (int i = 0; i &lt; pageCount; i++)
-{
-    document.NewPage();
-
-    PdfImportedPage page = writer.GetImportedPage(reader, i + 1); // page numbers are one-based
-
-    content.AddTemplate(page, 0, 0); // x and y correspond to position on the page?
-}
-
-// Insert JavaScript to print the document after a fraction of a second (allow time to become visible).
-string jsText = &quot;var res = app.setTimeOut(&#39;var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);&#39;, 200);&quot;;
-
-//string jsTextNoWait = &quot;var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);&quot;;
-
-PdfAction js = PdfAction.JavaScript(jsText, writer);
-
-writer.AddJavaScript(js);
-
-document.Close()
-</code></pre><p>As for the JavaScript, the call to setTimeOut is there so that the <span class="caps">PDF</span> is rendered before the print dialog is shown.  Otherwise, the users will see the print dialog and a blank page, which may be confusing.  If the PDF is not visible anyway (as in my case) then you don’t really need the timeout.  The actual printing is based on the documentation of Acrobat JavaScript from <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">Adobe’s website</a>.  In this example, the <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">iteration level</a> is set to “full”, meaning that the user will get the print dialog and progress feedback.  You can also use “automatic” (no dialog, includes progress) and “silent” (no dialog or&nbsp;progress).</p>
-<p><em><strong>Update 3/6/2015</strong></em>:</p>
-<p>Because iTextSharp moved to the <span class="caps">AGPL</span>, we migrated the code over to use <a href="https://www.nuget.org/packages/PdfSharp">PdfSharp</a>.</p>
-<p>The JavaScript function text is the&nbsp;same:</p>
-<pre><code>const string jsText = &quot;var res = app.setTimeOut(&#39;var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);&#39;, 200);&quot;;
-</code></pre><p>And here is how it can be added to a PdfSharp <code>PdfDocument</code> object:</p>
-<pre><code>PdfDictionary dict = new PdfDictionary(document);
-
-// According to the PDF Reference the dictionary requires two elements.
-// A key /S that specifies the action name, and a key /JS that set the JavaScript to run.
-dict.Elements[&quot;/S&quot;] = new PdfName(&quot;/JavaScript&quot;);
-dict.Elements[&quot;/JS&quot;] = new PdfName(&quot;/&quot; + jsText);
-
-document.Internals.AddObject(dict);
-
-document.Internals.Catalog.Elements[&quot;/OpenAction&quot;] = PdfInternals.GetReference(dict);
-</code></pre><p>At this point you can save your document to a stream or&nbsp;file.</p>
+<p>PdfReader reader = new&nbsp;PdfReader(inputStreamOrFile);</p>
+<p>int pageCount =&nbsp;reader.NumberOfPages;</p>
+<p>Rectangle pageSize =&nbsp;reader.GetPageSize(1);</p>
+<p>// Setup&nbsp;writer</p>
+<p>PdfDocument document = new&nbsp;PdfDocument(pageSize);</p>
+<p>PdfWriter writer = PdfWriter.GetInstance(document,&nbsp;outputStreamOrFile);</p>
+<p>document.Open();</p>
+<p>// Copy each&nbsp;page</p>
+<p>PdfContentByte content =&nbsp;writer.DirectContent;</p>
+<p>for (int i = 0; i &lt; pageCount;&nbsp;i++)</p>
+<p>{</p>
+<p>document.NewPage();</p>
+<p>PdfImportedPage page = writer.GetImportedPage(reader, i + 1); // page numbers are&nbsp;one-based</p>
+<p>content.AddTemplate(page, 0, 0); // x and y correspond to position on the&nbsp;page?</p>
+<p>}</p>
+<p>// Insert JavaScript to print the document after a fraction of a second (allow time to become&nbsp;visible).</p>
+<p>string jsText = “var res = app.setTimeOut(‘var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);’,&nbsp;200);”;</p>
+<p>//string jsTextNoWait = “var pp = this.getPrintParams();pp.interactive =&nbsp;pp.constants.interactionLevel.full;this.print(pp);”;</p>
+<p>PdfAction js = PdfAction.JavaScript(jsText,&nbsp;writer);</p>
+<p>writer.AddJavaScript(js);</p>
+<p>document.Close()</p>
+<p>As for the JavaScript, the call to setTimeOut is there so that the <span class="caps">PDF</span> is rendered before the print dialog is shown.  Otherwise, the users will see the print dialog and a blank page, which may be confusing.  If the PDF is not visible anyway (as in my case) then you don’t really need the timeout.  The actual printing is based on the documentation of Acrobat JavaScript from <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">Adobe’s website</a>.  In this example, the <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">iteration level</a> is set to “full”, meaning that the user will get the print dialog and progress feedback.  You can also use “automatic” (no dialog, includes progress) and “silent” (no dialog or&nbsp;progress).</p>
 
           </section>
         </article>
