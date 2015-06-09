@@ -1,7 +1,11 @@
 Code Comments
 =============
 
-The topic of comments in code has been covered extensively by many smart people.
+```
+// TODO: Improve the post intro before publishing to the interwebs.
+```
+
+The topic of comments in code has already been covered by many smart people.
 I am not under the illusion that I can add anything novel or ground-breaking to
 the discussion. What I will do is re-state the wisdom of others in my own way,
 in hopes that it adds just a little bit to the collective weight of those words.
@@ -15,7 +19,7 @@ profession. But, yes, I think it is worth writing about.
 Good comments are an important complement to good code, making it much more
 clear and easy to understand.
 
-Bad comments can make any code confusing, contradictory, misleading, and messy.
+Bad comments can make good code confusing, contradictory, misleading, and messy.
 
 So, given that comments matter, what is the best way to use them?
 
@@ -29,6 +33,11 @@ in one form or another, courtesy of Steve McConnell from his excellent book
 > Comments should explain the why instead of the how or what.
 > 
 > \- Steve McConnell, "[Code Complete](http://en.wikipedia.org/wiki/Code_Complete)"
+
+Take a moment and let that sink in...
+
+This distinction between why, how, and what is a great way to gauge the
+usefulness of a particular comment.
 
 The "how or what" should be adequately conveyed by the code itself. On the other
 hand, "why" often cannot be gleaned from the code, which is where comments
