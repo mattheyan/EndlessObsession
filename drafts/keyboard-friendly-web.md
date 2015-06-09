@@ -14,9 +14,6 @@ than typing text anyway).
 Hopefully I can convince you that it does matter, and then give you some tips on
 how to make your web app or website more keyboard-friendly. 
 
-If you're already convinced that being keyboard-friendly is important, then you
-can [skip to the good stuff](#info).
-
 Why the Keyboard Matters
 ------------------------
 
@@ -48,6 +45,10 @@ A keyboard-friendly UI can also help power-users get things done more
 efficiently. They'll love you for it, and it could mean the difference in
 choosing your app over another.
 
+***
+Finally, if you need a selfish reason, your own testing will go much smoother if
+you make your site keyboard-friendly and learn to use the keyboard effeciently.
+
 How to be Keyboard-Friendly
 ---------------------------
 
@@ -63,11 +64,15 @@ following criteria:
 ### Tab Order of Fields
 
 Web browsers allow you to move from field to field by hitting the `Tab` key (or
-`Shift` + `Tab` to move backwards). Power users love this feature, and people
-who can't use a mouse depend on it.
+`Shift` + `Tab` to move backwards). In addition to fields, buttons and links
+can also be visited in the same way. Because of this, you _*should*_ be able to 
+use most forms and applications online without taking your hands off of the
+keyboard.
 
-This works automatically in most cases, however, there are a few things that you
-can do which cause this to break down.
+Power users love this feature, and people who can't use a mouse depend on it.
+
+Fortunately, this works automatically in most cases. However, there are a few
+things that you can do which cause this to break down.
 
 #### Positioning that Doesn't Match Document Order
 
@@ -99,6 +104,21 @@ If you can't adjust the markup structure, it may be possible to use 'tabindex'
 as a workaround. This is not recommended though, not only because a logical
 structure is preferred, but also because it may be hard to use properly [2].
 
+#### Elements that are not "tabbable"
+
+While unexpected tab order can cause confusion, the _*inability*_ to tab through
+elements of a form is even more damaging to user experience. 
+
+It may seem odd that this would be a problem, given that I just said that web
+browsers give us tabbable fields by default. However, not all elements are
+tabbable, and what you see is not always what you get. Sometimes a button isn't
+really a button...
+
+A pattern that I've seen often (you might even call it an anti-pattern) is to
+use generic elements like `div` and `span` to act as buttons. While it may be
+easy to attach a click event handler to a div, that convenience comes at the
+price of accessibility [3], not to mention semantics [4].
+
 ### Clear Visual Focus
 
 ---------------------------------------
@@ -107,6 +127,8 @@ structure is preferred, but also because it may be hard to use properly [2].
 
 [1]: http://webaim.org/techniques/keyboard/
 [2]: http://webaim.org/techniques/keyboard/tabindex
+[3]: http://www.karlgroves.com/2013/05/14/links-are-not-buttons-neither-are-divs-and-spans/
+[4]: http://davidwalsh.name/html5-buttons
 
 https://api.jqueryui.com/tabbable-selector/
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/tabIndex
