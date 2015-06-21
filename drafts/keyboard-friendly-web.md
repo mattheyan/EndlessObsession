@@ -1,13 +1,12 @@
 Keyboard-Friendly UIs on the Web
 ================================
 
-For most of the history of computing the keyboard has been one of the best and
-most efficient ways for us to interact with computers. Today we have a veritable
-cornucopia of options (touch, movement, voice, visuals, etc.) but I contend that
-for many users and in many situations the keyboard is still king.
+The keyboard is one of the most versatile input devices in computing. It's been
+around for as long as the personal computer (longer, in fact), and to this day
+its usually the most effecient way to get work done on a computer.
 
-Whether you agree or not, it's easy to ignore the keyboard when you're building
-web applications. Most of us basically click or touch our way around the web, so
+That being said, it's easy to ignore the keyboard when you're building web
+applications. Most of us basically click or touch our way around the web, so
 you could be forgiven for thinking that it doesn't matter (for anything other
 than typing text anyway).
 
@@ -238,11 +237,16 @@ POST to the server). In this case, it made sense to override `Ctrl` + `S` to
 save (and continue). After implementing this feature it was remarkable how much
 this improved the user-experience, in my opinion at least.
 
-With that being said, there are some common shortcuts supported by many web apps
-that you should consider supporting.
+You should also look to see what other apps are doing and follow suite. Remember
+the principal of least surprise. If you think your users will expect a particular
+shortcut to work because they've used it elsewhere, then you should make sure
+that it works in your app as well.
+
+Here are some common shortcuts supported by many web apps that you should
+consider supporting as well.
 
 * `Ctrl` + `Enter` to submit a form from a WYSIWYG editor or any field that has
-  another use for the `Enter` key (taking the place of just Enter).
+  another use for the `Enter` key (taking the place of just Enter). Or, if the
 * `Escape` to close dialogs or pop-ups when possible.
 * Forward-slash (`/`) to go to a global search or filter box.
 * Question mark (`?`) to open a dialog that shows the keyboard shortcuts that
@@ -250,7 +254,7 @@ that you should consider supporting.
 * `Enter` to perform an action on the current focused element, for example
   select something or expand a panel.
 
-Finally, look to what other web apps are doing as inspiration. Take a look at
+This is by no means an exhaustive list, and is subject to change. Take a look at
 popular, modern apps like Facebook, Twitter, Trello, and GMail, and try to apply
 the patterns that have emerged.
 
