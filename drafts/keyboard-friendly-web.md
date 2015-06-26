@@ -16,7 +16,7 @@ how to make your web app or website more keyboard-friendly.
 Why the Keyboard Matters
 ------------------------
 
-There are at least two major categories of user's who would benefit from
+There are at least two major categories of users who would benefit from
 keyboard-friendly UIs, and I'll throw in a third for good measure.
 
 * People with disabilities, particularly those that affect their ability to see
@@ -36,12 +36,12 @@ having to move on to something else (if there is an alternative, that is) [1].
 
 The ability to get things done with a keyboard is just one part of the bigger
 concept of accessibility (also known as "a11y" on Twitter and such). I won't
-cover that topic in-depth here, but suffice it to say if you're not paying
+cover that topic in-depth here, but suffice to say, if you're not paying
 attention to accessibility you're neglecting an under-served population. We can,
 and should, do better so that everyone can experience the web to the fullest. 
 
 A keyboard-friendly UI can also help power-users get things done more
-efficiently. They'll love you for it, and it could mean the difference in
+efficiently. They'll love you for it, and it could mean the difference between
 choosing your app over another.
 
 Finally, if you need a selfish reason, your own testing will go much smoother if
@@ -67,9 +67,9 @@ can also be visited in the same way. Because of this, you _*should*_ be able to
 use most forms and applications online without taking your hands off of the
 keyboard.
 
-Power users love this feature, and people who can't use a mouse depend on it.
+Power users love this feature; people who can't use a mouse depend on it.
 
-Fortunately, this works automatically in most cases. However, there are a few
+Fortunately, this works automatically in most cases; however, there are a few
 things that you can do which cause this to break down.
 
 **Positioning that Doesn't Match Document Order**
@@ -86,17 +86,17 @@ which is on the right hand side of the form. After tabbing a few times more, you
 reach field #4, which is on the left hand side of the form, at the same level as
 field #1.
 
-This is unexpected behavior, since tabbing should occur top to bottom and left
+This is unexpected behavior since tabbing should occur top to bottom and left
 to right (i.e. following the direction that text is read).
 
-The form may still be useable, but if nothing else it will probably be harder
-for someone who is blind to understand the flow of the form. Also, in more
-complex scenarios the impact could be more substantial.
+The form may still be useable, but it will probably be harder for someone who is
+blind to understand the flow of the form. Also, in more complex scenarios the
+impact could be more substantial.
 
 The ideal way to address this problem would be to structure your markup so that
 it matches the logical flow of the document. Not only does this help with
-keyboard usability (especially for users who can't see the visual layout of the
-page), but it also makes the markup easier to understand.
+keyboard usability - especially for users who can't see the visual layout of the
+page - but it also makes the markup easier to understand.
 
 If you can't adjust the markup structure, it may be possible to use 'tabindex'
 as a workaround. This is not recommended though, not only because a logical
@@ -110,14 +110,14 @@ elements of a form is even more damaging to user experience.
 It may seem odd that this would be a problem, given that I just said that web
 browsers give us tabbable fields by default. However, not all elements are
 tabbable, and what you see is not always what you get. Sometimes a button isn't
-really a button...
+really a button.
 
 A pattern that I've seen often (you might even call it an anti-pattern) is to
 use generic elements like `div` and `span` to act as buttons. While it may be
 easy to attach a click event handler to a div, that convenience comes at the
 price of accessibility [3], not to mention semantics [4].
 
-Elements like `div` and `span` are not tabbable by default, since the browser
+Elements like `div` and `span` are not tabbable by default since the browser
 doesn't view them as form elements that the user can interact with [5]. So,
 unless you anticipate this and plan accordingly [6], your users will tab past
 those "buttons". Screen reader users would still be able to click the button
@@ -127,7 +127,7 @@ keyboard-dependent users this may be virtually impossible to overcome.
 
 To avoid these problems, use the elements that make sense for what you're trying
 to do: links to take you somewhere, buttons to perform an action, input types
-for...gathering user input, etc.
+for gathering user input, etc.
 
 If that fails for some reason, you should at least use a combination of
 `tabindex="0"`, the `role` attribute, and `aria-*` attributes to make your
@@ -139,9 +139,9 @@ Ok, so you've done the work to make sure that users can `Tab` through your app.
 That's a huge improvement already. But, what if the user doesn't know where they
 are because they can't **see** the focus (for sighted users obviously)?
 
-This is usually not a problem with some inputs. For example, text fields have a
-blinking cursor when they're focused, as well as some sort of change in
-outline/border in most cases. Others may not be quite as obvious. Select fields,
+This is usually not a problem with some inputs; for example, text fields have a
+blinking cursor when they're focused as well as some sort of change in
+outline/border in most cases. Others may not be quite as obvious: select fields,
 radio buttons, and check boxes all have some sort of outline around them when
 focused.
 
@@ -149,7 +149,7 @@ In general, browser do a good job of conveying focus with the default styling.
 However, if you're styling your fields and buttons in a special way, you may be
 undermining the default focus style that the browser provides.
 
-An example that I recently encountered at work had to do with button focus.
+An example that I recently encountered at work hard to do with button focus.
 We're using shades of blue for the background and borders of some of our buttons.
 As it happens, the browser was using a blue outline as the focus indicator,
 which was really had to distinguish from the blue of the button. For our green
@@ -163,11 +163,11 @@ keep in mind how it might impact focus styling, and if needed, include custom
 
 Occasionally the user will take some action that will affect element focus, and
 if you're not careful you could end up throwing away their place in the document.
-If the user clicks a link or button that cause a part of the page to be hidden
-or shown such that the currently focused element is no longer visible, they will
-lose their place in the document and have to start over from the top. I'm sure
-you can understand why this is a source of endless frustration for users who
-depend on keyboard navigation.
+If the user clicks a link or button that causes a part of the page to be hidden
+or shown in such a way that the currently focused element is no longer visible,
+they will lose their place in the document and have to start over from the top.
+I'm sure you can understand why this is a source of endless frustration for
+users who depend on keyboard navigation.
 
 If the user click's an 'Edit' button and that causes the button to be hidden and
 a form shown in its place, then you should set focus to the first field in that
@@ -181,21 +181,21 @@ opened, focus should be set to the first focusable element in the dialog.
 Likewise, when it is closed, focus should be set to the element that caused it
 to be opened if possible, or at least somewhere nearby as an alternative.
 
-This all boils down to a simple concept: make sure that the user's focus behaves
+This all boils down to a simple concept: make sure the user's focus behaves
 in the way that they would expect.
 
-And whatever you do, don't let the user's focus return unexpectedly to the top
+And whatever you do - don't let the user's focus return unexpectedly to the top
 of the document.
  
 ### Able to Interact With **All** Controls
 
-This one is pretty simple. If you use custom controls in your web app, make sure
-that they're keyboard accessible. Otherwise, you're going to prevent some users
+This one is pretty simple: if you use custom controls in your web app, make sure
+that they're keyboard accessible, otherwise you're going to prevent some users
 from being able to use your app at all.
 
-Many high-profile UI libraries do a good job of this. For example, jQuery UI is
+Many high-profile UI libraries do a good job of this; for example, jQuery UI is
 generally pretty good about taking care of accessibility as much as it can. That
-random jQuery plugin that you found on the net may not be quite that robust...
+random jQuery plugin that you found on the net may not be quite that robust.
 
 ### Custom Keyboard Shortcuts
 
@@ -203,13 +203,13 @@ After you've taken care of the basics so that keyboard-only users can at least
 function, you can move on to value-add features to make your power-users happy.
 Keyboard shortcuts are a great way to do that.
 
-The first rule of keyboard shortcuts is to follow the principle of least surprise.
-Don't do stuff that will surprise your users. Do what they expect.
+The first rule of keyboard shortcuts is to follow the principle of least surprise:
+don't do stuff that will surprise your users; do what they expect.
 
 In this case we're not talking about the "Happy birthday!" or "You won a new car!"
 sort of surprise. We're talking about the curse-evoking sort of surprise. "Oh, you
 thought that keyboard shortcut would do something innocuous, well it actually
-deletes all of your data and sets the computer on fire."
+deletes all of your data and sets the computer on fire!"
 
 When you implement keyboard shortcuts, choose shortcuts that the user already
 expects to work because they've seen them before. Beyond that, make sure that
@@ -265,7 +265,7 @@ It matters that your web app is keyboard-friendly. It might take a little extra
 effort, but your users will love you for it (even if they never tell you).
 
 The single best thing you can do to make your app more keyboard-friendly is
-actually pretty simple. Test your app by using **only** the keyboard. When you
+actually pretty simple: test your app by using **only** the keyboard. When you
 encounter a problem...fix it.
 
 Here are a few other resources on the topic that you might find useful:
