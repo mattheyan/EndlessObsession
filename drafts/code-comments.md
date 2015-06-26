@@ -12,14 +12,14 @@ Google searches and you'll find lots of good information on the topic.
 Yet, somehow we keep writing bad comments. What gives?
 
 I am not under the illusion that I can add anything novel or ground-breaking to
-the discussion. What I will do is re-state the wisdom of others in my own way,
+the discussion. What I will do is re-state the wisdom of others in my own way
 in hopes that it adds just a little bit to the collective weight of those words.
 
 "Wait, are comments even worth writing about?", you may be wondering. "Couldn't
 you write about something more important?"
 
 Sure, I'll concede that code comments are not the greatest challenge of our
-profession. But, yes, I think it is worth writing about.
+profession, but I do think it is worth writing about.
 
 > Software spend only 10% time of its life in development and rest of 90% in
 > maintenance. This 90% part of maintaining the code is where comment can help
@@ -66,8 +66,8 @@ make it clear what it's doing and how it's doing it.
 > \- [Coding Horror - Coding Without Comments]
 
 Now, I don't want to give you the impression that I hate comments. They can be
-quite invaluable in some cases. Specifically, the "why" often cannot be gleaned
-from the code, and that's where comments have their place.
+quite invaluable in some cases. Specifically, when the "why" cannot be gleaned
+from the code.
 
 > You must at least write comments explaining the **why** of a chunk of code.
 > 

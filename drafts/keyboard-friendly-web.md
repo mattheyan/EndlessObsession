@@ -3,15 +3,15 @@ Keyboard-Friendly UIs on the Web
 
 The keyboard is one of the most versatile input devices in computing. It's been
 around for as long as the personal computer (longer, in fact), and to this day
-its usually the most effecient way to get work done on a computer.
+it's usually the most efficient way to get work done on a computer.
 
 That being said, it's easy to ignore the keyboard when you're building web
 applications. Most of us basically click or touch our way around the web, so
-you could be forgiven for thinking that it doesn't matter (for anything other
-than typing text anyway).
+you could be forgiven for thinking that it doesn't matter, for anything other
+than typing text at least.
 
 Hopefully I can convince you that it does matter, and then give you some tips on
-how to make your web app or website more keyboard-friendly. 
+how to make your web app or website more keyboard-friendly.
 
 Why the Keyboard Matters
 ------------------------
