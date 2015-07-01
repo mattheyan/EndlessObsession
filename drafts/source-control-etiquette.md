@@ -19,7 +19,9 @@ are simply a matter of preference. Like a culture or society that decides its
 own customs, each team can decided on its own source control practices.
 
 _BTW: The etiquette analogy is not something that I invented. A Google search
-for "source control etiquette" will give you plenty of good results._
+for "source control etiquette" turns up a few results._
+
+That being said, ettiquette and customs are important.
 
 Further reading:
 
