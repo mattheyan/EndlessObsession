@@ -34,3 +34,17 @@ unpredictability and the fact that its not tied to the software version?
 http://semver.org/
 https://msdn.microsoft.com/en-us/library/system.reflection.assemblyversionattribute_methods(v=vs.110).aspx
 http://stackoverflow.com/questions/3098167/why-is-system-version-in-net-defined-as-major-minor-build-revision
+
+Automated UI Testing
+--------------------
+
+What is it?
+Why would you want to do it?
+Relationship to low-level tests and TDD
+It's hard...
+	- Tests are brittle
+	- Not easy to run on every build
+	- Difficult to write (probably at least as difficult as your app)
+Coded, not recorded
+Use page objects and other patterns
+Following patterns can help write tests and help make your site more accessible?
