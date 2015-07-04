@@ -38,6 +38,8 @@ http://stackoverflow.com/questions/3098167/why-is-system-version-in-net-defined-
 Automated UI Testing
 --------------------
 
+http://kyle.baley.org/2015/06/on-ui-testing/
+
 What is it?
 Why would you want to do it?
 Relationship to low-level tests and TDD
