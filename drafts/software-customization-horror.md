@@ -46,9 +46,9 @@ required talking to a person, and it wasn't terrible.
 I later found out that this individual was a VP at that company, and was
 probably a bit perplexed by our conversation.
 
-At the end of the day this was a horror story for two reasons: 1) I wasted a
-bunch of my time, and his, doing something that shouldn't have been done in the
-first place, and 2) I really should have know better.
+At the end of the day I wasted a bunch of my time, and his, doing something that
+shouldn't have been done in the first place. In hindsight, I really should have
+known better.
 
 The second story is a more recent one, and since I now work on a software
 product team, the shoe is on the other foot.
@@ -68,7 +68,7 @@ At this point it's clear that something is periodically updating the files...on
 a schedule. So, we check the scheduled tasks on the server. Sure enough, there's
 a task called "update the whiz bang file" that runs every morning in the early
 AM hours. And what does it do? Well, it copies over the file that is causing
-the problem at hand. Hmm...
+the problem. Hmm...
 
 To make a short story even shorter, one of the customer's people had set up this
 task in order to make a tiny customization to the product. I can see my past
@@ -80,6 +80,11 @@ were unhappy to encounter errors, as they usually are.
 So here's the lesson that I take away from these stories: when you're asked to
 make a customization to a software product, take a moment to stop and consider
 the impact. Maybe you can spare yourself, and others, the trouble it might cause.
+
+And to take it one step futher, this same lesson can be applied to any request
+or requirements that you're given. Take a moment and consider the implications
+of the request. Is there a disaster looming that only you can see? Provide the
+appropriate feedback when needed. After all, you're the expert.
 
 Have you ever experienced something similar? What's the craziest thing you've
 been asked to do at work? I'd love to hear about it.
