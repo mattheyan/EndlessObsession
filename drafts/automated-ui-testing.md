@@ -17,11 +17,11 @@ If you work on a website, for example, then you're probably already doing UI
 testing by default. You make a change to the site, then open it up in your
 browser and click around to confirm that the changes had the desired effect.
 
-This is a very attractive, and even natural, way to test. For many applications
-the UI is everything and whatever is happening "under the hood" is a secondary
-concern. In fact, often times only the programmers care about it at all. I
-mention this because there are other ways to test, and you should consider this
-when weighing the pros and cons of each. More on that later...
+This is a very natural way to test. For many applications the UI is everything,
+and whatever is happening "under the hood" is a secondary concern - something
+that only the programmers care about. I mention this because there are other
+ways to test, and you should consider this when weighing the pros and cons of
+each. More on that later...
 
 Automated UI testing takes things a step further: make the process repeatable so
 that you don't have to do the same tests manually each time you make a change.
