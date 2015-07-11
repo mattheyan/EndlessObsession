@@ -4,5 +4,6 @@ Decide on schedule and start publishing
 Publish "A Commentary on Comments"
 Publish "Keyboard-Friendly UIs on the Web"
 Publish "Software Customization Horror Stories"
+Better social media / sharing buttons
 ~ Redesign blog theme (lighter and more modern, some color)
 ~ Evaluate hugo as an alternative platform
