@@ -1,5 +1,8 @@
 Complete and write post about Simple Programmer blogging course
 Confirm that RSS feed is working properly
 Decide on schedule and start publishing
+Publish "A Commentary on Comments"
+Publish "Keyboard-Friendly UIs on the Web"
+Publish "Software Customization Horror Stories"
 ~ Redesign blog theme (lighter and more modern, some color)
 ~ Evaluate hugo as an alternative platform
