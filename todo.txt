@@ -1,0 +1,5 @@
+Complete and write post about Simple Programmer blogging course
+Confirm that RSS feed is working properly
+Decide on schedule and start publishing
+~ Redesign blog theme (lighter and more modern, some color)
+~ Evaluate hugo as an alternative platform
