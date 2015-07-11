@@ -3,4 +3,5 @@ node_modules
 gh-pages/
 dev-pages/
 *.sublime-workspace
+*.notes.md
 Scratch.md
