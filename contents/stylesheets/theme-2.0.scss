@@ -222,6 +222,13 @@ p > code {
 	margin: -1px 0;
 }
 
+blockquote {
+	font-style: italic;
+	position: relative;
+	padding-left: 15px;
+	border-left: 4px solid rgba(170,170,170,0.5);
+}
+
 // Semantic Rules
 // =============================================================================
 
