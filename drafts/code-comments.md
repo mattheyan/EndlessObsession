@@ -1,6 +1,15 @@
 A Commentary on Comments
 ========================
 
+---
+layout: post
+title: "A Commentary on Comments"
+slug: "code-comments"
+date: 2015-07-15 21:29
+comments: true
+categories: coding, comments
+---
+
 ```
 // TODO: Improve the post intro before publishing to the interwebs.
 ```
@@ -104,7 +113,7 @@ Steve categorizes comments into 6 basic types:
 
 1. Repeat of the Code
 
-	```
+	```cs
 	// set i equal to 5    
 	var i = 5;
 	```
@@ -114,7 +123,7 @@ Steve categorizes comments into 6 basic types:
 
 2. Explanation of the Code
 
-	```
+	```cs
 	// set the initial batch size to 5
 	var s = 5;
 	```
@@ -126,7 +135,7 @@ Steve categorizes comments into 6 basic types:
 
 3. Marker in the Code
 
-	```
+	```cs
 	// TODO: Really fix this!
 	```
 
@@ -135,7 +144,7 @@ Steve categorizes comments into 6 basic types:
 
 4. Summary of the Code
 
-	```
+	```cs
 	// Do the first thing, then the second
 	// thing, and finally the third thing,
 	// but only if the second thing succeeded.
@@ -148,7 +157,7 @@ Steve categorizes comments into 6 basic types:
 
 5. Description of the Code's Intent
 
-	```
+	```cs
 	// Determine the default access level
 	// based on the current user's role so
 	// that we get the most appropriate
@@ -163,7 +172,7 @@ Steve categorizes comments into 6 basic types:
 
 6. Other Information that Cannot Possibly be Expressed by the Code Itself
 
-	```
+	```cs
 	// The native 'map' did not perform well
 	// in this case, so use a loop instead
 	// (as an optimization).
