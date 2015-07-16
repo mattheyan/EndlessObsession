@@ -9,6 +9,7 @@
     "disqusName": "endlessobsession"
   },
   "output": "./gh-pages",
+  "ignore": ["*.bak"],
   "plugins": [
     "./plugins/paginator.coffee",
     "./plugins/blog.coffee",
