@@ -48,6 +48,20 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2011-07-11" pubdate>Jul 11th, 2011</time>
+              </div>
+            </header>
+            <section><p>This was starting to get on my nerves.  I really don’t need a fancy sound clip to keep reminding me that I deleted as far as I can go.  I always do that, since I’m a bit <span class="caps">OCD</span>.  This one took me too long to find, mainly becuase of&nbsp;tabs.</p>
+<p>Anyway, to disable the sounds, go to <strong><em>Terminal -&gt; Preferences -&gt; Settings (top tab group) -&gt; Advanced (inner tab group)</em></strong>, look for the “Bell” group label and uncheck the “Audible Bell” option.  Note that this is specific to a particular settings configuration/theme, so if you switch themes the behavior will&nbsp;change.</p>
+
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/tfs-rollback-2">Tfs Rollback</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2011-07-08" pubdate>Jul 8th, 2011</time>
@@ -291,26 +305,6 @@ and…well, I just like&nbsp;Github.</li>
 <pre><code class="lang-sh">$ sudo ./VBoxLinuxAdditions-x86.run
 </code></pre>
 <p>That’s&nbsp;all!</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/resize-jquery-dialog">Resize jQuery Dialog</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-08-16" pubdate>Aug 16th, 2010</time>
-              </div>
-            </header>
-            <section><p>If you ever need to resize and reposition a jQuery dialog, the following script should do the&nbsp;trick:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">setDialogSize</span><span class="params">($dialogEl, width, height)</span> </span>{
-    $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"width"</span>, width);
-    $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"height"</span>, height);
-    $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"position"</span>, $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"position"</span>));
-}
-</code></pre>
-<p>If you change a <span class="caps">UI</span> component’s option it should respond by updating immediately to reflect the change.  If it doesn’t, it’s a bug.  I read that somewhere&nbsp;:)</p>
 
             </section>
           </article>
