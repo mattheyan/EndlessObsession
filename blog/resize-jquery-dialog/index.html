@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -52,21 +53,12 @@
             </div>
           </header>
           <section><p>If you ever need to resize and reposition a jQuery dialog, the following script should do the&nbsp;trick:</p>
-<ul>
-<li>function setDialogSize($dialogEl, width, height)&nbsp;{</li>
-</ul>
-<ul>
-<li>$dialogEl.dialog(“option”, “width”,&nbsp;width);</li>
-</ul>
-<ul>
-<li>$dialogEl.dialog(“option”, “height”,&nbsp;height);</li>
-</ul>
-<ul>
-<li>$dialogEl.dialog(“option”, “position”, $dialogEl.dialog(“option”,&nbsp;“position”));</li>
-</ul>
-<ul>
-<li>}</li>
-</ul>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">setDialogSize</span><span class="params">($dialogEl, width, height)</span> </span>{
+    $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"width"</span>, width);
+    $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"height"</span>, height);
+    $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"position"</span>, $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"position"</span>));
+}
+</code></pre>
 <p>If you change a <span class="caps">UI</span> component’s option it should respond by updating immediately to reflect the change.  If it doesn’t, it’s a bug.  I read that somewhere&nbsp;:)</p>
 </section>
           <section>

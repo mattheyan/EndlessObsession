@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -52,11 +53,12 @@
             </div>
           </header>
           <section><p>Recently I ran into an odd problem when writing a text file to disk using .<span class="caps">NET</span>’s <code>File.OpenWrite</code>.</p>
-<pre><code>using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
+<pre><code class="lang-cs"><span class="keyword">using</span> (<span class="keyword">var</span> fileWriter = <span class="keyword">new</span> StreamWriter(File.OpenWrite(outputFilePath)))
 {
-    fileWriter.WriteLine(&quot;abc&quot;);
+    fileWriter.WriteLine(<span class="string">"abc"</span>);
 }
-</code></pre><p>You might expect that after executing this code the text in the file would be “abc”.  Not quite.  In my case I was sometimes seeing results like&nbsp;this…</p>
+</code></pre>
+<p>You might expect that after executing this code the text in the file would be “abc”.  Not quite.  In my case I was sometimes seeing results like&nbsp;this…</p>
 <pre><code>abc
 some other text
 </code></pre><p>…where “some other text” is the last bit of text in the file before&nbsp;writing.</p>

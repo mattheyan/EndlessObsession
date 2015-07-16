@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -78,11 +79,13 @@ can easily use it to build your&nbsp;blog.</p>
 <h3 id="taking-wintersmith-for-a-test-drive">Taking Wintersmith for a Test&nbsp;Drive</h3>
 <p>Before I migrated my blog, I first had to determine if it would meet my needs,
 and whether I’d want to use it. The first step is to install&nbsp;Wintersmith.</p>
-<pre><code>npm install wintersmith -g
-</code></pre><p>Since Wintersmith is a tool, it should be installed globally, thus the <code>-g</code> flag.</p>
+<pre><code class="lang-cli">npm install wintersmith -g
+</code></pre>
+<p>Since Wintersmith is a tool, it should be installed globally, thus the <code>-g</code> flag.</p>
 <p>Next, use wintersmith to scaffold a new&nbsp;site.</p>
-<pre><code>wintersmith new &lt;path&gt;
-</code></pre><p>At this point you can <code>cd</code> into the new directory that was created, and run
+<pre><code class="lang-cli">wintersmith new &lt;path&gt;
+</code></pre>
+<p>At this point you can <code>cd</code> into the new directory that was created, and run
 <code>wintersmith preview</code>, then navigate to the <span class="caps">URL</span> that prints out on the&nbsp;console.</p>
 <p>Conveniently, the starter site that is generated is a simple blog, so it looks
 like a good starting point. However, it will take some work to make it more or
@@ -143,15 +146,16 @@ to customize the process a&nbsp;bit.</p>
 <p>Edit the <code>getArticles</code> function in <code>plugins\paginator.coffee</code> so that it looks
 like this (based on
 <a href="http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/">Marco Carag’s blog</a>):</p>
-<pre><code>getArticles = (contents) -&gt;
-    # helper that returns a list of articles found in *contents*
+<pre><code class="lang-coffeescript"><span class="function"><span class="title">getArticles</span> = <span class="params">(contents)</span> -&gt;</span>
+    <span class="comment"># helper that returns a list of articles found in *contents*</span>
     articles = []
-    for key, value of contents[options.articles]
-        articles.push value if value instanceof env.plugins.Page
+    <span class="keyword">for</span> key, value <span class="keyword">of</span> contents[options.articles]
+        articles.push value <span class="keyword">if</span> value <span class="keyword">instanceof</span> env.plugins.Page
 
     articles.sort (a, b) -&gt; b.date - a.date
-    return articles
-</code></pre><p>You should now have a functional site, however there are many differences
+    <span class="keyword">return</span> articles
+</code></pre>
+<p>You should now have a functional site, however there are many differences
 between the old site and the new site (including URLs), so unless you want a
 bunch of links to break, there is still work left to&nbsp;do.</p>
 <p>6) Customize&nbsp;URLs</p>
@@ -159,94 +163,96 @@ bunch of links to break, there is still work left to&nbsp;do.</p>
 them to be ‘/blog/some-slug’ for backwards&nbsp;compatibility.</p>
 <p>Create a file <code>plugins\blog.coffee</code> and paste in the following code (based on
 <a href="http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/">Marco Carag’s blog</a>):</p>
-<pre><code>path = require &#39;path&#39;
-slugify = require &#39;slugg&#39;
+<pre><code class="lang-coffeescript">path = <span class="built_in">require</span> <span class="string">'path'</span>
+slugify = <span class="built_in">require</span> <span class="string">'slugg'</span>
+<span class="function">
+<span class="title">replaceAll</span> = <span class="params">(string, map)</span> -&gt;</span>
+  re = <span class="keyword">new</span> RegExp Object.keys(map).join(<span class="string">'|'</span>), <span class="string">'gi'</span>
+  <span class="keyword">return</span> string.replace re, <span class="function"><span class="params">(match)</span> -&gt;</span> map[match]
 
-replaceAll = (string, map) -&gt;
-  re = new RegExp Object.keys(map).join(&#39;|&#39;), &#39;gi&#39;
-  return string.replace re, (match) -&gt; map[match]
-
-    module.exports = (env, callback) -&gt;
+    <span class="built_in">module</span>.exports = <span class="function"><span class="params">(env, callback)</span> -&gt;</span>
 
   defaults =
-    postsDir: &#39;articles&#39; # directory containing blog posts
-    template: &#39;article.jade&#39;
-    filenameTemplate: &#39;/:year/:month/:day/:file/index.html&#39;
-    stripTrailingSlash: false
+    <span class="attribute">postsDir</span>: <span class="string">'articles'</span> <span class="comment"># directory containing blog posts</span>
+    <span class="attribute">template</span>: <span class="string">'article.jade'</span>
+    <span class="attribute">filenameTemplate</span>: <span class="string">'/:year/:month/:day/:file/index.html'</span>
+    <span class="attribute">stripTrailingSlash</span>: <span class="literal">false</span>
 
-  # assign defaults for any option not set in the config file
-  options = env.config.blog or {}
-  for key, value of defaults
+  <span class="comment"># assign defaults for any option not set in the config file</span>
+  options = env.config.blog <span class="keyword">or</span> {}
+  <span class="keyword">for</span> key, value <span class="keyword">of</span> defaults
     options[key] ?= defaults[key]
 
-  class BlogpostPage extends env.plugins.MarkdownPage
-    ### DRYer subclass of MarkdownPage ###
+  <span class="class"><span class="keyword">class</span> <span class="title">BlogpostPage</span> <span class="keyword">extends</span> <span class="title">env</span>.<span class="title">plugins</span>.<span class="title">MarkdownPage</span></span>
+    <span class="comment">### DRYer subclass of MarkdownPage ###</span>
 
-    getUrl: (base) -&gt;
-      result = super(base)
-      if (options.stripTrailingSlash and result[result.length - 1] == &#39;/&#39;)
-        return result.substr(0, result.length - 1)
-      else
-        return result
+    <span class="attribute">getUrl</span>: <span class="function"><span class="params">(base)</span> -&gt;</span>
+      result = <span class="keyword">super</span>(base)
+      <span class="keyword">if</span> (options.stripTrailingSlash <span class="keyword">and</span> result[result.length - <span class="number">1</span>] == <span class="string">'/'</span>)
+        <span class="keyword">return</span> result.substr(<span class="number">0</span>, result.length - <span class="number">1</span>)
+      <span class="keyword">else</span>
+        <span class="keyword">return</span> result
 
-    getTemplate: -&gt;
-      @metadata.template or options.template or super()
+    <span class="attribute">getTemplate</span>: <span class="function">-&gt;</span>
+      <span class="property">@metadata</span>.template <span class="keyword">or</span> options.template <span class="keyword">or</span> <span class="keyword">super</span>()
 
-    @property &#39;rawFilenameTemplate&#39;, &#39;getRawFilenameTemplate&#39;
-    getRawFilenameTemplate: -&gt;
-      @metadata.filenameTemplate or options.filenameTemplate or super()
+    <span class="property">@property</span> <span class="string">'rawFilenameTemplate'</span>, <span class="string">'getRawFilenameTemplate'</span>
+    <span class="attribute">getRawFilenameTemplate</span>: <span class="function">-&gt;</span>
+      <span class="property">@metadata</span>.filenameTemplate <span class="keyword">or</span> options.filenameTemplate <span class="keyword">or</span> <span class="keyword">super</span>()
 
-    getFilenameTemplate: -&gt;
-      raw = @rawFilenameTemplate
+    <span class="attribute">getFilenameTemplate</span>: <span class="function">-&gt;</span>
+      raw = <span class="property">@rawFilenameTemplate</span>
 
-      if raw[0] is &#39;/&#39;
-        # already an absolute path
-        return raw
-      else
-        # prevent base page class from resolving paths
-        return &#39;/&#39; + raw
+      <span class="keyword">if</span> raw[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
+        <span class="comment"># already an absolute path</span>
+        <span class="keyword">return</span> raw
+      <span class="keyword">else</span>
+        <span class="comment"># prevent base page class from resolving paths</span>
+        <span class="keyword">return</span> <span class="string">'/'</span> + raw
 
-    getFilename: -&gt;
-      rawFileNameTemplate = @rawFilenameTemplate
+    <span class="attribute">getFilename</span>: <span class="function">-&gt;</span>
+      rawFileNameTemplate = <span class="property">@rawFilenameTemplate</span>
 
-      dirname = path.dirname @filepath.relative
+      dirname = path.dirname <span class="property">@filepath</span>.relative
 
-      filename = super()
+      filename = <span class="keyword">super</span>()
 
-      # enable custom &#39;slug&#39; metadata propery
+      <span class="comment"># enable custom 'slug' metadata propery</span>
       filename = replaceAll filename,
-        &#39;:slug&#39;: @slug
+        <span class="string">':slug'</span>: <span class="property">@slug</span>
 
-      if rawFileNameTemplate[0] is &#39;/&#39;
-        # remove leading slash from filename template
-        filename = &#39;/&#39; + filename
+      <span class="keyword">if</span> rawFileNameTemplate[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
+        <span class="comment"># remove leading slash from filename template</span>
+        filename = <span class="string">'/'</span> + filename
 
-      if filename[0] is &#39;/&#39;
-        # filenames starting with a slash are absolute paths in the content tree
-        return filename.slice(1)
-      else
-        # otherwise they are resolved from their directory in the tree
-        return path.join dirname, filename
+      <span class="keyword">if</span> filename[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
+        <span class="comment"># filenames starting with a slash are absolute paths in the content tree</span>
+        <span class="keyword">return</span> filename.slice(<span class="number">1</span>)
+      <span class="keyword">else</span>
+        <span class="comment"># otherwise they are resolved from their directory in the tree</span>
+        <span class="keyword">return</span> path.join dirname, filename
 
-    @property &#39;slug&#39;, &#39;getSlug&#39;
-    getSlug: -&gt;
-      @metadata.slug or slugify(@title+&#39;&#39;)
+    <span class="property">@property</span> <span class="string">'slug'</span>, <span class="string">'getSlug'</span>
+    <span class="attribute">getSlug</span>: <span class="function">-&gt;</span>
+      <span class="property">@metadata</span>.slug <span class="keyword">or</span> slugify(<span class="property">@title</span>+<span class="string">''</span>)
 
-  # register the plugin
-  prefix = if options.postsDir then options.postsDir + &#39;/&#39; else &#39;&#39;
-  env.registerContentPlugin &#39;posts&#39;, prefix + &#39;**/*.*(markdown|mkd|md)&#39;, BlogpostPage
+  <span class="comment"># register the plugin</span>
+  prefix = <span class="keyword">if</span> options.postsDir <span class="keyword">then</span> options.postsDir + <span class="string">'/'</span> <span class="keyword">else</span> <span class="string">''</span>
+  env.registerContentPlugin <span class="string">'posts'</span>, prefix + <span class="string">'**/*.*(markdown|mkd|md)'</span>, BlogpostPage
 
-  # done!
+  <span class="comment"># done!</span>
   callback()
-</code></pre><p>You’ll also need to add it to the ‘plugins’ key in <code>config.json</code>. This will
+</code></pre>
+<p>You’ll also need to add it to the ‘plugins’ key in <code>config.json</code>. This will
 allow you to customize features of your blog posts, including URLs, default jade
 template, etc. You’ll also need to install the ‘slugg’ module via npm (and save
 it in your package.json file) -&gt; <code>npm install slugg --save-dev</code>.</p>
 <p>Add this to <code>config.json</code> to set a default&nbsp;template:</p>
-<pre><code>&quot;blog&quot;: {
-    &quot;template&quot;: &quot;article.jade&quot;
+<pre><code class="lang-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>
 }
-</code></pre><p>This also enables <span class="caps">URL</span> customization, and the default template is
+</code></pre>
+<p>This also enables <span class="caps">URL</span> customization, and the default template is
 “/:year/:month/:day/:file/index.html”, so your article URLs will now look like&nbsp;‘/yyyy/mm/dd/some-slug/‘.</p>
 <p>For backwards compatibility I need by URLs to look like ‘/blog/some-slug’, so I
 changed the template to “/blog/:slug/index.html” (:slug is an optional ‘slug’
@@ -254,47 +260,51 @@ key in the markdown file, or the slug based on the title, I needed a ‘slug’
 option b/c some of my Octopress slugs were different from what Wintersmith would
 generate, its a good idea to hard-code them all for the import, and I will
 probably do this moving forward as well, so that I have more control over the&nbsp;URLs).</p>
-<pre><code>&quot;blog&quot;: {
-    &quot;template&quot;: &quot;article.jade&quot;,
-    &quot;filenameTemplate&quot;: &quot;/blog/:slug/index.html&quot;
+<pre><code class="lang-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>
 }
-</code></pre><p>There is a trailing slash in the <span class="caps">URL</span> links to posts, so use the
+</code></pre>
+<p>There is a trailing slash in the <span class="caps">URL</span> links to posts, so use the
 ‘stripTrailingSlash’ option to remove it. This is not a functional change, but
 it helps to be able to more easily compare the old and new&nbsp;output.</p>
-<pre><code>&quot;blog&quot;: {
-    &quot;template&quot;: &quot;article.jade&quot;,
-    &quot;filenameTemplate&quot;: &quot;/blog/:slug/index.html&quot;,
-    &quot;stripTrailingSlash&quot;: true
+<pre><code class="lang-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>,
+    <span class="string">"stripTrailingSlash"</span>: <span class="literal">true</span>
 }
-</code></pre><p>7) Fix Archive and Paging&nbsp;Links</p>
+</code></pre>
+<p>7) Fix Archive and Paging&nbsp;Links</p>
 <p>My article URLs are correct, but the archive and “paging” links are
 ‘/archive.html’ and ‘/page/1/‘, respectively. I want them to be ‘/blog/archives’
 and ‘/blog/page/1’&nbsp;instead.</p>
 <p>Before making these changes, I want the contents structure to more accurately
 match the generated site structure, so move the blog files that I currently have
 into a ‘blog’&nbsp;folder.</p>
-<pre><code>&quot;blog&quot;: {
-    &quot;postsDir&quot;: &quot;blog&quot;,
-    &quot;template&quot;: &quot;article.jade&quot;,
-    &quot;filenameTemplate&quot;: &quot;/blog/:slug/index.html&quot;,
-    &quot;stripTrailingSlash&quot;: true
+<pre><code class="lang-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"postsDir"</span>: <span class="string">"blog"</span>,
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>,
+    <span class="string">"stripTrailingSlash"</span>: <span class="literal">true</span>
 },
-&quot;paginator&quot;: {
-    &quot;articles&quot;: &quot;blog&quot;,
-    &quot;filename&quot;: &quot;blog/page/%d/index.html&quot;,
-    &quot;perPage&quot;: 3
+<span class="string">"paginator"</span>: {
+    <span class="string">"articles"</span>: <span class="string">"blog"</span>,
+    <span class="string">"filename"</span>: <span class="string">"blog/page/%d/index.html"</span>,
+    <span class="string">"perPage"</span>: <span class="number">3</span>
 }
-</code></pre><p>Move the archive template into the ‘blog folder’: <code>mv .\contents\archive.json
+</code></pre>
+<p>Move the archive template into the ‘blog folder’: <code>mv .\contents\archive.json
 .\contents\blog\archives\index.json</code>.</p>
 <p>In ‘index.jade’: change <code>a(href=&#39;/archive.html&#39;)</code> to <code>a(href=&#39;/blog/archives&#39;)</code>.</p>
 <p>Finally, I renamed the ‘article.jade’ template to&nbsp;‘post.jade’.</p>
-<pre><code>&quot;blog&quot;: {
-    &quot;postsDir&quot;: &quot;blog&quot;,
-    &quot;template&quot;: &quot;post.jade&quot;,
-    &quot;filenameTemplate&quot;: &quot;/blog/:slug/index.html&quot;,
-    &quot;stripTrailingSlash&quot;: true
+<pre><code class="lang-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"postsDir"</span>: <span class="string">"blog"</span>,
+    <span class="string">"template"</span>: <span class="string">"post.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>,
+    <span class="string">"stripTrailingSlash"</span>: <span class="literal">true</span>
 }
-</code></pre><p>8) Atom Feed and&nbsp;Sitemap</p>
+</code></pre>
+<p>8) Atom Feed and&nbsp;Sitemap</p>
 <p>Now the last couple of things to take care of are generating an Atom feed, and
 generating a&nbsp;sitemap.</p>
 <p>The sitemap is relatively&nbsp;easy:</p>

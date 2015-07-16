@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -60,17 +61,14 @@
 <p>First, mount the guest additions “disc” from the host window’s menu:  Devices &gt; Install Guest&nbsp;Additions.</p>
 <p><img src="http://endlessobsession.com/wp-content/uploads/2010/09/install_guest_additions-300x185.png" alt="Mount Guest Additions Menu"></p>
 <p>Now you should see the disc mounted in nautilus.  The next step is to copy the appropriate file to your home folder (or some other location on the guest&nbsp;machine).</p>
-<ul>
-<li>cp /media//VBoxLinuxAdditions-x86.run&nbsp;.</li>
-</ul>
+<pre><code class="lang-sh">$ cp /media//VBoxLinuxAdditions-x86.run .
+</code></pre>
 <p>Now, make the file&nbsp;runnable.</p>
-<ul>
-<li>sudo chmod +x&nbsp;VBoxLinuxAdditions-x86.run</li>
-</ul>
+<pre><code class="lang-sh">$ sudo chmod +x VBoxLinuxAdditions-x86.run
+</code></pre>
 <p>Finally, run the&nbsp;installer.</p>
-<ul>
-<li>sudo&nbsp;./VBoxLinuxAdditions-x86.run</li>
-</ul>
+<pre><code class="lang-sh">$ sudo ./VBoxLinuxAdditions-x86.run
+</code></pre>
 <p>That’s&nbsp;all!</p>
 </section>
           <section>

@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -72,16 +73,13 @@
 <p>The JavaScript source is now <a href="http://github.com/mattheyan/exoweb">hosted on Github</a>.  If you take a look at the <a href="http://exoweb.codeplex.com/SourceControl/list/changesets">source on Codeplex</a> you’ll notice that there are 8 script files: exoweb.js, exoweb.model.js, exoweb.mapper.js, exoweb.view.js, exoweb.ui.js, exoweb.mock.js, exoweb.jquery.js, and start.debug.js.  The source on Github, however, has many more script files as well as specs (using jasmine) and a build process (using rake) that produces the scripts listed above.  It is loosely modeled after the <a href="http://github.com/jquery/jquery">jquery source</a>.</p>
 <p>I have a few goals in hosting the project on&nbsp;Github.</p>
 <ol>
-<li>Isolate classes and related functions in order to make it easier to manage, illuminate code structure, improve architecture and design, and limit&nbsp;dependencies.</li>
-</ol>
-<ol>
+<li>Isolate classes and related functions in order to make it easier to manage,
+illuminate code structure, improve architecture and design, and limit&nbsp;dependencies.</li>
 <li>Allow for (hopefully) isolated testing of individual classes and&nbsp;functions.</li>
-</ol>
-<ol>
-<li>Isolate the bulk of the code which is not dependent on any particular JavaScript library or server-side&nbsp;technology.</li>
-</ol>
-<ol>
-<li>Take advantage of github’s popularity in open source software collaboration, and…well, I just like&nbsp;Github.</li>
+<li>Isolate the bulk of the code which is not dependent on any particular JavaScript
+library or server-side&nbsp;technology.</li>
+<li>Take advantage of github’s popularity in open source software collaboration,
+and…well, I just like&nbsp;Github.</li>
 </ol>
 <p>At the time of this writing the project produces the destination scripts that more or less match the scripts in the original project (not the ones on codeplex, they’re old).  Also, a few of the source files have corresponding specs that pass, using <a href="http://nodejs.org/">nodejs</a> to run&nbsp;them.</p>
 <p>Finally, in writing the build script, I got the chance to learn a little <a href="http://rake.rubyforge.org/">rake</a> (ruby make), which I highly&nbsp;recommend.</p>

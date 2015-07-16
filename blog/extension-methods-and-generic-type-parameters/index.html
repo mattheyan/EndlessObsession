@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -55,60 +56,34 @@
 <p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question&nbsp;answered</a></p>
 <p>This is going to be a short post, and I’ll get right to the&nbsp;point.</p>
 <p>I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.  The starting code looked something like&nbsp;this:</p>
-<ul>
-<li>context.GetGraphType<Bar>().Subscribe<Fizz>(</li>
-</ul>
-<ul>
-<li>(instance, evt) =&gt;&nbsp;e.Execute((Bar)instance.Instance)</li>
-</ul>
-<ul>
-<li>);</li>
-</ul>
+<pre><code class="lang-cs">context.GetGraphType&lt;Bar&gt;().Subscribe&lt;Fizz&gt;(
+  (instance, evt) =&gt; e.Execute((Bar)instance.Instance)
+);
+</code></pre>
 <p>It breaks down like&nbsp;this:</p>
 <ul>
 <li>Get some&nbsp;type</li>
-</ul>
-<ul>
 <li>Subscribe to an&nbsp;event</li>
-</ul>
-<ul>
 <li>When the event happens, do&nbsp;something</li>
 </ul>
 <p>It just so happens that we have all followed an unspoken convention: an Execute method with a single parameter that is of the type that is subscribing to the event (Bar).  You can imagine that once you have over a dozen of these subscriptions it can start to look a little silly.  More on that&nbsp;later.</p>
 <p>So, I wanted to rewrite it to look something like&nbsp;this:</p>
-<ul>
-<li>typeof(Bar).SubscribeTo<Fizz>(context);</li>
-</ul>
+<pre><code class="lang-cs"><span class="keyword">typeof</span>(Bar).SubscribeTo&lt;Fizz&gt;(context);
+</code></pre>
 <p>My hope was that it now reads something like “bar subscribes to the fizz event on the given context”, rather than “the context gets the bar type and subscribes to fizz and then does some stuff.”  Hopefully I’m not totally off base here.  I did check with a co-worker and he confirmed my&nbsp;thoughts.</p>
 <p>In order to accomplish the above I wanted to make use of an abstract generic base class for the events, something&nbsp;like:</p>
-<ul>
-<li>public abstract class Event<T></li>
-</ul>
-<ul>
-<li>{</li>
-</ul>
-<ul>
-<li>public abstract void Execute(T&nbsp;arg);</li>
-</ul>
-<ul>
-<li>}</li>
-</ul>
+<pre><code class="lang-cs">public abstract class Event&lt;T&gt;
+{
+    public abstract void Execute(T arg);
+}
+</code></pre>
 <p>In the example, T is Bar - the type that subscribes to the event.  I implemented the SubscribeTo method as a local extension method.  Unfortunately, I got stuck when I tried to set up a generic type parameter that would be of type Bar.  Something like&nbsp;this:</p>
-<ul>
-<li>public static void SubscribeTo<TEvent>(this Type type, Context&nbsp;context)</li>
-</ul>
-<ul>
-<li>where TEvent : Event<the value of parameter 1></li>
-</ul>
-<ul>
-<li>{</li>
-</ul>
-<ul>
-<li>// do&nbsp;stuff…</li>
-</ul>
-<ul>
-<li>}</li>
-</ul>
+<pre><code class="lang-cs"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> SubscribeTo&lt;TEvent&gt;(<span class="keyword">this</span> Type type, Context context)
+    <span class="keyword">where</span> TEvent : Event&lt;the <span class="keyword">value</span> of parameter <span class="number">1</span>&gt;
+{
+    <span class="comment">// do stuff...</span>
+}
+</code></pre>
 <p>If this were possible, one would be able to implement the change I proposed with type checking.  The compiler would verify that Fizz was a subclass of Event<Bar> and the extension method could treat it as&nbsp;such.</p>
 <p>Do you know of a way to implement what I have proposed, or an alternative that is very&nbsp;similar?</p>
 <p>Back to the convention I mentioned earlier.  In the spirit of utilizing conventions, I ended up using reflection to take advantage of it.  It isn’t checked by the compiler, but we have the next best thing.  The code runs on application start-up and the Execute method is retrieved when the event is subscribed to, not raised.  So, it will fail very early if there is a&nbsp;problem.</p>

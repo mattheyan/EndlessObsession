@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -56,32 +57,28 @@
 <h2 id="client-server-mapping">Client Server&nbsp;Mapping</h2>
 <p>When I say that ExoWeb is a client-server mapper what I mean is that it handles mapping from an object model on the server to the client (and vice versa) in much the same way that an <span class="caps">ORM</span> maps from a database schema to an object model.  The general idea is that you’re persisting objects and that you would like to be able to easily manipulate those objects in JavaScript code, without any extra&nbsp;work.</p>
 <p>For example, say you have a C# class that is persisted to a database using your choice of&nbsp;<span class="caps">ORM</span>.</p>
-<pre><code>public class Person
+<pre><code class="lang-cs"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Person</span>
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string FullName
+    <span class="keyword">public</span> <span class="keyword">string</span> FirstName { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">public</span> <span class="keyword">string</span> LastName { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">public</span> <span class="keyword">string</span> FullName
     {
-        get
+        <span class="keyword">get</span>
         {
-            return FirstName + &quot; &quot; + LastName;
+            <span class="keyword">return</span> FirstName + <span class="string">" "</span> + LastName;
         }
     }
 }
-</code></pre><p>You would want to be able to write JavaScript code to modify this object like so (ignoring the details of the syntax&nbsp;[1]).</p>
-<pre><code>person.set_FirstName(&quot;Bob&quot;);
-</code></pre><p>ExoWeb aims to let you do this with very little&nbsp;effort.</p>
+</code></pre>
+<p>You would want to be able to write JavaScript code to modify this object like so (ignoring the details of the syntax&nbsp;[1]).</p>
+<pre><code class="lang-javascript">person.set_FirstName(<span class="string">"Bob"</span>);
+</code></pre>
+<p>ExoWeb aims to let you do this with very little&nbsp;effort.</p>
 <p>What are some of the things that you might want to do with the&nbsp;model?</p>
 <ul>
 <li>Have the full name automatically reflect the fact that the first name is now&nbsp;“Bob”</li>
-</ul>
-<ul>
 <li>Save these changes by simply calling a&nbsp;method</li>
-</ul>
-<ul>
 <li>“Round trip” to the server to perform complex or sensitive&nbsp;operations</li>
-</ul>
-<ul>
 <li>Display the person’s information in a&nbsp;view</li>
 </ul>
 <p>…which leads us to the next primary area of&nbsp;functionality.</p>
@@ -89,20 +86,10 @@
 <p>You have a model on the client, so now you want to display some information to the user and possibly accept input.  What are some of the tools that you might want to have at your&nbsp;disposal?</p>
 <ul>
 <li>Create regions in your form that correspond to lists in the&nbsp;model</li>
-</ul>
-<ul>
 <li>Two-way binding of properties to inputs elements and form&nbsp;regions</li>
-</ul>
-<ul>
 <li>Respond to changes and redraw parts of the form as&nbsp;needed</li>
-</ul>
-<ul>
 <li>Attach behavior to the form such as clicking links, toggling regions,&nbsp;etc</li>
-</ul>
-<ul>
 <li>Take advantage of model metadata like formats, allowed values, validation rules,&nbsp;etc</li>
-</ul>
-<ul>
 <li>Allow for lazy loading of certain information when it is needed on the&nbsp;form</li>
 </ul>
 <p>That’s a glance at the basic features that we want from ExoWeb.  So, what does it actually look&nbsp;like?</p>
@@ -113,69 +100,63 @@
 <p>Now that we have the right scripts included we need to set up the page’s context.  This tells ExoWeb what data to load and what to do before and after it is loaded.  We do this by calling the $exoweb function.  It accepts a JavaScript object with any of the following&nbsp;properties.</p>
 <ul>
 <li>model: A JavaScript object that defines the data to load from the&nbsp;server.</li>
-</ul>
-<ul>
 <li>types: An array of types to load.  This is usually not needed since types are automatically loaded based on the “model”&nbsp;parameter.</li>
-</ul>
-<ul>
 <li>init:  A function that is invoked as soon as model or type data has been&nbsp;requested.</li>
-</ul>
-<ul>
 <li>contextReady: A function that is invoked as soon as the model or type data has been loaded, but before the <span class="caps">UI</span> is&nbsp;rendered.</li>
-</ul>
-<ul>
 <li>domReady: A function that is invoked after the <span class="caps">UI</span> has been&nbsp;rendered.</li>
 </ul>
 <p>You can call $exoweb any number of times, and as an example our query might look something like this (please forgive the contrived&nbsp;example).</p>
-<pre><code>$exoweb({
-    init: function() {
-        ExoWeb.UI.Template.load(&quot;/path/to/template&quot;);
+<pre><code class="lang-javascript">$exoweb({
+    init: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+        ExoWeb.<span class="caps">UI</span>.Template.load(<span class="string">"/path/to/template"</span>);
     },
     types: [
         {
-            from: &quot;CustomWidget&quot;,
-            and: [&quot;this.CustomInformation&quot;]
+            from: <span class="string">"CustomWidget"</span>,
+            and: [<span class="string">"this.CustomInformation"</span>]
         }
     ],
     model: {
         widget: {
-            from: &quot;Widget&quot;,
-            id: &quot;1&quot;,
-            and: [&quot;this.Type.DefaultPrice&quot;]
+            from: <span class="string">"Widget"</span>,
+            id: <span class="string">"1"</span>,
+            and: [<span class="string">"this.Type.DefaultPrice"</span>]
         }
     },
-    contextReady: function() {
+    contextReady: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
         context.model.widget.doSomething();
     },
-    domReady: function() {
-        $(&quot;.widget input[type=button].save&quot;).click(function() {
+    domReady: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+        $(<span class="string">".widget input[type=button].save"</span>).click(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
             context.server.save(context.model.widget);
         });
     }
 });
-</code></pre><p>During init we want to load an external template file.  I will talk more about this in the future, but for now I will say that ExoWeb allows you to bind parts of your form to a dynamic template that is selected based on the <span class="caps">HTML</span> element and the data that will be rendered.  This allows you to break out reusable templates for common display scenarios, but it also allows your form to be dynamic in the sense that the markup can change automatically based on user&nbsp;input.</p>
+</code></pre>
+<p>During init we want to load an external template file.  I will talk more about this in the future, but for now I will say that ExoWeb allows you to bind parts of your form to a dynamic template that is selected based on the <span class="caps">HTML</span> element and the data that will be rendered.  This allows you to break out reusable templates for common display scenarios, but it also allows your form to be dynamic in the sense that the markup can change automatically based on user&nbsp;input.</p>
 <p>The types and model portions are what trigger requests to the server.  This will load up all of the metadata that is needed, as well as the instance data for the instances and paths that you specify.  When the context is ready it will have a model property that contains a property for each thing that you requested (in this case, the&nbsp;widget).</p>
 <p>Context ready allows you to perform custom operations after all of your data is loaded.  For example, if you have an add/edit page you can perform setup logic that may be needed only in the add&nbsp;scenario.</p>
 <p><span class="caps">DOM</span> ready is a good place to put any DOM manipulation code that is specific to your page and it’s data and templates.  For general UI behavior I would recommend using jQuery to attach behavior as needed based on css selectors (a topic for another day).  Notice here the use of the “server” object, which is found on the context.  The server object allows you to save, round trip, raise events, and inspect the changes that have&nbsp;occurred.</p>
 <p>Now, to display this on the form we might write something like&nbsp;this.</p>
-<pre><code>&lt;div class=&quot;sys-template widget&quot; sys:attach=&quot;dataview&quot;
-    dataview:data=&quot;{~ context.model.widget, source={{ window }} }&quot;&gt;
-    &lt;h3&gt;Editing &lt;span&gt;{binding Name}&lt;/span&gt;&lt;/h3&gt;
-    &lt;div class=&quot;sys-template&quot; sys:attach=&quot;dataview&quot; dataview:data=&quot;{@ Type }&quot;&gt;
-        &lt;label&gt;Type:&lt;/label&gt;
-        &lt;select class=&quot;sys-template&quot; sys:value=&quot;{binding systemValue}&quot;
-            sys:attach=&quot;dataview&quot; dataview:data=&quot;{binding options}&quot;&gt;
-            &lt;option value=&quot;{binding systemValue}&quot;&gt;{binding displayValue}
-                &lt;/option&gt;
-        &lt;/select&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;sys-template&quot; sys:attach=&quot;dataview&quot; dataview:data=&quot;{@ Price }&quot;&gt;
-        &lt;label&gt;Price:&lt;/label&gt;
-        &lt;input type=&quot;text&quot; sys:value=&quot;{binding displayValue}&quot; /&gt;
-    &lt;/div&gt;
-    &lt;input type=&quot;button&quot; class=&quot;save&quot; value=&quot;Save&quot; /&gt;
-&lt;/div&gt;
-</code></pre><p>The form is not rendered until the “widget” object has been loaded.  Also, notice the “@” extension that is used to incorporate metadata in the form.  For a pick list it will give you the list of options for a particular property.  Also, for other properties it allows you to automatically convert from and to a “system” or “display” format.  In a nutshell, the “display” format is a human-readable form of the underlying data that also includes format conditions for things like email, phone number, etc, while the “system” format is not intended to be shown to a user but instead can be used to uniquely identify an&nbsp;object.</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sys-template widget"</span> <span class="attribute">sys:attach</span>=<span class="value">"dataview"</span>
+    <span class="attribute">dataview:data</span>=<span class="value">"{~ context.model.widget, source={{ window }} }"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h3</span>&gt;</span>Editing <span class="tag">&lt;<span class="title">span</span>&gt;</span>{binding Name}<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sys-template"</span> <span class="attribute">sys:attach</span>=<span class="value">"dataview"</span> <span class="attribute">dataview:data</span>=<span class="value">"{@ Type }"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>Type:<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">select</span> <span class="attribute">class</span>=<span class="value">"sys-template"</span> <span class="attribute">sys:value</span>=<span class="value">"{binding systemValue}"</span>
+            <span class="attribute">sys:attach</span>=<span class="value">"dataview"</span> <span class="attribute">dataview:data</span>=<span class="value">"{binding options}"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"{binding systemValue}"</span>&gt;</span>{binding displayValue}
+                <span class="tag">&lt;/<span class="title">option</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">select</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sys-template"</span> <span class="attribute">sys:attach</span>=<span class="value">"dataview"</span> <span class="attribute">dataview:data</span>=<span class="value">"{@ Price }"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span>&gt;</span>Price:<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">sys:value</span>=<span class="value">"{binding displayValue}"</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"save"</span> <span class="attribute">value</span>=<span class="value">"Save"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>The form is not rendered until the “widget” object has been loaded.  Also, notice the “@” extension that is used to incorporate metadata in the form.  For a pick list it will give you the list of options for a particular property.  Also, for other properties it allows you to automatically convert from and to a “system” or “display” format.  In a nutshell, the “display” format is a human-readable form of the underlying data that also includes format conditions for things like email, phone number, etc, while the “system” format is not intended to be shown to a user but instead can be used to uniquely identify an&nbsp;object.</p>
 <p>This has been a very brief introduction to ExoWeb.  There is much more to talk about and you can expect follow up posts in the near&nbsp;future.</p>
 </section>
           <section>

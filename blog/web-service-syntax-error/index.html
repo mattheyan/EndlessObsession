@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -56,19 +57,21 @@
 <p>A few weeks ago one of my coworkers was revisiting the client portion, which just happened to be upgraded to the <a href="http://ajax.codeplex.com/">beta version of the <span class="caps">AJAX</span> JavaScript framework</a>.  He started to see a syntax error, which I determined was occurring when handling the web service response.  I knew that the client framework supported <span class="caps">JSONP</span> in some form, and I also noticed an interesting “jsonp” query string argument in the web service call.  Believe it or not, the client was trying to use JSONP, even though the web service response was XML!  This obviously would result in a syntax error when trying to&nbsp;deserialize.</p>
 <p>After looking over the JavaScript code I determined that the WebServiceProxy was using <span class="caps">JSONP</span> if either the protocol or host of the request was different than the current page.  I now know in hindsight that the documentation (at least in code) of WebServiceProxy.invoke clearly states this.  Luckily, the “enableJsonp” parameter can be set to <em>false</em> to override this&nbsp;behavior.</p>
 <p>So, the bottom line is:  if you’re accessing a web service across domains and you don’t want to use <span class="caps">JSONP</span>, you have to set the  “enableJsonp” argument to <em>false</em>.  Here’s the method signature and&nbsp;documentation…</p>
-<p>WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter)&nbsp;{</p>
-<p>/// <summary locid="M:J#Sys.Net.WebServiceProxy.invoke"></summary></p>
-<p>/// <param name="servicePath" type="String">Path to the webservice</param></p>
-<p>/// <param name="methodName" type="String" mayBeNull="true" optional="true">Method to invoke</param></p>
-<p>/// <param name="useGet" type="Boolean" optional="true" mayBeNull="true">Controls whether requests use HttpGet</param></p>
-<p>/// <param name="params" mayBeNull="true" optional="true">Method args.</param></p>
-<p>/// <param name="onSuccess" type="Function" mayBeNull="true" optional="true">Success callback</param></p>
-<p>/// <param name="onFailure" type="Function" mayBeNull="true" optional="true">Failure callback</param></p>
-<p>/// <param name="userContext" mayBeNull="true" optional="true">Success callback</param></p>
-<p>/// <param name="timeout" type="Number" optional="true" mayBeNull="true">Timeout in milliseconds</param></p>
-<p>/// <param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true">Whether to use <span class="caps">JSONP</span> if the servicePath is for a different domain (default is true).</param></p>
-<p>/// <param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true">The name of the callback parameter for <span class="caps">JSONP</span> request (default is callback).</param></p>
-<p>/// <returns type="Sys.Net.WebRequest" mayBeNull="true">Returns the request that was sent (null for <span class="caps">JSONP</span> requests).</returns></p>
+<pre><code class="lang-javascript">WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {
+    <span class="comment">/// &lt;summary locid="M:J#Sys.Net.WebServiceProxy.invoke"&gt;&lt;/summary&gt;</span>
+    <span class="comment">/// &lt;param name="servicePath" type="String"&gt;Path to the webservice&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="methodName" type="String" mayBeNull="true" optional="true"&gt;Method to invoke&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="useGet" type="Boolean" optional="true" mayBeNull="true"&gt;Controls whether requests use HttpGet&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="params" mayBeNull="true" optional="true"&gt;Method args.&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="onSuccess" type="Function" mayBeNull="true" optional="true"&gt;Success callback&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="onFailure" type="Function" mayBeNull="true" optional="true"&gt;Failure callback&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="userContext" mayBeNull="true" optional="true"&gt;Success callback&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="timeout" type="Number" optional="true" mayBeNull="true"&gt;Timeout in milliseconds&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true"&gt;Whether to use <span class="caps">JSONP</span> if the servicePath is for a different domain (default is true).&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true"&gt;The name of the callback parameter for <span class="caps">JSONP</span> request (default is callback).&lt;/param&gt;</span>
+    <span class="comment">/// &lt;returns type="Sys.Net.WebRequest" mayBeNull="true"&gt;Returns the request that was sent (null for <span class="caps">JSONP</span> requests).&lt;/returns&gt;</span>
+}
+</code></pre>
 </section>
           <section>
             <h2>Comments</h2>

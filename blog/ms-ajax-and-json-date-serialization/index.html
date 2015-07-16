@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -54,16 +55,19 @@
           <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
 <p>Anyway, one of the nice little features in <span class="caps">MS</span> AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several&nbsp;hours.</p>
 <p>At this point you’re probably thinking, “I know what the problem is, you idiot!  It’s local time!”  Hopefully you’re more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/"><span class="caps">JSON</span> doesn’t account for dates</a>, we’re forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the <span class="caps">JSON</span> date format that the AJAX team decided on using.  You’ll notice that he mentions several time that the string format represents a <strong><span class="caps">UTC</span></strong> date <span class="amp">&amp;</span> time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn’t take that into&nbsp;account.</p>
-<p>if (Date.isInstanceOfType(object)) {
-stringBuilder.append(‘“\/Date(‘).
-append(object.getTime()).
-append(‘)\/“‘);
-break;&nbsp;}</p>
+<pre><code class="lang-javascript"><span class="keyword">if</span> (<span class="built_in">Date</span>.isInstanceOfType(object)) {
+    stringBuilder.append(<span class="string">'"\\/Date('</span>).
+    append(object.getTime()).
+    append(<span class="string">')\\/"'</span>);
+    <span class="keyword">break</span>;
+}
+</code></pre>
 <p>Since the date was going to be converted to a string anyway I went ahead and did the conversion ahead of time.  Something like&nbsp;this…</p>
-<p>var offset = obj.getTimezoneOffset() * 100 / 60;
-var offsetText = offset &gt;= 1000 ? offset.toPrecision(4) : “0” +
-offset.toPrecision(3);
-return “/Date(“ + (+obj).toString() + “-“ + offsetText +&nbsp;“)/“;</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> offset = obj.getTimezoneOffset() * <span class="number">100</span> / <span class="number">60</span>;
+<span class="keyword">var</span> offsetText = offset &gt;= <span class="number">1000</span> ? offset.toPrecision(<span class="number">4</span>) : <span class="string">"0"</span> +
+offset.toPrecision(<span class="number">3</span>);
+<span class="keyword">return</span> <span class="string">"/Date("</span> + (+obj).toString() + <span class="string">"-"</span> + offsetText + <span class="string">")/"</span>;
+</code></pre>
 <p>There are, of course, other ways to do this.  You could convert the date to a <span class="caps">UTC</span> date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it’s more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn’t feel&nbsp;right.</p>
 <p>Moral of the story:  either make sure your dates are <span class="caps">UTC</span> or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don’t have to face that&nbsp;problem.</p>
 </section>

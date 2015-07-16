@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -55,58 +56,50 @@
 <p>As a side note, based on what I’ve seen in the way that tfs represents changes, this rollback changeset is simply an add, edit or delete, with the additional information that it was a rollback of a prior change.  The original checkin is still in the tfs&nbsp;history.</p>
 <p>To do a rollback, first open up the visual studio command prompt.  You should have a shortcut in your start menu.  On my machine the command is: <em><strong>%comspec% /k “”c:\Program Files (x86)\Microsoft Visual Studio 10.0\<span class="caps">VC</span>\vcvarsall.bat”” x86</strong></em>.</p>
 <p>Here’s the help for tf rollback (using the command <em>tf rollback /?</em>):</p>
-<p><span class="caps">TF</span> - Team Foundation Version Control Tool, Version&nbsp;10.0.30319.1</p>
-<p>Copyright (c) Microsoft Corporation.  All rights&nbsp;reserved.</p>
-<p>Rolls back the changes in a single or a range of&nbsp;changesets:</p>
-<p>tf rollback /changeset:changesetfrom~changesetto [itemspec]&nbsp;[/recursive]</p>
-<pre><code>        [/lock:none|checkin|checkout] [/version:versionspec]
+<pre><code>TF - Team Foundation Version Control Tool, Version 10.0.30319.1
 
+Copyright (c) Microsoft Corporation.  All rights reserved.
 
+Rolls back the changes in a single or a range of changesets:
 
+tf rollback /changeset:changesetfrom~changesetto [itemspec] [/recursive]
 
-        [/keepmergehistory] [/noprompt] [/login:username,[password]]
-</code></pre><p>tf rollback /toversion:versionspec itemspec&nbsp;[/recursive]</p>
-<pre><code>        [/lock:none|checkin|checkout] [/version:versionspec]
+            [/lock:none|checkin|checkout] [/version:versionspec]
 
+            [/keepmergehistory] [/noprompt] [/login:username,[password]]
 
+tf rollback /toversion:versionspec itemspec [/recursive]
 
+            [/lock:none|checkin|checkout] [/version:versionspec]
 
-        [/keepmergehistory] [/noprompt] [/login:username,[password]]
-</code></pre><p>Versionspec:</p>
-<pre><code>Date/Time         D&quot;any .Net Framework-supported format&quot;
+            [/keepmergehistory] [/noprompt] [/login:username,[password]]
 
+Versionspec:
 
+    Date/Time         D&quot;any .Net Framework-supported format&quot;
 
+                      or any of the date formats of the local machine
 
-                  or any of the date formats of the local machine
+    Changeset number  Cnnnnnn
 
+    Label             Llabelname
 
+    Latest version    T
 
-
-Changeset number  Cnnnnnn
-
-
-
-
-Label             Llabelname
-
-
-
-
-Latest version    T
-
-
-
-
-Workspace         Wworkspacename;workspaceowner
+    Workspace         Wworkspacename;workspaceowner
 </code></pre><p>First, we need to make sure we are working within our&nbsp;workspace.</p>
-<p><strong><em>cd&nbsp;path\to\workspace\root</em></strong></p>
+<pre><code class="lang-bat"><span class="function">C:\&gt; <span class="title">cd</span> <span class="title">workspace</span></span>
+</code></pre>
 <p>So, for example, we could rollback an entire&nbsp;changeset:</p>
-<p><strong><em>tf rollback&nbsp;/changeset:12345</em></strong></p>
+<pre><code class="lang-bat"><span class="function">C:\<span class="title">workspace</span>&gt; <span class="title">tf</span> <span class="title">rollback</span> /<span class="title">changeset</span>:12345</span>
+</code></pre>
 <p>Or, we can rollback a single item in the&nbsp;changeset:</p>
-<p><strong><em>tf rollback /changeset:12345&nbsp;$/Path/To/Item</em></strong></p>
+<pre><code class="lang-bat"><span class="function">C:\<span class="title">workspace</span>&gt; <span class="title">tf</span> <span class="title">rollback</span> /<span class="title">changeset</span>:12345 $/<span class="title">Path</span>/<span class="title">To</span>/<span class="title">Item</span></span>
+</code></pre>
 <p>There is also a login param that you can pass if&nbsp;needed:</p>
-<p><strong><em>tf rollback /changeset:12345&nbsp;/login:domain\username,password</em></strong></p>
+<pre><code class="lang-bat"><span class="function">C:\<span class="title">workspace</span>&gt; <span class="title">tf</span> <span class="title">rollback</span> /<span class="title">changeset</span>:12345 /<span class="title">login:domain</span>\<span class="title">username</span>,
+<span class="title">password</span></span>
+</code></pre>
 <p>Enjoy!</p>
 </section>
           <section>

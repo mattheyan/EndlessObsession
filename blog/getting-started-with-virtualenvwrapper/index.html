@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -57,43 +58,40 @@
 <p><strong>The basic steps that I used&nbsp;are…</strong></p>
 <ul>
 <li>Install&nbsp;python</li>
-</ul>
-<ul>
 <li>Install&nbsp;virtualenv</li>
-</ul>
-<ul>
 <li>Install&nbsp;virtualenvwrapper</li>
-</ul>
-<ul>
 <li>Configure&nbsp;virtualenvwrapper</li>
-</ul>
-<ul>
 <li>Create a new virtual&nbsp;environment</li>
-</ul>
-<ul>
 <li>Install&nbsp;packages</li>
 </ul>
 <p>A script to accomplish most of this can be found <a href="http://github.com/mattheyan/environment">here</a> @<em>/linux/virtualenvwrapper.sh</em>.</p>
 <h4 id="1-make-sure-that-the-script-can-be-executed-">1) Make sure that the script can be&nbsp;executed:</h4>
-<p><code>sudo chmod +x virtualenvwrapper.sh</code></p>
+<pre><code class="lang-sh">$ sudo chmod +x virtualenvwrapper.sh
+</code></pre>
 <h4 id="2-execute-the-script-">2) Execute the&nbsp;script:</h4>
-<p><code>./virtualenvwrapper.sh</code></p>
+<pre><code class="lang-sh">$ ./virtualenvwrapper.sh
+</code></pre>
 <h4 id="3-initialize-virtualenvwrapper-">3) Initialize&nbsp;virtualenvwrapper:</h4>
 <p>The script mentioned above adds the following to ~/.bashrc, but will not take effect until you open a new terminal window.  I’m sure there’s a way to avoid having to do this.  In the code below, ~/.virtualenvs can be changed to any path you wish.  Also, the path may vary (<a href="http://www.doughellmann.com/docs/virtualenvwrapper/install.html#comment-83318419">link</a>).</p>
-<p><code>export WORKON_HOME=~/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh</code></p>
+<pre><code class="lang-sh"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs
+<span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh
+</code></pre>
 <h4 id="4-create-a-new-environment-">4) Create a new&nbsp;environment:</h4>
-<p><code>mkvirtualenv env</code></p>
+<pre><code class="lang-sh">mkvirtualenv env
+</code></pre>
 <h4 id="5-begin-working-on-your-new-environment-">5) Begin working on your new&nbsp;environment:</h4>
-<p><code>workon env</code></p>
+<pre><code class="lang-sh">workon env
+</code></pre>
 <h4 id="6-install-packages">6) Install&nbsp;packages</h4>
 <p>This can be done using pip (or easy_install, I believe) and the packages are installed in&nbsp;$WORKON_HOME/env/…</p>
 <p>You can list all of your required packages in a single pip requirements file and install at&nbsp;once.</p>
 <p><strong>Example:</strong></p>
-<p>Django==1.1.2
-django-tagging==0.3.1&nbsp;South==0.7.1</p>
-<p>Then, use pip to install the&nbsp;packages:</p>
-<p><code>pip install -r /path/to/requirements</code></p>
+<pre><code>Django==1.1.2
+django-tagging==0.3.1
+South==0.7.1
+</code></pre><p>Then, use pip to install the&nbsp;packages:</p>
+<pre><code class="lang-sh">pip install -r /path/to/requirements
+</code></pre>
 <p><em>Update 12/29/2010:  Using a specific version of python would be nice, especially since it’s something that can be done easy enough with <a href="http://rvm.beginrescueend.com/"><span class="caps">RVM</span></a>.  I will be investigating this so look out for a future post on the&nbsp;topic.</em></p>
 </section>
           <section>

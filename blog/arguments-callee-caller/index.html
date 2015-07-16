@@ -15,6 +15,7 @@
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
     <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -55,14 +56,20 @@
 <p>Recently I spent some time looking at generating a stack trace in JavaScript for the purpose of error reporting.  There are plenty of <a href="http://eriwen.com/javascript/stacktrace-update/">existing</a> <a href="http://helephant.com/2007/05/diy-javascript-stack-trace/">projects</a> out there that solve this problem, so I wouldn’t recommend rolling your&nbsp;own.</p>
 <p>As a result of this I came across some odd behavior in JavaScript.  The code I was working with takes advantage of the special “arguments” variable (the “array” of arguments passed to the current function), which has a special “callee” property (the function that was called), which also has a special “caller” property (the function that called this function).  You can probably see how this would be tempting if you’re trying to construct a stack trace.  Unfortunately, this information is attached to the function object rather than some sort of “function invocation” object.  There are at least two cases where this makes constructing an accurate stack trace&nbsp;impossible.</p>
 <ol>
-<li>Function recursively calls&nbsp;itself.</li>
+<li>Function recursively calls itself.<ul>
+<li>Since the caller property is attached to the function itself there is no
+way of knowing (through this information alone) how many times the function was&nbsp;called.</li>
+</ul>
+</li>
+<li>Function A calls function B, which then calls function A…<ul>
+<li>Even if there are terminating condition, the code that attempts to
+reconstruct the stack trace (using “callee” and “caller”) will not
+terminate.  There is a good description of this behavior
+<a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function/caller">here</a>.</li>
+</ul>
+</li>
 </ol>
-<pre><code>* Since the caller property is attached to the function itself there is no way of knowing (through this information alone) how many times the function was called.
-</code></pre><ol>
-<li>Function A calls function B, which then calls function&nbsp;A…</li>
-</ol>
-<pre><code>* Even if there are terminating condition, the code that attempts to reconstruct the stack trace (using &quot;callee&quot; and &quot;caller&quot;) will not terminate.  There is a good description of this behavior [here](https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function/caller).
-</code></pre><p>I was primarily interested in scenario 2, since this can cause errors.  To get around this you can detect that you have already encountered a given function and simply stop.  Of course this means that you lose any information that follows, but at least you won’t hang the&nbsp;browser.</p>
+<p>I was primarily interested in scenario 2, since this can cause errors.  To get around this you can detect that you have already encountered a given function and simply stop.  Of course this means that you lose any information that follows, but at least you won’t hang the&nbsp;browser.</p>
 <p>Conclusion:  always check <span class="caps">MDC</span>&nbsp;:)</p>
 <p><a href="http://eriwen.com/javascript/stacktrace-update/">http://eriwen.com/javascript/stacktrace-update/</a></p>
 <p><a href="http://helephant.com/2007/05/diy-javascript-stack-trace/">http://helephant.com/2007/05/diy-javascript-stack-trace/</a></p>
