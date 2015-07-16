@@ -2,6 +2,9 @@
 extends layout
 //- this logic should be moved to a view at some point
 
+block includes
+	link(href='/stylesheets/archive.css?v=1.0', media='screen, projection' rel='stylesheet' type='text/css')
+
 block content
 	- var lineHeight = 2.2;
 	- var archives = _.chain(env.helpers.getArticles(contents)).groupBy(function(item) {
@@ -28,5 +31,5 @@ block content
 									each item in months[monthsK[month]]
 										li
 											time(datetime=moment.utc(item.date).format('YYYY-MM-DD'), pubdate)= moment.utc(item.date).format('MMM Do')
-											a(rel='article', href=item.url)=item.title
+											a(rel='article', href=item.url, title=item.title)=item.title
 						- }

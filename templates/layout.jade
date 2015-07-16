@@ -21,40 +21,42 @@ html(lang='en')
       link(href='/atom.xml', rel='alternate', type='application/atom+xml', title=locals.title)
 
       link(href='/stylesheets/normalize-3.0.2.css', media='screen, projection' rel='stylesheet' type='text/css')
-      link(href='/stylesheets/layout.css?v=1.0.0', media='screen, projection' rel='stylesheet' type='text/css')
-      link(href='/stylesheets/theme.css?v=1.0.0', media='screen, projection' rel='stylesheet' type='text/css')
+      link(href='/stylesheets/theme-2.0.css', media='screen, projection' rel='stylesheet' type='text/css')
+
+      block includes
   body
-    header(role='banner')
-      hgroup
-        h1
-          a(href=locals.url)= locals.title
-        small= locals.subtitle
-      nav(role='complementary')
-        ul
-          li
-            a(href='/atom.xml', title='RSS')= 'RSS'
-          li
-            a(href='https://github.com/mattheyan', title='Github: mattheyan', target='_blank')= 'Github'
-          li
-            a(href='https://twitter.com/BryanMatthews', title='Twitter: @BryanMatthews', target='_blank')= 'Twitter'
-    nav(role='navigation')
-      ul
-        li
-          a(href=canonicalUrl)= 'Home'
-        li
-          a(href=canonicalUrl + 'about', rel='author')= 'About'
-        li
-          a(href=canonicalUrl + 'blog/archives')= 'Archives'
-      form(action='http://google.com/search')
-        fieldset(role='search')
-          input(type='hidden', name='q', value='site:' + locals.url)
-          input.search(type='text', name='q', results='0', placeholder='Search')
-    main
-      block content
-        h2= 'Welcome!'
-    footer
-      block footer
-        small Copyright &copy; #{ new Date().getFullYear() } - #{ locals.owner } &mdash; powered by&nbsp;
-            a(href='https://github.com/jnordberg/wintersmith') Wintersmith
-      if locals.googleAnalyticsID
-        script(type='text/javascript', src='/javascripts/analytics.js?v=1.0.0&id=' + locals.googleAnalyticsID)
+    div.container
+      header(role='banner')
+        hgroup
+          h1
+            a(href=locals.url)= locals.title
+          small= locals.subtitle
+        nav(role='navigation')
+          ul
+            li
+              a(href=canonicalUrl)= 'Home'
+            li
+              a(href=canonicalUrl + 'about', rel='author')= 'About'
+            li
+              a(href=canonicalUrl + 'blog/archives')= 'Archives'
+          form(action='http://google.com/search')
+            fieldset(role='search')
+              input(type='hidden', name='q', value='site:' + locals.url)
+              input.search(type='text', name='q', results='0', placeholder='Search')
+        nav(role='complementary')
+          ul
+            li
+              a(href='/atom.xml', title='RSS')= 'RSS'
+            li
+              a(href='https://github.com/mattheyan', title='Github: mattheyan', target='_blank')= 'Github'
+            li
+              a(href='https://twitter.com/BryanMatthews', title='Twitter: @BryanMatthews', target='_blank')= 'Twitter'
+      main
+        block content
+          h2= 'Welcome!'
+        footer
+          block footer
+            small Copyright &copy; #{ new Date().getFullYear() } - #{ locals.owner } &mdash; powered by&nbsp;
+                a(href='https://github.com/jnordberg/wintersmith') Wintersmith
+          if locals.googleAnalyticsID
+            script(type='text/javascript', src='/javascripts/analytics.js?v=1.0.0&id=' + locals.googleAnalyticsID)

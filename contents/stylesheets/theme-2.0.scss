@@ -1,0 +1,400 @@
+$sidebarWidth: 273px;
+
+$contentLeftPad: 50px;
+
+$headerHorizontalPad: 20px;
+
+body {
+	// Use a font color that's not quite black
+	color: #333;
+}
+
+// General Layout
+// =============================================================================
+
+body {
+	div.container {
+		display: table;
+
+		// Ensure that all vertical space is taken
+		height: 100%;
+
+		> header {
+			// Left-hand side, enough width to fit the title comfortably
+			display: table-cell;
+			width: $sidebarWidth;
+
+			position: fixed;
+			height: 100%;
+
+			// Center the header content horizontally
+			margin: 0px auto;
+
+			hgroup {
+				padding: 0 $headerHorizontalPad;
+			}
+
+			nav[role='navigation'] {
+				 ul {
+					padding-left: 20px;
+					list-style: none;
+				}
+			}
+
+			nav[role='complementary'] {
+				ul {
+					padding: 0;
+					display: inline;
+					li {
+						display: inline;
+					}
+				}
+				float: left;
+				display: inline;
+				//position: absolute;
+				padding: 3px 10px;
+				//top: 0;
+				//right: 0;
+			}
+		}
+
+		> main {
+			display: table-cell;
+
+			// Ensure that the main content takes up as much space as available
+			width: 100%;
+
+			// The sidebar is fixed, so pad by its width
+			padding-left: $sidebarWidth + $contentLeftPad;
+
+			section {
+				margin-bottom: 10px;
+
+				article {
+					margin-bottom: 50px;
+				}
+			}
+		}
+	}
+}
+
+article {
+	header {
+		// Place vertical margin here to take the place of the native h2 margin,
+		// so that the title and byline can be treated as a single entity.
+		margin: 10px 0 20px;
+
+		h2.title {
+			// Decrease the bottom margin so that the title and byline stick together.
+			// Also decrease the top margin, since the parent header will be responsible for margin.
+			margin: 8px 0;
+		}
+
+		div.byline {
+			span.author:after {
+				content: "|";
+				margin-left: 7px;
+			}
+		}
+	}
+
+	section {
+		// Based on popular news sites using about 500-600px width.
+		// Assume this is optimal for reading based on science or something.
+		width: 600px;
+	}
+}
+
+hgroup {
+	margin: 10px 0;
+
+	h1, h2, h3, h4, h5 {
+		margin: 0;
+	}
+}
+
+// Colors & Styling
+// =============================================================================
+
+body {
+	div.container {
+
+		> header {
+			background: darkslategray;
+
+			hgroup {
+				h1 {
+					// Really big font
+					font-size: 3.23em;
+					font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif;
+					font-weight: normal;
+
+					// Add some extra spacing between the lines
+					line-height: 1.2em;
+
+					a {
+						color: #f2f2f2;
+						text-decoration: none;
+					}	
+				}
+
+				small {
+					font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif;
+					margin: 0.2em 0 0;
+					font-size: 1em;
+					color: #aaa;
+					font-weight: normal;
+				}
+			}
+
+			nav[role='navigation'] {
+				ul li a {
+					text-decoration: none;
+					font-size: 1.5em;
+					color: darkcyan;
+				}
+
+				form fieldset {
+					border: none;
+				}
+			}
+		}
+
+		main {
+			background: #fff;
+		}
+	}
+}
+
+article {
+	header {
+		h2.title {
+			// Loosely follow news site conventions of serif font and 2.*em or ~50px font size.
+			//font-family: 'Georgia,Century,Times,serif';
+			font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif;
+			font-size: 2.2rem;
+
+			a {
+				text-decoration: none;
+				color: #333;
+			}
+			a:hover, a:focus {
+				text-decoration: underline;
+			}
+		}
+		div.byline {
+			color: #777;
+			font-weight: bold;
+		}
+	}
+
+	p {
+		line-height: 1.4em;
+	}
+
+	section {
+		hr {
+			border-top: 0.5px solid #f0f0f0;
+			border-right: none;
+			border-left: none;
+		}
+	}
+}
+
+footer {
+	position: relative;
+	margin-bottom: 10px;
+	padding: 12px 0;
+
+	color: #222;
+
+	//color: #888;
+	//text-shadow: #d9d9d9 0 1px;
+
+	border-top: 1px solid #f2f2f2;
+
+	// background: url('/images/noise.png?1334426298'),linear-gradient(#e0e0e0,#cccccc,#b0b0b0);
+
+	/*
+	-moz-border-bottom-left-radius: 0.4em;
+	-moz-border-bottom-right-radius: 0.4em;
+	-webkit-border-bottom-left-radius: 0.4em;
+	-webkit-border-bottom-right-radius: 0.4em;
+	-o-border-bottom-left-radius: 0.4em;
+	-o-border-bottom-right-radius: 0.4em;
+	-ms-border-bottom-left-radius: 0.4em;
+	-ms-border-bottom-right-radius: 0.4em;
+	-khtml-border-bottom-left-radius: 0.4em;
+	-khtml-border-bottom-right-radius: 0.4em;
+	border-bottom-left-radius: 0.4em;
+	border-bottom-right-radius: 0.4em;
+	*/
+}
+
+// Code & Quotes
+// =============================================================================
+
+pre {
+	background: darkcyan url('/images/noise.png?1334426298') top left;
+	font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+	border: 1px solid darkslategray;
+	line-height: 1.45em;
+	font-size: 13px;
+	margin-bottom: 2.1em;
+	padding: .8em 1em;
+	color: #f0f0f0;
+	overflow: auto;
+}
+
+p code, li code {
+	display: inline-block;
+	white-space: no-wrap;
+	background: #fff;
+	font-size: .8em;
+	line-height: 1.5em;
+	color: #555;
+	border: 1px solid #ddd;
+	padding: 0 .3em;
+	margin: -1px 0;
+}
+
+blockquote {
+	font-style: italic;
+	position: relative;
+	padding-left: 15px;
+	border-left: 4px solid rgba(170,170,170,0.5);
+}
+
+// Semantic Rules
+// =============================================================================
+
+a[rel='prev']:before {
+	content: "« ";
+}
+
+a[rel='next']:after {
+	content: " »";
+}
+
+a[rel='more']:after {
+	content: "…";
+}
+
+nav[role='complementary'] a {
+	text-indent: -9999px;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+}
+
+header[role='banner'] nav[role='complementary'] a[href*="github.com/"] {
+	background: transparent url(/images/logo-github-white-32px.png) top left / 32px 32px no-repeat;
+}
+
+header[role='banner'] nav[role='complementary'] a[href*="twitter.com/"] {
+	background: transparent url(/images/logo-twitter-white-32px.png) top left / 32px 32px no-repeat;
+}
+
+header[role='banner'] nav[role='complementary'] a[href*="/rss/"],
+header[role='banner'] nav[role='complementary'] a[href*="atom.xml"],
+header[role='banner'] nav[role='complementary'] a[href*="feed.xml"] {
+	background: transparent url(/images/logo-rss-white-32px.png) top left / 32px 32px no-repeat;
+}
+
+nav[role='navigation'] nav[role='complementary'] a[href*="github.com/"] {
+	background: transparent url(/images/logo-github-black-32px.png) top left / 32px 32px no-repeat;
+}
+
+nav[role='navigation'] nav[role='complementary'] a[href*="twitter.com/"] {
+	background: transparent url(/images/logo-twitter-blue-32px.png) top left / 32px 32px no-repeat;
+}
+
+nav[role='navigation'] nav[role='complementary'] a[href*="/rss/"],
+nav[role='navigation'] nav[role='complementary'] a[href*="feed.xml"],
+nav[role='navigation'] nav[role='complementary'] a[href*="atom.xml"] {
+	background: transparent url(/images/logo-rss-black-32px.png) top left / 32px 32px no-repeat;
+}
+
+// Responsive Design
+// =============================================================================
+
+@media screen and (max-width: 800px)
+{
+	body {
+		position: relative;
+		margin: 0 auto;
+
+		div.container {
+			display: block;
+
+			// Avoid space between container and top of window
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			> header {
+				position: relative;
+				display: block;
+				//height: 135px;
+				height: auto;
+				width: 100%;
+
+				padding-bottom: 35px;
+				padding-top: 10px;
+
+				nav[role='navigation'] {
+					float: left;
+					display: inline;
+					ul {
+						display: inline;
+						padding-left: 20px;
+						list-style: none;
+						li {
+							display: inline;
+						}
+						li:not(:last-child) {
+							padding-right: 8px;
+							border-right: 1px solid #aaa;
+							margin-right: 5px;
+						}
+					}
+
+					form {
+						display: none;
+					}
+				}
+				nav[role='complementary'] {
+					display: none;
+				}
+			}
+			> main {
+				clear: both;
+				width: auto;
+				display: block;
+				padding-left: $headerHorizontalPad;
+
+				section {
+					width: auto;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 400px)
+{
+	body {
+		max-width: 400px;
+
+		main {
+			max-width: 380px;
+
+			article section {
+				max-width: 350px;
+				img {
+					max-width: 350px;
+				}
+			}
+		}
+	}
+}

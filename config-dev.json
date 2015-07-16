@@ -11,6 +11,7 @@
     "./plugins/paginator.coffee",
     "./plugins/blog.coffee",
     "wintersmith-contents",
+    "wintersmith-libsass",
     "wintersmith-sitemap"
   ],
   "require": {
