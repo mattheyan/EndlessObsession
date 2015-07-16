@@ -27,65 +27,19 @@ After looking over the JavaScript code I determined that the WebServiceProxy was
 
 So, the bottom line is:  if you're accessing a web service across domains and you don't want to use JSONP, you have to set the  "enableJsonp" argument to _false_.  Here's the method signature and documentation...
 
-
+```javascript
 WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {
-
-
-
-
-/// <summary locid="M:J#Sys.Net.WebServiceProxy.invoke"></summary>
-
-
-
-
-/// <param name="servicePath" type="String">Path to the webservice</param>
-
-
-
-
-/// <param name="methodName" type="String" mayBeNull="true" optional="true">Method to invoke</param>
-
-
-
-
-/// <param name="useGet" type="Boolean" optional="true" mayBeNull="true">Controls whether requests use HttpGet</param>
-
-
-
-
-/// <param name="params" mayBeNull="true" optional="true">Method args.</param>
-
-
-
-
-/// <param name="onSuccess" type="Function" mayBeNull="true" optional="true">Success callback</param>
-
-
-
-
-/// <param name="onFailure" type="Function" mayBeNull="true" optional="true">Failure callback</param>
-
-
-
-
-/// <param name="userContext" mayBeNull="true" optional="true">Success callback</param>
-
-
-
-
-/// <param name="timeout" type="Number" optional="true" mayBeNull="true">Timeout in milliseconds</param>
-
-
-
-
-/// <param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true">Whether to use JSONP if the servicePath is for a different domain (default is true).</param>
-
-
-
-
-/// <param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true">The name of the callback parameter for JSONP request (default is callback).</param>
-
-
-
-
-/// <returns type="Sys.Net.WebRequest" mayBeNull="true">Returns the request that was sent (null for JSONP requests).</returns>
+	/// <summary locid="M:J#Sys.Net.WebServiceProxy.invoke"></summary>
+	/// <param name="servicePath" type="String">Path to the webservice</param>
+	/// <param name="methodName" type="String" mayBeNull="true" optional="true">Method to invoke</param>
+	/// <param name="useGet" type="Boolean" optional="true" mayBeNull="true">Controls whether requests use HttpGet</param>
+	/// <param name="params" mayBeNull="true" optional="true">Method args.</param>
+	/// <param name="onSuccess" type="Function" mayBeNull="true" optional="true">Success callback</param>
+	/// <param name="onFailure" type="Function" mayBeNull="true" optional="true">Failure callback</param>
+	/// <param name="userContext" mayBeNull="true" optional="true">Success callback</param>
+	/// <param name="timeout" type="Number" optional="true" mayBeNull="true">Timeout in milliseconds</param>
+	/// <param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true">Whether to use JSONP if the servicePath is for a different domain (default is true).</param>
+	/// <param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true">The name of the callback parameter for JSONP request (default is callback).</param>
+	/// <returns type="Sys.Net.WebRequest" mayBeNull="true">Returns the request that was sent (null for JSONP requests).</returns>
+}
+```

@@ -27,21 +27,21 @@ Two positive things that I took away from it:  pattern matching and pipe.
 
 Pattern matching is something that I knew was popular in functional programming circle but had never experienced first hand.  Now that I have a taste of it I think it's a handy abstraction, but I have a feeling that I haven't even begun to scratch the surface of what it could mean.
 
-    
-    let addNumbers (numbers : List) =
-        match numbers.Length with
-        | 0 -> 0
-        | 1 -> numbers.[0]
-        | _ -> numbers |> Seq.reduce (fun a b -> a + b)
-
+```fs
+let addNumbers (numbers : List) =
+    match numbers.Length with
+    | 0 -> 0
+    | 1 -> numbers.[0]
+    | _ -> numbers |> Seq.reduce (fun a b -> a + b)
+```
 
 This is simply an alternative form of the familiar if-else branching logic, nothing special really, but it is pleasantly terse.
 
 Pipe is even more exciting.  Take the following for example.
 
-    
-    numbers.Split ',' |> Array.toList |> List.map int |> addNumbers
-
+```fs
+numbers.Split ',' |> Array.toList |> List.map int |> addNumbers
+```
 
 Using the pipe operator (that's "|>") you can stream a value through a series of transformations, in this case splitting the string, converting the array to a list, converting the items in the list to integers, and finally passing the list to a method called "addNumbers".
 

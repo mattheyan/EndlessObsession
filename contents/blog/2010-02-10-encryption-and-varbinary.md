@@ -26,9 +26,9 @@ Fast-forward a week or two.  The problem occurs again, but this time the user is
 
 Luckily I found [_this article_](http://support.microsoft.com/kb/296559), which indicates that any alter of the column will turn off "TrimTrailingSpace", just what I wanted.  So, what did I do?  Something like this:
 
-
+```sql
 ALTER TABLE MyTable
 ALTER COLUMN MyColumn VARBINARY(xxx);
-
+```
 
 Problem solved!

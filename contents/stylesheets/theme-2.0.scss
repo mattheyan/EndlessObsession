@@ -51,10 +51,7 @@ body {
 				}
 				float: left;
 				display: inline;
-				//position: absolute;
 				padding: 3px 10px;
-				//top: 0;
-				//right: 0;
 			}
 		}
 
@@ -170,7 +167,6 @@ article {
 	header {
 		h2.title {
 			// Loosely follow news site conventions of serif font and 2.*em or ~50px font size.
-			//font-family: 'Georgia,Century,Times,serif';
 			font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif;
 			font-size: 2.2rem;
 
@@ -208,45 +204,13 @@ footer {
 
 	color: #222;
 
-	//color: #888;
-	//text-shadow: #d9d9d9 0 1px;
-
 	border-top: 1px solid #f2f2f2;
-
-	// background: url('/images/noise.png?1334426298'),linear-gradient(#e0e0e0,#cccccc,#b0b0b0);
-
-	/*
-	-moz-border-bottom-left-radius: 0.4em;
-	-moz-border-bottom-right-radius: 0.4em;
-	-webkit-border-bottom-left-radius: 0.4em;
-	-webkit-border-bottom-right-radius: 0.4em;
-	-o-border-bottom-left-radius: 0.4em;
-	-o-border-bottom-right-radius: 0.4em;
-	-ms-border-bottom-left-radius: 0.4em;
-	-ms-border-bottom-right-radius: 0.4em;
-	-khtml-border-bottom-left-radius: 0.4em;
-	-khtml-border-bottom-right-radius: 0.4em;
-	border-bottom-left-radius: 0.4em;
-	border-bottom-right-radius: 0.4em;
-	*/
 }
 
 // Code & Quotes
 // =============================================================================
 
-pre {
-	background: darkcyan url('/images/noise.png?1334426298') top left;
-	font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
-	border: 1px solid darkslategray;
-	line-height: 1.45em;
-	font-size: 13px;
-	margin-bottom: 2.1em;
-	padding: .8em 1em;
-	color: #f0f0f0;
-	overflow: auto;
-}
-
-p code, li code {
+p > code {
 	display: inline-block;
 	white-space: no-wrap;
 	background: #fff;
@@ -256,24 +220,6 @@ p code, li code {
 	border: 1px solid #ddd;
 	padding: 0 .3em;
 	margin: -1px 0;
-}
-
-p pre code, li pre code {
-	display: block;
-	background: transparent;
-	font-size: 13px;
-	line-height: 1.45em;
-	color: #f0f0f0;
-	border: none;
-	padding: 0;
-	margin: 0;
-}
-
-blockquote {
-	font-style: italic;
-	position: relative;
-	padding-left: 15px;
-	border-left: 4px solid rgba(170,170,170,0.5);
 }
 
 // Semantic Rules
@@ -346,7 +292,6 @@ nav[role='navigation'] nav[role='complementary'] a[href*="atom.xml"] {
 			> header {
 				position: relative;
 				display: block;
-				//height: 135px;
 				height: auto;
 				width: 100%;
 

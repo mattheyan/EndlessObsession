@@ -45,13 +45,17 @@ can easily use it to build your blog.
 Before I migrated my blog, I first had to determine if it would meet my needs,
 and whether I'd want to use it. The first step is to install Wintersmith.
 
-	npm install wintersmith -g
+```cli
+npm install wintersmith -g
+```
 
 Since Wintersmith is a tool, it should be installed globally, thus the `-g` flag.
 
 Next, use wintersmith to scaffold a new site.
 
-	wintersmith new <path>
+```cli
+wintersmith new <path>
+```
 
 At this point you can `cd` into the new directory that was created, and run
 `wintersmith preview`, then navigate to the URL that prints out on the console.
@@ -136,14 +140,16 @@ Edit the `getArticles` function in `plugins\paginator.coffee` so that it looks
 like this (based on
 [Marco Carag's blog](http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/)):
 
-	getArticles = (contents) ->
-		# helper that returns a list of articles found in *contents*
-		articles = []
-		for key, value of contents[options.articles]
-			articles.push value if value instanceof env.plugins.Page
-		
-		articles.sort (a, b) -> b.date - a.date
-		return articles
+```coffeescript
+getArticles = (contents) ->
+	# helper that returns a list of articles found in *contents*
+	articles = []
+	for key, value of contents[options.articles]
+		articles.push value if value instanceof env.plugins.Page
+	
+	articles.sort (a, b) -> b.date - a.date
+	return articles
+```
 
 You should now have a functional site, however there are many differences
 between the old site and the new site (including URLs), so unless you want a
@@ -157,86 +163,87 @@ them to be '/blog/some-slug' for backwards compatibility.
 Create a file `plugins\blog.coffee` and paste in the following code (based on
 [Marco Carag's blog](http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/)):
 
-	path = require 'path'
-	slugify = require 'slugg'
+```coffeescript
+path = require 'path'
+slugify = require 'slugg'
 
-	replaceAll = (string, map) ->
-	  re = new RegExp Object.keys(map).join('|'), 'gi'
-	  return string.replace re, (match) -> map[match]
+replaceAll = (string, map) ->
+  re = new RegExp Object.keys(map).join('|'), 'gi'
+  return string.replace re, (match) -> map[match]
 
-		module.exports = (env, callback) ->
+	module.exports = (env, callback) ->
 
-	  defaults =
-	    postsDir: 'articles' # directory containing blog posts
-	    template: 'article.jade'
-	    filenameTemplate: '/:year/:month/:day/:file/index.html'
-	    stripTrailingSlash: false
+  defaults =
+    postsDir: 'articles' # directory containing blog posts
+    template: 'article.jade'
+    filenameTemplate: '/:year/:month/:day/:file/index.html'
+    stripTrailingSlash: false
 
-	  # assign defaults for any option not set in the config file
-	  options = env.config.blog or {}
-	  for key, value of defaults
-	    options[key] ?= defaults[key]
+  # assign defaults for any option not set in the config file
+  options = env.config.blog or {}
+  for key, value of defaults
+    options[key] ?= defaults[key]
 
-	  class BlogpostPage extends env.plugins.MarkdownPage
-	    ### DRYer subclass of MarkdownPage ###
+  class BlogpostPage extends env.plugins.MarkdownPage
+    ### DRYer subclass of MarkdownPage ###
 
-	    getUrl: (base) ->
-	      result = super(base)
-	      if (options.stripTrailingSlash and result[result.length - 1] == '/')
-	        return result.substr(0, result.length - 1)
-	      else
-	        return result
+    getUrl: (base) ->
+      result = super(base)
+      if (options.stripTrailingSlash and result[result.length - 1] == '/')
+        return result.substr(0, result.length - 1)
+      else
+        return result
 
-	    getTemplate: ->
-	      @metadata.template or options.template or super()
+    getTemplate: ->
+      @metadata.template or options.template or super()
 
-	    @property 'rawFilenameTemplate', 'getRawFilenameTemplate'
-	    getRawFilenameTemplate: ->
-	      @metadata.filenameTemplate or options.filenameTemplate or super()
+    @property 'rawFilenameTemplate', 'getRawFilenameTemplate'
+    getRawFilenameTemplate: ->
+      @metadata.filenameTemplate or options.filenameTemplate or super()
 
-	    getFilenameTemplate: ->
-	      raw = @rawFilenameTemplate
+    getFilenameTemplate: ->
+      raw = @rawFilenameTemplate
 
-	      if raw[0] is '/'
-	        # already an absolute path
-	        return raw
-	      else
-	        # prevent base page class from resolving paths
-	        return '/' + raw
+      if raw[0] is '/'
+        # already an absolute path
+        return raw
+      else
+        # prevent base page class from resolving paths
+        return '/' + raw
 
-	    getFilename: ->
-	      rawFileNameTemplate = @rawFilenameTemplate
+    getFilename: ->
+      rawFileNameTemplate = @rawFilenameTemplate
 
-	      dirname = path.dirname @filepath.relative
+      dirname = path.dirname @filepath.relative
 
-	      filename = super()
+      filename = super()
 
-	      # enable custom 'slug' metadata propery
-	      filename = replaceAll filename,
-	        ':slug': @slug
+      # enable custom 'slug' metadata propery
+      filename = replaceAll filename,
+        ':slug': @slug
 
-	      if rawFileNameTemplate[0] is '/'
-	        # remove leading slash from filename template
-	        filename = '/' + filename
+      if rawFileNameTemplate[0] is '/'
+        # remove leading slash from filename template
+        filename = '/' + filename
 
-	      if filename[0] is '/'
-	        # filenames starting with a slash are absolute paths in the content tree
-	        return filename.slice(1)
-	      else
-	        # otherwise they are resolved from their directory in the tree
-	        return path.join dirname, filename
+      if filename[0] is '/'
+        # filenames starting with a slash are absolute paths in the content tree
+        return filename.slice(1)
+      else
+        # otherwise they are resolved from their directory in the tree
+        return path.join dirname, filename
 
-	    @property 'slug', 'getSlug'
-	    getSlug: ->
-	      @metadata.slug or slugify(@title+'')
+    @property 'slug', 'getSlug'
+    getSlug: ->
+      @metadata.slug or slugify(@title+'')
 
-	  # register the plugin
-	  prefix = if options.postsDir then options.postsDir + '/' else ''
-	  env.registerContentPlugin 'posts', prefix + '**/*.*(markdown|mkd|md)', BlogpostPage
+  # register the plugin
+  prefix = if options.postsDir then options.postsDir + '/' else ''
+  env.registerContentPlugin 'posts', prefix + '**/*.*(markdown|mkd|md)', BlogpostPage
 
-	  # done!
-	  callback()
-
+  # done!
+  callback()
+```
 
 You'll also need to add it to the 'plugins' key in `config.json`. This will
 allow you to customize features of your blog posts, including URLs, default jade
@@ -245,9 +252,11 @@ it in your package.json file) -> `npm install slugg --save-dev`.
 
 Add this to `config.json` to set a default template:
 
-	"blog": {
-		"template": "article.jade"
-	}
+```javascript
+"blog": {
+	"template": "article.jade"
+}
+```
 
 This also enables URL customization, and the default template is
 "/:year/:month/:day/:file/index.html", so your article URLs will now look like
@@ -261,20 +270,24 @@ generate, its a good idea to hard-code them all for the import, and I will
 probably do this moving forward as well, so that I have more control over the
 URLs).
 
-	"blog": {
-		"template": "article.jade",
-		"filenameTemplate": "/blog/:slug/index.html"
-	}
+```javascript
+"blog": {
+	"template": "article.jade",
+	"filenameTemplate": "/blog/:slug/index.html"
+}
+```
 
 There is a trailing slash in the URL links to posts, so use the
 'stripTrailingSlash' option to remove it. This is not a functional change, but
 it helps to be able to more easily compare the old and new output.
 
-	"blog": {
-		"template": "article.jade",
-		"filenameTemplate": "/blog/:slug/index.html",
-		"stripTrailingSlash": true
-	}
+```javascript
+"blog": {
+	"template": "article.jade",
+	"filenameTemplate": "/blog/:slug/index.html",
+	"stripTrailingSlash": true
+}
+```
 
 7) Fix Archive and Paging Links
 
@@ -286,17 +299,19 @@ Before making these changes, I want the contents structure to more accurately
 match the generated site structure, so move the blog files that I currently have
 into a 'blog' folder.
 
-	"blog": {
-		"postsDir": "blog",
-		"template": "article.jade",
-		"filenameTemplate": "/blog/:slug/index.html",
-		"stripTrailingSlash": true
-	},
-	"paginator": {
-		"articles": "blog",
-		"filename": "blog/page/%d/index.html",
-		"perPage": 3
-	}
+```javascript
+"blog": {
+	"postsDir": "blog",
+	"template": "article.jade",
+	"filenameTemplate": "/blog/:slug/index.html",
+	"stripTrailingSlash": true
+},
+"paginator": {
+	"articles": "blog",
+	"filename": "blog/page/%d/index.html",
+	"perPage": 3
+}
+```
 
 Move the archive template into the 'blog folder': `mv .\contents\archive.json
 .\contents\blog\archives\index.json`.
@@ -305,12 +320,14 @@ In 'index.jade': change `a(href='/archive.html')` to `a(href='/blog/archives')`.
 
 Finally, I renamed the 'article.jade' template to 'post.jade'.
 
-	"blog": {
-		"postsDir": "blog",
-		"template": "post.jade",
-		"filenameTemplate": "/blog/:slug/index.html",
-		"stripTrailingSlash": true
-	}
+```javascript
+"blog": {
+	"postsDir": "blog",
+	"template": "post.jade",
+	"filenameTemplate": "/blog/:slug/index.html",
+	"stripTrailingSlash": true
+}
+```
 
 8) Atom Feed and Sitemap
 

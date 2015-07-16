@@ -26,38 +26,20 @@ First, mount the guest additions "disc" from the host window's menu:  Devices > 
 
 Now you should see the disc mounted in nautilus.  The next step is to copy the appropriate file to your home folder (or some other location on the guest machine).
 
-
-
-
-
-  * cp /media//VBoxLinuxAdditions-x86.run .
-
-
-
-
+```sh
+$ cp /media//VBoxLinuxAdditions-x86.run .
+```
 
 Now, make the file runnable.
 
-
-
-
-
-  * sudo chmod +x VBoxLinuxAdditions-x86.run
-
-
-
-
+```sh
+$ sudo chmod +x VBoxLinuxAdditions-x86.run
+```
 
 Finally, run the installer.
 
-
-
-
-
-  * sudo ./VBoxLinuxAdditions-x86.run
-
-
-
-
+```sh
+$ sudo ./VBoxLinuxAdditions-x86.run
+```
 
 That's all!

@@ -10,10 +10,12 @@ categories:
 
 Recently I ran into an odd problem when writing a text file to disk using .NET's `File.OpenWrite`.
 
-	using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
-	{
-		fileWriter.WriteLine("abc");
-	}
+```cs
+using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
+{
+	fileWriter.WriteLine("abc");
+}
+```
 
 You might expect that after executing this code the text in the file would be "abc".  Not quite.  In my case I was sometimes seeing results like this...
 
