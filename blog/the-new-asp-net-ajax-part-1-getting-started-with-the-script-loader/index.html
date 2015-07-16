@@ -14,42 +14,44 @@
     <link href="/infinity-symbol.png" rel="icon">
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/layout.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header role="banner">
-      <hgroup>
-        <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-      </hgroup>
-      <nav role="complementary">
-        <ul>
-          <li><a href="/atom.xml" title="RSS">RSS</a></li>
-          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-        </ul>
-      </nav>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://endlessobsession.com/">Home</a></li>
-        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
-      </ul>
-      <form action="http://google.com/search">
-        <fieldset role="search">
-          <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-          <input type="text" name="q" results="0" placeholder="Search" class="search">
-        </fieldset>
-      </form>
-    </nav>
-    <main>
-      <article>
-        <header>
-          <time datetime="2010-02-10" pubdate>Feb 10th, 2010</time>
-          <h2>The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader</h2>
-        </header>
-        <section><p><strong>Background</strong>:  I had an existing <span class="caps">ASP</span>.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br><em>By the way, if you haven’t heard of the Script Loader then you can read about it </em><a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a><em> and </em><a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with&nbsp;Bing…)!</em></p>
+    <div class="container">
+      <header role="banner">
+        <hgroup>
+          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
+        </hgroup>
+        <nav role="navigation">
+          <ul>
+            <li><a href="http://endlessobsession.com/">Home</a></li>
+            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+          </ul>
+          <form action="http://google.com/search">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
+              <input type="text" name="q" results="0" placeholder="Search" class="search">
+            </fieldset>
+          </form>
+        </nav>
+        <nav role="complementary">
+          <ul>
+            <li><a href="/atom.xml" title="RSS">RSS</a></li>
+            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <article>
+          <header>
+            <h2 class="title">The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader</h2>
+            <div class="byline"><span class="author">Bryan Matthews</span>
+              <time datetime="2010-02-10" pubdate>Feb 10th, 2010</time>
+            </div>
+          </header>
+          <section><p><strong>Background</strong>:  I had an existing <span class="caps">ASP</span>.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br><em>By the way, if you haven’t heard of the Script Loader then you can read about it </em><a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a><em> and </em><a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with&nbsp;Bing…)!</em></p>
 <h2 id="include-the-script-loader">Include the Script&nbsp;Loader</h2>
 <p>My first thought was to just include the script loader’s script file (“start.js”) early, before the page scripts that would use it.  Unfortunately, this line of code gave me&nbsp;grief.</p>
 <pre><code>if(typeof(Sys) !== &quot;undefined&quot;) Sys.Application.notifyScriptLoaded();
@@ -76,20 +78,16 @@
 <pre><code>Sys.require([Sys.scripts.MyScript], function() {   bunch o&#39; code...});
 </code></pre><p>It’s as simple as that!  The function that you provide as the second argument is executed whenever the required scripts have been&nbsp;loaded.</p>
 </section>
-        <section>
-          <h2>Comments</h2>
-          <div id="disqus_thread"></div>
-        </section>
-      </article>
-      <nav role="navigation">
-        <ul>
-          <li><a href="/">« Full blog</a></li>
-        </ul>
-      </nav>
-    </main>
-    <footer>
-      <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-      <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-    </footer>
+          <section>
+            <h2>Comments</h2>
+            <div id="disqus_thread"></div>
+          </section>
+        </article>
+        <footer>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>

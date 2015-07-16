@@ -14,42 +14,44 @@
     <link href="/infinity-symbol.png" rel="icon">
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/layout.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header role="banner">
-      <hgroup>
-        <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-      </hgroup>
-      <nav role="complementary">
-        <ul>
-          <li><a href="/atom.xml" title="RSS">RSS</a></li>
-          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-        </ul>
-      </nav>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://endlessobsession.com/">Home</a></li>
-        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
-      </ul>
-      <form action="http://google.com/search">
-        <fieldset role="search">
-          <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-          <input type="text" name="q" results="0" placeholder="Search" class="search">
-        </fieldset>
-      </form>
-    </nav>
-    <main>
-      <article>
-        <header>
-          <time datetime="2010-12-07" pubdate>Dec 7th, 2010</time>
-          <h2>The Exo-suite (and client scripts on Github)</h2>
-        </header>
-        <section><p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this&nbsp;point.</p>
+    <div class="container">
+      <header role="banner">
+        <hgroup>
+          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
+        </hgroup>
+        <nav role="navigation">
+          <ul>
+            <li><a href="http://endlessobsession.com/">Home</a></li>
+            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+          </ul>
+          <form action="http://google.com/search">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
+              <input type="text" name="q" results="0" placeholder="Search" class="search">
+            </fieldset>
+          </form>
+        </nav>
+        <nav role="complementary">
+          <ul>
+            <li><a href="/atom.xml" title="RSS">RSS</a></li>
+            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <article>
+          <header>
+            <h2 class="title">The Exo-suite (and client scripts on Github)</h2>
+            <div class="byline"><span class="author">Bryan Matthews</span>
+              <time datetime="2010-12-07" pubdate>Dec 7th, 2010</time>
+            </div>
+          </header>
+          <section><p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this&nbsp;point.</p>
 <p>Before I go any farther I’ll give you (and future self) my take on the purpose of these&nbsp;projects.</p>
 <h3 id="exograph">ExoGraph</h3>
 <p>…is essentially an&nbsp;enabler.</p>
@@ -85,20 +87,16 @@
 <p>Finally, in writing the build script, I got the chance to learn a little <a href="http://rake.rubyforge.org/">rake</a> (ruby make), which I highly&nbsp;recommend.</p>
 <p>One of my other goals is to create working ExoGraph/ExoWeb implementations for django and rails.  The beginnings of the django implementation is currently <a href="http://github.com/mattheyan/django-exoweb">hosted on Github</a> as&nbsp;well.</p>
 </section>
-        <section>
-          <h2>Comments</h2>
-          <div id="disqus_thread"></div>
-        </section>
-      </article>
-      <nav role="navigation">
-        <ul>
-          <li><a href="/">« Full blog</a></li>
-        </ul>
-      </nav>
-    </main>
-    <footer>
-      <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-      <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-    </footer>
+          <section>
+            <h2>Comments</h2>
+            <div id="disqus_thread"></div>
+          </section>
+        </article>
+        <footer>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>

@@ -14,57 +14,61 @@
     <link href="/infinity-symbol.png" rel="icon">
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/layout.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header role="banner">
-      <hgroup>
-        <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-      </hgroup>
-      <nav role="complementary">
-        <ul>
-          <li><a href="/atom.xml" title="RSS">RSS</a></li>
-          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-        </ul>
-      </nav>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://endlessobsession.com/">Home</a></li>
-        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
-      </ul>
-      <form action="http://google.com/search">
-        <fieldset role="search">
-          <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-          <input type="text" name="q" results="0" placeholder="Search" class="search">
-        </fieldset>
-      </form>
-    </nav>
-    <main>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-07-28" pubdate>Jul 28th, 2010</time>
-            <h2><a rel="article" href="/blog/ie-unknown-runtime-error">IE &quot;Unknown runtime error&quot;</a></h2>
-          </header>
-          <section><p>I received a wonderful error from Internet Explorer today:  “Unknown runtime&nbsp;error”.</p>
+    <div class="container">
+      <header role="banner">
+        <hgroup>
+          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
+        </hgroup>
+        <nav role="navigation">
+          <ul>
+            <li><a href="http://endlessobsession.com/">Home</a></li>
+            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+          </ul>
+          <form action="http://google.com/search">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
+              <input type="text" name="q" results="0" placeholder="Search" class="search">
+            </fieldset>
+          </form>
+        </nav>
+        <nav role="complementary">
+          <ul>
+            <li><a href="/atom.xml" title="RSS">RSS</a></li>
+            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/ie-unknown-runtime-error">IE &quot;Unknown runtime error&quot;</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-07-28" pubdate>Jul 28th, 2010</time>
+              </div>
+            </header>
+            <section><p>I received a wonderful error from Internet Explorer today:  “Unknown runtime&nbsp;error”.</p>
 <p>It seemed to be an Internet Explorer issue only, since it worked fine in other browsers.  I was able to track this down to where the innerHTML for an element was being&nbsp;set.</p>
 <p>I found out <a href="http://piecesofrakesh.blogspot.com/2007/02/ies-unknown-runtime-error-when-using.html">here</a> that the problem was because my <span class="caps">HTML</span> was invalid.  As the poster notes, IE is actually enforcing <a href="http://www.w3.org/TR/html4/struct/text.html#h-9.3.1">the spec</a>, which is good.  However, the error message is completely worthless, which is not good.  Sadly, this is what I expect from&nbsp;<span class="caps">IE</span>.</p>
 <p>In his example, he was attempting to inject an “li” into a “p”, which is obviously invalid.  He noted that <span class="caps">IE</span>’s behavior seemed to be inconsistent, since it was ok with an “ul”.  However, in my case I found that injecting an “ul” into a “p” caused the same problem.  This may have been changed recently, a la Windows&nbsp;Update…</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-07-27" pubdate>Jul 27th, 2010</time>
-            <h2><a rel="article" href="/blog/getting-things-done-smart-lists">Getting Things Done:  Smart Lists</a></h2>
-          </header>
-          <section><h3 id="smart-lists">Smart&nbsp;Lists</h3>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/getting-things-done-smart-lists">Getting Things Done:  Smart Lists</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-07-27" pubdate>Jul 27th, 2010</time>
+              </div>
+            </header>
+            <section><h3 id="smart-lists">Smart&nbsp;Lists</h3>
 <p>In <a href="http://endlessobsession.com/2010/07/21/getting-things-done/">my first gtd post</a>, I described some of the strategies that I employ to help me get things done.  <a href="http://rememberthemilk.com">Remember the Milk</a> has become a increasingly large part of that.  If you’re reading this and you don’t know about it, you should check it&nbsp;out!</p>
 <p>Anyway, one thing that I discovered recently that has changed the way I use <span class="caps">RTM</span> is <a href="http://www.rememberthemilk.com/help/answers/smartlists/">smart lists</a>.  Seriously, I’m kicking myself for not knowing about this already!  Basically, smart lists are a way to save a search for later use, or, for the techies, a stored&nbsp;query.</p>
 <p>This may not seem like a big deal, but for me it is <span class="caps">HUGE</span>.  This means that I can organize my tasks logically without having to worry about the different views that I might want to&nbsp;simulate.</p>
@@ -102,16 +106,18 @@
 <p>I have now switched to using the “Work Day” list only for “I Forgot the Milk” on my work computer.  This way, I don’t have to mentally filter out tasks that I can’t do until I get&nbsp;home.</p>
 <p>I have yet to realize the full potential of smart lists, but I know that they will make things run a lot smoother for&nbsp;me.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-07-27" pubdate>Jul 27th, 2010</time>
-            <h2><a rel="article" href="/blog/sequenced-sql-records">Sequenced SQL Records</a></h2>
-          </header>
-          <section><h3 id="how-to-sequence-values-in-a-table-the-non-so-elegant-solution-">How to sequence values in a table.  The non-so-elegant&nbsp;solution…</h3>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/sequenced-sql-records">Sequenced SQL Records</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-07-27" pubdate>Jul 27th, 2010</time>
+              </div>
+            </header>
+            <section><h3 id="how-to-sequence-values-in-a-table-the-non-so-elegant-solution-">How to sequence values in a table.  The non-so-elegant&nbsp;solution…</h3>
 <p>Imagine you have a table that contains records with a foreign key (string, int, guid, etc…) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc…) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key&nbsp;table.</p>
 <p>What follows is the answer I arrived at late this afternoon.  Please let me know if you have a better&nbsp;way.</p>
 <ul>
@@ -218,29 +224,33 @@
 <p>I union the key table 3 times, filtering by each sequence number.  In each sub-query, the value is obtained by selecting the top N values, filtered by the foreign key and ordered by their value (descending), and then getting the min&nbsp;value.</p>
 <p>Kind of an odd-ball case, but I might find this humorous one day.  And Pete will laugh, because I laughed at my&nbsp;code.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-07-21" pubdate>Jul 21st, 2010</time>
-            <h2><a rel="article" href="/blog/getting-things-done">Getting things done (GTD)</a></h2>
-          </header>
-          <section><p>Lately I’ve become somewhat obsessed with getting things done.  I wasn’t always this way, I swear!  In my younger days I was as disorganized and lazy as anyone.  And I procrastinated sometimes (understatement of the&nbsp;year).</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/getting-things-done">Getting things done (GTD)</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-07-21" pubdate>Jul 21st, 2010</time>
+              </div>
+            </header>
+            <section><p>Lately I’ve become somewhat obsessed with getting things done.  I wasn’t always this way, I swear!  In my younger days I was as disorganized and lazy as anyone.  And I procrastinated sometimes (understatement of the&nbsp;year).</p>
 <p>For me, getting things done has to be more than a state of mind or goal, it has to be a <strong>system</strong> and a <strong>habit</strong>.  I didn’t come to this conclusion all at once.  It happened gradually, and I’m always trying to be better.  The system looks something like&nbsp;this:</p>
 
-            <p><a rel="more" href="/blog/getting-things-done">Continue reading</a></p>
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-07-12" pubdate>Jul 12th, 2010</time>
-            <h2><a rel="article" href="/blog/datacontractserializer-serialization-error">DataContractSerializer Read-Only Property Serialization Error</a></h2>
-          </header>
-          <section><p>I recently encountered an exception with a message that looked something like&nbsp;this:</p>
+              <p><a rel="more" href="/blog/getting-things-done">Continue reading</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/datacontractserializer-serialization-error">DataContractSerializer Read-Only Property Serialization Error</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-07-12" pubdate>Jul 12th, 2010</time>
+              </div>
+            </header>
+            <section><p>I recently encountered an exception with a message that looked something like&nbsp;this:</p>
 <p>There was an error deserializing the object of type Foo.  No set method for property ‘’ in type&nbsp;‘’.</p>
 <p>Huh?</p>
 <p>This was coming out of WriteObject (or a similar method) of DataContractSerializer (or DataContractJsonSerializer, or some other&nbsp;flavor).</p>
@@ -258,16 +268,18 @@
 <p>See this <a href="https://connect.microsoft.com/wcf/feedback/details/525090/wcf-serialization-error-message-does-not-specify-type-and-method?wa=wsignin1.0#tabs">ticket</a> and this <a href="http://stackoverflow.com/questions/1731572/error-using-wcf-and-datacontractserializer">stackoverflow post</a> (author describes a slightly different scenario) for more&nbsp;information.</p>
 <p>Good luck!&nbsp;:)</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-06-24" pubdate>Jun 24th, 2010</time>
-            <h2><a rel="article" href="/blog/extension-methods-and-generic-type-parameters">Extension Methods and Generic Type Parameters</a></h2>
-          </header>
-          <section><p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on&nbsp;stackoverflow</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/extension-methods-and-generic-type-parameters">Extension Methods and Generic Type Parameters</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-24" pubdate>Jun 24th, 2010</time>
+              </div>
+            </header>
+            <section><p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on&nbsp;stackoverflow</a></p>
 <p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question&nbsp;answered</a></p>
 <p>This is going to be a short post, and I’ll get right to the&nbsp;point.</p>
 <p>I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.  The starting code looked something like&nbsp;this:</p>
@@ -329,16 +341,18 @@
 <p>Do you know of a way to implement what I have proposed, or an alternative that is very&nbsp;similar?</p>
 <p>Back to the convention I mentioned earlier.  In the spirit of utilizing conventions, I ended up using reflection to take advantage of it.  It isn’t checked by the compiler, but we have the next best thing.  The code runs on application start-up and the Execute method is retrieved when the event is subscribed to, not raised.  So, it will fail very early if there is a&nbsp;problem.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-06-11" pubdate>Jun 11th, 2010</time>
-            <h2><a rel="article" href="/blog/arguments-callee-caller">arguments...callee...caller...</a></h2>
-          </header>
-          <section><p><em>Originally posted May 3&nbsp;2010</em></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/arguments-callee-caller">arguments...callee...caller...</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-11" pubdate>Jun 11th, 2010</time>
+              </div>
+            </header>
+            <section><p><em>Originally posted May 3&nbsp;2010</em></p>
 <p>Recently I spent some time looking at generating a stack trace in JavaScript for the purpose of error reporting.  There are plenty of <a href="http://eriwen.com/javascript/stacktrace-update/">existing</a> <a href="http://helephant.com/2007/05/diy-javascript-stack-trace/">projects</a> out there that solve this problem, so I wouldn’t recommend rolling your&nbsp;own.</p>
 <p>As a result of this I came across some odd behavior in JavaScript.  The code I was working with takes advantage of the special “arguments” variable (the “array” of arguments passed to the current function), which has a special “callee” property (the function that was called), which also has a special “caller” property (the function that called this function).  You can probably see how this would be tempting if you’re trying to construct a stack trace.  Unfortunately, this information is attached to the function object rather than some sort of “function invocation” object.  There are at least two cases where this makes constructing an accurate stack trace&nbsp;impossible.</p>
 <ol>
@@ -357,16 +371,18 @@
 <p><a href="http://msdn.microsoft.com/en-us/library/7t96kt3h">http://msdn.microsoft.com/en-us/library/7t96kt3h</a></p>
 <p><a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function/caller">https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function/caller</a></p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-06-11" pubdate>Jun 11th, 2010</time>
-            <h2><a rel="article" href="/blog/web-service-syntax-error">Web Service Syntax Error???</a></h2>
-          </header>
-          <section><p><em>Originally posted April 7&nbsp;2010</em></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/web-service-syntax-error">Web Service Syntax Error???</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-11" pubdate>Jun 11th, 2010</time>
+              </div>
+            </header>
+            <section><p><em>Originally posted April 7&nbsp;2010</em></p>
 <p>Ok, I’ll start this post off with some background.  A couple of years ago I wrote a <span class="caps">SOAP</span> web service that manages printing for multiple users through a web application.  Sounds familiar, right?  Anyway, the client that interacts with the web service uses the Microsoft AJAX JavaScript framework (version 1).  The web service is hosted on a different server and domain.  However, since this is an internal application with a small number of users they were content to enable cross-domain data access and be done with&nbsp;it.</p>
 <p>A few weeks ago one of my coworkers was revisiting the client portion, which just happened to be upgraded to the <a href="http://ajax.codeplex.com/">beta version of the <span class="caps">AJAX</span> JavaScript framework</a>.  He started to see a syntax error, which I determined was occurring when handling the web service response.  I knew that the client framework supported <span class="caps">JSONP</span> in some form, and I also noticed an interesting “jsonp” query string argument in the web service call.  Believe it or not, the client was trying to use JSONP, even though the web service response was XML!  This obviously would result in a syntax error when trying to&nbsp;deserialize.</p>
 <p>After looking over the JavaScript code I determined that the WebServiceProxy was using <span class="caps">JSONP</span> if either the protocol or host of the request was different than the current page.  I now know in hindsight that the documentation (at least in code) of WebServiceProxy.invoke clearly states this.  Luckily, the “enableJsonp” parameter can be set to <em>false</em> to override this&nbsp;behavior.</p>
@@ -385,16 +401,18 @@
 <p>/// <param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true">The name of the callback parameter for <span class="caps">JSONP</span> request (default is callback).</param></p>
 <p>/// <returns type="Sys.Net.WebRequest" mayBeNull="true">Returns the request that was sent (null for <span class="caps">JSONP</span> requests).</returns></p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-            <h2><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2>
-          </header>
-          <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
+              </div>
+            </header>
+            <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
 <p>Anyway, one of the nice little features in <span class="caps">MS</span> AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several&nbsp;hours.</p>
 <p>At this point you’re probably thinking, “I know what the problem is, you idiot!  It’s local time!”  Hopefully you’re more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/"><span class="caps">JSON</span> doesn’t account for dates</a>, we’re forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the <span class="caps">JSON</span> date format that the AJAX team decided on using.  You’ll notice that he mentions several time that the string format represents a <strong><span class="caps">UTC</span></strong> date <span class="amp">&amp;</span> time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn’t take that into&nbsp;account.</p>
 <p>if (Date.isInstanceOfType(object)) {
@@ -410,16 +428,18 @@ return “/Date(“ + (+obj).toString() + “-“ + offsetText +&nbsp;“)/“;<
 <p>There are, of course, other ways to do this.  You could convert the date to a <span class="caps">UTC</span> date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it’s more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn’t feel&nbsp;right.</p>
 <p>Moral of the story:  either make sure your dates are <span class="caps">UTC</span> or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don’t have to face that&nbsp;problem.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-            <h2><a rel="article" href="/blog/tiny-mce-spellchecker-gotcha">Tiny MCE Spellchecker Gotcha</a></h2>
-          </header>
-          <section><p>In hindsight this should have been a lot&nbsp;easier…</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/tiny-mce-spellchecker-gotcha">Tiny MCE Spellchecker Gotcha</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
+              </div>
+            </header>
+            <section><p>In hindsight this should have been a lot&nbsp;easier…</p>
 <p>If you’re not familiar with <a href="http://tinymce.moxiecode.com/">tinymce</a> you should go <a href="http://tinymce.moxiecode.com/examples/full.php">check it out</a>.  Its a solid rich text editor for the web, which can be easily initialized and manipulated via JavaScript.  And best of all, <a href="http://tinymce.moxiecode.com/download.php">its free</a>!</p>
 <p>Today I ran into a problem with the spell checking feature.  I’ll go ahead and state up front:  this was <strong><span class="caps">NOT</span></strong> a problem with tinymce.  This was my own doing.  It seemed that, although the spell checker was able to report misspellings in the editor, when you clicked on a misspelled word the highlighting would disappear and no context menu was shown.&nbsp;Strange…</p>
 <p>First off, tinymce’s source code can be downloaded from <a href="http://tinymce.moxiecode.com/download.php">their site</a> (see “Deveopment package”), which made debugging <strong><em>really</em></strong> easy.  I noticed while inspecting the page using <a href="http://getfirebug.com/">firebug</a> that when I triggered spell checking the misspelled word(s) in the editor were wrapped in a span with a special class name.  I tracked down the spot in the code where the text was wrapped happened, and more importantly unwrapped, and then set breakpoints so that I could intercept when this was happening.  I found that it was ultimately being called from a “mousedown” event, which was in turn creating a new undo operation in the editor and firing the editor’s custom “change”&nbsp;event.</p>
@@ -430,19 +450,20 @@ return “/Date(“ + (+obj).toString() + “-“ + offsetText +&nbsp;“)/“;<
 <p>If you think about it for a minute, you can see why this is a problem.  The editor’s content is essentially going to be the html that is displayed, right?  So, if the function is going to return the editor’s content, then it seems reasonable for it to “<em>cleanup the content</em>“ first.  And what would cleaning up the content involve?  That’s right!  It removes the html that wraps the text to signify that a word is misspelled.  After all, we wouldn’t want to store that in the&nbsp;database.</p>
 <p>So at this point I’ve determined what the problem is.  Luckily, it doesn’t appear that I need to call the getContent method after all.  The original text area’s value is updated anyway, so I just read the value directly from the text area.  Problem solved!  Now I can go&nbsp;home…</p>
 
-          </section>
-        </article>
-      </section>
-      <nav role="navigation">
-        <ul>
-          <li><a rel="prev" href="/blog/page/2/">Newer</a></li>
-          <li><a rel="archives" href="/blog/archives">Archives</a></li>
-          <li><a rel="next" href="/blog/page/4/">Older</a></li>
-        </ul>
-      </nav>
-    </main>
-    <footer><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-      <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-    </footer>
+            </section>
+          </article>
+        </section>
+        <nav role="navigation">
+          <ul>
+            <li><a rel="prev" href="/blog/page/2/">Newer</a></li>
+            <li><a rel="archives" href="/blog/archives">Archives</a></li>
+            <li><a rel="next" href="/blog/page/4/">Older</a></li>
+          </ul>
+        </nav>
+        <footer><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>

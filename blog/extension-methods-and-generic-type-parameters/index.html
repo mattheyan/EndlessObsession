@@ -14,42 +14,44 @@
     <link href="/infinity-symbol.png" rel="icon">
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/layout.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header role="banner">
-      <hgroup>
-        <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-      </hgroup>
-      <nav role="complementary">
-        <ul>
-          <li><a href="/atom.xml" title="RSS">RSS</a></li>
-          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-        </ul>
-      </nav>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://endlessobsession.com/">Home</a></li>
-        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
-      </ul>
-      <form action="http://google.com/search">
-        <fieldset role="search">
-          <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-          <input type="text" name="q" results="0" placeholder="Search" class="search">
-        </fieldset>
-      </form>
-    </nav>
-    <main>
-      <article>
-        <header>
-          <time datetime="2010-06-24" pubdate>Jun 24th, 2010</time>
-          <h2>Extension Methods and Generic Type Parameters</h2>
-        </header>
-        <section><p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on&nbsp;stackoverflow</a></p>
+    <div class="container">
+      <header role="banner">
+        <hgroup>
+          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
+        </hgroup>
+        <nav role="navigation">
+          <ul>
+            <li><a href="http://endlessobsession.com/">Home</a></li>
+            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+          </ul>
+          <form action="http://google.com/search">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
+              <input type="text" name="q" results="0" placeholder="Search" class="search">
+            </fieldset>
+          </form>
+        </nav>
+        <nav role="complementary">
+          <ul>
+            <li><a href="/atom.xml" title="RSS">RSS</a></li>
+            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <article>
+          <header>
+            <h2 class="title">Extension Methods and Generic Type Parameters</h2>
+            <div class="byline"><span class="author">Bryan Matthews</span>
+              <time datetime="2010-06-24" pubdate>Jun 24th, 2010</time>
+            </div>
+          </header>
+          <section><p>Edit 2010-06-29:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument">question on&nbsp;stackoverflow</a></p>
 <p>Edit 2010-07-01:  <a href="http://stackoverflow.com/questions/3118898/c-extension-method-on-type-with-generic-type-argument/3159532#3159532">question&nbsp;answered</a></p>
 <p>This is going to be a short post, and I’ll get right to the&nbsp;point.</p>
 <p>I’m looking at ways to improve the consistency, brevity, and readability of some code in the application I’m working on.  The starting code looked something like&nbsp;this:</p>
@@ -111,20 +113,16 @@
 <p>Do you know of a way to implement what I have proposed, or an alternative that is very&nbsp;similar?</p>
 <p>Back to the convention I mentioned earlier.  In the spirit of utilizing conventions, I ended up using reflection to take advantage of it.  It isn’t checked by the compiler, but we have the next best thing.  The code runs on application start-up and the Execute method is retrieved when the event is subscribed to, not raised.  So, it will fail very early if there is a&nbsp;problem.</p>
 </section>
-        <section>
-          <h2>Comments</h2>
-          <div id="disqus_thread"></div>
-        </section>
-      </article>
-      <nav role="navigation">
-        <ul>
-          <li><a href="/">« Full blog</a></li>
-        </ul>
-      </nav>
-    </main>
-    <footer>
-      <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-      <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-    </footer>
+          <section>
+            <h2>Comments</h2>
+            <div id="disqus_thread"></div>
+          </section>
+        </article>
+        <footer>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>

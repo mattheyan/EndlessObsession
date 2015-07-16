@@ -14,43 +14,45 @@
     <link href="/infinity-symbol.png" rel="icon">
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/layout.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header role="banner">
-      <hgroup>
-        <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-      </hgroup>
-      <nav role="complementary">
-        <ul>
-          <li><a href="/atom.xml" title="RSS">RSS</a></li>
-          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-        </ul>
-      </nav>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://endlessobsession.com/">Home</a></li>
-        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
-      </ul>
-      <form action="http://google.com/search">
-        <fieldset role="search">
-          <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-          <input type="text" name="q" results="0" placeholder="Search" class="search">
-        </fieldset>
-      </form>
-    </nav>
-    <main>
-      <section>
-        <article>
-          <header>
-            <time datetime="2015-04-18" pubdate>Apr 18th, 2015</time>
-            <h2><a rel="article" href="/blog/so-long-octopress-hello-wintersmith">So Long Octopress, Hello Wintersmith</a></h2>
-          </header>
-          <section><p><a href="http://octopress.org/">Octopress</a> has been a popular hacker’s blog for quite a
+    <div class="container">
+      <header role="banner">
+        <hgroup>
+          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
+        </hgroup>
+        <nav role="navigation">
+          <ul>
+            <li><a href="http://endlessobsession.com/">Home</a></li>
+            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+          </ul>
+          <form action="http://google.com/search">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
+              <input type="text" name="q" results="0" placeholder="Search" class="search">
+            </fieldset>
+          </form>
+        </nav>
+        <nav role="complementary">
+          <ul>
+            <li><a href="/atom.xml" title="RSS">RSS</a></li>
+            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/so-long-octopress-hello-wintersmith">So Long Octopress, Hello Wintersmith</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2015-04-18" pubdate>Apr 18th, 2015</time>
+              </div>
+            </header>
+            <section><p><a href="http://octopress.org/">Octopress</a> has been a popular hacker’s blog for quite a
 while, and so I made the switch a few years ago in order to escape the clutches
 of Wordpress. Now I have a hack-able blog that also costs me nothing to&nbsp;host.</p>
 <p>Unfortunately, Octopress isn’t a good long-term fit. At the end of the day the
@@ -67,17 +69,19 @@ workstations, so why <del>waste</del> spend my time on it if I don’t have&nbsp
 and node and JavaScript in general are skills that I’m more interested in developing.
 What I found was <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>.</p>
 
-            <p><a rel="more" href="/blog/so-long-octopress-hello-wintersmith">Continue reading</a></p>
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2013-10-16" pubdate>Oct 16th, 2013</time>
-            <h2><a rel="article" href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and 'couldn't parse YAML'</a></h2>
-          </header>
-          <section><p>This evening I noticed a syntax error in my blog’s <span class="caps">ATOM</span> feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn’t bother to determine. However, I also noticed that the post summaries were rather large and didn’t appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one&nbsp;stone.</p>
+              <p><a rel="more" href="/blog/so-long-octopress-hello-wintersmith">Continue reading</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and 'couldn't parse YAML'</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2013-10-16" pubdate>Oct 16th, 2013</time>
+              </div>
+            </header>
+            <section><p>This evening I noticed a syntax error in my blog’s <span class="caps">ATOM</span> feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn’t bother to determine. However, I also noticed that the post summaries were rather large and didn’t appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one&nbsp;stone.</p>
 <p>I discovered that the <span class="caps">YAML</span> that lives in each post’s header (more on that later) <a href="https://github.com/imathis/octopress/issues/1146">could include an “excerpt” property</a> where I could write my own summary of the&nbsp;post.</p>
 <p>For example, here’s the header of this&nbsp;post:</p>
 <pre><code>---
@@ -92,16 +96,18 @@ categories:
 <p>I hadn’t thought about it until now, but the configuration at the head of each post is <span class="caps">YAML</span>. I don’t know much about YAML, but apparently something was wrong with one of my&nbsp;excerpts.</p>
 <p>Fortunately I was able to track it down to the “:” character, which is somehow significant in <span class="caps">YAML</span> syntax. <a href="http://yamllint.com/"><span class="caps">YAML</span> Lint</a> was an invaluable&nbsp;resource.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2013-01-03" pubdate>Jan 3rd, 2013</time>
-            <h2><a rel="article" href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a></h2>
-          </header>
-          <section><p>Recently I ran into an odd problem when writing a text file to disk using .<span class="caps">NET</span>’s <code>File.OpenWrite</code>.</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2013-01-03" pubdate>Jan 3rd, 2013</time>
+              </div>
+            </header>
+            <section><p>Recently I ran into an odd problem when writing a text file to disk using .<span class="caps">NET</span>’s <code>File.OpenWrite</code>.</p>
 <pre><code>using (var fileWriter = new StreamWriter(File.OpenWrite(outputFilePath)))
 {
     fileWriter.WriteLine(&quot;abc&quot;);
@@ -117,16 +123,18 @@ some other text
 <p><code>OpenWrite</code> behaves much like the dreaded insert mode in word processors and text&nbsp;editors.</p>
 <p>The solution that I chose is pretty simple.  Just <a href="http://stackoverflow.com/questions/2695444/clearing-content-of-text-file-using-c-sharp" title="Stack Overflow - Clearing content of text file using C#">clear the file’s contents</a>&nbsp;beforehand.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2012-11-28" pubdate>Nov 28th, 2012</time>
-            <h2><a rel="article" href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a></h2>
-          </header>
-          <section><p>Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 <span class="caps">PC</span>.  This is what it looked&nbsp;like.</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2012-11-28" pubdate>Nov 28th, 2012</time>
+              </div>
+            </header>
+            <section><p>Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 <span class="caps">PC</span>.  This is what it looked&nbsp;like.</p>
 <p><img src="/images/select-pad.png" alt="Screenshot of excessive padding"></p>
 <p>I did some digging on the web and found a <a href="http://code.google.com/p/chromium/issues/detail?id=146745">chromium bug report</a>.</p>
 <p>One of the comments near the end of the page gives the solution to the&nbsp;problem.</p>
@@ -140,16 +148,18 @@ some other text
 <p>My laptop is a touchscreen and turning off this service doesn’t seem to affect touchscreen functionality.  Don’t forget to change the service startup type to “Manual” or “Disabled” so that it doesn’t start back up the next time you log&nbsp;on.</p>
 <p>This <a href="http://productforums.google.com/forum/#!topic/chrome/EIgNjmURGbo">Google Groups post</a> might also be&nbsp;relevant.</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2012-06-29" pubdate>Jun 29th, 2012</time>
-            <h2><a rel="article" href="/blog/should-you-write-awesome-code">Should you write awesome code?</a></h2>
-          </header>
-          <section><p>I ran across this provacative post on the tubes: <a href="http://jhovgaard.net/how-i-stopped-writing-awesome-code">How I stopped writing awesome code</a>. The following is my reaction and thoughts (hastily thrown together). Go to the link and read it first or what follows probably won’t make much&nbsp;sense.</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/should-you-write-awesome-code">Should you write awesome code?</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2012-06-29" pubdate>Jun 29th, 2012</time>
+              </div>
+            </header>
+            <section><p>I ran across this provacative post on the tubes: <a href="http://jhovgaard.net/how-i-stopped-writing-awesome-code">How I stopped writing awesome code</a>. The following is my reaction and thoughts (hastily thrown together). Go to the link and read it first or what follows probably won’t make much&nbsp;sense.</p>
 <p>I certainly agree that some of the practices he mention can have little benefit in the short term. Many people pointed out in the comments that the short term gains of “trimming the fat” can come back to haunt you on long term projects, and I’ll second&nbsp;that.</p>
 <p>Someone in the comments described how they have frequently inherited projects where it looked like the developer(s) had this mindset and it usually turned out to be a mess/headache to maintain. I think the mental burden he described to understand concepts/tools like <span class="caps">IOC</span>, ORMs, etc. is only one side of the coin. The other side is that not following best practices and using powerful tools that are available can be just as frustrating to a developer who inherits the project (or even your future self), especially in the event that the app has to be significantly enhanced or changed. That said, I have also had the experience where I found that I had over-engineered a project too early and ended up “stuck” with some of those poor decisions later on. I think the key is to not try to over-engineer too early, but rather follow only tried and true best practices that require little added effort and could yield future gains, improve and refactor as the project grows, and never be satisfied with where things are today. For what it’s worth, in the case where I made regrettable engineering decisions early on, I was also deviating from common/best practices, i.e. trying to be&nbsp;clever.</p>
 <p>As for F12, I don’t think you can ever really get around the limitations of the <span class="caps">IDE</span> with respect to interfaces and abstract/virtual members. I have been in the habit lately of using Shift+F12 (symbol search) rather than “Go to Definition” unless I know for sure that there is a single implementation of the member that I’m trying to get at. Resharper is also a good choice to improve the IDE experience. As irritating as F12 can be, I wouldn’t use that as reason to avoid using useful language&nbsp;features.</p>
@@ -158,56 +168,64 @@ some other text
 <p>Also, someone pointed out that its possible to write tests as <span class="caps">UI</span> acceptance tests that actually interact with the web browser (using Selenium) and mimic user behavior. I happen to use WatiN instead in my day-to-day, but what’s important is that you can verify the behavior that your clients are going to be looking for in an automated fashion. Do&nbsp;it!</p>
 <p>Thanks to Jonas for provoking critical thought!&nbsp;:)</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2012-05-26" pubdate>May 26th, 2012</time>
-            <h2><a rel="article" href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a></h2>
-          </header>
-          <section><p>Recently I co-presented with <a href="http://bobbydimmick.com/">Bobby Dimmick</a> at the annual <a href="http://codecamp.developersguil1d.org/">Carolina Code Camp</a>, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with&nbsp;speakers.</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2012-05-26" pubdate>May 26th, 2012</time>
+              </div>
+            </header>
+            <section><p>Recently I co-presented with <a href="http://bobbydimmick.com/">Bobby Dimmick</a> at the annual <a href="http://codecamp.developersguil1d.org/">Carolina Code Camp</a>, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with&nbsp;speakers.</p>
 <p><a href="http://www.flickr.com/photos/arturask/sets/72157629645140924/with/7162456222/">Pictures from the&nbsp;event</a></p>
 <p>Our presentation was entitled “Building rich, model-centric, event-driven web apps using <span class="caps">EF</span>, Razor <span class="amp">&amp;</span> open source”.  The approach we took was to build a demo application from the ground up, and document the process so that it was reproducible.  The app is hosted at <a href="http://todoapp.exosuite.com">todoapp.exosuite.com</a> and the walkthrough is at <a href="http://todoapp.exosuite.com/walkthrough">todoapp.exosuite.com/walkthrough</a>.</p>
 <p><img src="/images/todoapp.png" alt="Screenshot"></p>
 <p>You can build the app yourself by following the walkthrough.  I promise, I did it many times!&nbsp;:)</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2012-01-12" pubdate>Jan 12th, 2012</time>
-            <h2><a rel="article" href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a></h2>
-          </header>
-          <section><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I’ll elaborate a little bit on the testing aspects, and also talk about active&nbsp;patterns.</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2012-01-12" pubdate>Jan 12th, 2012</time>
+              </div>
+            </header>
+            <section><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I’ll elaborate a little bit on the testing aspects, and also talk about active&nbsp;patterns.</p>
 <!--more-->
 
-            <p><a rel="more" href="/blog/learning-f-with-tdd-part-2">Continue reading</a></p>
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2011-12-02" pubdate>Dec 2nd, 2011</time>
-            <h2><a rel="article" href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a></h2>
-          </header>
-          <section><p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in&nbsp;ExoWeb.</p>
+              <p><a rel="more" href="/blog/learning-f-with-tdd-part-2">Continue reading</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2011-12-02" pubdate>Dec 2nd, 2011</time>
+              </div>
+            </header>
+            <section><p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in&nbsp;ExoWeb.</p>
 
-            <p><a rel="more" href="/blog/exoweb-type-loading-changes">Continue reading</a></p>
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2011-08-21" pubdate>Aug 21st, 2011</time>
-            <h2><a rel="article" href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a></h2>
-          </header>
-          <section><p>I decided to dive into a few languages I’ve been meaning to learn by way of the <a href="http://osherove.com/tdd-kata-1/">calculator kata</a>.  First up:&nbsp;F#.</p>
+              <p><a rel="more" href="/blog/exoweb-type-loading-changes">Continue reading</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2011-08-21" pubdate>Aug 21st, 2011</time>
+              </div>
+            </header>
+            <section><p>I decided to dive into a few languages I’ve been meaning to learn by way of the <a href="http://osherove.com/tdd-kata-1/">calculator kata</a>.  First up:&nbsp;F#.</p>
 <p>First, some&nbsp;prerequisites.</p>
 <ul>
 <li>F#, obviously.  This comes with <span class="caps">VS</span> 2010 so you probably already have&nbsp;it.</li>
@@ -230,30 +248,33 @@ some other text
 <p>In any other language this would probably read similarly if your transformations are all instance methods, however, that breaks down as soon as you have to use global or static/class methods.  The pipe form always reads nicely from the beginning to the end.  Of course, this example could be a little simpler since our function can technically accept an array as its&nbsp;argument.</p>
 <p>To be&nbsp;continued…</p>
 
-          </section>
-        </article>
-      </section>
-      <section>
-        <article>
-          <header>
-            <time datetime="2011-07-11" pubdate>Jul 11th, 2011</time>
-            <h2><a rel="article" href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a></h2>
-          </header>
-          <section><p>This was starting to get on my nerves.  I really don’t need a fancy sound clip to keep reminding me that I deleted as far as I can go.  I always do that, since I’m a bit <span class="caps">OCD</span>.  This one took me too long to find, mainly becuase of&nbsp;tabs.</p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
+              <h2 class="title"><a rel="article" href="/blog/disable-the-audible-beep-in-mac-terminal">Disable the audible beep in Mac Terminal</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2011-07-11" pubdate>Jul 11th, 2011</time>
+              </div>
+            </header>
+            <section><p>This was starting to get on my nerves.  I really don’t need a fancy sound clip to keep reminding me that I deleted as far as I can go.  I always do that, since I’m a bit <span class="caps">OCD</span>.  This one took me too long to find, mainly becuase of&nbsp;tabs.</p>
 <p>Anyway, to disable the sounds, go to <strong><em>Terminal -&gt; Preferences -&gt; Settings (top tab group) -&gt; Advanced (inner tab group)</em></strong>, look for the “Bell” group label and uncheck the “Audible Bell” option.  Note that this is specific to a particular settings configuration/theme, so if you switch themes the behavior will&nbsp;change.</p>
 
-          </section>
-        </article>
-      </section>
-      <nav role="navigation">
-        <ul>
-          <li><a rel="archives" href="/blog/archives">Archives</a></li>
-          <li><a rel="next" href="/blog/page/2/">Older</a></li>
-        </ul>
-      </nav>
-    </main>
-    <footer><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-      <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-    </footer>
+            </section>
+          </article>
+        </section>
+        <nav role="navigation">
+          <ul>
+            <li><a rel="archives" href="/blog/archives">Archives</a></li>
+            <li><a rel="next" href="/blog/page/2/">Older</a></li>
+          </ul>
+        </nav>
+        <footer><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>

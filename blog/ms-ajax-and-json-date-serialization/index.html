@@ -14,42 +14,44 @@
     <link href="/infinity-symbol.png" rel="icon">
     <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
     <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/layout.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme.css?v=1.0.0" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header role="banner">
-      <hgroup>
-        <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-      </hgroup>
-      <nav role="complementary">
-        <ul>
-          <li><a href="/atom.xml" title="RSS">RSS</a></li>
-          <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-          <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-        </ul>
-      </nav>
-    </header>
-    <nav role="navigation">
-      <ul>
-        <li><a href="http://endlessobsession.com/">Home</a></li>
-        <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-        <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
-      </ul>
-      <form action="http://google.com/search">
-        <fieldset role="search">
-          <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-          <input type="text" name="q" results="0" placeholder="Search" class="search">
-        </fieldset>
-      </form>
-    </nav>
-    <main>
-      <article>
-        <header>
-          <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-          <h2>MS AJAX and JSON Date Serialization</h2>
-        </header>
-        <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
+    <div class="container">
+      <header role="banner">
+        <hgroup>
+          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
+        </hgroup>
+        <nav role="navigation">
+          <ul>
+            <li><a href="http://endlessobsession.com/">Home</a></li>
+            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+          </ul>
+          <form action="http://google.com/search">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
+              <input type="text" name="q" results="0" placeholder="Search" class="search">
+            </fieldset>
+          </form>
+        </nav>
+        <nav role="complementary">
+          <ul>
+            <li><a href="/atom.xml" title="RSS">RSS</a></li>
+            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
+            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <article>
+          <header>
+            <h2 class="title">MS AJAX and JSON Date Serialization</h2>
+            <div class="byline"><span class="author">Bryan Matthews</span>
+              <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
+            </div>
+          </header>
+          <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
 <p>Anyway, one of the nice little features in <span class="caps">MS</span> AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several&nbsp;hours.</p>
 <p>At this point you’re probably thinking, “I know what the problem is, you idiot!  It’s local time!”  Hopefully you’re more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/"><span class="caps">JSON</span> doesn’t account for dates</a>, we’re forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the <span class="caps">JSON</span> date format that the AJAX team decided on using.  You’ll notice that he mentions several time that the string format represents a <strong><span class="caps">UTC</span></strong> date <span class="amp">&amp;</span> time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn’t take that into&nbsp;account.</p>
 <p>if (Date.isInstanceOfType(object)) {
@@ -65,20 +67,16 @@ return “/Date(“ + (+obj).toString() + “-“ + offsetText +&nbsp;“)/“;<
 <p>There are, of course, other ways to do this.  You could convert the date to a <span class="caps">UTC</span> date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it’s more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn’t feel&nbsp;right.</p>
 <p>Moral of the story:  either make sure your dates are <span class="caps">UTC</span> or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don’t have to face that&nbsp;problem.</p>
 </section>
-        <section>
-          <h2>Comments</h2>
-          <div id="disqus_thread"></div>
-        </section>
-      </article>
-      <nav role="navigation">
-        <ul>
-          <li><a href="/">« Full blog</a></li>
-        </ul>
-      </nav>
-    </main>
-    <footer>
-      <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-      <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-    </footer>
+          <section>
+            <h2>Comments</h2>
+            <div id="disqus_thread"></div>
+          </section>
+        </article>
+        <footer>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2015 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>
