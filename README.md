@@ -3,11 +3,16 @@ The Endless Obsession
 
 The professional blog of Bryan Matthews.
 
-Publishing Schedule
--------------------
+Target Publishing Schedule
+--------------------------
 
 * 1 post per week
-* 1 _**significant**_ post per month
+* At least 1 _**significant**_ post per month
+
+Technology
+----------
+
+This blog is statically generated via Wintersmith.
 
 Theme
 -----
