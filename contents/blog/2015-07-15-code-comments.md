@@ -12,22 +12,28 @@ categories: coding, comments
 ```
 
 The topic of comments in code is by no means uncharted territory. It's been
-covered many times before (though perhaps not often enough). Just do a few
-Google searches and you'll find lots of good information on the topic.
+covered in the occasional blog post. Book authors have talked about it. Its even
+taught in many university courses.
 
-Yet, somehow we keep writing bad comments. What gives?
+Yet, somehow we keep writing bad comments. Or not writing good comments. Either
+way, things could be a lot better than they are. So what gives?
 
-I am not under the illusion that I can add anything novel or ground-breaking to
-the discussion. What I will do is re-state the wisdom of others in my own way
-in hopes that it adds just a little bit to the collective weight of those words.
+Personally, I think the problem is twofold. We don't teach it well or with any
+consistency. And, perhaps more importantly, we don't seem to care all that much.
 
 --------------------------------------------------------------------------------
 
-"Wait, are comments even worth writing about?", you may be wondering. "Couldn't
-you write about something more important?"
+"Yeah, are comments even worth writing about?", you may be wondering. "Couldn't
+you write about something more important, like how to run a web server on your
+wi-fi connected refrigerator using icecream.js?"
+
+That's exactly what I'm talking about.
 
 Sure, I'll concede that code comments are not the greatest challenge of our
-profession, but I do think it is worth writing about.
+profession. You're not going to win a Turing award for your great comments. And
+you won't win any cool points with your friends either. But, I do think its
+worth writing about, because its an important part of the *craft* of writing
+good software.
 
 > Software spend only 10% time of its life in development and rest of 90% in
 > maintenance. This 90% part of maintaining the code is where comment can help
@@ -36,19 +42,23 @@ profession, but I do think it is worth writing about.
 > \- [10 Best Practices to Follow while writing Code Comments]
 
 In my opinion, good comments are an important complement to good code, making it
-much more clear and easy to understand.
+much more clear and easy to understand. Let me emphasize the word "complement".
+Comments really shine when they provide information that the code cannot, but
+I'm getting ahead of myself.
 
-On the other hand, bad comments can make good code confusing, contradictory,
-misleading, and messy.
+Conversely, bad comments can make otherwise good code confusing, contradictory,
+misleading, or just plain messy. Like everyone's mother used to say, "if you
+don't have anything nice to say, then don't say anything at all"...
 
-So, given that comments matter, what is the best way to use them?
+So, given that comments matter, what should we do about it? How can we use them
+to make our software better instead of worse?
 
 A Conceptual Model
 ------------------
 
 There's a great quote on the topic that you'll see parroted over and over again
 in one form or another, courtesy of Steve McConnell from his excellent book
-"Code Complete".
+"Code Complete" (a must-read if you haven't already).
 
 > Comments should explain the why instead of the how or what.
 > 
@@ -93,8 +103,8 @@ enough it will still function as intended. But, when **you** read your code five
 years later and try to ascertain why you wrote it the way you did, you're
 probably going to end up scratching your head and wondering what that guy was
 thinking. Now imagine how your future self's coworkers will fare at the same
-task. Oh, and you probably also neglected to share an important detail of the
-customer's requirements. Good luck fellas!
+task. Oh, and you probably also neglected to share or document an important
+detail of the customer's requirements. Good luck fellas!
 
 This is the hard part of software development's daily grind. The algorithms
 aren't so complex that we can't understand them. The requirements aren't too
@@ -158,9 +168,8 @@ Steve categorizes comments into 6 basic types:
 
 	```javascript
 	// Determine the default access level
-	// based on the current user's role so
-	// that we get the most appropriate
-	// behavior by default.
+	// based on the current user's role
+	// because X, Y, and Z.
 	```
 
 	In my opinion, this is a really good use for code comments. Explain what you
@@ -182,6 +191,7 @@ Steve categorizes comments into 6 basic types:
 	workarounds for libraries that don't do quite what they say they do,
 	compromises due to tight deadlines or temporary limitations in technology.
 	Once again, the code **cannot** be fully understood without these comments.
+	And when the code is not fully understood we make avoidable mistakes.
 
 In Conclusion
 -------------
