@@ -3,33 +3,13 @@
   <title>The Endless Obsession</title>
   <link href="http://endlessobsession.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.com/"/>
-  <updated>2015-07-15T21:29:00-04:00</updated>
+  <updated>2015-04-18T15:20:00-04:00</updated>
   <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]>
     </name>
   </author>
   <generator uri="http://wintersmith.io/">Wintersmith</generator>
-  <entry>
-    <title type="html"><![CDATA[A Commentary on Comments]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/code-comments"/>
-    <updated>2015-07-15T21:29:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/code-comments</id>
-    <content type="html"><![CDATA[// TODO: Improve post intro before publishing to the interwebs.
-
-The topic of comments in code is by no means uncharted territory. It’s been
-covered many times before (though perhaps not often enough). Just do a few
-Google searches and you’ll find lots of good information on the topic.
-
-Yet, somehow we keep writing bad comments. What gives?
-
-I am not under the illusion that I can add anything novel or ground-breaking to
-the discussion. What I will do is re-state the wisdom of others in my own way in
-hopes that it adds just a little bit to the collective weight of those words.
-]]>
-    </content>
-  </entry>
   <entry>
     <title type="html"><![CDATA[So Long Octopress, Hello Wintersmith]]>
     </title>
@@ -217,6 +197,15 @@ interested in developing. What I found was Wintersmith [https://github.com/jnord
     <updated>2010-09-30T17:19:32-04:00</updated>
     <id>http://endlessobsession.com/blog/installing-virtualbox-guest-addition</id>
     <content type="html"><![CDATA[The VirtualBox guest additions. What they are and how to install them.]]>
+    </content>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Resize jQuery Dialog]]>
+    </title>
+    <link href="http://endlessobsession.com/blog/resize-jquery-dialog"/>
+    <updated>2010-08-16T18:00:24-04:00</updated>
+    <id>http://endlessobsession.com/blog/resize-jquery-dialog</id>
+    <content type="html"><![CDATA[If you ever need to resize and reposition a jQuery dialog, the following script should do the trick...]]>
     </content>
   </entry>
 </feed>
