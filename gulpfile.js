@@ -16,7 +16,7 @@ gulp.task('build:release', function(callback) {
 });
 
 gulp.task('preview', function(callback) {
-	var env = wintersmith('./config-dev.json');
+	var env = wintersmith('./config.json');
 	env.preview(function(error) {
 		if (error) {
 			throw new Error(error);
