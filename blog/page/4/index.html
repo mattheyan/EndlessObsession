@@ -48,6 +48,36 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
+              </div>
+            </header>
+            <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
+<p>Anyway, one of the nice little features in <span class="caps">MS</span> AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several&nbsp;hours.</p>
+<p>At this point you’re probably thinking, “I know what the problem is, you idiot!  It’s local time!”  Hopefully you’re more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/"><span class="caps">JSON</span> doesn’t account for dates</a>, we’re forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the <span class="caps">JSON</span> date format that the AJAX team decided on using.  You’ll notice that he mentions several time that the string format represents a <strong><span class="caps">UTC</span></strong> date <span class="amp">&amp;</span> time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn’t take that into&nbsp;account.</p>
+<pre><code class="lang-javascript"><span class="keyword">if</span> (<span class="built_in">Date</span>.isInstanceOfType(object)) {
+    stringBuilder.append(<span class="string">'"\\/Date('</span>).
+    append(object.getTime()).
+    append(<span class="string">')\\/"'</span>);
+    <span class="keyword">break</span>;
+}
+</code></pre>
+<p>Since the date was going to be converted to a string anyway I went ahead and did the conversion ahead of time.  Something like&nbsp;this…</p>
+<pre><code class="lang-javascript"><span class="keyword">var</span> offset = obj.getTimezoneOffset() * <span class="number">100</span> / <span class="number">60</span>;
+<span class="keyword">var</span> offsetText = offset &gt;= <span class="number">1000</span> ? offset.toPrecision(<span class="number">4</span>) : <span class="string">"0"</span> +
+offset.toPrecision(<span class="number">3</span>);
+<span class="keyword">return</span> <span class="string">"/Date("</span> + (+obj).toString() + <span class="string">"-"</span> + offsetText + <span class="string">")/"</span>;
+</code></pre>
+<p>There are, of course, other ways to do this.  You could convert the date to a <span class="caps">UTC</span> date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it’s more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn’t feel&nbsp;right.</p>
+<p>Moral of the story:  either make sure your dates are <span class="caps">UTC</span> or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don’t have to face that&nbsp;problem.</p>
+
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/tiny-mce-spellchecker-gotcha">Tiny MCE Spellchecker Gotcha</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
@@ -159,8 +189,8 @@ document.Close()
 <p>At first I thought:  “Maybe there is a character or combination of characters in the source text that is causing the problem.”  Looking back I can see that it was a poor attempt at an explanation.  To be fair, I was alerted to the problem by a user who also informed me that he had used a random text generation feature (possibly for the first time), so I was a little biased.  I was able to verify that the data was an odd size (as expected) and the encryption algorithm expected blocks of a certain number of bytes.  However, I could not reproduce the bug since I had no idea what the original source text&nbsp;was.</p>
 <p>Fast-forward a week or two.  The problem occurs again, but this time the user is working with a known value.  I crack open the test system and, lo and behold, the error is reproducible!  After doing some debugging and tracing I come to the conclusion that <span class="caps">SQL</span> Server is truncating my data.  (How rude!?)  From there it didn’t take long for me to discover an interesting property of the column in question.  Getting info on the table told me that the “TrimTrailingSpace” property was true (which corresponds to <a href="http://msdn.microsoft.com/en-us/library/ms187403.aspx"><em><span class="caps">ANSI</span> PADDING</em></a>).  It doesn’t take a genius to figure out that something is wrong with&nbsp;that.</p>
 <p>Luckily I found <a href="http://support.microsoft.com/kb/296559"><em>this article</em></a>, which indicates that any alter of the column will turn off “TrimTrailingSpace”, just what I wanted.  So, what did I do?  Something like&nbsp;this:</p>
-<pre><code class="lang-sql"><span class="operator"><span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">TABLE</span></span> MyTable
-<span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">COLUMN</span></span> MyColumn <span class="caps">VARBINARY</span>(xxx);</span>
+<pre><code class="lang-sql"><span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">TABLE</span></span> MyTable
+<span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">COLUMN</span></span> MyColumn <span class="caps">VARBINARY</span>(xxx);
 </code></pre>
 <p>Problem&nbsp;solved!</p>
 

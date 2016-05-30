@@ -61,13 +61,13 @@
 </li>
 </ol>
 <p>The first type, pulling information, is pretty straightforward. Type information doesn’t change (frequently) so it is actually cached on the client if possible. Querying for instance data is similar to querying a database. You request an object of a particular type with a particular id, but you can also include a set of paths that tell the services what additional related data you are interested in. The primary component of a query might look something like&nbsp;this.</p>
-<pre><code class="lang-javascript">{ from: <span class="string">"Person"</span>, id: <span class="string">"1"</span>, and: [<span class="string">"this.Additional.Properties.To.Load"</span>] }
+<pre><code class="lang-javascript">{ <span class="keyword">from</span>: <span class="string">"Person"</span>, id: <span class="string">"1"</span>, and: [<span class="string">"this.Additional.Properties.To.Load"</span>] }
 </code></pre>
 <p>The second type, pushing information, gets a little more interesting. If you’re going to sync data between two disconnected systems there are two primary approaches that you might take. First, you could send simple data from point A to point B, manipulate it, then send it back from point B to point A in the same form. As you could imagine this can get pretty expensive and tedious. Of course, you might just send the portions of data that have changed to cut down on overhead. The bigger problem, I think, is that you don’t really know what has happened unless you do full graph comparisons. Another approach is to keep track of <em>changes</em> as they occur and send those back and forth. This is what ExoWeb&nbsp;does.</p>
 <pre><code class="lang-javascript">changes: [ { type: <span class="string">"ValueChange"</span>, instance: { id: <span class="string">"1"</span>, type: <span class="string">"Person"</span> }, property: <span class="string">"FirstName"</span>, oldValue: <span class="string">"Rob"</span>, newValue: <span class="string">"Robert"</span> }, ... } ]
 </code></pre>
 <p>The client can also raise events, for example “save”, a built-in event. In response, the server can send back additional changes to the&nbsp;model.</p>
-<pre><code class="lang-javascript">changes: [ { type: <span class="string">"Save"</span>, idChanges: [ { type: <span class="string">"Person"</span>, from: <span class="string">"?4"</span>, to: <span class="string">"644"</span> } ] }, ... ]
+<pre><code class="lang-javascript">changes: [ { type: <span class="string">"Save"</span>, idChanges: [ { type: <span class="string">"Person"</span>, <span class="keyword">from</span>: <span class="string">"?4"</span>, to: <span class="string">"644"</span> } ] }, ... ]
 </code></pre>
 <p>The payload isn’t limited to data. It can also include conditions, for example, permissions, or invalid data conditions. More on that&nbsp;later.</p>
 <p>This has been a very basic introduction to the way client-server communication works in ExoWeb. Look out for more updates in the&nbsp;future.</p>

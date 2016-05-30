@@ -173,10 +173,10 @@ slugify = <span class="built_in">require</span> <span class="string">'slugg'</sp
     <span class="built_in">module</span>.exports = <span class="function"><span class="params">(env, callback)</span> -&gt;</span>
 
   defaults =
-    <span class="attribute">postsDir</span>: <span class="string">'articles'</span> <span class="comment"># directory containing blog posts</span>
-    <span class="attribute">template</span>: <span class="string">'article.jade'</span>
-    <span class="attribute">filenameTemplate</span>: <span class="string">'/:year/:month/:day/:file/index.html'</span>
-    <span class="attribute">stripTrailingSlash</span>: <span class="literal">false</span>
+    postsDir: <span class="string">'articles'</span> <span class="comment"># directory containing blog posts</span>
+    template: <span class="string">'article.jade'</span>
+    filenameTemplate: <span class="string">'/:year/:month/:day/:file/index.html'</span>
+    stripTrailingSlash: <span class="literal">false</span>
 
   <span class="comment"># assign defaults for any option not set in the config file</span>
   options = env.config.blog <span class="keyword">or</span> {}
@@ -186,22 +186,22 @@ slugify = <span class="built_in">require</span> <span class="string">'slugg'</sp
   <span class="class"><span class="keyword">class</span> <span class="title">BlogpostPage</span> <span class="keyword">extends</span> <span class="title">env</span>.<span class="title">plugins</span>.<span class="title">MarkdownPage</span></span>
     <span class="comment">### DRYer subclass of MarkdownPage ###</span>
 
-    <span class="attribute">getUrl</span>: <span class="function"><span class="params">(base)</span> -&gt;</span>
+    getUrl: <span class="function"><span class="params">(base)</span> -&gt;</span>
       result = <span class="keyword">super</span>(base)
       <span class="keyword">if</span> (options.stripTrailingSlash <span class="keyword">and</span> result[result.length - <span class="number">1</span>] == <span class="string">'/'</span>)
         <span class="keyword">return</span> result.substr(<span class="number">0</span>, result.length - <span class="number">1</span>)
       <span class="keyword">else</span>
         <span class="keyword">return</span> result
 
-    <span class="attribute">getTemplate</span>: <span class="function">-&gt;</span>
-      <span class="property">@metadata</span>.template <span class="keyword">or</span> options.template <span class="keyword">or</span> <span class="keyword">super</span>()
+    getTemplate: <span class="function">-&gt;</span>
+      @metadata.template <span class="keyword">or</span> options.template <span class="keyword">or</span> <span class="keyword">super</span>()
 
-    <span class="property">@property</span> <span class="string">'rawFilenameTemplate'</span>, <span class="string">'getRawFilenameTemplate'</span>
-    <span class="attribute">getRawFilenameTemplate</span>: <span class="function">-&gt;</span>
-      <span class="property">@metadata</span>.filenameTemplate <span class="keyword">or</span> options.filenameTemplate <span class="keyword">or</span> <span class="keyword">super</span>()
+    @property <span class="string">'rawFilenameTemplate'</span>, <span class="string">'getRawFilenameTemplate'</span>
+    getRawFilenameTemplate: <span class="function">-&gt;</span>
+      @metadata.filenameTemplate <span class="keyword">or</span> options.filenameTemplate <span class="keyword">or</span> <span class="keyword">super</span>()
 
-    <span class="attribute">getFilenameTemplate</span>: <span class="function">-&gt;</span>
-      raw = <span class="property">@rawFilenameTemplate</span>
+    getFilenameTemplate: <span class="function">-&gt;</span>
+      raw = @rawFilenameTemplate
 
       <span class="keyword">if</span> raw[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
         <span class="comment"># already an absolute path</span>
@@ -210,16 +210,16 @@ slugify = <span class="built_in">require</span> <span class="string">'slugg'</sp
         <span class="comment"># prevent base page class from resolving paths</span>
         <span class="keyword">return</span> <span class="string">'/'</span> + raw
 
-    <span class="attribute">getFilename</span>: <span class="function">-&gt;</span>
-      rawFileNameTemplate = <span class="property">@rawFilenameTemplate</span>
+    getFilename: <span class="function">-&gt;</span>
+      rawFileNameTemplate = @rawFilenameTemplate
 
-      dirname = path.dirname <span class="property">@filepath</span>.relative
+      dirname = path.dirname @filepath.relative
 
       filename = <span class="keyword">super</span>()
 
       <span class="comment"># enable custom 'slug' metadata propery</span>
       filename = replaceAll filename,
-        <span class="string">':slug'</span>: <span class="property">@slug</span>
+        <span class="string">':slug'</span>: @slug
 
       <span class="keyword">if</span> rawFileNameTemplate[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
         <span class="comment"># remove leading slash from filename template</span>
@@ -232,9 +232,9 @@ slugify = <span class="built_in">require</span> <span class="string">'slugg'</sp
         <span class="comment"># otherwise they are resolved from their directory in the tree</span>
         <span class="keyword">return</span> path.join dirname, filename
 
-    <span class="property">@property</span> <span class="string">'slug'</span>, <span class="string">'getSlug'</span>
-    <span class="attribute">getSlug</span>: <span class="function">-&gt;</span>
-      <span class="property">@metadata</span>.slug <span class="keyword">or</span> slugify(<span class="property">@title</span>+<span class="string">''</span>)
+    @property <span class="string">'slug'</span>, <span class="string">'getSlug'</span>
+    getSlug: <span class="function">-&gt;</span>
+      @metadata.slug <span class="keyword">or</span> slugify(@title+<span class="string">''</span>)
 
   <span class="comment"># register the plugin</span>
   prefix = <span class="keyword">if</span> options.postsDir <span class="keyword">then</span> options.postsDir + <span class="string">'/'</span> <span class="keyword">else</span> <span class="string">''</span>

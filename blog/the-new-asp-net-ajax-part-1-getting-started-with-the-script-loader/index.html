@@ -78,8 +78,8 @@
 <p><strong>isLoaded</strong>:  Tells the script loader whether or not your script is already loaded.  This is useful for things like jQuery that may be commonly included as a static script reference, or for scripts that may or may not be included by the Script&nbsp;Manager.</p>
 <h2 id="fix-your-script-files">Fix Your Script&nbsp;Files</h2>
 <p>In order to take full advantage of the script loader you will need to change your files to looks something like&nbsp;this:</p>
-<pre><code class="lang-javascript">;(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
-    <span class="function"><span class="keyword">function</span> <span class="title">execute</span> <span class="params">()</span> </span>{
+<pre><code class="lang-javascript">;(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="function"><span class="keyword">function</span> <span class="title">execute</span> (<span class="params"></span>) </span>{
         <span class="comment">// bunch o' code...</span>
     }
 
@@ -94,7 +94,7 @@
 <p>That bit at the end looks for the Script Loader and if it is found it tells the Script Loader that it is ready to execute whenever its dependency are loaded.  Otherwise, it simply executes on the spot.  That way it can function with or without the Script&nbsp;Loader.</p>
 <p>With this in mind the distinction between <em>dependencies</em> and <em>executionDependencies</em> makes more sense.  You may not be able to change a script to match this format.  If that is the case, then the scripts cannot be fetched in&nbsp;parallel.</p>
 <h2 id="using-your-scripts">Using Your&nbsp;Scripts</h2>
-<pre><code class="lang-javascript">Sys.require([Sys.scripts.MyScript], <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
+<pre><code class="lang-javascript">Sys.require([Sys.scripts.MyScript], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="comment">// bunch o' code...</span>
 });
 </code></pre>

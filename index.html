@@ -48,12 +48,84 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/removing-password-from-repo">Removing a Password from a Git Repository</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2016-05-30" pubdate>May 30th, 2016</time>
+              </div>
+            </header>
+            <section><p>It’s generally considered a bad idea to commit passwords, api keys, etc. to your
+source code repository. There are various ways you can try to avoid this
+(and you should), but sooner or later its going to happen. Someone will add some
+“sensitive” data to a&nbsp;repository.</p>
+<p>For some projects it doesn’t matter quite so much. If they’re not hosted
+publicly on a site like github and never make it out of your company’s internal
+network, then its not that big of a deal. For others, it is important, and it
+could be that your only option is to reset the passwords, revoke the <span class="caps">API</span> keys,
+or something to that effect. What a&nbsp;pain!</p>
+<p>There is another option to consider if you’re using git. Since git allows you to
+rewrite history, you can rewrite the repo to make it look like the password leak
+never even happened. This should only be done if you know the data hasn’t been
+leaked and the repo isn’t propogated all over your organization
+(rewriting history will cause people grief if they have the repo&nbsp;already).</p>
+<p>Let’s say your history looks something like&nbsp;this:</p>
+<pre><code>c6 = add test cases
+c5 = tweak theme colors
+c4 = add password to config * &lt;- commit of the data leak
+c3 = fix spelling error
+c2 = prototype * &lt;- last commit to config before the data leak
+c1 - add README
+
+* = involves the offending file
+</code></pre><p>Start by getting the last version of <strong>the config file</strong> before the password was
+added to the config&nbsp;file.</p>
+<p><code>git checkout c2 /path/to/config</code></p>
+<p>…or, remove it&nbsp;manually.</p>
+<p>Then, commit that&nbsp;change:</p>
+<p><code>git commit -m &quot;remove password from config&quot;</code></p>
+<p>Now your history looks like&nbsp;this:</p>
+<pre><code>c7 = remove password from config
+c6 = add test cases
+c5 = tweak theme colors
+c4 = add password to config * &lt;- commit of the data leak
+c3 = fix spelling error
+c2 = prototype * &lt;- last commit to config before the data leak
+c1 - add README
+
+* = involves the offending file
+</code></pre><p>Now, rebase the commit where the password was introduce (<code>c4</code> in this&nbsp;example):</p>
+<p><code>git rebase c4~1 -i</code></p>
+<p>This opens up vim, or whatever your configured editor&nbsp;is.</p>
+<pre><code>pick c4 add password to config
+pick c5 tweak theme colors
+pick c6 add test cases
+pick c7 remove password from config
+
+A bunch of other stuff...
+</code></pre><p>Move the “fix” commit (<code>c7</code> in our case) to the line <strong>below</strong> the one where the
+password was <strong>added</strong> (<code>c4</code>), and change the prefix from ‘pick’ to&nbsp;‘fixup’.</p>
+<pre><code>pick c4 add password to config
+fixup c7 remove password from config
+pick c5 tweak theme colors
+pick c6 add test cases
+</code></pre><p>From <a href="https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing">github’s rebase documentation</a>,
+this tells git to use this commit to “fix” the prior commit, and then discard&nbsp;it.</p>
+<p>The result is that the history looks like it did before, but the password is no
+longer in the config file on disk, or <em>in git’s history</em>. Also, if the only
+change to that file in the offending commit was the password which you removed,
+then the file will no longer show up in that commit (as you would&nbsp;expect).</p>
+
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/code-comments">A Commentary on Comments</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2016-05-12" pubdate>May 12th, 2016</time>
               </div>
             </header>
-            <section><pre><code class="lang-javascript"><span class="comment">// <span class="caps">TODO</span>: Improve post intro before publishing to the interwebs.</span>
+            <section><pre><code class="lang-javascript"><span class="comment">// <span class="doctag"><span class="caps">TODO</span>:</span> Improve post intro before publishing to the interwebs.</span>
 </code></pre>
 <p>Comments are probably one of the most boring topics you can&nbsp;imagine.</p>
 <p>Plus, they’re so easy to&nbsp;write?</p>
@@ -243,42 +315,6 @@ some other text
             <section><p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in&nbsp;ExoWeb.</p>
 
               <p><a rel="more" href="/blog/exoweb-type-loading-changes">Continue reading</a></p>
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2011-08-21" pubdate>Aug 21st, 2011</time>
-              </div>
-            </header>
-            <section><p>I decided to dive into a few languages I’ve been meaning to learn by way of the <a href="http://osherove.com/tdd-kata-1/">calculator kata</a>.  First up:&nbsp;F#.</p>
-<p>First, some&nbsp;prerequisites.</p>
-<ul>
-<li>F#, obviously.  This comes with <span class="caps">VS</span> 2010 so you probably already have&nbsp;it.</li>
-</ul>
-<ul>
-<li>We’re doing <span class="caps">TDD</span>, so we need some sort of testing framework.  I decided to go with <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">NaturalSpec</a>.  This means we’ll need to download the package from <a href="https://github.com/forki/NaturalSpec">github</a>, build it, and also download and install <a href="http://www.nunit.org/index.php?p=download">NUnit</a> and <a href="http://testdriven.net/default.aspx">TestDriven.<span class="caps">NET</span></a>.  The author has a good <a href="http://www.navision-blog.de/2009/11/08/getting-started-with-naturalspec/">blog post</a> on setting up and running the test&nbsp;project.</li>
-</ul>
-<p>Keep in mind that I’m extremely new to the language, so the code I ended up with probably doesn’t reflect what a seasoned F# programmer would write.  I tried to follow conventions that I could pick out as much as possible.  The first part of the kata is an add function.  Pretty simple.  In the interest of not getting bogged down in one language I didn’t take if very far, so I will only be able to make very broad observations at this&nbsp;point.</p>
-<p>Two positive things that I took away from it:  pattern matching and&nbsp;pipe.</p>
-<p>Pattern matching is something that I knew was popular in functional programming circle but had never experienced first hand.  Now that I have a taste of it I think it’s a handy abstraction, but I have a feeling that I haven’t even begun to scratch the surface of what it could&nbsp;mean.</p>
-<pre><code class="lang-fs"><span class="keyword">let</span> addNumbers (numbers : List) =
-    <span class="keyword">match</span> numbers.Length <span class="keyword">with</span>
-    | <span class="number">0</span> -&gt; <span class="number">0</span>
-    | <span class="number">1</span> -&gt; numbers.[<span class="number">0</span>]
-    | _ -&gt; numbers |&gt; Seq.reduce (<span class="keyword">fun</span> a b -&gt; a + b)
-</code></pre>
-<p>This is simply an alternative form of the familiar if-else branching logic, nothing special really, but it is pleasantly&nbsp;terse.</p>
-<p>Pipe is even more exciting.  Take the following for&nbsp;example.</p>
-<pre><code class="lang-fs">numbers.Split ',' |&gt; Array.toList |&gt; List.map int |&gt; addNumbers
-</code></pre>
-<p>Using the pipe operator (that’s “|&gt;”) you can stream a value through a series of transformations, in this case splitting the string, converting the array to a list, converting the items in the list to integers, and finally passing the list to a method called&nbsp;“addNumbers”.</p>
-<p>In any other language this would probably read similarly if your transformations are all instance methods, however, that breaks down as soon as you have to use global or static/class methods.  The pipe form always reads nicely from the beginning to the end.  Of course, this example could be a little simpler since our function can technically accept an array as its&nbsp;argument.</p>
-<p>To be&nbsp;continued…</p>
-
             </section>
           </article>
         </section>

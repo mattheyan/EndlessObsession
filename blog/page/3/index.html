@@ -48,13 +48,43 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/installing-virtualbox-guest-addition">Installing VirtualBox Guest Additions</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-09-30" pubdate>Sep 30th, 2010</time>
+              </div>
+            </header>
+            <section><p>First, a disclaimer:  you may not find this post useful unless you are interested in virtualbox or virtualization.  Also, there are plenty of other blogs that will tell you how to install the guest additions.  This is my personal&nbsp;reference.</p>
+<p>According to the <a href="http://www.virtualbox.org/wiki/VirtualBox">virtualbox wiki</a>, virtualbox is <em>the only professional-quality virtualization solution that is also Open Source Software</em>.  Alright, a big +1 for open source!  Not that I have ever cracked open the source…&nbsp;:P</p>
+<p>Another big plus for me is that it is cross-platform.  I use windows and linux machines, so this is very important to&nbsp;me.</p>
+<p><em>As an aside, VMware player appears to also be somewhat cross-platform (windows and linux, no <span class="caps">OSX</span>).  I have used it as well, but I feel better about my experience with virtualbox.  However, I don’t have any real solid reasons to explain why.  Feel free to try to change my mind if you&nbsp;must…</em></p>
+<p>So what are the guest additions?  From the <a href="http://www.virtualbox.org/wiki/VirtualBox">wiki</a>, it is <em>special software that can be installed inside Windows, Linux and Solaris virtual machines to improve performance and make integration much more seamless</em>.  Things like <em>mouse pointer integration and arbitrary screen solutions (e.g. by resizing the guest window)</em>.  That’s the kicker for me.  I install them in my linux guests so that the guest resolution will adjust to match the host&nbsp;window.</p>
+<p>Anyway, the point of this is how to actually install them.  <a href="http://digitizor.com/2009/05/26/how-to-install-virtualbox-guest-additions-for-a-linux-guest/">Here is a link</a> to a good set of instructions in case you don’t find these&nbsp;sufficient.</p>
+<p>First, mount the guest additions “disc” from the host window’s menu:  Devices &gt; Install Guest&nbsp;Additions.</p>
+<p><img src="http://endlessobsession.com/wp-content/uploads/2010/09/install_guest_additions-300x185.png" alt="Mount Guest Additions Menu"></p>
+<p>Now you should see the disc mounted in nautilus.  The next step is to copy the appropriate file to your home folder (or some other location on the guest&nbsp;machine).</p>
+<pre><code class="lang-sh">$ cp /media//VBoxLinuxAdditions-x86.run .
+</code></pre>
+<p>Now, make the file&nbsp;runnable.</p>
+<pre><code class="lang-sh">$ sudo chmod +x VBoxLinuxAdditions-x86.run
+</code></pre>
+<p>Finally, run the&nbsp;installer.</p>
+<pre><code class="lang-sh">$ sudo ./VBoxLinuxAdditions-x86.run
+</code></pre>
+<p>That’s&nbsp;all!</p>
+
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/resize-jquery-dialog">Resize jQuery Dialog</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2010-08-16" pubdate>Aug 16th, 2010</time>
               </div>
             </header>
             <section><p>If you ever need to resize and reposition a jQuery dialog, the following script should do the&nbsp;trick:</p>
-<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">setDialogSize</span><span class="params">($dialogEl, width, height)</span> </span>{
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">setDialogSize</span>(<span class="params">$dialogEl, width, height</span>) </span>{
     $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"width"</span>, width);
     $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"height"</span>, height);
     $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"position"</span>, $dialogEl.dialog(<span class="string">"option"</span>, <span class="string">"position"</span>));
@@ -141,7 +171,7 @@
             <section><h3 id="how-to-sequence-values-in-a-table-the-non-so-elegant-solution-">How to sequence values in a table.  The non-so-elegant&nbsp;solution…</h3>
 <p>Imagine you have a table that contains records with a foreign key (string, int, guid, etc…) and an index or sequence number, 1-3, so that there are three records for each foreign key value.  In another table you have any number of records that contain the same foreign key, as well as a value field (date, number, string, etc…) that can be sequenced in some logical fashion corresponding to the sequence 1-3 in the key table.  You mission (should you choose to accept it) is to get the values from the value table and join them to the corresponding sequence records in the key&nbsp;table.</p>
 <p>What follows is the answer I arrived at late this afternoon.  Please let me know if you have a better&nbsp;way.</p>
-<pre><code class="lang-sql"><span class="operator"><span class="keyword">declare</span> @dates <span class="keyword">table</span>(num <span class="built_in">varchar</span>(<span class="number">9</span>), <span class="built_in">date</span> datetime)
+<pre><code class="lang-sql"><span class="keyword">declare</span> @dates <span class="keyword">table</span>(<span class="keyword">num</span> <span class="built_in">varchar</span>(<span class="number">9</span>), <span class="built_in">date</span> datetime)
 
 <span class="keyword">insert</span> <span class="keyword">into</span> @dates
 <span class="keyword">select</span> <span class="string">'192837465'</span>, <span class="keyword">cast</span>(<span class="string">'1/3/2008'</span> <span class="keyword">as</span> datetime) <span class="keyword">union</span>
@@ -149,61 +179,61 @@
 <span class="keyword">select</span> <span class="string">'192837465'</span>, <span class="keyword">cast</span>(<span class="string">'5/22/2010'</span> <span class="keyword">as</span> datetime) <span class="keyword">union</span>
 <span class="keyword">select</span> <span class="string">'192837465'</span>, <span class="keyword">cast</span>(<span class="string">'2/1/2004'</span> <span class="keyword">as</span> datetime)
 
-<span class="keyword">declare</span> @keys <span class="keyword">table</span>(num <span class="built_in">varchar</span>(<span class="number">9</span>), sequence <span class="built_in">int</span>)
+<span class="keyword">declare</span> @<span class="keyword">keys</span> <span class="keyword">table</span>(<span class="keyword">num</span> <span class="built_in">varchar</span>(<span class="number">9</span>), <span class="keyword">sequence</span> <span class="built_in">int</span>)
 
-<span class="keyword">insert</span> <span class="keyword">into</span> @keys
+<span class="keyword">insert</span> <span class="keyword">into</span> @<span class="keyword">keys</span>
 <span class="keyword">select</span> <span class="string">'192837465'</span>, <span class="number">1</span> <span class="keyword">union</span>
 <span class="keyword">select</span> <span class="string">'192837465'</span>, <span class="number">2</span> <span class="keyword">union</span>
 <span class="keyword">select</span> <span class="string">'192837465'</span>, <span class="number">3</span>
 
 <span class="keyword">select</span>
-    k.num,
-    k.sequence,
+    k.<span class="keyword">num</span>,
+    k.<span class="keyword">sequence</span>,
     <span class="built_in">date</span> = (
         <span class="keyword">select</span> <span class="keyword"><span class="caps">MIN</span></span>(t.<span class="built_in">date</span>)
         <span class="keyword">from</span> (
             <span class="keyword">select</span> top <span class="number">1</span> <span class="built_in">date</span>
             <span class="keyword">from</span> @dates
-            <span class="keyword">where</span> num = k.num
+            <span class="keyword">where</span> <span class="keyword">num</span> = k.<span class="keyword">num</span>
             <span class="keyword">order</span> <span class="keyword">by</span> <span class="built_in">date</span> <span class="keyword">desc</span>
         ) t
     )
-<span class="keyword">from</span> @keys k
-<span class="keyword">where</span> sequence = <span class="number">1</span>
+<span class="keyword">from</span> @<span class="keyword">keys</span> k
+<span class="keyword">where</span> <span class="keyword">sequence</span> = <span class="number">1</span>
 
 <span class="keyword">union</span>
 
 <span class="keyword">select</span>
-    k.num,
-    k.sequence,
+    k.<span class="keyword">num</span>,
+    k.<span class="keyword">sequence</span>,
     <span class="built_in">date</span> = (
         <span class="keyword">select</span> <span class="keyword"><span class="caps">MIN</span></span>(t.<span class="built_in">date</span>)
         <span class="keyword">from</span> (
             <span class="keyword">select</span> top <span class="number">2</span> <span class="built_in">date</span>
             <span class="keyword">from</span> @dates
-            <span class="keyword">where</span> num = k.num
+            <span class="keyword">where</span> <span class="keyword">num</span> = k.<span class="keyword">num</span>
             <span class="keyword">order</span> <span class="keyword">by</span> <span class="built_in">date</span> <span class="keyword">desc</span>
         ) t
     )
-<span class="keyword">from</span> @keys k
-<span class="keyword">where</span> sequence = <span class="number">2</span>
+<span class="keyword">from</span> @<span class="keyword">keys</span> k
+<span class="keyword">where</span> <span class="keyword">sequence</span> = <span class="number">2</span>
 
 <span class="keyword">union</span>
 
 <span class="keyword">select</span>
-    k.num,
-    k.sequence,
+    k.<span class="keyword">num</span>,
+    k.<span class="keyword">sequence</span>,
     <span class="built_in">date</span> = (
         <span class="keyword">select</span> <span class="keyword"><span class="caps">MIN</span></span>(t.<span class="built_in">date</span>)
         <span class="keyword">from</span> (
             <span class="keyword">select</span> top <span class="number">3</span> <span class="built_in">date</span>
             <span class="keyword">from</span> @dates
-            <span class="keyword">where</span> num = k.num
+            <span class="keyword">where</span> <span class="keyword">num</span> = k.<span class="keyword">num</span>
             <span class="keyword">order</span> <span class="keyword">by</span> <span class="built_in">date</span> <span class="keyword">desc</span>
         ) t
     )
-<span class="keyword">from</span> @keys k
-<span class="keyword">where</span> sequence = <span class="number">3</span></span>
+<span class="keyword">from</span> @<span class="keyword">keys</span> k
+<span class="keyword">where</span> <span class="keyword">sequence</span> = <span class="number">3</span>
 </code></pre>
 <p>I union the key table 3 times, filtering by each sequence number.  In each sub-query, the value is obtained by selecting the top N values, filtered by the foreign key and ordered by their value (descending), and then getting the min&nbsp;value.</p>
 <p>Kind of an odd-ball case, but I might find this humorous one day.  And Pete will laugh, because I laughed at my&nbsp;code.</p>
@@ -410,36 +440,6 @@ terminate.  There is a good description of this behavior
     <span class="comment">/// &lt;returns type="Sys.Net.WebRequest" mayBeNull="true"&gt;Returns the request that was sent (null for <span class="caps">JSONP</span> requests).&lt;/returns&gt;</span>
 }
 </code></pre>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-              </div>
-            </header>
-            <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
-<p>Anyway, one of the nice little features in <span class="caps">MS</span> AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several&nbsp;hours.</p>
-<p>At this point you’re probably thinking, “I know what the problem is, you idiot!  It’s local time!”  Hopefully you’re more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/"><span class="caps">JSON</span> doesn’t account for dates</a>, we’re forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the <span class="caps">JSON</span> date format that the AJAX team decided on using.  You’ll notice that he mentions several time that the string format represents a <strong><span class="caps">UTC</span></strong> date <span class="amp">&amp;</span> time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn’t take that into&nbsp;account.</p>
-<pre><code class="lang-javascript"><span class="keyword">if</span> (<span class="built_in">Date</span>.isInstanceOfType(object)) {
-    stringBuilder.append(<span class="string">'"\\/Date('</span>).
-    append(object.getTime()).
-    append(<span class="string">')\\/"'</span>);
-    <span class="keyword">break</span>;
-}
-</code></pre>
-<p>Since the date was going to be converted to a string anyway I went ahead and did the conversion ahead of time.  Something like&nbsp;this…</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> offset = obj.getTimezoneOffset() * <span class="number">100</span> / <span class="number">60</span>;
-<span class="keyword">var</span> offsetText = offset &gt;= <span class="number">1000</span> ? offset.toPrecision(<span class="number">4</span>) : <span class="string">"0"</span> +
-offset.toPrecision(<span class="number">3</span>);
-<span class="keyword">return</span> <span class="string">"/Date("</span> + (+obj).toString() + <span class="string">"-"</span> + offsetText + <span class="string">")/"</span>;
-</code></pre>
-<p>There are, of course, other ways to do this.  You could convert the date to a <span class="caps">UTC</span> date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it’s more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn’t feel&nbsp;right.</p>
-<p>Moral of the story:  either make sure your dates are <span class="caps">UTC</span> or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don’t have to face that&nbsp;problem.</p>
 
             </section>
           </article>
