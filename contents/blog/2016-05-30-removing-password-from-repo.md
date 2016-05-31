@@ -98,3 +98,7 @@ longer in the config file on disk, or *in git's history*. Also, if the only
 change to that file in the offending commit was the password which you removed,
 then the file will no longer show up in that commit (as you would expect).
 
+**References**:
+
+* [Github's rebase documentation](https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing)
+* [Stack Overflow: Remove files from Git commit](http://stackoverflow.com/a/28173964/170990)
