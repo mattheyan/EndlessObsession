@@ -10,7 +10,7 @@ block content
             a(rel='article', href=article.url)= article.title
           div.byline
             span.author= 'Bryan Matthews'
-            time(datetime=moment.utc(article.date).format('YYYY-MM-DD'), pubdate)= moment.utc(article.date).format('MMM Do, YYYY')
+            time(datetime=moment.utc(article.date).format('YYYY-MM-DD'), pubdate)= moment(article.date).format('MMM Do, YYYY')
         section
           if article.intro.length > 0
             | !{ typogr(article.intro).typogrify() }

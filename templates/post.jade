@@ -10,7 +10,7 @@ block content
       h2.title= page.metadata.title
       div.byline
         span.author= 'Bryan Matthews'
-        time(datetime=moment.utc(page.metadata.date).format('YYYY-MM-DD'), pubdate)= moment.utc(page.metadata.date).format('MMM Do, YYYY')
+        time(datetime=moment.utc(page.metadata.date).format('YYYY-MM-DD'), pubdate)= moment(page.metadata.date).format('MMM Do, YYYY')
     section!= typogr(page.html).typogrify()
     if locals.disqusName
       section
