@@ -48,6 +48,38 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/web-service-syntax-error">Web Service Syntax Error???</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-06-11" pubdate>Jun 10th, 2010</time>
+              </div>
+            </header>
+            <section><p><em>Originally posted April 7&nbsp;2010</em></p>
+<p>Ok, I’ll start this post off with some background.  A couple of years ago I wrote a <span class="caps">SOAP</span> web service that manages printing for multiple users through a web application.  Sounds familiar, right?  Anyway, the client that interacts with the web service uses the Microsoft AJAX JavaScript framework (version 1).  The web service is hosted on a different server and domain.  However, since this is an internal application with a small number of users they were content to enable cross-domain data access and be done with&nbsp;it.</p>
+<p>A few weeks ago one of my coworkers was revisiting the client portion, which just happened to be upgraded to the <a href="http://ajax.codeplex.com/">beta version of the <span class="caps">AJAX</span> JavaScript framework</a>.  He started to see a syntax error, which I determined was occurring when handling the web service response.  I knew that the client framework supported <span class="caps">JSONP</span> in some form, and I also noticed an interesting “jsonp” query string argument in the web service call.  Believe it or not, the client was trying to use JSONP, even though the web service response was XML!  This obviously would result in a syntax error when trying to&nbsp;deserialize.</p>
+<p>After looking over the JavaScript code I determined that the WebServiceProxy was using <span class="caps">JSONP</span> if either the protocol or host of the request was different than the current page.  I now know in hindsight that the documentation (at least in code) of WebServiceProxy.invoke clearly states this.  Luckily, the “enableJsonp” parameter can be set to <em>false</em> to override this&nbsp;behavior.</p>
+<p>So, the bottom line is:  if you’re accessing a web service across domains and you don’t want to use <span class="caps">JSONP</span>, you have to set the  “enableJsonp” argument to <em>false</em>.  Here’s the method signature and&nbsp;documentation…</p>
+<pre><code class="lang-javascript">WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {
+    <span class="comment">/// &lt;summary locid="M:J#Sys.Net.WebServiceProxy.invoke"&gt;&lt;/summary&gt;</span>
+    <span class="comment">/// &lt;param name="servicePath" type="String"&gt;Path to the webservice&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="methodName" type="String" mayBeNull="true" optional="true"&gt;Method to invoke&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="useGet" type="Boolean" optional="true" mayBeNull="true"&gt;Controls whether requests use HttpGet&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="params" mayBeNull="true" optional="true"&gt;Method args.&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="onSuccess" type="Function" mayBeNull="true" optional="true"&gt;Success callback&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="onFailure" type="Function" mayBeNull="true" optional="true"&gt;Failure callback&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="userContext" mayBeNull="true" optional="true"&gt;Success callback&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="timeout" type="Number" optional="true" mayBeNull="true"&gt;Timeout in milliseconds&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true"&gt;Whether to use <span class="caps">JSONP</span> if the servicePath is for a different domain (default is true).&lt;/param&gt;</span>
+    <span class="comment">/// &lt;param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true"&gt;The name of the callback parameter for <span class="caps">JSONP</span> request (default is callback).&lt;/param&gt;</span>
+    <span class="comment">/// &lt;returns type="Sys.Net.WebRequest" mayBeNull="true"&gt;Returns the request that was sent (null for <span class="caps">JSONP</span> requests).&lt;/returns&gt;</span>
+}
+</code></pre>
+
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>

@@ -3,13 +3,91 @@
   <title>The Endless Obsession</title>
   <link href="http://endlessobsession.com/atom.xml" rel="self"/>
   <link href="http://endlessobsession.com/"/>
-  <updated>2016-05-30T14:29:00-04:00</updated>
+  <updated>2016-06-02T21:15:00-04:00</updated>
   <id>http://endlessobsession.com/</id>
   <author>
     <name><![CDATA[Bryan Matthews]]>
     </name>
   </author>
   <generator uri="http://wintersmith.io/">Wintersmith</generator>
+  <entry>
+    <title type="html"><![CDATA[.NET: Getting the Project Root Directory at Runtime]]>
+    </title>
+    <link href="http://endlessobsession.com/blog/dotnet-project-root-at-runtime"/>
+    <updated>2016-06-02T21:15:00-04:00</updated>
+    <id>http://endlessobsession.com/blog/dotnet-project-root-at-runtime</id>
+    <content type="html"><![CDATA[When developing in .NET, whether it be an ASP.NET website, or a console
+application, you usually don’t have to access the file-system directly. One
+reason that you would is to read a configuration file, but, .NET configuration
+management handles this for you via ‘Web.config’ or ‘App.config’ and the ConfigurationManager . Another scenario is loading a resource, like an image or document, from disk.
+But, again, the framework provides a nice solution via embedded resources.
+
+If you’re considering accessing the file-system you would do well to consider if
+there are better ways to do what you’re trying to do. That being said, you may
+occasionally have a legitimate reason to access the file-system directly.
+
+Here are a few simple examples of how to do this:
+
+ASP.NET
+
+var root = HttpContext.Current.Server.MapPath(&quot;~/&quot;);
+
+
+WinForms
+
+var root = Application.ExecutablePath;
+
+
+WPF, Console Application, etc.
+
+var assembly = System.Reflection.Assembly.GetEntryAssembly();
+var assemblyPath = new Uri(assembly.CodeBase).AbsolutePath;
+var root = System.IO.Path.GetDirectoryName(assemblyPath);
+
+
+So, why would you even want to do this?
+
+DEV-MODE OVERRIDES
+The most useful example that comes to mind for me is overriding behavior in a
+development setting.
+
+A few reasons that I’ve personally encountered…
+
+ 1. Avoid merge conflicts by keeping branch-specific config out of source
+    control
+ 2. Avoid password leaking by keeping sensitive config out of source control
+ 3. Facilitate local testing via a “developer mode” triggered by a local file
+ 4. Track unit test data in source control and access files from tests
+
+Merge conflicts are no fun. If you’re working in different branches you don’t
+want to have to hand-edit files when merging just because a file path, database
+name, website name, etc. varies by branch. Keep that stuff in non-tracked files.
+
+It’s hard to keep passwords out of source control. Making it easy to provide
+them via files that are not tracked in source control is one way you could try
+to prevent that problem. A secure credential store of some kind would be even
+better, but ya know, KISS.
+
+In some cases, real-world testing is hard, or nearly impossible. The presence of
+a local file is one way you could switch into a dev mode in order to simulate real-world conditions. Of course, just to be safe, you’ll
+probably want to toggle that based on ‘Debug’ mode or a custom build flag as
+well.
+
+If your unit tests require some data to run, like the kind of stuff you might
+find in a database, you may want to consider source controlled files instead.
+This gives you the benefit of portability, the test data comes with the source
+code. Also, you can track changes over time if it’s in a human-readable format.
+
+BRINGING IT HOME
+With that in mind, here’s an example of code that you can use to find the root
+directory of your project from your running application.
+
+References :
+
+ * Finding my main executable’s path using Assembly vs AppDomain
+   [http://stackoverflow.com/questions/1642827/finding-my-main-executables-path-using-assembly-vs-appdomain]]]>
+    </content>
+  </entry>
   <entry>
     <title type="html"><![CDATA[Removing a Password from a Git Repository]]>
     </title>
@@ -304,15 +382,6 @@ interested in developing. What I found was Wintersmith [https://github.com/jnord
     <updated>2010-12-07T19:12:16-05:00</updated>
     <id>http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is</id>
     <content type="html"><![CDATA[Matt Hooper wrote a blog post describing his &quot;Amnesia&quot; project.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[The Exo-suite (and client scripts on Github)]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github"/>
-    <updated>2010-12-07T19:07:12-05:00</updated>
-    <id>http://endlessobsession.com/blog/exo-suite-and-client-scripts-on-github</id>
-    <content type="html"><![CDATA[The ExoWeb client scripts are now hosted on Github...]]>
     </content>
   </entry>
 </feed>

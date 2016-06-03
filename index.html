@@ -48,6 +48,42 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/dotnet-project-root-at-runtime">.NET: Getting the Project Root Directory at Runtime</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2016-06-03" pubdate>Jun 2nd, 2016</time>
+              </div>
+            </header>
+            <section><p>When developing in .<span class="caps">NET</span>, whether it be an ASP.NET website, or a console
+application, you usually don’t have to access the file-system directly. One
+reason that you would is to read a configuration file, but, .NET
+configuration management handles this for you via ‘Web.config’ or ‘App.config’
+and the <code>ConfigurationManager</code>. Another scenario is loading a resource, like an
+image or document, from disk. But, again, the framework provides a nice solution
+via embedded&nbsp;resources.</p>
+<p>If you’re considering accessing the file-system you would do well to consider
+if there are better ways to do what you’re trying to do. That being said, you
+may occasionally have a legitimate reason to access the file-system&nbsp;directly.</p>
+<p>Here are a few simple examples of how to do&nbsp;this:</p>
+<p><strong><span class="caps">ASP</span>.NET</strong></p>
+<pre><code class="lang-csharp"><span class="keyword">var</span> root = HttpContext.Current.Server.MapPath(<span class="string">"~/"</span>);
+</code></pre>
+<p><strong>WinForms</strong></p>
+<pre><code class="lang-csharp"><span class="keyword">var</span> root = Application.ExecutablePath;
+</code></pre>
+<p><strong><span class="caps">WPF</span>, Console Application,&nbsp;etc.</strong></p>
+<pre><code class="lang-csharp"><span class="keyword">var</span> assembly = System.Reflection.Assembly.GetEntryAssembly();
+<span class="keyword">var</span> assemblyPath = <span class="keyword">new</span> Uri(assembly.CodeBase).AbsolutePath;
+<span class="keyword">var</span> root = System.<span class="caps">IO</span>.Path.GetDirectoryName(assemblyPath);
+</code></pre>
+<p>So, why would you even want to do&nbsp;this?</p>
+
+              <p><a rel="more" href="/blog/dotnet-project-root-at-runtime">Continue reading</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/removing-password-from-repo">Removing a Password from a Git Repository</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2016-05-30" pubdate>May 30th, 2016</time>
@@ -183,7 +219,7 @@ What I found was <a href="https://github.com/jnordberg/wintersmith">Wintersmith<
             <header>
               <h2 class="title"><a rel="article" href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and 'couldn't parse YAML'</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2013-10-16" pubdate>Oct 16th, 2013</time>
+                <time datetime="2013-10-16" pubdate>Oct 15th, 2013</time>
               </div>
             </header>
             <section><p>This evening I noticed a syntax error in my blog’s <span class="caps">ATOM</span> feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn’t bother to determine. However, I also noticed that the post summaries were rather large and didn’t appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one&nbsp;stone.</p>
@@ -237,7 +273,7 @@ some other text
             <header>
               <h2 class="title"><a rel="article" href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2012-11-28" pubdate>Nov 28th, 2012</time>
+                <time datetime="2012-11-28" pubdate>Nov 27th, 2012</time>
               </div>
             </header>
             <section><p>Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 <span class="caps">PC</span>.  This is what it looked&nbsp;like.</p>
@@ -262,7 +298,7 @@ some other text
             <header>
               <h2 class="title"><a rel="article" href="/blog/should-you-write-awesome-code">Should you write awesome code?</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2012-06-29" pubdate>Jun 29th, 2012</time>
+                <time datetime="2012-06-29" pubdate>Jun 28th, 2012</time>
               </div>
             </header>
             <section><p>I ran across this provacative post on the tubes: <a href="http://jhovgaard.net/how-i-stopped-writing-awesome-code">How I stopped writing awesome code</a>. The following is my reaction and thoughts (hastily thrown together). Go to the link and read it first or what follows probably won’t make much&nbsp;sense.</p>
@@ -299,27 +335,13 @@ some other text
             <header>
               <h2 class="title"><a rel="article" href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2012-01-12" pubdate>Jan 12th, 2012</time>
+                <time datetime="2012-01-12" pubdate>Jan 11th, 2012</time>
               </div>
             </header>
             <section><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I’ll elaborate a little bit on the testing aspects, and also talk about active&nbsp;patterns.</p>
 <!--more-->
 
               <p><a rel="more" href="/blog/learning-f-with-tdd-part-2">Continue reading</a></p>
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2011-12-02" pubdate>Dec 2nd, 2011</time>
-              </div>
-            </header>
-            <section><p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in&nbsp;ExoWeb.</p>
-
-              <p><a rel="more" href="/blog/exoweb-type-loading-changes">Continue reading</a></p>
             </section>
           </article>
         </section>

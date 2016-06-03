@@ -48,6 +48,20 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/exoweb-type-loading-changes">ExoWeb type loading changes</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2011-12-02" pubdate>Dec 2nd, 2011</time>
+              </div>
+            </header>
+            <section><p>I recently <a href="http://groups.google.com/group/exosuite/browse_thread/thread/83ed447767348b75">posted a message</a> to the ExoSuite Google Group in regards to type loading in&nbsp;ExoWeb.</p>
+
+              <p><a rel="more" href="/blog/exoweb-type-loading-changes">Continue reading</a></p>
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/learning-fsharp-with-tdd-part-1">Learning F# with TDD: Part 1</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2011-08-21" pubdate>Aug 21st, 2011</time>
@@ -248,7 +262,7 @@ Versionspec:
             <header>
               <h2 class="title"><a rel="article" href="/blog/getting-started-with-virtualenvwrapper">Getting started with virtualenvwrapper</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-12-21" pubdate>Dec 21st, 2010</time>
+                <time datetime="2010-12-21" pubdate>Dec 20th, 2010</time>
               </div>
             </header>
             <section><p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn’t get very far at the time.  Recently I’ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/"><span class="caps">RVM</span></a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would&nbsp;compare.</p>
@@ -262,55 +276,11 @@ Versionspec:
             <header>
               <h2 class="title"><a rel="article" href="/blog/i-wish-i-could-remember-what-amnesia-is">I wish I could remember what Amnesia is...</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-12-08" pubdate>Dec 8th, 2010</time>
+                <time datetime="2010-12-08" pubdate>Dec 7th, 2010</time>
               </div>
             </header>
             <section><p>One of my coworkers, Matt Hooper, recently released an open source project called Amnesia.  The aim of Amnesia is to “transacts all changes to a website to facilitate automated <span class="caps">UI</span> testing”.  Basically, you can run your tests and change and add data all day long and the changes, whether they come from the website or the tests themselves, will not last beyond the scope of the test.  Pretty cool,&nbsp;huh?</p>
 <p>The blog post where he announced it can be found <a href="http://mhoop.wordpress.com/2010/11/23/amnesia-1-0-released-database-rollbacks-for-automated-ui-tests/">here</a>, and the source and documentation is <a href="http://amnesia.codeplex.com/">hosted on Codeplex</a>.</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/exo-suite-and-client-scripts-on-github">The Exo-suite (and client scripts on Github)</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-12-08" pubdate>Dec 8th, 2010</time>
-              </div>
-            </header>
-            <section><p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this&nbsp;point.</p>
-<p>Before I go any farther I’ll give you (and future self) my take on the purpose of these&nbsp;projects.</p>
-<h3 id="exograph">ExoGraph</h3>
-<p>…is essentially an&nbsp;enabler.</p>
-<p>From the codeplex&nbsp;site:</p>
-<blockquote>
-<p>ExoGraph is a graph library that leverages type information to optimize graph operations and notifications. The library exposes type-level events for object initialization, property retrieval, property path changes, and custom domain events within a graph&nbsp;context.</p>
-</blockquote>
-<p>This doesn’t sound very useful in and of itself, right?  Well, it’s not supposed to be.  It’s an enabler, remember?  That’s where ExoWeb and ExoRule come&nbsp;in…</p>
-<h3 id="exorule">ExoRule</h3>
-<p>…is a rules framework that leverages ExoGraph.  That is all for&nbsp;now.</p>
-<h3 id="exoweb">ExoWeb</h3>
-<p>…is a JavaScript framework, basically.  It also relies on a supporting server-side web request handler as well as a working ExoGraph&nbsp;implementation.</p>
-<p>From the codeplex site,&nbsp;ExoWeb…</p>
-<blockquote>
-<p>…aims to provide a rich JavaScript object model, intuitive <span class="caps">UI</span> code based on the fundamental languages of the web (HTML, CSS, and JavaScript), model- and UI-driven validation, and seamless synchronization of changes between client and&nbsp;server.</p>
-</blockquote>
-<p>That may not be crystal-clear, but fortunately you can browse the source, which is what I really want to write about&nbsp;anyway.</p>
-<p>The JavaScript source is now <a href="http://github.com/mattheyan/exoweb">hosted on Github</a>.  If you take a look at the <a href="http://exoweb.codeplex.com/SourceControl/list/changesets">source on Codeplex</a> you’ll notice that there are 8 script files: exoweb.js, exoweb.model.js, exoweb.mapper.js, exoweb.view.js, exoweb.ui.js, exoweb.mock.js, exoweb.jquery.js, and start.debug.js.  The source on Github, however, has many more script files as well as specs (using jasmine) and a build process (using rake) that produces the scripts listed above.  It is loosely modeled after the <a href="http://github.com/jquery/jquery">jquery source</a>.</p>
-<p>I have a few goals in hosting the project on&nbsp;Github.</p>
-<ol>
-<li>Isolate classes and related functions in order to make it easier to manage,
-illuminate code structure, improve architecture and design, and limit&nbsp;dependencies.</li>
-<li>Allow for (hopefully) isolated testing of individual classes and&nbsp;functions.</li>
-<li>Isolate the bulk of the code which is not dependent on any particular JavaScript
-library or server-side&nbsp;technology.</li>
-<li>Take advantage of github’s popularity in open source software collaboration,
-and…well, I just like&nbsp;Github.</li>
-</ol>
-<p>At the time of this writing the project produces the destination scripts that more or less match the scripts in the original project (not the ones on codeplex, they’re old).  Also, a few of the source files have corresponding specs that pass, using <a href="http://nodejs.org/">nodejs</a> to run&nbsp;them.</p>
-<p>Finally, in writing the build script, I got the chance to learn a little <a href="http://rake.rubyforge.org/">rake</a> (ruby make), which I highly&nbsp;recommend.</p>
-<p>One of my other goals is to create working ExoGraph/ExoWeb implementations for django and rails.  The beginnings of the django implementation is currently <a href="http://github.com/mattheyan/django-exoweb">hosted on Github</a> as&nbsp;well.</p>
 
             </section>
           </article>

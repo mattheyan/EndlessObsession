@@ -48,6 +48,50 @@
         <section>
           <article>
             <header>
+              <h2 class="title"><a rel="article" href="/blog/exo-suite-and-client-scripts-on-github">The Exo-suite (and client scripts on Github)</a></h2>
+              <div class="byline"><span class="author">Bryan Matthews</span>
+                <time datetime="2010-12-08" pubdate>Dec 7th, 2010</time>
+              </div>
+            </header>
+            <section><p>Off and on at <a href="http://vc3.com/">work</a> over the last year or so I have been working on an open-source project called <a href="http://exoweb.codeplex.com/">ExoWeb</a>, as well as supporting projects called <a href="http://exograph.codeplex.com/">ExoGraph</a> and ExoRule.  ExoWeb and ExoGraph are hosted on <a href="http://codeplex.com/">Codeplex</a>, though they are somewhat stale at this&nbsp;point.</p>
+<p>Before I go any farther I’ll give you (and future self) my take on the purpose of these&nbsp;projects.</p>
+<h3 id="exograph">ExoGraph</h3>
+<p>…is essentially an&nbsp;enabler.</p>
+<p>From the codeplex&nbsp;site:</p>
+<blockquote>
+<p>ExoGraph is a graph library that leverages type information to optimize graph operations and notifications. The library exposes type-level events for object initialization, property retrieval, property path changes, and custom domain events within a graph&nbsp;context.</p>
+</blockquote>
+<p>This doesn’t sound very useful in and of itself, right?  Well, it’s not supposed to be.  It’s an enabler, remember?  That’s where ExoWeb and ExoRule come&nbsp;in…</p>
+<h3 id="exorule">ExoRule</h3>
+<p>…is a rules framework that leverages ExoGraph.  That is all for&nbsp;now.</p>
+<h3 id="exoweb">ExoWeb</h3>
+<p>…is a JavaScript framework, basically.  It also relies on a supporting server-side web request handler as well as a working ExoGraph&nbsp;implementation.</p>
+<p>From the codeplex site,&nbsp;ExoWeb…</p>
+<blockquote>
+<p>…aims to provide a rich JavaScript object model, intuitive <span class="caps">UI</span> code based on the fundamental languages of the web (HTML, CSS, and JavaScript), model- and UI-driven validation, and seamless synchronization of changes between client and&nbsp;server.</p>
+</blockquote>
+<p>That may not be crystal-clear, but fortunately you can browse the source, which is what I really want to write about&nbsp;anyway.</p>
+<p>The JavaScript source is now <a href="http://github.com/mattheyan/exoweb">hosted on Github</a>.  If you take a look at the <a href="http://exoweb.codeplex.com/SourceControl/list/changesets">source on Codeplex</a> you’ll notice that there are 8 script files: exoweb.js, exoweb.model.js, exoweb.mapper.js, exoweb.view.js, exoweb.ui.js, exoweb.mock.js, exoweb.jquery.js, and start.debug.js.  The source on Github, however, has many more script files as well as specs (using jasmine) and a build process (using rake) that produces the scripts listed above.  It is loosely modeled after the <a href="http://github.com/jquery/jquery">jquery source</a>.</p>
+<p>I have a few goals in hosting the project on&nbsp;Github.</p>
+<ol>
+<li>Isolate classes and related functions in order to make it easier to manage,
+illuminate code structure, improve architecture and design, and limit&nbsp;dependencies.</li>
+<li>Allow for (hopefully) isolated testing of individual classes and&nbsp;functions.</li>
+<li>Isolate the bulk of the code which is not dependent on any particular JavaScript
+library or server-side&nbsp;technology.</li>
+<li>Take advantage of github’s popularity in open source software collaboration,
+and…well, I just like&nbsp;Github.</li>
+</ol>
+<p>At the time of this writing the project produces the destination scripts that more or less match the scripts in the original project (not the ones on codeplex, they’re old).  Also, a few of the source files have corresponding specs that pass, using <a href="http://nodejs.org/">nodejs</a> to run&nbsp;them.</p>
+<p>Finally, in writing the build script, I got the chance to learn a little <a href="http://rake.rubyforge.org/">rake</a> (ruby make), which I highly&nbsp;recommend.</p>
+<p>One of my other goals is to create working ExoGraph/ExoWeb implementations for django and rails.  The beginnings of the django implementation is currently <a href="http://github.com/mattheyan/django-exoweb">hosted on Github</a> as&nbsp;well.</p>
+
+            </section>
+          </article>
+        </section>
+        <section>
+          <article>
+            <header>
               <h2 class="title"><a rel="article" href="/blog/installing-virtualbox-guest-addition">Installing VirtualBox Guest Additions</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
                 <time datetime="2010-09-30" pubdate>Sep 30th, 2010</time>
@@ -381,7 +425,7 @@ do, but haven’t decided the if or&nbsp;when.</li>
             <header>
               <h2 class="title"><a rel="article" href="/blog/arguments-callee-caller">arguments...callee...caller...</a></h2>
               <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-11" pubdate>Jun 11th, 2010</time>
+                <time datetime="2010-06-11" pubdate>Jun 10th, 2010</time>
               </div>
             </header>
             <section><p><em>Originally posted May 3&nbsp;2010</em></p>
@@ -408,38 +452,6 @@ terminate.  There is a good description of this behavior
 <p><a href="http://bytes.com/topic/javascript/answers/470251-recursive-functions-arguments-callee-caller">http://bytes.com/topic/javascript/answers/470251-recursive-functions-arguments-callee-caller</a></p>
 <p><a href="http://msdn.microsoft.com/en-us/library/7t96kt3h">http://msdn.microsoft.com/en-us/library/7t96kt3h</a></p>
 <p><a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function/caller">https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function/caller</a></p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/web-service-syntax-error">Web Service Syntax Error???</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-11" pubdate>Jun 11th, 2010</time>
-              </div>
-            </header>
-            <section><p><em>Originally posted April 7&nbsp;2010</em></p>
-<p>Ok, I’ll start this post off with some background.  A couple of years ago I wrote a <span class="caps">SOAP</span> web service that manages printing for multiple users through a web application.  Sounds familiar, right?  Anyway, the client that interacts with the web service uses the Microsoft AJAX JavaScript framework (version 1).  The web service is hosted on a different server and domain.  However, since this is an internal application with a small number of users they were content to enable cross-domain data access and be done with&nbsp;it.</p>
-<p>A few weeks ago one of my coworkers was revisiting the client portion, which just happened to be upgraded to the <a href="http://ajax.codeplex.com/">beta version of the <span class="caps">AJAX</span> JavaScript framework</a>.  He started to see a syntax error, which I determined was occurring when handling the web service response.  I knew that the client framework supported <span class="caps">JSONP</span> in some form, and I also noticed an interesting “jsonp” query string argument in the web service call.  Believe it or not, the client was trying to use JSONP, even though the web service response was XML!  This obviously would result in a syntax error when trying to&nbsp;deserialize.</p>
-<p>After looking over the JavaScript code I determined that the WebServiceProxy was using <span class="caps">JSONP</span> if either the protocol or host of the request was different than the current page.  I now know in hindsight that the documentation (at least in code) of WebServiceProxy.invoke clearly states this.  Luckily, the “enableJsonp” parameter can be set to <em>false</em> to override this&nbsp;behavior.</p>
-<p>So, the bottom line is:  if you’re accessing a web service across domains and you don’t want to use <span class="caps">JSONP</span>, you have to set the  “enableJsonp” argument to <em>false</em>.  Here’s the method signature and&nbsp;documentation…</p>
-<pre><code class="lang-javascript">WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {
-    <span class="comment">/// &lt;summary locid="M:J#Sys.Net.WebServiceProxy.invoke"&gt;&lt;/summary&gt;</span>
-    <span class="comment">/// &lt;param name="servicePath" type="String"&gt;Path to the webservice&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="methodName" type="String" mayBeNull="true" optional="true"&gt;Method to invoke&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="useGet" type="Boolean" optional="true" mayBeNull="true"&gt;Controls whether requests use HttpGet&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="params" mayBeNull="true" optional="true"&gt;Method args.&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="onSuccess" type="Function" mayBeNull="true" optional="true"&gt;Success callback&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="onFailure" type="Function" mayBeNull="true" optional="true"&gt;Failure callback&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="userContext" mayBeNull="true" optional="true"&gt;Success callback&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="timeout" type="Number" optional="true" mayBeNull="true"&gt;Timeout in milliseconds&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true"&gt;Whether to use <span class="caps">JSONP</span> if the servicePath is for a different domain (default is true).&lt;/param&gt;</span>
-    <span class="comment">/// &lt;param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true"&gt;The name of the callback parameter for <span class="caps">JSONP</span> request (default is callback).&lt;/param&gt;</span>
-    <span class="comment">/// &lt;returns type="Sys.Net.WebRequest" mayBeNull="true"&gt;Returns the request that was sent (null for <span class="caps">JSONP</span> requests).&lt;/returns&gt;</span>
-}
-</code></pre>
 
             </section>
           </article>
