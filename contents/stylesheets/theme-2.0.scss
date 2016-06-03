@@ -98,7 +98,8 @@ article {
 	section {
 		// Based on popular news sites using about 500-600px width.
 		// Assume this is optimal for reading based on science or something.
-		width: 600px;
+		// UPDATE: 6/1/2017 - expand so that code snippets can be viewed
+		width: 700px;
 	}
 }
 
@@ -132,7 +133,7 @@ body {
 					a {
 						color: #f2f2f2;
 						text-decoration: none;
-					}	
+					}
 				}
 
 				small {
