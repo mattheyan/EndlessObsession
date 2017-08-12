@@ -10,8 +10,8 @@
   "output": "./dev-pages",
   "ignore": ["*.bak"],
   "plugins": [
-    "./plugins/paginator.coffee",
-    "./plugins/blog.coffee",
+    "./plugins/paginator.js",
+    "./plugins/blog.js",
     "wintersmith-contents",
     "wintersmith-libsass",
     "wintersmith-sitemap"
