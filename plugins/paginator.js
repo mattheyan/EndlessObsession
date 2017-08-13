@@ -1,41 +1,98 @@
 var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
+var fs = require('fs');
+
 module.exports = function(env, callback) {
 
   /* Paginator plugin. Defaults can be overridden in config.json
       e.g. "paginator": {"perPage": 10}
    */
-  var PaginatorPage, defaults, getArticles, key, options, value;
-  defaults = {
-    template: 'index.jade',
-    articles: 'articles',
-    first: 'index.html',
-    filename: 'page/%d/index.html',
-    perPage: 2
+  var PaginatorPage, optionsDefaults, sourceDefaults, getArticles, key, options, sourcesIndex, value, names;
+
+  sourceDefaults = {
+      articles: 'articles',
   };
+
+  optionsDefaults = {
+    sources: [{}],
+    template: 'index.jade',
+    perPage: 2,
+    first: 'index.html',
+    filename: 'page/%d/index.html'
+  };
+
   options = env.config.paginator || {};
-  for (key in defaults) {
-    value = defaults[key];
-    if (options[key] == null) {
-      options[key] = defaults[key];
-    }
-  }
-  getArticles = function(contents) {
-    var articles, ref;
-    articles = [];
-    ref = contents[options.articles];
-    for (key in ref) {
-      value = ref[key];
-      if (value instanceof env.plugins.Page) {
-        articles.push(value);
+
+  sourcesIndex = {};
+
+  function assignDefaults (obj, defaults) {
+    // Assign default values for any  missing properties...
+    for (key in defaults) {
+      if (options[key] == null) {
+        options[key] = defaults[key];
       }
     }
+  }
+
+  assignDefaults(options, optionsDefaults);
+
+  options.sources.forEach(function(s, i) {
+    assignDefaults(s, sourceDefaults);
+
+    if (sourcesIndex.hasOwnProperty(s.articles)) {
+      throw new Error("Found duplicate article source '" + s.articles + "'.");
+    }
+
+    sourcesIndex[s.articles] = i;
+  });
+
+  getArticles = function(contents, source, publishedOnly) {
+    var articles, ref, sources;
+
+    sources = [];
+
+    articles = [];
+
+    if (source) {
+      if (sourcesIndex.hasOwnProperty(source)) {
+        sources.push(options.sources[sourcesIndex[source]]);
+      } else {
+        throw new Error("Paginator with source name '" + source + "' was not found.");
+      }
+    } else {
+      sources = options.sources;
+    }
+
+    sources.forEach(function (s) {
+      ref = contents[s.articles];
+      for (key in ref) {
+        value = ref[key];
+        if (value instanceof env.plugins.Page) {
+          value.source = s.articles;
+          if (publishedOnly) {
+            if (value.metadata.status) {
+              if (value.metadata.status === 'publish') {
+                articles.push(value);
+              }
+            } else {
+              // console.log("WARN: Article '" + value.title + "' on date '" + value.date + "' does not specify a status, assuming published.");
+              articles.push(value);
+            }
+          } else {
+            articles.push(value);
+          }
+        }
+      }
+    });
+
     articles.sort(function(a, b) {
       return b.date - a.date;
     });
+
     return articles;
   };
+
   PaginatorPage = (function(superClass) {
     extend(PaginatorPage, superClass);
 
@@ -76,9 +133,10 @@ module.exports = function(env, callback) {
     return PaginatorPage;
 
   })(env.plugins.Page);
+
   env.registerGenerator('paginator', function(contents, callback) {
     var articles, i, j, k, l, len, len1, numPages, page, pageArticles, pages, ref, rv;
-    articles = getArticles(contents);
+    articles = getArticles(contents, null, true);
     numPages = Math.ceil(articles.length / options.perPage);
     pages = [];
     for (i = j = 0, ref = numPages; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
@@ -101,7 +159,9 @@ module.exports = function(env, callback) {
     rv['last.page'] = pages[numPages - 1];
     return callback(null, rv);
   });
+
   env.helpers.getArticles = getArticles;
+
   return callback();
 };
 

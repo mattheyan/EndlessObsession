@@ -95,6 +95,11 @@ article {
 		}
 	}
 
+	p.summary {
+		font-style: italic;
+		color: #555;
+	}
+
 	section {
 		// Based on popular news sites using about 500-600px width.
 		// Assume this is optimal for reading based on science or something.

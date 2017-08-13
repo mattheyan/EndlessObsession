@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-- var articles = _.first(env.helpers.getArticles(contents), 20);
+- var articles = _.first(env.helpers.getArticles(contents, 'blog'), 20);
 - var canonicalUrl = locals.url.lastIndexOf('/') === locals.url.length - 1 ? locals.url : locals.url + '/';
 feed(xmlns='http://www.w3.org/2005/Atom')
   title= '' + locals.title + ''

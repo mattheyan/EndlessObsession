@@ -1,0 +1,35 @@
+
+extends layout
+//- this logic should be moved to a view at some point
+
+block includes
+	link(href='/stylesheets/bliki.css?v=1.0', media='screen, projection' rel='stylesheet' type='text/css')
+
+block content
+	header
+		h2 Bliki
+	- var blikiArticles = env.helpers.getArticles(contents, 'bliki', env.mode !== 'preview')
+	if blikiArticles.length === 0
+		p=" Coming soon..."
+	else
+		- var lineHeight = 2.2;
+		- var archives = _.chain(env.helpers.getArticles(contents, 'bliki', env.mode !== 'preview')).groupBy(function(item) {
+		- 	return item.metadata.category;
+		- }).value()
+		- var categoryKeys = _.chain(archives).keys().value()
+		- var categoryOrder = _.chain(categoryKeys).sortBy(function(item) {
+		- 	return item;
+		- }).map(function(item) {
+		- 	return item;
+		- }).value()
+		section
+			- for (var category in categoryOrder)
+				h3.category-label= categoryOrder[category]
+				- var articles = _.chain(archives[categoryOrder[category]]).sortBy(function(item) {
+				-	 return item.title;
+				- }).value()
+				each article in articles
+					a(rel='article', href=article.url, title=article.title)=article.title
+					p.article-summary=article.metadata.summary
+		br
+		br

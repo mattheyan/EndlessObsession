@@ -15,89 +15,112 @@ replaceAll = function(string, map) {
 };
 
 module.exports = function(env, callback) {
-  var BlogpostPage, defaults, key, options, prefix, value;
+  var BlogpostPage, defaults, key, options, optionsIndex, prefix, value;
+
   defaults = {
+    name: 'articles',
     postsDir: 'articles',
     template: 'article.jade',
     filenameTemplate: '/:year/:month/:day/:file/index.html',
     stripTrailingSlash: false
   };
-  options = env.config.blog || {};
-  for (key in defaults) {
-    value = defaults[key];
-    if (options[key] == null) {
-      options[key] = defaults[key];
+
+  options = env.config.blog || [{}];
+
+  function assignDefaults (obj, defaults) {
+    // Assign default values for any  missing properties...
+    for (key in defaults) {
+      if (options[key] == null) {
+        options[key] = defaults[key];
+      }
     }
   }
-  BlogpostPage = (function(superClass) {
-    extend(BlogpostPage, superClass);
 
-    function BlogpostPage() {
-      return BlogpostPage.__super__.constructor.apply(this, arguments);
+  optionsIndex = {};
+
+  options.forEach(function(o, i) {
+    assignDefaults(o, defaults);
+
+    if (optionsIndex.hasOwnProperty(o.name)) {
+      throw new Error("Found duplicate article source '" + o.name + "'.");
     }
 
+    optionsIndex[o.name] = i;
+  });
 
-    /* DRYer subclass of MarkdownPage */
+  options.forEach(function(opts) {
+    BlogpostPage = (function(superClass) {
+      extend(BlogpostPage, superClass);
 
-    BlogpostPage.prototype.getUrl = function(base) {
-      var result;
-      result = BlogpostPage.__super__.getUrl.call(this, base);
-      if (options.stripTrailingSlash && result[result.length - 1] === '/') {
-        return result.substr(0, result.length - 1);
-      } else {
-        return result;
+      function BlogpostPage() {
+        return BlogpostPage.__super__.constructor.apply(this, arguments);
       }
-    };
 
-    BlogpostPage.prototype.getTemplate = function() {
-      return this.metadata.template || options.template || BlogpostPage.__super__.getTemplate.call(this);
-    };
 
-    BlogpostPage.property('rawFilenameTemplate', 'getRawFilenameTemplate');
+      /* DRYer subclass of MarkdownPage */
 
-    BlogpostPage.prototype.getRawFilenameTemplate = function() {
-      return this.metadata.filenameTemplate || options.filenameTemplate || BlogpostPage.__super__.getRawFilenameTemplate.call(this);
-    };
+      BlogpostPage.prototype.getUrl = function(base) {
+        var result;
+        result = BlogpostPage.__super__.getUrl.call(this, base);
+        if (opts.stripTrailingSlash && result[result.length - 1] === '/') {
+          return result.substr(0, result.length - 1);
+        } else {
+          return result;
+        }
+      };
 
-    BlogpostPage.prototype.getFilenameTemplate = function() {
-      var raw;
-      raw = this.rawFilenameTemplate;
-      if (raw[0] === '/') {
-        return raw;
-      } else {
-        return '/' + raw;
-      }
-    };
+      BlogpostPage.prototype.getTemplate = function() {
+        return this.metadata.template || opts.template || BlogpostPage.__super__.getTemplate.call(this);
+      };
 
-    BlogpostPage.prototype.getFilename = function() {
-      var dirname, filename, rawFileNameTemplate;
-      rawFileNameTemplate = this.rawFilenameTemplate;
-      dirname = path.dirname(this.filepath.relative);
-      filename = BlogpostPage.__super__.getFilename.call(this);
-      filename = replaceAll(filename, {
-        ':slug': this.slug
-      });
-      if (rawFileNameTemplate[0] === '/') {
-        filename = '/' + filename;
-      }
-      if (filename[0] === '/') {
-        return filename.slice(1);
-      } else {
-        return path.join(dirname, filename);
-      }
-    };
+      BlogpostPage.property('rawFilenameTemplate', 'getRawFilenameTemplate');
 
-    BlogpostPage.property('slug', 'getSlug');
+      BlogpostPage.prototype.getRawFilenameTemplate = function() {
+        return this.metadata.filenameTemplate || opts.filenameTemplate || BlogpostPage.__super__.getRawFilenameTemplate.call(this);
+      };
 
-    BlogpostPage.prototype.getSlug = function() {
-      return this.metadata.slug || slugify(this.title + '');
-    };
+      BlogpostPage.prototype.getFilenameTemplate = function() {
+        var raw;
+        raw = this.rawFilenameTemplate;
+        if (raw[0] === '/') {
+          return raw;
+        } else {
+          return '/' + raw;
+        }
+      };
 
-    return BlogpostPage;
+      BlogpostPage.prototype.getFilename = function() {
+        var dirname, filename, rawFileNameTemplate;
+        rawFileNameTemplate = this.rawFilenameTemplate;
+        dirname = path.dirname(this.filepath.relative);
+        filename = BlogpostPage.__super__.getFilename.call(this);
+        filename = replaceAll(filename, {
+          ':slug': this.slug
+        });
+        if (rawFileNameTemplate[0] === '/') {
+          filename = '/' + filename;
+        }
+        if (filename[0] === '/') {
+          return filename.slice(1);
+        } else {
+          return path.join(dirname, filename);
+        }
+      };
 
-  })(env.plugins.MarkdownPage);
-  prefix = options.postsDir ? options.postsDir + '/' : '';
-  env.registerContentPlugin('posts', prefix + '**/*.*(markdown|mkd|md)', BlogpostPage);
+      BlogpostPage.property('slug', 'getSlug');
+
+      BlogpostPage.prototype.getSlug = function() {
+        return this.metadata.slug || slugify(this.title + '');
+      };
+
+      return BlogpostPage;
+
+    })(env.plugins.MarkdownPage);
+
+    prefix = opts.postsDir ? opts.postsDir + '/' : '';
+    env.registerContentPlugin(opts.name, prefix + '*.*(markdown|mkd|md)', BlogpostPage);
+  });
+
   return callback();
 };
 

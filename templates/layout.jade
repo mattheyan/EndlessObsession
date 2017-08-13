@@ -39,7 +39,9 @@ html(lang='en')
             li
               a(href=canonicalUrl + 'about', rel='author')= 'About'
             li
-              a(href=canonicalUrl + 'blog/archives')= 'Archives'
+              a(href=canonicalUrl + 'blog/archives')= 'Blog'
+            li
+              a(href=canonicalUrl + 'bliki/archives')= 'Bliki'
           form(action='http://google.com/search')
             fieldset(role='search')
               input(type='hidden', name='q', value='site:' + locals.url)

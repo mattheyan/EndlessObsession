@@ -30,14 +30,25 @@
     "smartypants": true
   },
   "paginator": {
-    "articles": "blog",
+    "sources": [{
+      "articles": "blog"
+    }, {
+      "articles": "bliki"
+    }],
     "filename": "blog/page/%d/index.html",
     "perPage": 10
   },
-  "blog": {
+  "blog": [{
+    "name": "blog",
     "postsDir": "blog",
     "template": "post.jade",
     "filenameTemplate": "/blog/:slug/index.html",
     "stripTrailingSlash": true
-  }
+  }, {
+    "name": "bliki",
+    "postsDir": "bliki",
+    "template": "post.jade",
+    "filenameTemplate": "/bliki/:slug/index.html",
+    "stripTrailingSlash": true
+  }]
 }
