@@ -123,6 +123,7 @@ c1 - add README
 * = involves the offending file
 
 
+
 Start by getting the last version of the config file before the password was added to the config file.
 
 git checkout c2 /path/to/config
@@ -146,6 +147,7 @@ c1 - add README
 * = involves the offending file
 
 
+
 Now, rebase the commit where the password was introduce ( c4 in this example):
 
 git rebase c4~1 -i
@@ -158,6 +160,7 @@ pick c6 add test cases
 pick c7 remove password from config
 
 A bunch of other stuff...
+
 
 
 Move the “fix” commit ( c7 in our case) to the line below the one where the password was added ( c4 ), and change the prefix from ‘pick’ to ‘fixup’.

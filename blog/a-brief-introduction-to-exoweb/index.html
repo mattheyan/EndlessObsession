@@ -27,7 +27,7 @@
           <ul>
             <li><a href="http://endlessobsession.com/">Home</a></li>
             <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Blog</a></li>
           </ul>
           <form action="http://google.com/search">
             <fieldset role="search">
@@ -107,26 +107,26 @@
 </ul>
 <p>You can call $exoweb any number of times, and as an example our query might look something like this (please forgive the contrived&nbsp;example).</p>
 <pre><code class="lang-javascript">$exoweb({
-    init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
         ExoWeb.<span class="caps">UI</span>.Template.load(<span class="string">"/path/to/template"</span>);
     },
-    types: [
+    <span class="attr">types</span>: [
         {
-            <span class="keyword">from</span>: <span class="string">"CustomWidget"</span>,
-            and: [<span class="string">"this.CustomInformation"</span>]
+            <span class="attr">from</span>: <span class="string">"CustomWidget"</span>,
+            <span class="attr">and</span>: [<span class="string">"this.CustomInformation"</span>]
         }
     ],
-    model: {
-        widget: {
-            <span class="keyword">from</span>: <span class="string">"Widget"</span>,
-            id: <span class="string">"1"</span>,
-            and: [<span class="string">"this.Type.DefaultPrice"</span>]
+    <span class="attr">model</span>: {
+        <span class="attr">widget</span>: {
+            <span class="attr">from</span>: <span class="string">"Widget"</span>,
+            <span class="attr">id</span>: <span class="string">"1"</span>,
+            <span class="attr">and</span>: [<span class="string">"this.Type.DefaultPrice"</span>]
         }
     },
-    contextReady: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="attr">contextReady</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
         context.model.widget.doSomething();
     },
-    domReady: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="attr">domReady</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
         $(<span class="string">".widget input[type=button].save"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
             context.server.save(context.model.widget);
         });
@@ -165,7 +165,7 @@
           </section>
         </article>
         <footer>
-          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2016 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2018 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
           <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
         </footer>
       </main>

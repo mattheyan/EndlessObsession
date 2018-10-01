@@ -27,7 +27,7 @@
           <ul>
             <li><a href="http://endlessobsession.com/">Home</a></li>
             <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Blog</a></li>
           </ul>
           <form action="http://google.com/search">
             <fieldset role="search">
@@ -75,6 +75,7 @@ c2 = prototype * &lt;- last commit to config before the data leak
 c1 - add README
 
 * = involves the offending file
+
 </code></pre><p>Start by getting the last version of <strong>the config file</strong> before the password was
 added to the config&nbsp;file.</p>
 <p><code>git checkout c2 /path/to/config</code></p>
@@ -91,6 +92,7 @@ c2 = prototype * &lt;- last commit to config before the data leak
 c1 - add README
 
 * = involves the offending file
+
 </code></pre><p>Now, rebase the commit where the password was introduce (<code>c4</code> in this&nbsp;example):</p>
 <p><code>git rebase c4~1 -i</code></p>
 <p>This opens up vim, or whatever your configured editor&nbsp;is.</p>
@@ -100,6 +102,7 @@ pick c6 add test cases
 pick c7 remove password from config
 
 A bunch of other stuff...
+
 </code></pre><p>Move the “fix” commit (<code>c7</code> in our case) to the line <strong>below</strong> the one where the
 password was <strong>added</strong> (<code>c4</code>), and change the prefix from ‘pick’ to&nbsp;‘fixup’.</p>
 <pre><code>pick c4 add password to config
@@ -124,7 +127,7 @@ then the file will no longer show up in that commit (as you would&nbsp;expect).<
           </section>
         </article>
         <footer>
-          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2016 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2018 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
           <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
         </footer>
       </main>

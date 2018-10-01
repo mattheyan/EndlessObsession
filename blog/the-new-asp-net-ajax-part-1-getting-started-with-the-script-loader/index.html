@@ -27,7 +27,7 @@
           <ul>
             <li><a href="http://endlessobsession.com/">Home</a></li>
             <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-            <li><a href="http://endlessobsession.com/blog/archives">Archives</a></li>
+            <li><a href="http://endlessobsession.com/blog/archives">Blog</a></li>
           </ul>
           <form action="http://google.com/search">
             <fieldset role="search">
@@ -52,7 +52,7 @@
               <time datetime="2010-02-10" pubdate>Feb 10th, 2010</time>
             </div>
           </header>
-          <section><p><strong>Background</strong>:  I had an existing <span class="caps">ASP</span>.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br><em>By the way, if you haven’t heard of the Script Loader then you can read about it </em><a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a><em> and </em><a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with&nbsp;Bing…)!</em></p>
+          <section><p><strong>Background</strong>:  I had an existing <span class="caps">ASP</span>.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br>_By the way, if you haven’t heard of the Script Loader then you can read about it _<a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a>_ and _<a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with&nbsp;Bing…)!</em></p>
 <h2 id="include-the-script-loader">Include the Script&nbsp;Loader</h2>
 <p>My first thought was to just include the script loader’s script file (“start.js”) early, before the page scripts that would use it.  Unfortunately, this line of code gave me&nbsp;grief.</p>
 <pre><code class="lang-javascript"><span class="keyword">if</span>(<span class="keyword">typeof</span>(Sys) !== <span class="string">"undefined"</span>) Sys.Application.notifyScriptLoaded();
@@ -61,12 +61,12 @@
 <h2 id="define-your-scripts">Define Your&nbsp;Scripts</h2>
 <p>This step is optional if you are just using the scripts from Microsoft or&nbsp;jQuery.</p>
 <pre><code class="lang-javascript">Sys.loader.defineScripts({
-    releaseUrl: <span class="string">"%/{0}.js"</span>,
-    debugUrl: <span class="string">"%/{0}.debug.js"</span>
+    <span class="attr">releaseUrl</span>: <span class="string">"%/{0}.js"</span>,
+    <span class="attr">debugUrl</span>: <span class="string">"%/{0}.debug.js"</span>
 }, [{
-    name: <span class="string">"MyScript"</span>,
-    executionDependencies: [<span class="string">"WebServices"</span>],
-    isLoaded: !!(MyControl)
+    <span class="attr">name</span>: <span class="string">"MyScript"</span>,
+    <span class="attr">executionDependencies</span>: [<span class="string">"WebServices"</span>],
+    <span class="attr">isLoaded</span>: !!(MyControl)
 }]);
 </code></pre>
 <p>The first argument is named <em>defaultScriptInfo</em>, in case you’re wondering.  Sounds interesting, doesn’t it?  This is where you can put the common settings for all of the scripts that you are defining here.  No need to repeat yourself.  If you want you can pass <em>null</em> and be done with&nbsp;it.</p>
@@ -106,7 +106,7 @@
           </section>
         </article>
         <footer>
-          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2016 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
+          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2018 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
           <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
         </footer>
       </main>

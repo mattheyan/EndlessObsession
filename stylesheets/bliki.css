@@ -1,0 +1,15 @@
+main > section {
+	width: 600px;
+}
+
+p.article-summary {
+	margin-top: 3px;
+    color: #555;
+}
+
+@media screen and (max-width: 400px)
+{
+	ul.month-posts-list > li > a {
+		max-width: 225px;
+	}
+}
