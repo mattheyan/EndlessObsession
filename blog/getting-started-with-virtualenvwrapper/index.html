@@ -1,58 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Getting started with virtualenvwrapper - The Endless Obsession
-    </title>
-    <meta name="author" content="Bryan Matthews">
-    <meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e -->
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://endlessobsession.com/" rel="canonical">
-    <link href="/infinity-symbol.png" rel="icon">
-    <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
-    <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-    <div class="container">
-      <header role="banner">
-        <hgroup>
-          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-        </hgroup>
-        <nav role="navigation">
-          <ul>
-            <li><a href="http://endlessobsession.com/">Home</a></li>
-            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-            <li><a href="http://endlessobsession.com/blog/archives">Blog</a></li>
-          </ul>
-          <form action="http://google.com/search">
-            <fieldset role="search">
-              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-              <input type="text" name="q" results="0" placeholder="Search" class="search">
-            </fieldset>
-          </form>
-        </nav>
-        <nav role="complementary">
-          <ul>
-            <li><a href="/atom.xml" title="RSS">RSS</a></li>
-            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <article>
-          <header>
-            <h2 class="title">Getting started with virtualenvwrapper</h2>
-            <div class="byline"><span class="author">Bryan Matthews</span>
-              <time datetime="2010-12-20" pubdate>Dec 20th, 2010</time>
-            </div>
-          </header>
-          <section><p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn’t get very far at the time.  Recently I’ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/"><span class="caps">RVM</span></a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would&nbsp;compare.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Getting started with virtualenvwrapper - The Endless Obsession</title><meta name="author" content="Bryan Matthews"><meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="http://endlessobsession.com/" rel="canonical"><link href="/infinity-symbol.png" rel="icon"><link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession"><link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css"></head><body><div class="container"><header role="banner"><hgroup><h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small></hgroup><nav role="navigation"><ul><li><a href="http://endlessobsession.com/">Home</a></li><li><a href="http://endlessobsession.com/about" rel="author">About</a></li><li><a href="http://endlessobsession.com/blog/archives">Blog</a></li></ul><form action="http://google.com/search"><fieldset role="search"><input type="hidden" name="q" value="site:http://endlessobsession.com/"><input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form></nav><nav role="complementary"><ul><li><a href="/atom.xml" title="RSS">RSS</a></li><li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li><li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li></ul></nav></header><main><article><header><h2 class="title">Getting started with virtualenvwrapper</h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-12-20" pubdate>Dec 20th, 2010</time></div></header><section><p>A while back I toyed with using <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a> to manage isolated python packages for development, but I didn’t get very far at the time.  Recently I’ve been dabbling in ruby and have used <a href="http://rvm.beginrescueend.com/"><span class="caps">RVM</span></a> to manage ruby environments and gems.  This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would&nbsp;compare.</p>
 <h2 id="installing">Installing</h2>
 <p><em>Note that I have tested this process on Ubuntu 10.04 and 11.04.  I have not tested on other environments.  Windows setup may follow in a later&nbsp;post.</em></p>
 <p><strong>The basic steps that I used&nbsp;are…</strong></p>
@@ -66,44 +12,24 @@
 </ul>
 <p>A script to accomplish most of this can be found <a href="http://github.com/mattheyan/environment">here</a> @<em>/linux/virtualenvwrapper.sh</em>.</p>
 <h4 id="1-make-sure-that-the-script-can-be-executed-">1) Make sure that the script can be&nbsp;executed:</h4>
-<pre><code class="lang-sh">$ sudo chmod +x virtualenvwrapper.sh
-</code></pre>
+<pre><code class="language-sh">$ sudo chmod +x virtualenvwrapper.sh</code></pre>
 <h4 id="2-execute-the-script-">2) Execute the&nbsp;script:</h4>
-<pre><code class="lang-sh">$ ./virtualenvwrapper.sh
-</code></pre>
+<pre><code class="language-sh">$ ./virtualenvwrapper.sh</code></pre>
 <h4 id="3-initialize-virtualenvwrapper-">3) Initialize&nbsp;virtualenvwrapper:</h4>
 <p>The script mentioned above adds the following to ~/.bashrc, but will not take effect until you open a new terminal window.  I’m sure there’s a way to avoid having to do this.  In the code below, ~/.virtualenvs can be changed to any path you wish.  Also, the path may vary (<a href="http://www.doughellmann.com/docs/virtualenvwrapper/install.html#comment-83318419">link</a>).</p>
-<pre><code class="lang-sh"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs
-<span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh
-</code></pre>
+<pre><code class="language-sh"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs
+<span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh</code></pre>
 <h4 id="4-create-a-new-environment-">4) Create a new&nbsp;environment:</h4>
-<pre><code class="lang-sh">mkvirtualenv env
-</code></pre>
+<pre><code class="language-sh">mkvirtualenv env</code></pre>
 <h4 id="5-begin-working-on-your-new-environment-">5) Begin working on your new&nbsp;environment:</h4>
-<pre><code class="lang-sh">workon env
-</code></pre>
+<pre><code class="language-sh">workon env</code></pre>
 <h4 id="6-install-packages">6) Install&nbsp;packages</h4>
 <p>This can be done using pip (or easy_install, I believe) and the packages are installed in&nbsp;$WORKON_HOME/env/…</p>
 <p>You can list all of your required packages in a single pip requirements file and install at&nbsp;once.</p>
 <p><strong>Example:</strong></p>
 <pre><code>Django==1.1.2
 django-tagging==0.3.1
-South==0.7.1
-</code></pre><p>Then, use pip to install the&nbsp;packages:</p>
-<pre><code class="lang-sh">pip install -r /path/to/requirements
-</code></pre>
+South==0.7.1</code></pre><p>Then, use pip to install the&nbsp;packages:</p>
+<pre><code class="language-sh">pip install -r /path/to/requirements</code></pre>
 <p><em>Update 12/29/2010:  Using a specific version of python would be nice, especially since it’s something that can be done easy enough with <a href="http://rvm.beginrescueend.com/"><span class="caps">RVM</span></a>.  I will be investigating this so look out for a future post on the&nbsp;topic.</em></p>
-</section>
-          <section>
-            <h2>Comments</h2>
-            <div id="disqus_thread"></div>
-          </section>
-        </article>
-        <footer>
-          <script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2019 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-        </footer>
-      </main>
-    </div>
-  </body>
-</html>
+</section><section><h2>Comments</h2><div id="disqus_thread"></div></section></article><footer><script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2022 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small><script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script></footer></main></div></body></html>

@@ -1,22 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>The Endless Obsession</title>
-  <link href="http://endlessobsession.com/atom.xml" rel="self"/>
-  <link href="http://endlessobsession.com/"/>
-  <updated>2016-06-02T21:15:00-04:00</updated>
-  <id>http://endlessobsession.com/</id>
-  <author>
-    <name><![CDATA[Bryan Matthews]]>
-    </name>
-  </author>
-  <generator uri="http://wintersmith.io/">Wintersmith</generator>
-  <entry>
-    <title type="html"><![CDATA[.NET: Getting the Project Root Directory at Runtime]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/dotnet-project-root-at-runtime"/>
-    <updated>2016-06-02T21:15:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/dotnet-project-root-at-runtime</id>
-    <content type="html"><![CDATA[When developing in .NET, whether it be an ASP.NET website, or a console
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>The Endless Obsession</title><link href="http://endlessobsession.com/atom.xml" rel="self"/><link href="http://endlessobsession.com/"/><updated>2016-06-02T21:15:00-04:00</updated><id>http://endlessobsession.com/</id><author><name><![CDATA[Bryan Matthews]]></name></author><generator uri="http://wintersmith.io/">Wintersmith</generator><entry><title type="html"><![CDATA[.NET: Getting the Project Root Directory at Runtime]]></title><link href="http://endlessobsession.com/blog/dotnet-project-root-at-runtime"/><updated>2016-06-02T21:15:00-04:00</updated><id>http://endlessobsession.com/blog/dotnet-project-root-at-runtime</id><content type="html"><![CDATA[When developing in .NET, whether it be an ASP.NET website, or a console
 application, you usually don’t have to access the file-system directly. One
 reason that you would is to read a configuration file, but, .NET configuration
 management handles this for you via ‘Web.config’ or ‘App.config’ and the ConfigurationManager . Another scenario is loading a resource, like an image or document, from disk.
@@ -32,18 +14,15 @@ ASP.NET
 
 var root = HttpContext.Current.Server.MapPath(&quot;~/&quot;);
 
-
 WinForms
 
 var root = Application.ExecutablePath;
-
 
 WPF, Console Application, etc.
 
 var assembly = System.Reflection.Assembly.GetEntryAssembly();
 var assemblyPath = new Uri(assembly.CodeBase).AbsolutePath;
 var root = System.IO.Path.GetDirectoryName(assemblyPath);
-
 
 So, why would you even want to do this?
 
@@ -85,16 +64,7 @@ directory of your project from your running application.
 References :
 
  * Finding my main executable’s path using Assembly vs AppDomain
-   [http://stackoverflow.com/questions/1642827/finding-my-main-executables-path-using-assembly-vs-appdomain]]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Removing a Password from a Git Repository]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/removing-password-from-repo"/>
-    <updated>2016-05-30T14:29:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/removing-password-from-repo</id>
-    <content type="html"><![CDATA[It’s generally considered a bad idea to commit passwords, api keys, etc. to your
+   [http://stackoverflow.com/questions/1642827/finding-my-main-executables-path-using-assembly-vs-appdomain]]]></content></entry><entry><title type="html"><![CDATA[Removing a Password from a Git Repository]]></title><link href="http://endlessobsession.com/blog/removing-password-from-repo"/><updated>2016-05-30T14:29:00-04:00</updated><id>http://endlessobsession.com/blog/removing-password-from-repo</id><content type="html"><![CDATA[It’s generally considered a bad idea to commit passwords, api keys, etc. to your
 source code repository. There are various ways you can try to avoid this (and
 you should), but sooner or later its going to happen. Someone will add some
 “sensitive” data to a repository.
@@ -123,7 +93,6 @@ c1 - add README
 * = involves the offending file
 
 
-
 Start by getting the last version of the config file before the password was added to the config file.
 
 git checkout c2 /path/to/config
@@ -147,7 +116,6 @@ c1 - add README
 * = involves the offending file
 
 
-
 Now, rebase the commit where the password was introduce ( c4 in this example):
 
 git rebase c4~1 -i
@@ -162,14 +130,12 @@ pick c7 remove password from config
 A bunch of other stuff...
 
 
-
 Move the “fix” commit ( c7 in our case) to the line below the one where the password was added ( c4 ), and change the prefix from ‘pick’ to ‘fixup’.
 
 pick c4 add password to config
 fixup c7 remove password from config
 pick c5 tweak theme colors
 pick c6 add test cases
-
 
 From github’s rebase documentation
 [https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing] , this tells git to use this commit to “fix” the prior commit, and then discard
@@ -185,16 +151,7 @@ References :
  * Github’s rebase documentation
    [https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing]
  * Stack Overflow: Remove files from Git commit
-   [http://stackoverflow.com/a/28173964/170990]]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[A Commentary on Comments]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/code-comments"/>
-    <updated>2016-05-12T12:00:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/code-comments</id>
-    <content type="html"><![CDATA[// TODO: Improve post intro before publishing to the interwebs.
+   [http://stackoverflow.com/a/28173964/170990]]]></content></entry><entry><title type="html"><![CDATA[A Commentary on Comments]]></title><link href="http://endlessobsession.com/blog/code-comments"/><updated>2016-05-12T12:00:00-04:00</updated><id>http://endlessobsession.com/blog/code-comments</id><content type="html"><![CDATA[// TODO: Improve post intro before publishing to the interwebs.
 
 Comments are probably one of the most boring topics you can imagine.
 
@@ -213,16 +170,7 @@ the comment is probably wrong.)
 
 Finally, think back to the last time you looked at a comment and thought to
 yourself, “hmm, that was actually useful”.
-]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[So Long Octopress, Hello Wintersmith]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/so-long-octopress-hello-wintersmith"/>
-    <updated>2015-04-18T15:20:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/so-long-octopress-hello-wintersmith</id>
-    <content type="html"><![CDATA[Octopress [http://octopress.org/] has been a popular hacker’s blog for quite a while, and so I made the switch a
+]]></content></entry><entry><title type="html"><![CDATA[So Long Octopress, Hello Wintersmith]]></title><link href="http://endlessobsession.com/blog/so-long-octopress-hello-wintersmith"/><updated>2015-04-18T15:20:00-04:00</updated><id>http://endlessobsession.com/blog/so-long-octopress-hello-wintersmith</id><content type="html"><![CDATA[Octopress [http://octopress.org/] has been a popular hacker’s blog for quite a while, and so I made the switch a
 few years ago in order to escape the clutches of Wordpress. Now I have a
 hack-able blog that also costs me nothing to host.
 
@@ -240,151 +188,4 @@ workstations, so why waste spend my time on it if I don’t have to?
 
 So I set out to find an alternative that would work reliably on Windows, and run on node.js . I targeted node because it generally just works on Windows, and node and JavaScript in general are skills that I’m more
 interested in developing. What I found was Wintersmith [https://github.com/jnordberg/wintersmith] .
-]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Octopress post excerpts and 'couldn't parse YAML']]>
-    </title>
-    <link href="http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml"/>
-    <updated>2013-10-15T21:14:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml</id>
-    <content type="html"><![CDATA[This evening I noticed a syntax error in my blog's ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn't bother to determine. However, I also noticed that the post summaries were rather large and didn't appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[File.OpenWrite Gotcha]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/file-dot-openwrite-gotcha"/>
-    <updated>2013-01-03T12:29:00-05:00</updated>
-    <id>http://endlessobsession.com/blog/file-dot-openwrite-gotcha</id>
-    <content type="html"><![CDATA[An odd problem when writing a text file to disk using .NET's &quot;File.OpenWrite&quot;.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Chrome select excessive padding]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/chrome-select-excessive-padding"/>
-    <updated>2012-11-27T19:41:00-05:00</updated>
-    <id>http://endlessobsession.com/blog/chrome-select-excessive-padding</id>
-    <content type="html"><![CDATA[Recently I noticed that dropdowns (&amp;lt;select&amp;gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC. Here's how to fix that.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Should you write awesome code?]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/should-you-write-awesome-code"/>
-    <updated>2012-06-28T22:48:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/should-you-write-awesome-code</id>
-    <content type="html"><![CDATA[My reaction to a post entitled &quot;Should you write awesome code?&quot;]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Carolina Code Camp 2012 Presentation]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/carolina-code-camp-2012-presentation"/>
-    <updated>2012-05-26T16:51:00-04:00</updated>
-    <id>http://endlessobsession.com/blog/carolina-code-camp-2012-presentation</id>
-    <content type="html"><![CDATA[Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with speakers.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Learning F# with TDD: Part 2]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/learning-f-with-tdd-part-2"/>
-    <updated>2012-01-11T21:50:53-05:00</updated>
-    <id>http://endlessobsession.com/blog/learning-f-with-tdd-part-2</id>
-    <content type="html"><![CDATA[Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec. This time around I'll elaborate a little bit on the testing aspects, and also talk about active patterns.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[ExoWeb type loading changes]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/exoweb-type-loading-changes"/>
-    <updated>2011-12-02T09:19:55-05:00</updated>
-    <id>http://endlessobsession.com/blog/exoweb-type-loading-changes</id>
-    <content type="html"><![CDATA[Types are now batch loaded in ExoWeb. The following is an explanation of the changes.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Learning F# with TDD: Part 1]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1"/>
-    <updated>2011-08-21T15:59:03-04:00</updated>
-    <id>http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1</id>
-    <content type="html"><![CDATA[I decided to dive into a few languages I've been meaning to learn by way of Roy Osherove's calculator kata. First up - F#.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Disable the audible beep in Mac Terminal]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal"/>
-    <updated>2011-07-11T17:45:01-04:00</updated>
-    <id>http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal</id>
-    <content type="html"><![CDATA[How to disable that annoying beep in Mac Terminal when you accidentally hit the wrong key.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Tfs Rollback]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/tfs-rollback-2"/>
-    <updated>2011-07-08T08:14:52-04:00</updated>
-    <id>http://endlessobsession.com/blog/tfs-rollback-2</id>
-    <content type="html"><![CDATA[How to rollback all or part of a checkin in TFS using the commandline tool.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Visual Studio External Tools]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/visual-studio-external-tools"/>
-    <updated>2011-01-24T10:49:32-05:00</updated>
-    <id>http://endlessobsession.com/blog/visual-studio-external-tools</id>
-    <content type="html"><![CDATA[An introduction to creating custom external tools in Visual Studio.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[ExoWeb's Entity System]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/exowebs-entity-system"/>
-    <updated>2011-01-13T06:34:46-05:00</updated>
-    <id>http://endlessobsession.com/blog/exowebs-entity-system</id>
-    <content type="html"><![CDATA[Matt Hooper recently posted an overview of ExoWeb's entity system.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Intro to Client-Server Mapping in ExoWeb]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb"/>
-    <updated>2011-01-10T10:28:34-05:00</updated>
-    <id>http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb</id>
-    <content type="html"><![CDATA[An introduction to client-server mapping in ExoWeb.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[A Brief Introduction to ExoWeb]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/a-brief-introduction-to-exoweb"/>
-    <updated>2011-01-10T07:54:17-05:00</updated>
-    <id>http://endlessobsession.com/blog/a-brief-introduction-to-exoweb</id>
-    <content type="html"><![CDATA[A Brief Introduction to ExoWeb. What it is and what it can do.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Getting started with virtualenvwrapper]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper"/>
-    <updated>2010-12-20T21:22:33-05:00</updated>
-    <id>http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper</id>
-    <content type="html"><![CDATA[A while back I toyed with using virtualenv and virtualenvwrapper to manage isolated python packages for development, but I didn't get very far at the time. Recently I've been dabbling in ruby and have used RVM to manage ruby environments and gems. This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.]]>
-    </content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[I wish I could remember what Amnesia is...]]>
-    </title>
-    <link href="http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is"/>
-    <updated>2010-12-07T19:12:16-05:00</updated>
-    <id>http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is</id>
-    <content type="html"><![CDATA[Matt Hooper wrote a blog post describing his &quot;Amnesia&quot; project.]]>
-    </content>
-  </entry>
-</feed>
+]]></content></entry><entry><title type="html"><![CDATA[Octopress post excerpts and 'couldn't parse YAML']]></title><link href="http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml"/><updated>2013-10-15T21:14:00-04:00</updated><id>http://endlessobsession.com/blog/octopress-post-excerpts-and-couldnt-parse-yaml</id><content type="html"><![CDATA[This evening I noticed a syntax error in my blog's ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn't bother to determine. However, I also noticed that the post summaries were rather large and didn't appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.]]></content></entry><entry><title type="html"><![CDATA[File.OpenWrite Gotcha]]></title><link href="http://endlessobsession.com/blog/file-dot-openwrite-gotcha"/><updated>2013-01-03T12:29:00-05:00</updated><id>http://endlessobsession.com/blog/file-dot-openwrite-gotcha</id><content type="html"><![CDATA[An odd problem when writing a text file to disk using .NET's &quot;File.OpenWrite&quot;.]]></content></entry><entry><title type="html"><![CDATA[Chrome select excessive padding]]></title><link href="http://endlessobsession.com/blog/chrome-select-excessive-padding"/><updated>2012-11-27T19:41:00-05:00</updated><id>http://endlessobsession.com/blog/chrome-select-excessive-padding</id><content type="html"><![CDATA[Recently I noticed that dropdowns (&amp;lt;select&amp;gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 PC. Here's how to fix that.]]></content></entry><entry><title type="html"><![CDATA[Should you write awesome code?]]></title><link href="http://endlessobsession.com/blog/should-you-write-awesome-code"/><updated>2012-06-28T22:48:00-04:00</updated><id>http://endlessobsession.com/blog/should-you-write-awesome-code</id><content type="html"><![CDATA[My reaction to a post entitled &quot;Should you write awesome code?&quot;]]></content></entry><entry><title type="html"><![CDATA[Carolina Code Camp 2012 Presentation]]></title><link href="http://endlessobsession.com/blog/carolina-code-camp-2012-presentation"/><updated>2012-05-26T16:51:00-04:00</updated><id>http://endlessobsession.com/blog/carolina-code-camp-2012-presentation</id><content type="html"><![CDATA[Recently I co-presented with Bobby Dimmick at the annual Carolina Code Camp, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with speakers.]]></content></entry><entry><title type="html"><![CDATA[Learning F# with TDD: Part 2]]></title><link href="http://endlessobsession.com/blog/learning-f-with-tdd-part-2"/><updated>2012-01-11T21:50:53-05:00</updated><id>http://endlessobsession.com/blog/learning-f-with-tdd-part-2</id><content type="html"><![CDATA[Last time I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec. This time around I'll elaborate a little bit on the testing aspects, and also talk about active patterns.]]></content></entry><entry><title type="html"><![CDATA[ExoWeb type loading changes]]></title><link href="http://endlessobsession.com/blog/exoweb-type-loading-changes"/><updated>2011-12-02T09:19:55-05:00</updated><id>http://endlessobsession.com/blog/exoweb-type-loading-changes</id><content type="html"><![CDATA[Types are now batch loaded in ExoWeb. The following is an explanation of the changes.]]></content></entry><entry><title type="html"><![CDATA[Learning F# with TDD: Part 1]]></title><link href="http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1"/><updated>2011-08-21T15:59:03-04:00</updated><id>http://endlessobsession.com/blog/learning-fsharp-with-tdd-part-1</id><content type="html"><![CDATA[I decided to dive into a few languages I've been meaning to learn by way of Roy Osherove's calculator kata. First up - F#.]]></content></entry><entry><title type="html"><![CDATA[Disable the audible beep in Mac Terminal]]></title><link href="http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal"/><updated>2011-07-11T17:45:01-04:00</updated><id>http://endlessobsession.com/blog/disable-the-audible-beep-in-mac-terminal</id><content type="html"><![CDATA[How to disable that annoying beep in Mac Terminal when you accidentally hit the wrong key.]]></content></entry><entry><title type="html"><![CDATA[Tfs Rollback]]></title><link href="http://endlessobsession.com/blog/tfs-rollback-2"/><updated>2011-07-08T08:14:52-04:00</updated><id>http://endlessobsession.com/blog/tfs-rollback-2</id><content type="html"><![CDATA[How to rollback all or part of a checkin in TFS using the commandline tool.]]></content></entry><entry><title type="html"><![CDATA[Visual Studio External Tools]]></title><link href="http://endlessobsession.com/blog/visual-studio-external-tools"/><updated>2011-01-24T10:49:32-05:00</updated><id>http://endlessobsession.com/blog/visual-studio-external-tools</id><content type="html"><![CDATA[An introduction to creating custom external tools in Visual Studio.]]></content></entry><entry><title type="html"><![CDATA[ExoWeb's Entity System]]></title><link href="http://endlessobsession.com/blog/exowebs-entity-system"/><updated>2011-01-13T06:34:46-05:00</updated><id>http://endlessobsession.com/blog/exowebs-entity-system</id><content type="html"><![CDATA[Matt Hooper recently posted an overview of ExoWeb's entity system.]]></content></entry><entry><title type="html"><![CDATA[Intro to Client-Server Mapping in ExoWeb]]></title><link href="http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb"/><updated>2011-01-10T10:28:34-05:00</updated><id>http://endlessobsession.com/blog/into-to-client-server-mapping-in-exoweb</id><content type="html"><![CDATA[An introduction to client-server mapping in ExoWeb.]]></content></entry><entry><title type="html"><![CDATA[A Brief Introduction to ExoWeb]]></title><link href="http://endlessobsession.com/blog/a-brief-introduction-to-exoweb"/><updated>2011-01-10T07:54:17-05:00</updated><id>http://endlessobsession.com/blog/a-brief-introduction-to-exoweb</id><content type="html"><![CDATA[A Brief Introduction to ExoWeb. What it is and what it can do.]]></content></entry><entry><title type="html"><![CDATA[Getting started with virtualenvwrapper]]></title><link href="http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper"/><updated>2010-12-20T21:22:33-05:00</updated><id>http://endlessobsession.com/blog/getting-started-with-virtualenvwrapper</id><content type="html"><![CDATA[A while back I toyed with using virtualenv and virtualenvwrapper to manage isolated python packages for development, but I didn't get very far at the time. Recently I've been dabbling in ruby and have used RVM to manage ruby environments and gems. This experience has been a positive one, so I decided to revisit virtualenvwrapper to see how it would compare.]]></content></entry><entry><title type="html"><![CDATA[I wish I could remember what Amnesia is...]]></title><link href="http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is"/><updated>2010-12-07T19:12:16-05:00</updated><id>http://endlessobsession.com/blog/i-wish-i-could-remember-what-amnesia-is</id><content type="html"><![CDATA[Matt Hooper wrote a blog post describing his &quot;Amnesia&quot; project.]]></content></entry></feed>

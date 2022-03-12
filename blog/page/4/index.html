@@ -1,64 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>The Endless Obsession
-    </title>
-    <meta name="author" content="Bryan Matthews">
-    <meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e -->
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://endlessobsession.com/" rel="canonical">
-    <link href="/infinity-symbol.png" rel="icon">
-    <link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession">
-    <link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-    <div class="container">
-      <header role="banner">
-        <hgroup>
-          <h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small>
-        </hgroup>
-        <nav role="navigation">
-          <ul>
-            <li><a href="http://endlessobsession.com/">Home</a></li>
-            <li><a href="http://endlessobsession.com/about" rel="author">About</a></li>
-            <li><a href="http://endlessobsession.com/blog/archives">Blog</a></li>
-          </ul>
-          <form action="http://google.com/search">
-            <fieldset role="search">
-              <input type="hidden" name="q" value="site:http://endlessobsession.com/">
-              <input type="text" name="q" results="0" placeholder="Search" class="search">
-            </fieldset>
-          </form>
-        </nav>
-        <nav role="complementary">
-          <ul>
-            <li><a href="/atom.xml" title="RSS">RSS</a></li>
-            <li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li>
-            <li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/web-service-syntax-error">Web Service Syntax Error???</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-11" pubdate>Jun 10th, 2010</time>
-              </div>
-            </header>
-            <section><p><em>Originally posted April 7&nbsp;2010</em></p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>The Endless Obsession</title><meta name="author" content="Bryan Matthews"><meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="http://endlessobsession.com/" rel="canonical"><link href="/infinity-symbol.png" rel="icon"><link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession"><link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css"></head><body><div class="container"><header role="banner"><hgroup><h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small></hgroup><nav role="navigation"><ul><li><a href="http://endlessobsession.com/">Home</a></li><li><a href="http://endlessobsession.com/about" rel="author">About</a></li><li><a href="http://endlessobsession.com/blog/archives">Blog</a></li></ul><form action="http://google.com/search"><fieldset role="search"><input type="hidden" name="q" value="site:http://endlessobsession.com/"><input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form></nav><nav role="complementary"><ul><li><a href="/atom.xml" title="RSS">RSS</a></li><li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li><li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li></ul></nav></header><main><section><article><header><h2 class="title"><a rel="article" href="/blog/web-service-syntax-error">Web Service Syntax Error???</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-06-11" pubdate>Jun 10th, 2010</time></div></header><section><p><em>Originally posted April 7&nbsp;2010</em></p>
 <p>Ok, I’ll start this post off with some background.  A couple of years ago I wrote a <span class="caps">SOAP</span> web service that manages printing for multiple users through a web application.  Sounds familiar, right?  Anyway, the client that interacts with the web service uses the Microsoft AJAX JavaScript framework (version 1).  The web service is hosted on a different server and domain.  However, since this is an internal application with a small number of users they were content to enable cross-domain data access and be done with&nbsp;it.</p>
 <p>A few weeks ago one of my coworkers was revisiting the client portion, which just happened to be upgraded to the <a href="http://ajax.codeplex.com/">beta version of the <span class="caps">AJAX</span> JavaScript framework</a>.  He started to see a syntax error, which I determined was occurring when handling the web service response.  I knew that the client framework supported <span class="caps">JSONP</span> in some form, and I also noticed an interesting “jsonp” query string argument in the web service call.  Believe it or not, the client was trying to use JSONP, even though the web service response was XML!  This obviously would result in a syntax error when trying to&nbsp;deserialize.</p>
 <p>After looking over the JavaScript code I determined that the WebServiceProxy was using <span class="caps">JSONP</span> if either the protocol or host of the request was different than the current page.  I now know in hindsight that the documentation (at least in code) of WebServiceProxy.invoke clearly states this.  Luckily, the “enableJsonp” parameter can be set to <em>false</em> to override this&nbsp;behavior.</p>
 <p>So, the bottom line is:  if you’re accessing a web service across domains and you don’t want to use <span class="caps">JSONP</span>, you have to set the  “enableJsonp” argument to <em>false</em>.  Here’s the method signature and&nbsp;documentation…</p>
-<pre><code class="lang-javascript">WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {
+<pre><code class="language-javascript">WebServiceProxy.invoke(servicePath, methodName, useGet, params, onSuccess, onFailure, userContext, timeout, enableJsonp, jsonpCallbackParameter) {
     <span class="comment">/// &lt;summary locid="M:J#Sys.Net.WebServiceProxy.invoke"&gt;&lt;/summary&gt;</span>
     <span class="comment">/// &lt;param name="servicePath" type="String"&gt;Path to the webservice&lt;/param&gt;</span>
     <span class="comment">/// &lt;param name="methodName" type="String" mayBeNull="true" optional="true"&gt;Method to invoke&lt;/param&gt;</span>
@@ -71,51 +16,24 @@
     <span class="comment">/// &lt;param name="enableJsonp" type="Boolean" optional="true" mayBeNull="true"&gt;Whether to use <span class="caps">JSONP</span> if the servicePath is for a different domain (default is true).&lt;/param&gt;</span>
     <span class="comment">/// &lt;param name="jsonpCallbackParameter" type="String" optional="true" mayBeNull="true"&gt;The name of the callback parameter for <span class="caps">JSONP</span> request (default is callback).&lt;/param&gt;</span>
     <span class="comment">/// &lt;returns type="Sys.Net.WebRequest" mayBeNull="true"&gt;Returns the request that was sent (null for <span class="caps">JSONP</span> requests).&lt;/returns&gt;</span>
-}
-</code></pre>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-              </div>
-            </header>
-            <section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
+}</code></pre>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/ms-ajax-and-json-date-serialization">MS AJAX and JSON Date Serialization</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-06-10" pubdate>Jun 10th, 2010</time></div></header><section><p>I’m making heavy use of Microsoft <span class="caps">AJAX</span> right now at work.  No, not the webforms controls, the <a href="http://asp.net/ajax/">JavaScript library</a>.  That’ s a little better,&nbsp;right?</p>
 <p>Anyway, one of the nice little features in <span class="caps">MS</span> AJAX is the ability to invoke a web service, passing in some arbitrary JavaScript object(s), and it just works!  Well, mostly of the time anyway.  Today I found out that you have to be careful with dates.  When I called a web service in this manner, and the object was a <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date">Date</a> or contained a Date, the deserialized DateTime object on the server was off by several&nbsp;hours.</p>
 <p>At this point you’re probably thinking, “I know what the problem is, you idiot!  It’s local time!”  Hopefully you’re more polite than that, but you would be right, of course.  Since <a href="http://www.json.org/"><span class="caps">JSON</span> doesn’t account for dates</a>, we’re forced to improvise.  Check out <a href="http://weblogs.asp.net/bleroy/archive/2008/01/18/dates-and-json.aspx">this link</a> for a discussion of the <span class="caps">JSON</span> date format that the AJAX team decided on using.  You’ll notice that he mentions several time that the string format represents a <strong><span class="caps">UTC</span></strong> date <span class="amp">&amp;</span> time.  In my own defense, I simply provided a Date object and the rest was supposed to be magic (as we developers are so fond of saying).  After all, the Date object does include <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Date/getTimezoneOffset">time zone information</a>.  Unfortunately, the serialization code doesn’t take that into&nbsp;account.</p>
-<pre><code class="lang-javascript"><span class="keyword">if</span> (<span class="built_in">Date</span>.isInstanceOfType(object)) {
+<pre><code class="language-javascript"><span class="keyword">if</span> (<span class="built_in">Date</span>.isInstanceOfType(object)) {
     stringBuilder.append(<span class="string">'"\\/Date('</span>).
     append(object.getTime()).
     append(<span class="string">')\\/"'</span>);
     <span class="keyword">break</span>;
-}
-</code></pre>
+}</code></pre>
 <p>Since the date was going to be converted to a string anyway I went ahead and did the conversion ahead of time.  Something like&nbsp;this…</p>
-<pre><code class="lang-javascript"><span class="keyword">var</span> offset = obj.getTimezoneOffset() * <span class="number">100</span> / <span class="number">60</span>;
+<pre><code class="language-javascript"><span class="keyword">var</span> offset = obj.getTimezoneOffset() * <span class="number">100</span> / <span class="number">60</span>;
 <span class="keyword">var</span> offsetText = offset &gt;= <span class="number">1000</span> ? offset.toPrecision(<span class="number">4</span>) : <span class="string">"0"</span> +
 offset.toPrecision(<span class="number">3</span>);
-<span class="keyword">return</span> <span class="string">"/Date("</span> + (+obj).toString() + <span class="string">"-"</span> + offsetText + <span class="string">")/"</span>;
-</code></pre>
+<span class="keyword">return</span> <span class="string">"/Date("</span> + (+obj).toString() + <span class="string">"-"</span> + offsetText + <span class="string">")/"</span>;</code></pre>
 <p>There are, of course, other ways to do this.  You could convert the date to a <span class="caps">UTC</span> date and let the serialization code do its thing.  This was my first solution, but I scrapped it in favor of the code above since it’s more consistent with how the dates were formatted when sent from the server.  You could also parse out the offset from the date string with a regex, but that just didn’t feel&nbsp;right.</p>
 <p>Moral of the story:  either make sure your dates are <span class="caps">UTC</span> or serialize with the offset yourself.  I could think of cases where both would be inconvenient or impractical.  Hopefully you don’t have to face that&nbsp;problem.</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/tiny-mce-spellchecker-gotcha">Tiny MCE Spellchecker Gotcha</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-              </div>
-            </header>
-            <section><p>In hindsight this should have been a lot&nbsp;easier…</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/tiny-mce-spellchecker-gotcha">Tiny MCE Spellchecker Gotcha</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-06-10" pubdate>Jun 10th, 2010</time></div></header><section><p>In hindsight this should have been a lot&nbsp;easier…</p>
 <p>If you’re not familiar with <a href="http://tinymce.moxiecode.com/">tinymce</a> you should go <a href="http://tinymce.moxiecode.com/examples/full.php">check it out</a>.  Its a solid rich text editor for the web, which can be easily initialized and manipulated via JavaScript.  And best of all, <a href="http://tinymce.moxiecode.com/download.php">its free</a>!</p>
 <p>Today I ran into a problem with the spell checking feature.  I’ll go ahead and state up front:  this was <strong><span class="caps">NOT</span></strong> a problem with tinymce.  This was my own doing.  It seemed that, although the spell checker was able to report misspellings in the editor, when you clicked on a misspelled word the highlighting would disappear and no context menu was shown.&nbsp;Strange…</p>
 <p>First off, tinymce’s source code can be downloaded from <a href="http://tinymce.moxiecode.com/download.php">their site</a> (see “Deveopment package”), which made debugging <strong><em>really</em></strong> easy.  I noticed while inspecting the page using <a href="http://getfirebug.com/">firebug</a> that when I triggered spell checking the misspelled word(s) in the editor were wrapped in a span with a special class name.  I tracked down the spot in the code where the text was wrapped happened, and more importantly unwrapped, and then set breakpoints so that I could intercept when this was happening.  I found that it was ultimately being called from a “mousedown” event, which was in turn creating a new undo operation in the editor and firing the editor’s custom “change”&nbsp;event.</p>
@@ -123,25 +41,13 @@ offset.toPrecision(<span class="number">3</span>);
 <p>One in particular that I was interested in was the “<a href="http://wiki.moxiecode.com/index.php/TinyMCE:API/tinymce.Editor/onChange">onChange</a>“ event.  The documentation states that the event is raised “<em>when contents inside the editor gets changed</em>.”  If you look at the event handler arguments (Parameters) you’ll see that it makes mention of “undo levels” and “undo managers”.  As I understand it, the event actually fires when an “undo level” is added, some atomic action that can be reverted.  This explains why changes were being picked up at seemingly arbitrary times while editing the&nbsp;text.</p>
 <p>Anyway, what does any of this have to do with the spell checking results disappearing?  Well, it turns out there were a couple of factors at work here.  The first I have already hinted at.  We were watching for “change” events on the editor and reacting accordingly.  These change events were also firing when you click inside of the editor, which is something that you would obviously do if you were trying to fix a typo to get rid of that nasty red underlining.  I presume this is because when the user has clicked, the text that they have typed can be viewed as an atomic action.  This can be slightly confusing if you don’t know what to expect, but it does make some sense in that it follows Microsoft Word behavior (a worthy goal for a rich text&nbsp;editor).</p>
 <p>At any rate, the second factor was even more tricky.  The behavior that depends on knowing when the editor changes  (the reason we’re subscribing to the onChange event in the first place) also has to know what the current value is.  It is essentially a property change eventing mechanism.  This is all well and good, except that I was getting the editor’s value through the editor object’s <a href="http://wiki.moxiecode.com/index.php/TinyMCE:API/tinymce.Editor/getContent">getContent</a> method, without so much as skimming the documentation for it (it seemed pretty straightforward).  The documentation states that the function will “<em>cleanup the content before it gets returned using the different cleanup rules options</em>.”</p>
-<p>If you think about it for a minute, you can see why this is a problem.  The editor’s content is essentially going to be the html that is displayed, right?  So, if the function is going to return the editor’s content, then it seems reasonable for it to “<em>cleanup the content</em>“ first.  And what would cleaning up the content involve?  That’s right!  It removes the html that wraps the text to signify that a word is misspelled.  After all, we wouldn’t want to store that in the&nbsp;database.</p>
+<p>If you think about it for a minute, you can see why this is a problem.  The editor’s content is essentially going to be the html that is displayed, right?  So, if the function is going to return the editor’s content, then it seems reasonable for it to “_cleanup the content_” first.  And what would cleaning up the content involve?  That’s right!  It removes the html that wraps the text to signify that a word is misspelled.  After all, we wouldn’t want to store that in the&nbsp;database.</p>
 <p>So at this point I’ve determined what the problem is.  Luckily, it doesn’t appear that I need to call the getContent method after all.  The original text area’s value is updated anyway, so I just read the value directly from the text area.  Problem solved!  Now I can go&nbsp;home…</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/add-javascript-to-a-pdf-document-with-itextsharp">Add JavaScript to a PDF Document with iTextSharp</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-              </div>
-            </header>
-            <section><p><em>Originally posted June 8&nbsp;2010</em></p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/add-javascript-to-a-pdf-document-with-itextsharp">Add JavaScript to a PDF Document with iTextSharp</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-06-10" pubdate>Jun 10th, 2010</time></div></header><section><p><em>Originally posted June 8&nbsp;2010</em></p>
 <p>As you might have guessed from the title, this post is of the “get it done” variety.  So, the code may be a little rough.  Its the sort of code that works, but isn’t fully understood (by me at least).  I wasn’t able to find a clear example on the net, so I pieced together examples and guesses based on reading the code and interpreting method and class&nbsp;names.</p>
-<p>Why guess?  Well, <a href="http://sourceforge.net/projects/itextsharp/">iTextSharp</a> is a pretty robust open source project which is useful for creating and manipulating <span class="caps">PDF</span> documents.  The problem is, it doesn’t seem to have any useful documentation online.  It <strong>_is_</strong> open source, so you can read the code all day.  Also, there are some tutorials that you can download from the <a href="http://sourceforge.net/projects/itextsharp/files/">files page</a> (in the examples&nbsp;folder).</p>
+<p>Why guess?  Well, <a href="http://sourceforge.net/projects/itextsharp/">iTextSharp</a> is a pretty robust open source project which is useful for creating and manipulating <span class="caps">PDF</span> documents.  The problem is, it doesn’t seem to have any useful documentation online.  It <strong><em>is</em></strong> open source, so you can read the code all day.  Also, there are some tutorials that you can download from the <a href="http://sourceforge.net/projects/itextsharp/files/">files page</a> (in the examples&nbsp;folder).</p>
 <p>The goal was to have a <span class="caps">PDF</span> document print automatically from a web page.  I decided to pass on coming up with a cross-browser (read: works in IE) method for automatically printing the document on the client, and instead decided to insert JavaScript into the generated PDF document that would cause it to print when opened.  This is what I came up&nbsp;with.</p>
-<pre><code class="lang-cs">PdfReader reader = <span class="keyword">new</span> PdfReader(inputStreamOrFile);
+<pre><code class="language-cs">PdfReader reader = <span class="keyword">new</span> PdfReader(inputStreamOrFile);
 <span class="keyword">int</span> pageCount = reader.NumberOfPages;
 Rectangle pageSize = reader.GetPageSize(<span class="number">1</span>);
 
@@ -164,22 +70,9 @@ PdfContentByte content = writer.DirectContent;
 <span class="comment">//string jsTextNoWait = "var pp = this.getPrintParams();pp.interactive = pp.constants.interactionLevel.full;this.print(pp);";</span>
 PdfAction js = PdfAction.JavaScript(jsText, writer);
 writer.AddJavaScript(js);
-document.Close()
-</code></pre>
+document.Close()</code></pre>
 <p>As for the JavaScript, the call to setTimeOut is there so that the <span class="caps">PDF</span> is rendered before the print dialog is shown.  Otherwise, the users will see the print dialog and a blank page, which may be confusing.  If the PDF is not visible anyway (as in my case) then you don’t really need the timeout.  The actual printing is based on the documentation of Acrobat JavaScript from <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">Adobe’s website</a>.  In this example, the <a href="http://livedocs.adobe.com/acrobat_sdk/9.1/Acrobat9_1_HTMLHelp/wwhelp/wwhimpl/js/html/wwhelp.htm?href=JS_API_AcroJSPreface.87.6.html&amp;accessible=true">iteration level</a> is set to “full”, meaning that the user will get the print dialog and progress feedback.  You can also use “automatic” (no dialog, includes progress) and “silent” (no dialog or&nbsp;progress).</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/pdf-embed-weirdness">PDF Embed Weirdness</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-06-10" pubdate>Jun 10th, 2010</time>
-              </div>
-            </header>
-            <section><p><em>Originally posted April 5&nbsp;2010</em></p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/pdf-embed-weirdness">PDF Embed Weirdness</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-06-10" pubdate>Jun 10th, 2010</time></div></header><section><p><em>Originally posted April 5&nbsp;2010</em></p>
 <p>The other day I was working on a web page where the user does some stuff and then as the result a nice, shiny <span class="caps">PDF</span> is embedded in the page.  I noticed that in Internet Explorer (I was using IE8) the embedded region showed up as a blank rectangle with a little icon in the upper left-hand corner.&nbsp;Weird…</p>
 <p>One of my co-workers suggested that I try embedding a static <span class="caps">PDF</span> file.  In my case the source URL was an aspx page that dynamically renders the PDF.  But that can’t possibly matter, right?  I mean, as long as the content type is correct and the file is intact.  I guess it&nbsp;does.</p>
 <p>I won’t bore you with the details, but I determined through trial and error that the following conditions had to be met for the embedded <span class="caps">PDF</span> to display in&nbsp;IE8:</p>
@@ -188,71 +81,17 @@ document.Close()
 <p>3)  Embed tag must be injected into the page with all attribute values at once (using jQuery) rather than injecting the tag and then setting attribute values (like type and src).  This may be a jQuery issue, but its worth mentioning&nbsp;anyway.</p>
 <p>So, the moral of the story&nbsp;is…</p>
 <p>If it doesn’t work then first reduce the problem to its simplest&nbsp;form.</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/wheres-my-desktop">Where's My Desktop!</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-02-10" pubdate>Feb 10th, 2010</time>
-              </div>
-            </header>
-            <section><p>The other day I got into work really early, hoping to have a productive morning.  Unfortunately, my computer had other ideas.  When it finished booting up I was greeted by an empty desktop and a host of applications complaining about needing a password.  Geez, I don’t even have coffee yet, how am I supposed to deal with this?!  (not that I drink&nbsp;coffee…)</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/wheres-my-desktop">Where's My Desktop!</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-02-10" pubdate>Feb 10th, 2010</time></div></header><section><p>The other day I got into work really early, hoping to have a productive morning.  Unfortunately, my computer had other ideas.  When it finished booting up I was greeted by an empty desktop and a host of applications complaining about needing a password.  Geez, I don’t even have coffee yet, how am I supposed to deal with this?!  (not that I drink&nbsp;coffee…)</p>
 <p>Anyway, being the lazy developer that I am, I promptly notified the <span class="caps">IT</span> staff and then fired up Google.  I found a few posts mentioning the fact that my profile was mapped to a different location on disk (C:\windows\system32\config\systemprofile), but not much in the way of an explanation.  They suggested copying files into that location, but that didn’t seem like a good idea to me.  Eventually I was contacted by one of my helpful coworkers who helped me resolve the issue by running the disk error checking utility (chkdsk.exe) and rebooting.  Simple,&nbsp;huh?</p>
 <p>So, what did I learn from all of this?  Apparently, if Windows discovers that your profile is corrupted it will allow you to log in using a temporary profile so that you can fix the problem.  Running chkdsk (with both options selected) may work, as it did for me, or it may also be possible to backup your files and have Windows regenerate some of the files that may be corrupt (but don’t take my word for&nbsp;it).</p>
 <p>I’ll keep that info filed away for future reference, but I will probably never have this problem again <em>crosses fingers</em>…</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/encryption-and-varbinary">Encryption and VARBINARY</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-02-10" pubdate>Feb 10th, 2010</time>
-              </div>
-            </header>
-            <section><p>Data loss is a scary thing.  In one of the apps I have worked on it is particularly scary since some of the data is encrypted.  In the beginning it was encrypted in such a way that it would be (hopefully) impossible to retrieve without the proper authorization.  Essentially, the data would be junk if a finite number of users forgot their passwords.  This was always lurking in the back of my mind.  (You’ve never forgotten your password, have you?)  Luckily we dropped that approach, but I didn’t anticipate how we would actually lose&nbsp;data.</p>
-<p>One day I discovered an interesting error was occurring.  (Only in hindsight can I refer to it as “interesting”.)  It was a <em>CryptographicException</em>:  Length of the data to decrypt is invalid.  The application was attempting to load some encrypted data from the database and was repeatedly failing on a particular record.  This is not&nbsp;good.</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/encryption-and-varbinary">Encryption and VARBINARY</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-02-10" pubdate>Feb 10th, 2010</time></div></header><section><p>Data loss is a scary thing.  In one of the apps I have worked on it is particularly scary since some of the data is encrypted.  In the beginning it was encrypted in such a way that it would be (hopefully) impossible to retrieve without the proper authorization.  Essentially, the data would be junk if a finite number of users forgot their passwords.  This was always lurking in the back of my mind.  (You’ve never forgotten your password, have you?)  Luckily we dropped that approach, but I didn’t anticipate how we would actually lose&nbsp;data.</p>
+<p>One day I discovered an interesting error was occurring.  (Only in hindsight can I refer to it as “interesting”.)  It was a _CryptographicException_:  Length of the data to decrypt is invalid.  The application was attempting to load some encrypted data from the database and was repeatedly failing on a particular record.  This is not&nbsp;good.</p>
 <p>At first I thought:  “Maybe there is a character or combination of characters in the source text that is causing the problem.”  Looking back I can see that it was a poor attempt at an explanation.  To be fair, I was alerted to the problem by a user who also informed me that he had used a random text generation feature (possibly for the first time), so I was a little biased.  I was able to verify that the data was an odd size (as expected) and the encryption algorithm expected blocks of a certain number of bytes.  However, I could not reproduce the bug since I had no idea what the original source text&nbsp;was.</p>
 <p>Fast-forward a week or two.  The problem occurs again, but this time the user is working with a known value.  I crack open the test system and, lo and behold, the error is reproducible!  After doing some debugging and tracing I come to the conclusion that <span class="caps">SQL</span> Server is truncating my data.  (How rude!?)  From there it didn’t take long for me to discover an interesting property of the column in question.  Getting info on the table told me that the “TrimTrailingSpace” property was true (which corresponds to <a href="http://msdn.microsoft.com/en-us/library/ms187403.aspx"><em><span class="caps">ANSI</span> PADDING</em></a>).  It doesn’t take a genius to figure out that something is wrong with&nbsp;that.</p>
 <p>Luckily I found <a href="http://support.microsoft.com/kb/296559"><em>this article</em></a>, which indicates that any alter of the column will turn off “TrimTrailingSpace”, just what I wanted.  So, what did I do?  Something like&nbsp;this:</p>
-<pre><code class="lang-sql"><span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">TABLE</span></span> MyTable
-<span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">COLUMN</span></span> MyColumn <span class="caps">VARBINARY</span>(xxx);
-</code></pre>
+<pre><code class="language-sql"><span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">TABLE</span></span> MyTable
+<span class="keyword"><span class="caps">ALTER</span></span> <span class="keyword"><span class="caps">COLUMN</span></span> MyColumn <span class="caps">VARBINARY</span>(xxx);</code></pre>
 <p>Problem&nbsp;solved!</p>
-
-            </section>
-          </article>
-        </section>
-        <section>
-          <article>
-            <header>
-              <h2 class="title"><a rel="article" href="/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader">The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader</a></h2>
-              <div class="byline"><span class="author">Bryan Matthews</span>
-                <time datetime="2010-02-10" pubdate>Feb 10th, 2010</time>
-              </div>
-            </header>
-            <section><p><strong>Background</strong>:  I had an existing <span class="caps">ASP</span>.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br>_By the way, if you haven’t heard of the Script Loader then you can read about it _<a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx"><em>here</em></a>_ and _<a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx"><em>here</em></a><em>, or Google it (with&nbsp;Bing…)!</em></p>
-
-              <p><a rel="more" href="/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader">Continue reading</a></p>
-            </section>
-          </article>
-        </section>
-        <nav role="navigation">
-          <ul>
-            <li><a rel="prev" href="/blog/page/3/">Newer</a></li>
-            <li><a rel="archives" href="/blog/archives">Archives</a></li>
-          </ul>
-        </nav>
-        <footer><small>Copyright &copy; 2019 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small>
-          <script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script>
-        </footer>
-      </main>
-    </div>
-  </body>
-</html>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader">The New ASP.NET AJAX: Part 1 - Getting Started with the Script Loader</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2010-02-10" pubdate>Feb 10th, 2010</time></div></header><section><p><strong>Background</strong>:  I had an existing <span class="caps">ASP</span>.NET AJAX-enabled application and wanted to use the Script Manager control in conjunction with the new client-only Script Loader.  I wasn’t quite sure how they would work together and there is (understandably) precious little in the way of documentation.  Here is what I have found so far…<br><em>By the way, if you haven’t heard of the Script Loader then you can read about it <em>[</em>here_](<a href="http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx">http://weblogs.asp.net/scottgu/archive/2009/10/15/announcing-microsoft-ajax-library-preview-6-and-the-microsoft-ajax-minifier.aspx</a>)</em> and <em>[</em>here_](<a href="http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx">http://weblogs.asp.net/bleroy/archive/2009/11/23/enabling-the-asp-net-ajax-script-loader-for-your-own-scripts.aspx</a>)<em>, or Google it (with&nbsp;Bing…)!</em></p>
+<p><a rel="more" href="/blog/the-new-asp-net-ajax-part-1-getting-started-with-the-script-loader">Continue reading</a></p></section></article></section><nav role="navigation"><ul><li><a rel="prev" href="/blog/page/3/">Newer</a></li><li><a rel="archives" href="/blog/archives">Archives</a></li></ul></nav><footer><small>Copyright &copy; 2022 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small><script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script></footer></main></div></body></html>
