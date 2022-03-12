@@ -8,7 +8,7 @@
     "googleAnalyticsID": "UA-17782995-1",
     "disqusName": "endlessobsession"
   },
-  "output": "./gh-pages",
+  "output": "./docs",
   "ignore": ["*.bak"],
   "plugins": [
     "./plugins/paginator.js",
