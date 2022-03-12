@@ -5,7 +5,9 @@
   "description": "The professional blog of Bryan Matthews.",
   "repository": "none",
   "scripts": {
-    "start": "wintersmith preview"
+    "start": "wintersmith preview",
+    "build:dev": "wintersmith build",
+    "build:release": "wintersmith build --config config-release.json"
   },
   "dependencies": {
     "html-to-text": "^1.3.0",
