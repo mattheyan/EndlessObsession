@@ -7,3 +7,5 @@ dev-pages/
 *.notes.md
 *.bak
 0000-00-00-*.md
+*.patch
+*.zip
