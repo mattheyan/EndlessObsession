@@ -1,9 +1,9 @@
-extends layout
+extends layout.jade
 
 block content
   each article in articles
     section
-      include author
+      include author.jade
       article
         header
           h2.title
