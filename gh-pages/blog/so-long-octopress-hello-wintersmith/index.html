@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>So Long Octopress, Hello Wintersmith - The Endless Obsession</title><meta name="author" content="Bryan Matthews"><meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="http://endlessobsession.com/" rel="canonical"><link href="/infinity-symbol.png" rel="icon"><link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession"><link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css"></head><body><div class="container"><header role="banner"><hgroup><h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small></hgroup><nav role="navigation"><ul><li><a href="http://endlessobsession.com/">Home</a></li><li><a href="http://endlessobsession.com/about" rel="author">About</a></li><li><a href="http://endlessobsession.com/blog/archives">Blog</a></li></ul><form action="http://google.com/search"><fieldset role="search"><input type="hidden" name="q" value="site:http://endlessobsession.com/"><input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form></nav><nav role="complementary"><ul><li><a href="/atom.xml" title="RSS">RSS</a></li><li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li><li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li></ul></nav></header><main><article><header><h2 class="title">So Long Octopress, Hello Wintersmith</h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2015-04-18" pubdate>Apr 18th, 2015</time></div></header><section><p><a href="http://octopress.org/">Octopress</a> has been a popular hacker’s blog for quite a
+while, and so I made the switch a few years ago in order to escape the clutches
+of Wordpress. Now I have a hack-able blog that also costs me nothing to&nbsp;host.</p>
+<p>Unfortunately, Octopress isn’t a good long-term fit. At the end of the day the
+deal-breaker for me is the fact that it runs on&nbsp;ruby.</p>
+<p>Don’t get me wrong, ruby itself is just fine. But, if you’ve worked with ruby on
+Windows you know that its full of pain all the way down. If you’re thinking
+about it, do yourself a favor and just don’t do&nbsp;it.</p>
+<p>Sure, I could have run Linux on a separate partition, or on a <span class="caps">VM</span>, or in the
+cloud, etc. I have no problem doing that, except that it requires managing yet
+another machine/OS. I’m already investing enough time automating Windows-based
+workstations, so why <del>waste</del> spend my time on it if I don’t have&nbsp;to?</p>
+<p>So I set out to find an alternative that would work reliably on Windows, and
+<strong>run on node.js</strong>. I targeted node because it generally <em>just works</em> on Windows,
+and node and JavaScript in general are skills that I’m more interested in developing.
+What I found was <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>.</p>
+<hr>
+<h3 id="what-is-wintersmith-">What is&nbsp;Wintersmith?</h3>
+<p>Withersmith is described as a “flexible static site generator”. Much like Jekyll
+and Octopress, it automates creating a static site from separate templates and
+content. For my purposes, content means primarily markdown files for blog&nbsp;posts.</p>
+<p>From what I can tell, Wintersmith is closer to Jekyll than it is to Octopress.
+In other words, its not focussed on being a blog, but due to its flexibility you
+can easily use it to build your&nbsp;blog.</p>
+<h3 id="taking-wintersmith-for-a-test-drive">Taking Wintersmith for a Test&nbsp;Drive</h3>
+<p>Before I migrated my blog, I first had to determine if it would meet my needs,
+and whether I’d want to use it. The first step is to install&nbsp;Wintersmith.</p>
+<pre><code class="language-cli">npm install wintersmith -g</code></pre>
+<p>Since Wintersmith is a tool, it should be installed globally, thus the <code>-g</code> flag.</p>
+<p>Next, use wintersmith to scaffold a new&nbsp;site.</p>
+<pre><code class="language-cli">wintersmith new &lt;path&gt;</code></pre>
+<p>At this point you can <code>cd</code> into the new directory that was created, and run
+<code>wintersmith preview</code>, then navigate to the <span class="caps">URL</span> that prints out on the&nbsp;console.</p>
+<p>Conveniently, the starter site that is generated is a simple blog, so it looks
+like a good starting point. However, it will take some work to make it more or
+less on-par with the Octopress version. And I’m only going to go as far as
+“good&nbsp;enough”.</p>
+<h3 id="a-fresh-start">A Fresh&nbsp;Start</h3>
+<p>Before I dive into the nitty gritty of the migration, I want to make a quick note
+about source control. Since I was using Octopress previously, my blog had been
+a fork of the Octopress repository. As you might imagine, not only is this a
+terrible way to distribute a blog generator, but it also meant that my repository’s
+history was a&nbsp;mess.</p>
+<p>In order to get a fresh start, I chose to move to an orphan branch and seed it
+with the existing Octopress repository files. From there I could create a branch
+for the migration, and then merge that into master when&nbsp;complete.</p>
+<p>The end result would be two different branch graphs. One would be the old Octopress
+blog, and the other would be my new Wintersmith blog. The new wintersmith blog
+history would look something like&nbsp;this:</p>
+<pre><code>* d4e924a    [master] Add new post &#39;...
+|\
+| * 043ed82  [octopress-to-wintersmith] Update templates and styles
+| * 5a51c39  Migrate content to Wintersmith structure
+|/
+* 8de24a8    Import files from Octopress</code></pre><p>Alternatively I could have chosen to re-create the master branch from the
+beginning of my fork of Octopress, but that would have been more difficult so I
+decided against it. After all, I do need to start writing content&nbsp;again…</p>
+<h3 id="migrating-the-site">Migrating the&nbsp;Site</h3>
+<p>1) Remove old Octopress&nbsp;files</p>
+<p>Once I had my new orphan branch set up, the first thing to do is remove a bunch
+of files and directories that will no longer be needed. For me this was:
+<code>.themes/</code>, <code>sass/</code>, <code>_config.yml</code>, <code>.rbenv-version</code>, <code>.rvmrc</code>, <code>.slugignore</code>,
+<code>CHANGELOG.markdown</code>, <code>README.markdown</code>, <code>Rakefile</code>, <code>Gemfile</code>, <code>Gemfile.lock</code>,
+<code>config.rb</code>, and <code>config.ru</code>. You might also have stuff in <code>.gitignore</code> that is
+no longer&nbsp;needed.</p>
+<p>2) Add new Wintersmith&nbsp;files</p>
+<p>Assuming that you have node and wintersmith installed, and have created a
+wintersmith site using the <code>wintersmith new &lt;path&gt;</code> command, copy everything
+that wintersmith generated (except for the readme) into your&nbsp;repository.</p>
+<p>3) Basic&nbsp;configuration</p>
+<p>Fill in the <code>name</code>, <code>owner</code>, and description fields in <code>config.json</code>.</p>
+<p>4) Move content (posts) to the new&nbsp;location</p>
+<p>Octopress puts post markdown files in the <code>source\_posts</code> directory. Wintersmith,
+on the other hand, looks in the <code>contents\articles</code> directory. In my case, I
+was prefixing my URLs with ‘blog’, and so the posts will end up in <code>contents\blog</code>
+instead, so you may need to tweak the commands below to fit your&nbsp;scenario.</p>
+<p>You could try <code>remove \contents\articles</code> or <code>rm .\contents\articles -r -force</code>
+in the case of&nbsp;PowerShell.</p>
+<p>Then, to preserve source control history to some extent, <code>git mv source\_posts
+contents\blog</code>.</p>
+<p>5) Tweak the ‘Paginator’&nbsp;Plugin</p>
+<p>At this point, the paginator won’t find any articles to list out, because it
+expects to find sub-directories, each with a single <code>index.md</code> file. This makes
+sense because it closely aligns with the way that the desired URLs will ultimately
+map to the ‘.htm[l]’ files that wintersmith generates, but it is slightly
+inconvenient in a number of ways, so I chose to preserve the Octopress approach
+of a list of ‘.md’ files at the top-level. In order to accomplish this, you have
+to customize the process a&nbsp;bit.</p>
+<p>Edit the <code>getArticles</code> function in <code>plugins\paginator.coffee</code> so that it looks
+like this (based on
+<a href="http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/">Marco Carag’s blog</a>):</p>
+<pre><code class="language-coffeescript"><span class="function"><span class="title">getArticles</span> = <span class="params">(contents)</span> -&gt;</span>
+    <span class="comment"># helper that returns a list of articles found in *contents*</span>
+    articles = []
+    <span class="keyword">for</span> key, value <span class="keyword">of</span> contents[options.articles]
+        articles.push value <span class="keyword">if</span> value <span class="keyword">instanceof</span> env.plugins.Page
+
+    articles.sort (a, b) -&gt; b.date - a.date
+    <span class="keyword">return</span> articles</code></pre>
+<p>You should now have a functional site, however there are many differences
+between the old site and the new site (including URLs), so unless you want a
+bunch of links to break, there is still work left to&nbsp;do.</p>
+<p>6) Customize&nbsp;URLs</p>
+<p>Article URLs look something like ‘/articles/yyyy-mm-dd-some-slug/‘, but I want
+them to be ‘/blog/some-slug’ for backwards&nbsp;compatibility.</p>
+<p>Create a file <code>plugins\blog.coffee</code> and paste in the following code (based on
+<a href="http://marcocarag.com/2014/03/30/migrating-my-blog-s-content-to-wintersmith/">Marco Carag’s blog</a>):</p>
+<pre><code class="language-coffeescript">path = <span class="built_in">require</span> <span class="string">'path'</span>
+slugify = <span class="built_in">require</span> <span class="string">'slugg'</span>
+<span class="function">
+<span class="title">replaceAll</span> = <span class="params">(string, map)</span> -&gt;</span>
+  re = <span class="keyword">new</span> RegExp Object.keys(map).join(<span class="string">'|'</span>), <span class="string">'gi'</span>
+  <span class="keyword">return</span> string.replace re, <span class="function"><span class="params">(match)</span> -&gt;</span> map[match]
+
+    <span class="built_in">module</span>.exports = <span class="function"><span class="params">(env, callback)</span> -&gt;</span>
+
+  defaults =
+    postsDir: <span class="string">'articles'</span> <span class="comment"># directory containing blog posts</span>
+    template: <span class="string">'article.jade'</span>
+    filenameTemplate: <span class="string">'/:year/:month/:day/:file/index.html'</span>
+    stripTrailingSlash: <span class="literal">false</span>
+
+  <span class="comment"># assign defaults for any option not set in the config file</span>
+  options = env.config.blog <span class="keyword">or</span> {}
+  <span class="keyword">for</span> key, value <span class="keyword">of</span> defaults
+    options[key] ?= defaults[key]
+
+  <span class="class"><span class="keyword">class</span> <span class="title">BlogpostPage</span> <span class="keyword">extends</span> <span class="title">env</span>.<span class="title">plugins</span>.<span class="title">MarkdownPage</span></span>
+    <span class="comment">### DRYer subclass of MarkdownPage ###</span>
+
+    getUrl: <span class="function"><span class="params">(base)</span> -&gt;</span>
+      result = <span class="keyword">super</span>(base)
+      <span class="keyword">if</span> (options.stripTrailingSlash <span class="keyword">and</span> result[result.length - <span class="number">1</span>] == <span class="string">'/'</span>)
+        <span class="keyword">return</span> result.substr(<span class="number">0</span>, result.length - <span class="number">1</span>)
+      <span class="keyword">else</span>
+        <span class="keyword">return</span> result
+
+    getTemplate: <span class="function">-&gt;</span>
+      @metadata.template <span class="keyword">or</span> options.template <span class="keyword">or</span> <span class="keyword">super</span>()
+
+    @property <span class="string">'rawFilenameTemplate'</span>, <span class="string">'getRawFilenameTemplate'</span>
+    getRawFilenameTemplate: <span class="function">-&gt;</span>
+      @metadata.filenameTemplate <span class="keyword">or</span> options.filenameTemplate <span class="keyword">or</span> <span class="keyword">super</span>()
+
+    getFilenameTemplate: <span class="function">-&gt;</span>
+      raw = @rawFilenameTemplate
+
+      <span class="keyword">if</span> raw[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
+        <span class="comment"># already an absolute path</span>
+        <span class="keyword">return</span> raw
+      <span class="keyword">else</span>
+        <span class="comment"># prevent base page class from resolving paths</span>
+        <span class="keyword">return</span> <span class="string">'/'</span> + raw
+
+    getFilename: <span class="function">-&gt;</span>
+      rawFileNameTemplate = @rawFilenameTemplate
+
+      dirname = path.dirname @filepath.relative
+
+      filename = <span class="keyword">super</span>()
+
+      <span class="comment"># enable custom 'slug' metadata propery</span>
+      filename = replaceAll filename,
+        <span class="string">':slug'</span>: @slug
+
+      <span class="keyword">if</span> rawFileNameTemplate[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
+        <span class="comment"># remove leading slash from filename template</span>
+        filename = <span class="string">'/'</span> + filename
+
+      <span class="keyword">if</span> filename[<span class="number">0</span>] <span class="keyword">is</span> <span class="string">'/'</span>
+        <span class="comment"># filenames starting with a slash are absolute paths in the content tree</span>
+        <span class="keyword">return</span> filename.slice(<span class="number">1</span>)
+      <span class="keyword">else</span>
+        <span class="comment"># otherwise they are resolved from their directory in the tree</span>
+        <span class="keyword">return</span> path.join dirname, filename
+
+    @property <span class="string">'slug'</span>, <span class="string">'getSlug'</span>
+    getSlug: <span class="function">-&gt;</span>
+      @metadata.slug <span class="keyword">or</span> slugify(@title+<span class="string">''</span>)
+
+  <span class="comment"># register the plugin</span>
+  prefix = <span class="keyword">if</span> options.postsDir <span class="keyword">then</span> options.postsDir + <span class="string">'/'</span> <span class="keyword">else</span> <span class="string">''</span>
+  env.registerContentPlugin <span class="string">'posts'</span>, prefix + <span class="string">'**/*.*(markdown|mkd|md)'</span>, BlogpostPage
+
+  <span class="comment"># done!</span>
+  callback()</code></pre>
+<p>You’ll also need to add it to the ‘plugins’ key in <code>config.json</code>. This will
+allow you to customize features of your blog posts, including URLs, default jade
+template, etc. You’ll also need to install the ‘slugg’ module via npm (and save
+it in your package.json file) -&gt; <code>npm install slugg --save-dev</code>.</p>
+<p>Add this to <code>config.json</code> to set a default&nbsp;template:</p>
+<pre><code class="language-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>
+}</code></pre>
+<p>This also enables <span class="caps">URL</span> customization, and the default template is
+“/:year/:month/:day/:file/index.html”, so your article URLs will now look like&nbsp;‘/yyyy/mm/dd/some-slug/‘.</p>
+<p>For backwards compatibility I need by URLs to look like ‘/blog/some-slug’, so I
+changed the template to “/blog/:slug/index.html” (:slug is an optional ‘slug’
+key in the markdown file, or the slug based on the title, I needed a ‘slug’
+option b/c some of my Octopress slugs were different from what Wintersmith would
+generate, its a good idea to hard-code them all for the import, and I will
+probably do this moving forward as well, so that I have more control over the&nbsp;URLs).</p>
+<pre><code class="language-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>
+}</code></pre>
+<p>There is a trailing slash in the <span class="caps">URL</span> links to posts, so use the
+‘stripTrailingSlash’ option to remove it. This is not a functional change, but
+it helps to be able to more easily compare the old and new&nbsp;output.</p>
+<pre><code class="language-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>,
+    <span class="string">"stripTrailingSlash"</span>: <span class="literal">true</span>
+}</code></pre>
+<p>7) Fix Archive and Paging&nbsp;Links</p>
+<p>My article URLs are correct, but the archive and “paging” links are
+‘/archive.html’ and ‘/page/1/‘, respectively. I want them to be ‘/blog/archives’
+and ‘/blog/page/1’&nbsp;instead.</p>
+<p>Before making these changes, I want the contents structure to more accurately
+match the generated site structure, so move the blog files that I currently have
+into a ‘blog’&nbsp;folder.</p>
+<pre><code class="language-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"postsDir"</span>: <span class="string">"blog"</span>,
+    <span class="string">"template"</span>: <span class="string">"article.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>,
+    <span class="string">"stripTrailingSlash"</span>: <span class="literal">true</span>
+},
+<span class="string">"paginator"</span>: {
+    <span class="string">"articles"</span>: <span class="string">"blog"</span>,
+    <span class="string">"filename"</span>: <span class="string">"blog/page/%d/index.html"</span>,
+    <span class="string">"perPage"</span>: <span class="number">3</span>
+}</code></pre>
+<p>Move the archive template into the ‘blog folder’: <code>mv .\contents\archive.json
+.\contents\blog\archives\index.json</code>.</p>
+<p>In ‘index.jade’: change <code>a(href=&#39;/archive.html&#39;)</code> to <code>a(href=&#39;/blog/archives&#39;)</code>.</p>
+<p>Finally, I renamed the ‘article.jade’ template to&nbsp;‘post.jade’.</p>
+<pre><code class="language-javascript"><span class="string">"blog"</span>: {
+    <span class="string">"postsDir"</span>: <span class="string">"blog"</span>,
+    <span class="string">"template"</span>: <span class="string">"post.jade"</span>,
+    <span class="string">"filenameTemplate"</span>: <span class="string">"/blog/:slug/index.html"</span>,
+    <span class="string">"stripTrailingSlash"</span>: <span class="literal">true</span>
+}</code></pre>
+<p>8) Atom Feed and&nbsp;Sitemap</p>
+<p>Now the last couple of things to take care of are generating an Atom feed, and
+generating a&nbsp;sitemap.</p>
+<p>The sitemap is relatively&nbsp;easy:</p>
+<p><code>npm install wintersmith-contents --save</code></p>
+<p><code>npm install wintersmith-sitemap --save</code></p>
+<p>Add ‘wintersmith-contents’ and ‘wintersmith-sitemap’ to the ‘plugins’ key in
+<code>config.json</code>.</p>
+<p>The Atom feed will be a bit trickier, so we’ll need to create a custom template
+for it: <code>templates\atom.jade</code>.</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+- var articles = _.first(env.helpers.getArticles(contents), 20);
+- var canonicalUrl = locals.url.lastIndexOf(&#39;/&#39;) === locals.url.length - 1 ? locals.url : locals.url + &#39;/&#39;;
+feed(xmlns=&#39;http://www.w3.org/2005/Atom&#39;)
+  title= &#39;&#39; + locals.title + &#39;&#39;
+  link(href=canonicalUrl + &#39;atom.xml&#39;, rel=&#39;self&#39;)
+  link(href=canonicalUrl)
+  updated= moment(articles[0].date).format()
+  id= canonicalUrl
+  author
+    name
+        | &lt;![CDATA[
+        = locals.owner
+        | ]]&gt;
+  generator(uri=&#39;http://wintersmith.io/&#39;) Wintersmith
+  for article in articles
+    - var permalink = canonicalUrl + (article.url.indexOf(&#39;/&#39;) === 0 ? article.url.substring(1) : article.url)
+    entry
+        title(type=&#39;html&#39;)
+            | &lt;![CDATA[
+            = article.title
+            | ]]&gt;
+        link(href=permalink)
+        updated= moment(article.date).format()
+        id= permalink
+        //- passing locals.url resolves all relative urls to absolute
+        content(type=&#39;html&#39;)
+            | &lt;![CDATA[
+            = article.metadata.excerpt || article.getHtml(locals.url)
+            | ]]&gt;</code></pre><h3 id="wrap-up">Wrap&nbsp;Up</h3>
+<p>I’m sure I left out a few details, but that should get you 80% of the way there.
+If you have questions feel free to hit up the comments&nbsp;below.</p>
+</section><section><h2>Comments</h2><div id="disqus_thread"></div></section></article><footer><script type="text/javascript" src="/javascripts/disqus.js?v=2.0.0&amp;name=endlessobsession"></script><small>Copyright &copy; 2022 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small><script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script></footer></main></div></body></html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>The Endless Obsession</title><meta name="author" content="Bryan Matthews"><meta name="description" content="The personal blog of Bryan Matthews"><!-- Viewport and Media Queries: http://t.co/dKP3o1e --><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="http://endlessobsession.com/" rel="canonical"><link href="/infinity-symbol.png" rel="icon"><link href="/atom.xml" rel="alternate" type="application/atom+xml" title="The Endless Obsession"><link href="/stylesheets/normalize-3.0.2.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/theme-2.0.css" media="screen, projection" rel="stylesheet" type="text/css"><link href="/stylesheets/tomorrow.css" media="screen, projection" rel="stylesheet" type="text/css"></head><body><div class="container"><header role="banner"><hgroup><h1><a href="http://endlessobsession.com/">The Endless Obsession</a></h1><small>better code</small></hgroup><nav role="navigation"><ul><li><a href="http://endlessobsession.com/">Home</a></li><li><a href="http://endlessobsession.com/about" rel="author">About</a></li><li><a href="http://endlessobsession.com/blog/archives">Blog</a></li></ul><form action="http://google.com/search"><fieldset role="search"><input type="hidden" name="q" value="site:http://endlessobsession.com/"><input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form></nav><nav role="complementary"><ul><li><a href="/atom.xml" title="RSS">RSS</a></li><li><a href="https://github.com/mattheyan" title="Github: mattheyan" target="_blank">Github</a></li><li><a href="https://twitter.com/BryanMatthews" title="Twitter: @BryanMatthews" target="_blank">Twitter</a></li></ul></nav></header><main><section><article><header><h2 class="title"><a rel="article" href="/blog/dotnet-project-root-at-runtime">.NET: Getting the Project Root Directory at Runtime</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2016-06-03" pubdate>Jun 2nd, 2016</time></div></header><section><p>When developing in .<span class="caps">NET</span>, whether it be an ASP.NET website, or a console
+application, you usually don’t have to access the file-system directly. One
+reason that you would is to read a configuration file, but, .NET
+configuration management handles this for you via ‘Web.config’ or ‘App.config’
+and the <code>ConfigurationManager</code>. Another scenario is loading a resource, like an
+image or document, from disk. But, again, the framework provides a nice solution
+via embedded&nbsp;resources.</p>
+<p>If you’re considering accessing the file-system you would do well to consider
+if there are better ways to do what you’re trying to do. That being said, you
+may occasionally have a legitimate reason to access the file-system&nbsp;directly.</p>
+<p>Here are a few simple examples of how to do&nbsp;this:</p>
+<p><strong><span class="caps">ASP</span>.NET</strong></p>
+<pre><code class="language-csharp"><span class="keyword">var</span> root = HttpContext.Current.Server.MapPath(<span class="string">"~/"</span>);</code></pre>
+<p><strong>WinForms</strong></p>
+<pre><code class="language-csharp"><span class="keyword">var</span> root = Application.ExecutablePath;</code></pre>
+<p><strong><span class="caps">WPF</span>, Console Application,&nbsp;etc.</strong></p>
+<pre><code class="language-csharp"><span class="keyword">var</span> assembly = System.Reflection.Assembly.GetEntryAssembly();
+<span class="keyword">var</span> assemblyPath = <span class="keyword">new</span> Uri(assembly.CodeBase).AbsolutePath;
+<span class="keyword">var</span> root = System.<span class="caps">IO</span>.Path.GetDirectoryName(assemblyPath);</code></pre>
+<p>So, why would you even want to do&nbsp;this?</p>
+<p><a rel="more" href="/blog/dotnet-project-root-at-runtime">Continue reading</a></p></section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/removing-password-from-repo">Removing a Password from a Git Repository</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2016-05-30" pubdate>May 30th, 2016</time></div></header><section><p>It’s generally considered a bad idea to commit passwords, api keys, etc. to your
+source code repository. There are various ways you can try to avoid this
+(and you should), but sooner or later its going to happen. Someone will add some
+“sensitive” data to a&nbsp;repository.</p>
+<p>For some projects it doesn’t matter quite so much. If they’re not hosted
+publicly on a site like github and never make it out of your company’s internal
+network, then its not that big of a deal. For others, it is important, and it
+could be that your only option is to reset the passwords, revoke the <span class="caps">API</span> keys,
+or something to that effect. What a&nbsp;pain!</p>
+<p>There is another option to consider if you’re using git. Since git allows you to
+rewrite history, you can rewrite the repo to make it look like the password leak
+never even happened. This should only be done if you know the data hasn’t been
+leaked and the repo isn’t propogated all over your organization
+(rewriting history will cause people grief if they have the repo&nbsp;already).</p>
+<p>Let’s say your history looks something like&nbsp;this:</p>
+<pre><code>c6 = add test cases
+c5 = tweak theme colors
+c4 = add password to config * &lt;- commit of the data leak
+c3 = fix spelling error
+c2 = prototype * &lt;- last commit to config before the data leak
+c1 - add README
+
+* = involves the offending file
+</code></pre><p>Start by getting the last version of <strong>the config file</strong> before the password was
+added to the config&nbsp;file.</p>
+<p><code>git checkout c2 /path/to/config</code></p>
+<p>…or, remove it&nbsp;manually.</p>
+<p>Then, commit that&nbsp;change:</p>
+<p><code>git commit -m &quot;remove password from config&quot;</code></p>
+<p>Now your history looks like&nbsp;this:</p>
+<pre><code>c7 = remove password from config
+c6 = add test cases
+c5 = tweak theme colors
+c4 = add password to config * &lt;- commit of the data leak
+c3 = fix spelling error
+c2 = prototype * &lt;- last commit to config before the data leak
+c1 - add README
+
+* = involves the offending file
+</code></pre><p>Now, rebase the commit where the password was introduce (<code>c4</code> in this&nbsp;example):</p>
+<p><code>git rebase c4~1 -i</code></p>
+<p>This opens up vim, or whatever your configured editor&nbsp;is.</p>
+<pre><code>pick c4 add password to config
+pick c5 tweak theme colors
+pick c6 add test cases
+pick c7 remove password from config
+
+A bunch of other stuff...
+</code></pre><p>Move the “fix” commit (<code>c7</code> in our case) to the line <strong>below</strong> the one where the
+password was <strong>added</strong> (<code>c4</code>), and change the prefix from ‘pick’ to&nbsp;‘fixup’.</p>
+<pre><code>pick c4 add password to config
+fixup c7 remove password from config
+pick c5 tweak theme colors
+pick c6 add test cases</code></pre><p>From <a href="https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing">github’s rebase documentation</a>,
+this tells git to use this commit to “fix” the prior commit, and then discard&nbsp;it.</p>
+<p>The result is that the history looks like it did before, but the password is no
+longer in the config file on disk, or <em>in git’s history</em>. Also, if the only
+change to that file in the offending commit was the password which you removed,
+then the file will no longer show up in that commit (as you would&nbsp;expect).</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li><a href="https://help.github.com/articles/about-git-rebase/#commands-available-while-rebasing">Github’s rebase&nbsp;documentation</a></li>
+<li><a href="http://stackoverflow.com/a/28173964/170990">Stack Overflow: Remove files from Git&nbsp;commit</a></li>
+</ul>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/code-comments">A Commentary on Comments</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2016-05-12" pubdate>May 12th, 2016</time></div></header><section><pre><code class="language-javascript"><span class="comment">// <span class="doctag"><span class="caps">TODO</span>:</span> Improve post intro before publishing to the interwebs.</span></code></pre>
+<p>Comments are probably one of the most boring topics you can&nbsp;imagine.</p>
+<p>Plus, they’re so easy to&nbsp;write?</p>
+<p>And yet, somehow I get the feeling we’re doing it&nbsp;wrong.</p>
+<p>Have you ever tried in vain to understand why a bit of code was doing something
+that made no sense, and wished that the author had left you a clue as to their
+intentions at the time (in the comments,&nbsp;perhaps)?</p>
+<p>Or, have you ever looked at a bit of code, and then the comments attached to it,
+and then back at the code, and then the comments… and wondered, “Am I not
+getting something about this code, or is this comment just plain wrong?” (Hint:
+the comment is <em>probably</em>&nbsp;wrong.)</p>
+<p>Finally, think back to the last time you looked at a comment and thought to yourself,
+“hmm, that was actually&nbsp;useful”.</p>
+<p><a rel="more" href="/blog/code-comments">Continue reading</a></p></section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/so-long-octopress-hello-wintersmith">So Long Octopress, Hello Wintersmith</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2015-04-18" pubdate>Apr 18th, 2015</time></div></header><section><p><a href="http://octopress.org/">Octopress</a> has been a popular hacker’s blog for quite a
+while, and so I made the switch a few years ago in order to escape the clutches
+of Wordpress. Now I have a hack-able blog that also costs me nothing to&nbsp;host.</p>
+<p>Unfortunately, Octopress isn’t a good long-term fit. At the end of the day the
+deal-breaker for me is the fact that it runs on&nbsp;ruby.</p>
+<p>Don’t get me wrong, ruby itself is just fine. But, if you’ve worked with ruby on
+Windows you know that its full of pain all the way down. If you’re thinking
+about it, do yourself a favor and just don’t do&nbsp;it.</p>
+<p>Sure, I could have run Linux on a separate partition, or on a <span class="caps">VM</span>, or in the
+cloud, etc. I have no problem doing that, except that it requires managing yet
+another machine/OS. I’m already investing enough time automating Windows-based
+workstations, so why <del>waste</del> spend my time on it if I don’t have&nbsp;to?</p>
+<p>So I set out to find an alternative that would work reliably on Windows, and
+<strong>run on node.js</strong>. I targeted node because it generally <em>just works</em> on Windows,
+and node and JavaScript in general are skills that I’m more interested in developing.
+What I found was <a href="https://github.com/jnordberg/wintersmith">Wintersmith</a>.</p>
+<p><a rel="more" href="/blog/so-long-octopress-hello-wintersmith">Continue reading</a></p></section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/octopress-post-excerpts-and-couldnt-parse-yaml">Octopress post excerpts and 'couldn't parse YAML'</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2013-10-16" pubdate>Oct 15th, 2013</time></div></header><section><p>This evening I noticed a syntax error in my blog’s <span class="caps">ATOM</span> feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn’t bother to determine. However, I also noticed that the post summaries were rather large and didn’t appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one&nbsp;stone.</p>
+<p>I discovered that the <span class="caps">YAML</span> that lives in each post’s header (more on that later) <a href="https://github.com/imathis/octopress/issues/1146">could include an “excerpt” property</a> where I could write my own summary of the&nbsp;post.</p>
+<p>For example, here’s the header of this&nbsp;post:</p>
+<pre><code>---
+layout: post
+title: &quot;Octopress post excerpts and &#39;couldn&#39;t parse YAML&#39;&quot;
+date: 2013-10-15 21:14
+excerpt: This evening I noticed a syntax error in my blog&#39;s ATOM feed. The error seemed to stem from the text in one of my more recent posts, what exactly I didn&#39;t bother to determine. However, I also noticed that the post summaries were rather large and didn&#39;t appear to do a good job of summarizing post content in any case. So, it seemed the best thing to do was to figure out how I could get Octopress to use a better summary and kill 2 birds with one stone.
+comments: true
+categories: 
+---</code></pre><p>This worked so well that I promptly went through all of my posts and threw up some quick excerpts without much thought. Unfortunately I soon ran into an error: <a href="https://github.com/imathis/octopress/issues/57">‘parse’: couldn’t parse <span class="caps">YAML</span></a>.</p>
+<p>I hadn’t thought about it until now, but the configuration at the head of each post is <span class="caps">YAML</span>. I don’t know much about YAML, but apparently something was wrong with one of my&nbsp;excerpts.</p>
+<p>Fortunately I was able to track it down to the “:” character, which is somehow significant in <span class="caps">YAML</span> syntax. <a href="http://yamllint.com/"><span class="caps">YAML</span> Lint</a> was an invaluable&nbsp;resource.</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/file-dot-openwrite-gotcha">File.OpenWrite Gotcha</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2013-01-03" pubdate>Jan 3rd, 2013</time></div></header><section><p>Recently I ran into an odd problem when writing a text file to disk using .<span class="caps">NET</span>’s <code>File.OpenWrite</code>.</p>
+<pre><code class="language-cs"><span class="keyword">using</span> (<span class="keyword">var</span> fileWriter = <span class="keyword">new</span> StreamWriter(File.OpenWrite(outputFilePath)))
+{
+    fileWriter.WriteLine(<span class="string">"abc"</span>);
+}</code></pre>
+<p>You might expect that after executing this code the text in the file would be “abc”.  Not quite.  In my case I was sometimes seeing results like&nbsp;this…</p>
+<pre><code>abc
+some other text</code></pre><p>…where “some other text” is the last bit of text in the file before&nbsp;writing.</p>
+<p>It turns out that the <a href="http://msdn.microsoft.com/en-us/library/system.io.file.openwrite.aspx" title="System.IO.File.OpenWrite">documentation for File.OpenWrite</a> contains the&nbsp;answer.</p>
+<blockquote>
+<p>If you overwrite a longer string (such as “This is a test of the OpenWrite method”) with a shorter string (such as “Second run”), the file will contain a mix of the strings (“Second runtest of the OpenWrite&nbsp;method”).</p>
+</blockquote>
+<p><code>OpenWrite</code> behaves much like the dreaded insert mode in word processors and text&nbsp;editors.</p>
+<p>The solution that I chose is pretty simple.  Just <a href="http://stackoverflow.com/questions/2695444/clearing-content-of-text-file-using-c-sharp" title="Stack Overflow - Clearing content of text file using C#">clear the file’s contents</a>&nbsp;beforehand.</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/chrome-select-excessive-padding">Chrome select excessive padding</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2012-11-28" pubdate>Nov 27th, 2012</time></div></header><section><p>Recently I noticed that dropdowns (&lt;select&gt;) in chrome suddenly had an excessive amount of padding on my Windows 7 <span class="caps">PC</span>.  This is what it looked&nbsp;like.</p>
+<p><img src="/images/select-pad.png" alt="Screenshot of excessive padding"></p>
+<p>I did some digging on the web and found a <a href="http://code.google.com/p/chromium/issues/detail?id=146745">chromium bug report</a>.</p>
+<p>One of the comments near the end of the page gives the solution to the&nbsp;problem.</p>
+<blockquote>
+<p>Actually that is the problem. Windows has a service called “Tablet <span class="caps">PC</span> Input Service”. When this is running Windows 7 thinks it’s a tablet instead of a desktop. Once I turned this off and restarted chrome the drop down spacing is correct. But as soon as I turn the service back on the extra spacing comes&nbsp;back.</p>
+</blockquote>
+<p>Sure enough, there was a service running on my laptop called “Tablet <span class="caps">PC</span> Input&nbsp;Service”.</p>
+<p><img src="/images/tablet-pc-input-service.png" alt="Screenshot of excessive padding"></p>
+<p>…and when I stopped the service _<strong>and restarted chrome</strong>_, the padding went back to&nbsp;normal.</p>
+<p><img src="/images/select-nopad.png" alt="Screenshot of excessive padding"></p>
+<p>My laptop is a touchscreen and turning off this service doesn’t seem to affect touchscreen functionality.  Don’t forget to change the service startup type to “Manual” or “Disabled” so that it doesn’t start back up the next time you log&nbsp;on.</p>
+<p>This <a href="http://productforums.google.com/forum/#!topic/chrome/EIgNjmURGbo">Google Groups post</a> might also be&nbsp;relevant.</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/should-you-write-awesome-code">Should you write awesome code?</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2012-06-29" pubdate>Jun 28th, 2012</time></div></header><section><p>I ran across this provacative post on the tubes: <a href="http://jhovgaard.net/how-i-stopped-writing-awesome-code">How I stopped writing awesome code</a>. The following is my reaction and thoughts (hastily thrown together). Go to the link and read it first or what follows probably won’t make much&nbsp;sense.</p>
+<p>I certainly agree that some of the practices he mention can have little benefit in the short term. Many people pointed out in the comments that the short term gains of “trimming the fat” can come back to haunt you on long term projects, and I’ll second&nbsp;that.</p>
+<p>Someone in the comments described how they have frequently inherited projects where it looked like the developer(s) had this mindset and it usually turned out to be a mess/headache to maintain. I think the mental burden he described to understand concepts/tools like <span class="caps">IOC</span>, ORMs, etc. is only one side of the coin. The other side is that not following best practices and using powerful tools that are available can be just as frustrating to a developer who inherits the project (or even your future self), especially in the event that the app has to be significantly enhanced or changed. That said, I have also had the experience where I found that I had over-engineered a project too early and ended up “stuck” with some of those poor decisions later on. I think the key is to not try to over-engineer too early, but rather follow only tried and true best practices that require little added effort and could yield future gains, improve and refactor as the project grows, and never be satisfied with where things are today. For what it’s worth, in the case where I made regrettable engineering decisions early on, I was also deviating from common/best practices, i.e. trying to be&nbsp;clever.</p>
+<p>As for F12, I don’t think you can ever really get around the limitations of the <span class="caps">IDE</span> with respect to interfaces and abstract/virtual members. I have been in the habit lately of using Shift+F12 (symbol search) rather than “Go to Definition” unless I know for sure that there is a single implementation of the member that I’m trying to get at. Resharper is also a good choice to improve the IDE experience. As irritating as F12 can be, I wouldn’t use that as reason to avoid using useful language&nbsp;features.</p>
+<p>Finally, to tie it together with an anecdote: I can think of two projects off the top of my head that seem to fall into the too extremes. One was hastily thrown together by a freelance developer to meet a client need. The source control wasn’t hosted on a popular <span class="caps">OSS</span> hosting services, it was just offered up for download on the blog.  There were no unit tests.  Most of the code was in a single class file with a number of supporting classes that were essentially just data containers.  On the one hand, I ended up having to significantly enhance that project and found it to be very frustrating and painful.  On the other hand, if he hadn’t thrown it together it may be that nothing like it would have existed at all and I would have been forced to start from square 1 (and making my own mistakes as a result).  The other project was a highly engineered and conformed to a highly detailed open specification, complete with interfaces, IOC, and unit tests galore.  On the one hand, when I discovered a bug I was able to easily verify the bug via unit test, fix it, and see it go green.  On the other hand, the project is not very active now (has been somewhat superseded by other technology) so you could argue that the effort was&nbsp;wasted.</p>
+<p>Its all about&nbsp;balance…</p>
+<p>Also, someone pointed out that its possible to write tests as <span class="caps">UI</span> acceptance tests that actually interact with the web browser (using Selenium) and mimic user behavior. I happen to use WatiN instead in my day-to-day, but what’s important is that you can verify the behavior that your clients are going to be looking for in an automated fashion. Do&nbsp;it!</p>
+<p>Thanks to Jonas for provoking critical thought!&nbsp;:)</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/carolina-code-camp-2012-presentation">Carolina Code Camp 2012 Presentation</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2012-05-26" pubdate>May 26th, 2012</time></div></header><section><p>Recently I co-presented with <a href="http://bobbydimmick.com/">Bobby Dimmick</a> at the annual <a href="http://codecamp.developersguil1d.org/">Carolina Code Camp</a>, put on by the Enterprise Developers Guild of Charlotte.  The event was wildly successful, with sold-out attendance and a day fully booked with&nbsp;speakers.</p>
+<p><a href="http://www.flickr.com/photos/arturask/sets/72157629645140924/with/7162456222/">Pictures from the&nbsp;event</a></p>
+<p>Our presentation was entitled “Building rich, model-centric, event-driven web apps using <span class="caps">EF</span>, Razor <span class="amp">&amp;</span> open source”.  The approach we took was to build a demo application from the ground up, and document the process so that it was reproducible.  The app is hosted at <a href="http://todoapp.exosuite.com">todoapp.exosuite.com</a> and the walkthrough is at <a href="http://todoapp.exosuite.com/walkthrough">todoapp.exosuite.com/walkthrough</a>.</p>
+<p><img src="/images/todoapp.png" alt="Screenshot"></p>
+<p>You can build the app yourself by following the walkthrough.  I promise, I did it many times!&nbsp;:)</p>
+</section></article></section><section><article><header><h2 class="title"><a rel="article" href="/blog/learning-f-with-tdd-part-2">Learning F# with TDD: Part 2</a></h2><div class="byline"><span class="author">Bryan Matthews</span><time datetime="2012-01-12" pubdate>Jan 11th, 2012</time></div></header><section><p><a href="http://endlessobsession.com/2011/08/21/learning-fsharp-with-tdd-part-1/">Last time</a> I talked about setting up F# testing using NUnit, TestDriven.Net, and NaturalSpec.  This time around I’ll elaborate a little bit on the testing aspects, and also talk about active&nbsp;patterns.</p>
+<!--more-->
+
+<p><a rel="more" href="/blog/learning-f-with-tdd-part-2">Continue reading</a></p></section></article></section><nav role="navigation"><ul><li><a rel="archives" href="/blog/archives">Archives</a></li><li><a rel="next" href="/blog/page/2/">Older</a></li></ul></nav><footer><small>Copyright &copy; 2022 - Bryan Matthews &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a></small><script type="text/javascript" src="/javascripts/analytics.js?v=1.0.0&amp;id=UA-17782995-1"></script></footer></main></div></body></html>
