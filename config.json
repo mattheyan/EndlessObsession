@@ -13,7 +13,6 @@
     "./plugins/paginator.js",
     "./plugins/blog.js",
     "wintersmith-contents",
-    "wintersmith-libsass",
     "wintersmith-sitemap",
     "wintersmith-html"
   ],

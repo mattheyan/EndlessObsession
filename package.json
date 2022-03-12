@@ -17,7 +17,6 @@
     "wintersmith": "^2.2.0",
     "wintersmith-contents": "^0.1.2",
     "wintersmith-html": "^0.2.0",
-    "wintersmith-libsass": "^0.4.1",
     "wintersmith-sitemap": "^0.2.0"
   },
   "devDependencies": {
