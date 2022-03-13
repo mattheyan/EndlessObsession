@@ -87,6 +87,11 @@ article header div.byline span.author:after {
     margin-right: 7px
 }
 
+input.search {
+    border-radius: 5px;
+    padding: 3px
+}
+
 article p.summary {
     font-style: italic;
     color: #555

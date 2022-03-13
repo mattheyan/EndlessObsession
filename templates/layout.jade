@@ -43,7 +43,7 @@ html(lang='en')
           form(action='https://google.com/search')
             fieldset(role='search')
               input(type='hidden', name='q', value='site:' + locals.url)
-              input.search(type='text', name='q', results='0', placeholder='Search')
+              input.search(type='text', name='q', results='0', placeholder='Search' autocomplete='off')
         nav(role='complementary')
           ul
             li
