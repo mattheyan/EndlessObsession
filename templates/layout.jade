@@ -40,7 +40,7 @@ html(lang='en')
               a(href=canonicalUrl + 'about', rel='author')= 'About'
             li
               a(href=canonicalUrl + 'blog/archives')= 'Blog'
-          form(action='http://google.com/search')
+          form(action='https://google.com/search')
             fieldset(role='search')
               input(type='hidden', name='q', value='site:' + locals.url)
               input.search(type='text', name='q', results='0', placeholder='Search')
