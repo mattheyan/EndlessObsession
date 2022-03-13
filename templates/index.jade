@@ -4,7 +4,6 @@ block content
   - var canonicalUrl = locals.url.lastIndexOf('/') === locals.url.length - 1 ? locals.url : locals.url + '/';
   each article in articles
     section
-      include author.jade
       article
         header
           h2.title
