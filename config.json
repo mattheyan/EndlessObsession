@@ -14,7 +14,8 @@
     "./plugins/blog.js",
     "wintersmith-contents",
     "wintersmith-sitemap",
-    "wintersmith-html"
+    "wintersmith-html",
+    "wintersmith-livereload"
   ],
   "require": {
     "moment": "moment",
