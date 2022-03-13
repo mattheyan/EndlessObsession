@@ -83,7 +83,8 @@ article header h2.title {
 
 article header div.byline span.author:after {
     content: "|";
-    margin-left: 7px
+    margin-left: 7px;
+    margin-right: 7px
 }
 
 article p.summary {
