@@ -15,6 +15,7 @@
     "wintersmith-contents",
     "wintersmith-sitemap",
     "wintersmith-html",
+    "wintersmith-less",
     "wintersmith-livereload"
   ],
   "require": {
