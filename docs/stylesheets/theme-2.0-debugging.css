@@ -1,0 +1,75 @@
+@charset "UTF-8";
+body {
+  background-color: #000;
+}
+body div.container {
+  background-color: #333;
+  border: 0.5px dashed purple;
+}
+body div.container header {
+  border: 0.5px dashed darkgreen;
+}
+body div.container header hgroup {
+  border: 0.5px dashed olive;
+}
+body div.container header hgroup h1 {
+  border: 0.5px dashed turquoise;
+}
+body div.container header hgroup small {
+  border: 0.5px dashed wheat;
+}
+body div.container > header nav[role=navigation] {
+  border: 0.5px dashed red;
+}
+body div.container > header nav[role=navigation] ul {
+  border: 0.5px dashed orange;
+}
+body div.container > header nav[role=navigation] ul li {
+  border: 0.5px dashed yellow;
+}
+body div.container main > section {
+  background-color: #fff;
+  border: 0.5px dashed teal;
+}
+body div.container main {
+  border: 0.5px dashed blue;
+}
+body div.container main,
+p > code {
+  background: #f0f0f0;
+}
+article p.summary {
+  color: #555;
+}
+body div.container > header hgroup h1 a {
+  color: #f2f2f2;
+}
+body div.container > header hgroup small {
+  color: #aaa;
+}
+body div.container > header nav[role=navigation] ul li:not(:last-child) {
+  border-right-color: #aaa;
+}
+body div.container > header nav[role=navigation] ul li a {
+  color: #008b8b;
+}
+article header h2.title a {
+  color: #333;
+}
+article header div.byline {
+  color: #777;
+}
+article section hr {
+  border-top-color: #f0f0f0;
+}
+footer {
+  color: #222;
+  border-top-color: #f2f2f2;
+}
+p > code {
+  color: #555;
+  border-color: #ddd;
+}
+blockquote {
+  border-left-color: rgba(170, 170, 170, 0.5);
+}

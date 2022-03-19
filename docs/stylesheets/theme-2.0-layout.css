@@ -1,0 +1,84 @@
+@charset "UTF-8";
+body {
+  display: flex;
+}
+body div.container {
+  display: flex;
+  flex-flow: row;
+  height: 100%;
+  max-width: 1100px;
+}
+body div.container > header {
+  width: 275px;
+  margin: 0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+body div.container > main {
+  height: 100%;
+  min-width: 725px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+body div.container > header hgroup {
+  padding: 0 20px;
+  margin: 10px 0;
+}
+body div.container > header hgroup h1,
+body div.container > header hgroup h2,
+body div.container > header hgroup h3,
+body div.container > header hgroup h4,
+body div.container > header hgroup h5 {
+  margin: 0;
+}
+@media screen and (max-width: 800px) {
+  body div.container {
+    flex-flow: column;
+  }
+  body div.container > header {
+    margin: 0;
+    height: auto;
+    width: 100%;
+  }
+  body div.container > header {
+    padding: 3px 10px;
+  }
+  body div.container > header hgroup {
+    margin: 0;
+    padding: 0 0 3px 0;
+  }
+  body div.container > main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  body div.container > main > section {
+    padding: 10px;
+  }
+  body div.container > header h1 {
+    margin: 5px 0 0;
+  }
+  body div.container > header nav[role=navigation] ul {
+    flex-flow: row;
+    padding-left: 0;
+    margin: 0 0 5px;
+  }
+  body div.container > header nav[role=navigation] ul li {
+    display: inline-block;
+  }
+  body div.container > header nav[role=navigation] ul li:not(:last-child) {
+    padding-right: 8px;
+    border-right: 1px solid;
+    margin-right: 5px;
+  }
+  :root body div.container > header nav[role=navigation] form,
+  :root body div.container > header nav[role=complementary] {
+    display: none;
+  }
+  body div.container > main {
+    width: auto;
+    min-width: auto;
+  }
+  body div.container > main section {
+    width: auto;
+  }
+}

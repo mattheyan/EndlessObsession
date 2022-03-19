@@ -1,0 +1,65 @@
+@charset "UTF-8";
+blockquote,
+footer {
+  position: relative;
+}
+body div.container > header nav[role=navigation] ul {
+  padding-left: 20px;
+  list-style: none;
+}
+body div.container > header nav[role=complementary] {
+  padding: 3px 10px;
+}
+body div.container > header nav[role=complementary] ul {
+  padding: 0;
+}
+body div.container > main section {
+  margin-bottom: 10px;
+}
+body div.container > main section article {
+  margin-bottom: 50px;
+}
+article header {
+  margin: 10px 0 20px;
+}
+article header h2.title {
+  margin: 8px 0;
+}
+article header div.byline span.author:after {
+  content: "|";
+  margin-left: 7px;
+  margin-right: 7px;
+}
+input.search {
+  border-radius: 5px;
+  padding: 3px;
+}
+article section {
+  width: 700px;
+}
+body div.container > header hgroup small {
+  margin: .2em 0 0;
+}
+body div.container > header nav[role=navigation] form fieldset {
+  border: none;
+}
+article section hr {
+  border-top: .5px solid;
+  border-right: none;
+  border-left: none;
+}
+footer {
+  margin-bottom: 10px;
+  padding: 12px 0;
+  border-top: 1px solid;
+}
+p > code {
+  display: inline-block;
+  border: 1px solid;
+  padding: 0 .3em;
+  margin: -1px 0;
+}
+blockquote {
+  padding-left: 15px;
+  border-left: 4px solid;
+}
