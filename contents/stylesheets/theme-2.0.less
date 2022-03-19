@@ -1,17 +1,8 @@
 @charset "UTF-8";
-body div.container > header hgroup h1,
-body div.container > header hgroup small {
-  font-weight: 400;
-  font-family: "PT Serif", Georgia, "Helvetica Neue", Arial, sans-serif;
-}
-article header h2.title,
-body div.container > header hgroup h1,
-body div.container > header hgroup small {
-  font-family: "PT Serif", Georgia, "Helvetica Neue", Arial, sans-serif;
-}
-body {
-  color: #333;
-}
+
+@import "theme-2.0-typography.less";
+@import "theme-2.0-colors.less";
+
 body div.container {
   display: table;
   height: 100%;
@@ -22,15 +13,10 @@ body div.container > header {
   position: fixed;
   height: 100%;
   margin: 0 auto;
-  background: #2f4f4f;
 }
 blockquote,
 footer {
   position: relative;
-}
-body div.container main,
-p > code {
-  background: #fff;
 }
 body div.container > header hgroup {
   padding: 0 20px;
@@ -77,10 +63,6 @@ input.search {
   border-radius: 5px;
   padding: 3px;
 }
-article p.summary {
-  font-style: italic;
-  color: #555;
-}
 article section {
   width: 700px;
 }
@@ -94,70 +76,31 @@ hgroup h4,
 hgroup h5 {
   margin: 0;
 }
-body div.container > header hgroup h1 {
-  font-size: 3.23em;
-  line-height: 1.2em;
-}
-body div.container > header hgroup h1 a {
-  color: #f2f2f2;
-  text-decoration: none;
-}
 body div.container > header hgroup small {
   margin: .2em 0 0;
-  font-size: 1em;
-  color: #aaa;
-}
-body div.container > header nav[role=navigation] ul li a {
-  text-decoration: none;
-  font-size: 1.5em;
-  color: #008b8b;
 }
 body div.container > header nav[role=navigation] form fieldset {
   border: none;
 }
-article header h2.title {
-  font-size: 2.2rem;
-}
-article header h2.title a {
-  text-decoration: none;
-  color: #333;
-}
-article header h2.title a:focus,
-article header h2.title a:hover {
-  text-decoration: underline;
-}
-article header div.byline {
-  color: #777;
-  font-weight: 700;
-}
-article p {
-  line-height: 1.4em;
-}
 article section hr {
-  border-top: .5px solid #f0f0f0;
+  border-top: .5px solid;
   border-right: none;
   border-left: none;
 }
 footer {
   margin-bottom: 10px;
   padding: 12px 0;
-  color: #222;
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid;
 }
 p > code {
   display: inline-block;
-  white-space: no-wrap;
-  font-size: .8em;
-  line-height: 1.5em;
-  color: #555;
-  border: 1px solid #ddd;
+  border: 1px solid;
   padding: 0 .3em;
   margin: -1px 0;
 }
 blockquote {
-  font-style: italic;
   padding-left: 15px;
-  border-left: 4px solid rgba(170, 170, 170, 0.5);
+  border-left: 4px solid;
 }
 a[rel=prev]:before {
   content: "« ";
@@ -229,7 +172,7 @@ nav[role=navigation] nav[role=complementary] a[href*="feed.xml"] {
   }
   body div.container > header nav[role=navigation] ul li:not(:last-child) {
     padding-right: 8px;
-    border-right: 1px solid #aaa;
+    border-right: 1px solid;
     margin-right: 5px;
   }
   body div.container > header nav[role=navigation] form,
