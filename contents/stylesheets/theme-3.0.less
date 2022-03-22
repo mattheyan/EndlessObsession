@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+@import "theme-3.0-layout.less";
+@import "theme-3.0-typography.less";
+@import "theme-3.0-social-icons.less";
+
+// Add a separator between blog post author and date
+article header div.byline span.author:after {
+    content: "|";
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+// Make sure floats, etc. don't affect main content
+main {
+    clear: both;
+}
+
+// Use 700px for article width
+main > section {
+    max-width: 700px;
+}
+
+body > div > header nav[role=navigation] ul {
+  padding-left: 20px;
+  list-style: none;
+}
+body > div > header nav[role=complementary] {
+  padding: 10px 20px;
+}
+body > div > header nav[role=complementary] ul {
+  padding: 0;
+}
+body > div > header nav[role=complementary] ul li:not(:first-child) {
+  margin-left: 5px;
+}
+body > div > main section {
+  margin-bottom: 10px;
+}
+body > div > main section article {
+  margin-bottom: 50px;
+}
+article header {
+  margin: 10px 0 20px;
+}
+article header h2.title {
+  margin: 8px 0;
+}
+
+input.search {
+  border-color: #d0d0d0;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+body > div > header hgroup small {
+  margin: .2em 0 0;
+}
+body > div > header nav[role=navigation] form fieldset {
+  border: none;
+}
+article section hr {
+  border-top: .5px solid;
+  border-right: none;
+  border-left: none;
+}
+footer {
+  margin-bottom: 10px;
+  padding: 12px 0;
+  border-top: 1px solid;
+}
+p > code {
+  display: inline-block;
+  border: 1px solid;
+  padding: 0 .3em;
+  margin: -1px 0;
+}
+blockquote {
+  padding-left: 15px;
+  border-left: 4px solid;
+}

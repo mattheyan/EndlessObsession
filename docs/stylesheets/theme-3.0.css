@@ -1,0 +1,321 @@
+@charset "UTF-8";
+body > div {
+  display: table;
+  height: 100%;
+  max-width: 1100px;
+}
+body > div > header {
+  width: 275px;
+  margin: 0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+body > div > header nav[role=navigation] form {
+  padding-left: 20px;
+}
+body > div > main {
+  display: table-cell;
+  vertical-align: top;
+  height: 100%;
+  min-width: 725px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+}
+body > div > header hgroup {
+  padding: 0 20px;
+  margin: 10px 0;
+}
+body > div > header hgroup h1,
+body > div > header hgroup h2,
+body > div > header hgroup h3,
+body > div > header hgroup h4,
+body > div > header hgroup h5 {
+  margin: 0;
+}
+@media screen and (max-width: 1200px) {
+  img {
+    max-width: 675px;
+  }
+}
+@media screen and (max-width: 800px) {
+  img {
+    max-width: 700px;
+  }
+}
+@media screen and (max-width: 400px) {
+  :root img {
+    max-width: 360px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  body > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 1200px;
+  }
+  body > div > header {
+    position: unset;
+    width: 100%;
+  }
+  body > div > header {
+    display: table;
+    margin: 0 auto;
+    width: 700px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  body > div > header > hgroup,
+  body > div > header nav[role=navigation] {
+    display: table-cell;
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  body > div > header > hgroup {
+    text-align: left;
+  }
+  body > div > header nav[role=navigation] {
+    text-align: right;
+  }
+  body > div > header nav[role=navigation] ul li {
+    display: inline-block;
+  }
+  body > div > header nav[role=navigation] ul li:not(:first-child) {
+    padding-left: 8px;
+  }
+  body > div > header nav[role=navigation] ul li:not(:last-child) {
+    padding-right: 8px;
+    border-right: 1px solid #337ab7;
+  }
+  :root body > div > header nav[role=complementary] {
+    display: none;
+  }
+  body > div > header {
+    border-bottom: 1px solid #337ab7;
+  }
+  :root body > div > header > hgroup small {
+    display: none;
+  }
+  :root body > div > header nav[role=navigation] form {
+    display: none;
+  }
+  body > div > main {
+    display: block;
+  }
+}
+@media screen and (max-width: 800px) {
+  body > div {
+    display: block;
+  }
+  body > div > header {
+    display: block;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    width: auto;
+  }
+  body > div > main {
+    display: block;
+    padding-top: 20px;
+    max-width: 360px;
+  }
+  body > div > header {
+    padding: 3px 10px;
+  }
+  body > div > header hgroup {
+    margin: 0;
+    padding: 0 0 3px 0;
+  }
+  body > div > main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  body > div > main > section {
+    padding: 10px;
+  }
+  body > div > header h1 {
+    margin: 5px 0 0;
+  }
+  body > div > main {
+    width: auto;
+    min-width: auto;
+  }
+  body > div > main section {
+    width: auto;
+  }
+  body > div > header {
+    background: #337ab7;
+    height: auto;
+    width: 100%;
+  }
+  body > div > header nav[role=navigation] {
+    display: block;
+  }
+  body > div > header nav[role=navigation] {
+    text-align: left;
+  }
+  body > div > header nav[role=navigation] ul {
+    padding-left: 0;
+    margin: 5px 0;
+  }
+  body > div > header nav[role=navigation] ul li {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+  }
+  body > div > header nav[role=navigation] ul li:not(:last-child) {
+    padding-right: 8px;
+    border-right: 1px solid white;
+    margin-right: 5px;
+  }
+  body > div > header nav[role=navigation] ul li a {
+    color: white;
+  }
+  body > div > header > hgroup {
+    display: none;
+  }
+  :root body > div > header nav[role=navigation] form,
+  :root body > div > header nav[role=complementary] {
+    display: none;
+  }
+  :root main > section {
+    max-width: 375px;
+  }
+}
+article p.summary {
+  font-style: italic;
+}
+body > div > header hgroup h1 {
+  font-size: 3.23em;
+}
+body > div > header hgroup small {
+  font-size: 1em;
+}
+body > div > header nav[role=navigation] ul li a {
+  font-size: 1.5em;
+}
+article header div.byline {
+  font-weight: 700;
+}
+p > code {
+  white-space: nowrap;
+}
+blockquote {
+  font-style: italic;
+}
+body > div > header nav[role=complementary] {
+  float: left;
+  display: inline;
+}
+body > div > header nav[role=complementary] ul {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+body > div > header nav[role=complementary] ul li {
+  display: inline;
+}
+nav[role=complementary] a {
+  text-indent: -9999px;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+header[role=banner] nav[role=complementary] a[href*="github.com/"] {
+  background: url(/images/logo-github-black-32px.png) top left / 32px 32px no-repeat;
+}
+header[role=banner] nav[role=complementary] a[href*="twitter.com/"] {
+  background: url(/images/logo-twitter-blue-32px.png) top left / 32px 32px no-repeat;
+}
+header[role=banner] nav[role=complementary] a[href*="/rss/"],
+header[role=banner] nav[role=complementary] a[href*="atom.xml"],
+header[role=banner] nav[role=complementary] a[href*="feed.xml"] {
+  background: url(/images/logo-rss-orange-32px.png) top left / 32px 32px no-repeat;
+}
+nav[role=navigation] nav[role=complementary] a[href*="github.com/"] {
+  background: url(/images/logo-github-black-32px.png) top left / 32px 32px no-repeat;
+}
+nav[role=navigation] nav[role=complementary] a[href*="twitter.com/"] {
+  background: url(/images/logo-twitter-blue-32px.png) top left / 32px 32px no-repeat;
+}
+nav[role=navigation] nav[role=complementary] a[href*="/rss/"],
+nav[role=navigation] nav[role=complementary] a[href*="atom.xml"],
+nav[role=navigation] nav[role=complementary] a[href*="feed.xml"] {
+  background: url(/images/logo-rss-black-32px.png) top left / 32px 32px no-repeat;
+}
+article header div.byline span.author:after {
+  content: "|";
+  margin-left: 7px;
+  margin-right: 7px;
+}
+main {
+  clear: both;
+}
+main > section {
+  max-width: 700px;
+}
+body > div > header nav[role=navigation] ul {
+  padding-left: 20px;
+  list-style: none;
+}
+body > div > header nav[role=complementary] {
+  padding: 10px 20px;
+}
+body > div > header nav[role=complementary] ul {
+  padding: 0;
+}
+body > div > header nav[role=complementary] ul li:not(:first-child) {
+  margin-left: 5px;
+}
+body > div > main section {
+  margin-bottom: 10px;
+}
+body > div > main section article {
+  margin-bottom: 50px;
+}
+article header {
+  margin: 10px 0 20px;
+}
+article header h2.title {
+  margin: 8px 0;
+}
+input.search {
+  border-color: #d0d0d0;
+  border-radius: 5px;
+  padding: 3px;
+}
+body > div > header hgroup small {
+  margin: .2em 0 0;
+}
+body > div > header nav[role=navigation] form fieldset {
+  border: none;
+}
+article section hr {
+  border-top: .5px solid;
+  border-right: none;
+  border-left: none;
+}
+footer {
+  margin-bottom: 10px;
+  padding: 12px 0;
+  border-top: 1px solid;
+}
+p > code {
+  display: inline-block;
+  border: 1px solid;
+  padding: 0 .3em;
+  margin: -1px 0;
+}
+blockquote {
+  padding-left: 15px;
+  border-left: 4px solid;
+}

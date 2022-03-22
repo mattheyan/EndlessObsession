@@ -1,0 +1,193 @@
+@charset "UTF-8";
+body > div {
+  display: table;
+  height: 100%;
+  max-width: 1100px;
+}
+body > div > header {
+  width: 275px;
+  margin: 0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+body > div > header nav[role=navigation] form {
+  padding-left: 20px;
+}
+body > div > main {
+  display: table-cell;
+  vertical-align: top;
+  height: 100%;
+  min-width: 725px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+}
+body > div > header hgroup {
+  padding: 0 20px;
+  margin: 10px 0;
+}
+body > div > header hgroup h1,
+body > div > header hgroup h2,
+body > div > header hgroup h3,
+body > div > header hgroup h4,
+body > div > header hgroup h5 {
+  margin: 0;
+}
+@media screen and (max-width: 1200px) {
+  img {
+    max-width: 675px;
+  }
+}
+@media screen and (max-width: 800px) {
+  img {
+    max-width: 700px;
+  }
+}
+@media screen and (max-width: 400px) {
+  :root img {
+    max-width: 360px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  body > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 1200px;
+  }
+  body > div > header {
+    position: unset;
+    width: 100%;
+  }
+  body > div > header {
+    display: table;
+    margin: 0 auto;
+    width: 700px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  body > div > header > hgroup,
+  body > div > header nav[role=navigation] {
+    display: table-cell;
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  body > div > header > hgroup {
+    text-align: left;
+  }
+  body > div > header nav[role=navigation] {
+    text-align: right;
+  }
+  body > div > header nav[role=navigation] ul li {
+    display: inline-block;
+  }
+  body > div > header nav[role=navigation] ul li:not(:first-child) {
+    padding-left: 8px;
+  }
+  body > div > header nav[role=navigation] ul li:not(:last-child) {
+    padding-right: 8px;
+    border-right: 1px solid #337ab7;
+  }
+  :root body > div > header nav[role=complementary] {
+    display: none;
+  }
+  body > div > header {
+    border-bottom: 1px solid #337ab7;
+  }
+  :root body > div > header > hgroup small {
+    display: none;
+  }
+  :root body > div > header nav[role=navigation] form {
+    display: none;
+  }
+  body > div > main {
+    display: block;
+  }
+}
+@media screen and (max-width: 800px) {
+  body > div {
+    display: block;
+  }
+  body > div > header {
+    display: block;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    width: auto;
+  }
+  body > div > main {
+    display: block;
+    padding-top: 20px;
+    max-width: 360px;
+  }
+  body > div > header {
+    padding: 3px 10px;
+  }
+  body > div > header hgroup {
+    margin: 0;
+    padding: 0 0 3px 0;
+  }
+  body > div > main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  body > div > main > section {
+    padding: 10px;
+  }
+  body > div > header h1 {
+    margin: 5px 0 0;
+  }
+  body > div > main {
+    width: auto;
+    min-width: auto;
+  }
+  body > div > main section {
+    width: auto;
+  }
+  body > div > header {
+    background: #337ab7;
+    height: auto;
+    width: 100%;
+  }
+  body > div > header nav[role=navigation] {
+    display: block;
+  }
+  body > div > header nav[role=navigation] {
+    text-align: left;
+  }
+  body > div > header nav[role=navigation] ul {
+    padding-left: 0;
+    margin: 5px 0;
+  }
+  body > div > header nav[role=navigation] ul li {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+  }
+  body > div > header nav[role=navigation] ul li:not(:last-child) {
+    padding-right: 8px;
+    border-right: 1px solid white;
+    margin-right: 5px;
+  }
+  body > div > header nav[role=navigation] ul li a {
+    color: white;
+  }
+  body > div > header > hgroup {
+    display: none;
+  }
+  :root body > div > header nav[role=navigation] form,
+  :root body > div > header nav[role=complementary] {
+    display: none;
+  }
+  :root main > section {
+    max-width: 375px;
+  }
+}

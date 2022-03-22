@@ -1,0 +1,41 @@
+@charset "UTF-8";
+body > div > header nav[role=complementary] {
+  float: left;
+  display: inline;
+}
+body > div > header nav[role=complementary] ul {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+body > div > header nav[role=complementary] ul li {
+  display: inline;
+}
+nav[role=complementary] a {
+  text-indent: -9999px;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+header[role=banner] nav[role=complementary] a[href*="github.com/"] {
+  background: url(/images/logo-github-black-32px.png) top left / 32px 32px no-repeat;
+}
+header[role=banner] nav[role=complementary] a[href*="twitter.com/"] {
+  background: url(/images/logo-twitter-blue-32px.png) top left / 32px 32px no-repeat;
+}
+header[role=banner] nav[role=complementary] a[href*="/rss/"],
+header[role=banner] nav[role=complementary] a[href*="atom.xml"],
+header[role=banner] nav[role=complementary] a[href*="feed.xml"] {
+  background: url(/images/logo-rss-orange-32px.png) top left / 32px 32px no-repeat;
+}
+nav[role=navigation] nav[role=complementary] a[href*="github.com/"] {
+  background: url(/images/logo-github-black-32px.png) top left / 32px 32px no-repeat;
+}
+nav[role=navigation] nav[role=complementary] a[href*="twitter.com/"] {
+  background: url(/images/logo-twitter-blue-32px.png) top left / 32px 32px no-repeat;
+}
+nav[role=navigation] nav[role=complementary] a[href*="/rss/"],
+nav[role=navigation] nav[role=complementary] a[href*="atom.xml"],
+nav[role=navigation] nav[role=complementary] a[href*="feed.xml"] {
+  background: url(/images/logo-rss-black-32px.png) top left / 32px 32px no-repeat;
+}
