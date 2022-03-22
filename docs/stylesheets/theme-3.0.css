@@ -110,6 +110,14 @@ body > div > header hgroup h5 {
     display: block;
   }
 }
+@media screen and (max-width: 1200px) and (prefers-color-scheme: dark) {
+  body > div > header nav[role="navigation"] ul li:not(:last-child) {
+    border-right-color: #fff;
+  }
+  body > div > header {
+    border-bottom-color: #fff;
+  }
+}
 @media screen and (max-width: 800px) {
   body > div {
     display: block;
@@ -189,6 +197,11 @@ body > div > header hgroup h5 {
   }
   :root main > section {
     max-width: 375px;
+  }
+}
+@media screen and (max-width: 800px) and (prefers-color-scheme: dark) {
+  body > div > header {
+    background: #000;
   }
 }
 article p.summary {
@@ -318,4 +331,17 @@ p > code {
 blockquote {
   padding-left: 15px;
   border-left: 4px solid;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: #e0e0e0;
+  }
+  a {
+    color: #d9edf7;
+  }
+  a:focus,
+  a:hover {
+    color: #82c4ff;
+  }
 }

@@ -140,6 +140,18 @@ body > div > header hgroup h5 {
   }
 }
 
+// On smaller devices (ex: tablets), use white for header borders in dark mode
+@media screen and (max-width: 1200px) and (prefers-color-scheme: dark) {
+  body > div > header nav[role="navigation"] ul li:not(:last-child) {
+    border-right-color: #fff;
+  }
+
+  // Put a bottom border on the header
+  body > div > header {
+    border-bottom-color: #fff;
+  }
+}
+
 // On small devices (ex: phones), show only navigation links in a sticky blue bar at the top of the screen
 @media screen and (max-width: 800px) {
   body > div {
@@ -244,5 +256,12 @@ body > div > header hgroup h5 {
   :root main > section {
     max-width: 375px;
     // width: 100%;
+  }
+}
+
+// On small devices (ex: phones), make the menu background black in dark mode
+@media screen and (max-width: 800px) and (prefers-color-scheme: dark) {
+  body > div > header {
+    background: #000;
   }
 }
