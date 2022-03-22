@@ -16,7 +16,7 @@ body > div > header {
   position: sticky;
   top: 0;
 }
-body > div > header nav[role=navigation] form {
+body > div > header nav[role="navigation"] form {
   padding-left: 20px;
 }
 body > div > main {
@@ -87,7 +87,7 @@ body > div > header hgroup h5 {
 
   // Center nav elements with a 700px width to match the article content size
   body > div > header > hgroup,
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     display: table-cell;
     float: none;
     padding-left: 0;
@@ -98,24 +98,24 @@ body > div > header hgroup h5 {
   body > div > header > hgroup {
     text-align: left;
   }
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     text-align: right;
   }
 
   // Lay out nav links in a row with a line between them
-  body > div > header nav[role=navigation] ul li {
+  body > div > header nav[role="navigation"] ul li {
     display: inline-block;
   }
-  body > div > header nav[role=navigation] ul li:not(:first-child) {
+  body > div > header nav[role="navigation"] ul li:not(:first-child) {
     padding-left: 8px;
   }
-  body > div > header nav[role=navigation] ul li:not(:last-child) {
+  body > div > header nav[role="navigation"] ul li:not(:last-child) {
     padding-right: 8px;
     border-right: 1px solid #337ab7;
   }
 
   // Hide the social media icons nav bar
-  :root body > div > header nav[role=complementary] {
+  :root body > div > header nav[role="complementary"] {
     display: none;
   }
 
@@ -130,7 +130,7 @@ body > div > header hgroup h5 {
   }
 
   // Hide the search box
-  :root body > div > header nav[role=navigation] form {
+  :root body > div > header nav[role="navigation"] form {
     display: none;
   }
 
@@ -201,31 +201,31 @@ body > div > header hgroup h5 {
   }
 
   // Override table-cell display from "smallish" devices
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     display: block;
   }
 
   // Override text-align right from smallish device settings
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     text-align: left;
   }
 
   // Lay out menu items horizontally with padding and horizontal bar between each item
-  body > div > header nav[role=navigation] ul {
+  body > div > header nav[role="navigation"] ul {
     padding-left: 0;
     margin: 5px 0;
   }
-  body > div > header nav[role=navigation] ul li {
+  body > div > header nav[role="navigation"] ul li {
     display: inline-block;
     width: 30%;
     text-align: center;
   }
-  body > div > header nav[role=navigation] ul li:not(:last-child) {
+  body > div > header nav[role="navigation"] ul li:not(:last-child) {
     padding-right: 8px;
     border-right: 1px solid white;
     margin-right: 5px;
   }
-  body > div > header nav[role=navigation] ul li a {
+  body > div > header nav[role="navigation"] ul li a {
     color: white;
   }
 
@@ -235,8 +235,8 @@ body > div > header hgroup h5 {
   }
 
   // Hide the search bar and social media links
-  :root body > div > header nav[role=navigation] form,
-  :root body > div > header nav[role=complementary] {
+  :root body > div > header nav[role="navigation"] form,
+  :root body > div > header nav[role="complementary"] {
     display: none;
   }
 
@@ -245,5 +245,4 @@ body > div > header hgroup h5 {
     max-width: 375px;
     // width: 100%;
   }
-
 }

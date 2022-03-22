@@ -14,7 +14,7 @@ body > div > header {
   position: sticky;
   top: 0;
 }
-body > div > header nav[role=navigation] form {
+body > div > header nav[role="navigation"] form {
   padding-left: 20px;
 }
 body > div > main {
@@ -72,7 +72,7 @@ body > div > header hgroup h5 {
     padding-right: 0;
   }
   body > div > header > hgroup,
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     display: table-cell;
     float: none;
     padding-left: 0;
@@ -81,20 +81,20 @@ body > div > header hgroup h5 {
   body > div > header > hgroup {
     text-align: left;
   }
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     text-align: right;
   }
-  body > div > header nav[role=navigation] ul li {
+  body > div > header nav[role="navigation"] ul li {
     display: inline-block;
   }
-  body > div > header nav[role=navigation] ul li:not(:first-child) {
+  body > div > header nav[role="navigation"] ul li:not(:first-child) {
     padding-left: 8px;
   }
-  body > div > header nav[role=navigation] ul li:not(:last-child) {
+  body > div > header nav[role="navigation"] ul li:not(:last-child) {
     padding-right: 8px;
     border-right: 1px solid #337ab7;
   }
-  :root body > div > header nav[role=complementary] {
+  :root body > div > header nav[role="complementary"] {
     display: none;
   }
   body > div > header {
@@ -103,7 +103,7 @@ body > div > header hgroup h5 {
   :root body > div > header > hgroup small {
     display: none;
   }
-  :root body > div > header nav[role=navigation] form {
+  :root body > div > header nav[role="navigation"] form {
     display: none;
   }
   body > div > main {
@@ -157,34 +157,34 @@ body > div > header hgroup h5 {
     height: auto;
     width: 100%;
   }
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     display: block;
   }
-  body > div > header nav[role=navigation] {
+  body > div > header nav[role="navigation"] {
     text-align: left;
   }
-  body > div > header nav[role=navigation] ul {
+  body > div > header nav[role="navigation"] ul {
     padding-left: 0;
     margin: 5px 0;
   }
-  body > div > header nav[role=navigation] ul li {
+  body > div > header nav[role="navigation"] ul li {
     display: inline-block;
     width: 30%;
     text-align: center;
   }
-  body > div > header nav[role=navigation] ul li:not(:last-child) {
+  body > div > header nav[role="navigation"] ul li:not(:last-child) {
     padding-right: 8px;
     border-right: 1px solid white;
     margin-right: 5px;
   }
-  body > div > header nav[role=navigation] ul li a {
+  body > div > header nav[role="navigation"] ul li a {
     color: white;
   }
   body > div > header > hgroup {
     display: none;
   }
-  :root body > div > header nav[role=navigation] form,
-  :root body > div > header nav[role=complementary] {
+  :root body > div > header nav[role="navigation"] form,
+  :root body > div > header nav[role="complementary"] {
     display: none;
   }
   :root main > section {
