@@ -48,6 +48,12 @@ ul.month-posts-list > li > a {
 	text-overflow: ellipsis;
 }
 
+@media (prefers-color-scheme: dark) {
+	ul.month-posts-list > li > a {
+		color: #e0e0e0;
+	}
+}
+
 ul.month-posts-list > li > a:hover {
 	color: #0181eb;
 	text-decoration: underline;
