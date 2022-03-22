@@ -1,6 +1,7 @@
 ---
 template: page.jade
 title: Team Foundation Server
+comments: disabled
 ---
 
 ## Command-Line 

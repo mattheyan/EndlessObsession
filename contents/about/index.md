@@ -1,6 +1,7 @@
 ---
 template: page.jade
 title: About
+comments: disabled
 ---
 
 Hi, I'm Bryan. I'm a software developer currently working for [Cognito Forms](https://www.cognitoforms.com), a SaaS software company based in Columbia, SC.

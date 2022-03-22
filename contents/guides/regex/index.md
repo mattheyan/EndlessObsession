@@ -1,6 +1,7 @@
 ---
 template: page.jade
 title: Regular Expressions
+comments: disabled
 ---
 
 ### Lookahead and lookbehind

@@ -8,7 +8,7 @@ block content
     header
       h2= page.metadata.title
     section!= typogr(page.html).typogrify()
-    if locals.disqusName
+    if locals.disqusName && page.metadata.comments != 'disabled'
       section
         h2= 'Comments'
         div#disqus_thread
