@@ -61,4 +61,4 @@ html(lang='en')
             small Copyright &copy; #{ new Date().getFullYear() } - #{ locals.owner } &mdash; powered by&nbsp;
                 a(href='https://github.com/jnordberg/wintersmith') Wintersmith
           if locals.googleAnalyticsID
-            script(type='text/javascript', src='/javascripts/analytics.js?v=1.0.0&id=' + locals.googleAnalyticsID)
+            script(type='text/javascript', src=canonicalUrl + 'javascripts/analytics.js?v=1.0.0&id=' + locals.googleAnalyticsID)
