@@ -14,6 +14,6 @@ Recently I co-presented with [Bobby Dimmick](http://bobbydimmick.com/) at the an
 
 Our presentation was entitled "Building rich, model-centric, event-driven web apps using EF, Razor & open source".  The approach we took was to build a demo application from the ground up, and document the process so that it was reproducible.  The app is hosted at [todoapp.exosuite.com](http://todoapp.exosuite.com) and the walkthrough is at [todoapp.exosuite.com/walkthrough](http://todoapp.exosuite.com/walkthrough).
 
-![Screenshot](../images/todoapp.png)
+![Screenshot](https://mattheyan.github.io/EndlessObsession/images/todoapp.png)
 
 You can build the app yourself by following the walkthrough.  I promise, I did it many times!  :)

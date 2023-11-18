@@ -16,7 +16,7 @@ tags:
 - programming
 ---
 
-[A while back](/blog/exo-suite-and-client-scripts-on-github) I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.
+[A while back](https://mattheyan.github.io/EndlessObsession/blog/exo-suite-and-client-scripts-on-github) I talked about the ExoWeb project and scripts that are now hosted on github.  That post was a little vague because not much has been documented about what you can actually do with ExoWeb.  That’s what I hope to do here.
 
 First off, let me restate the purpose of ExoWeb as simply as I can.  ExoWeb exists to bridge the gap between the client and server.  You can think of it as a combination client-server mapper and model-view mapper.
 
