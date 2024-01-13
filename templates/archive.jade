@@ -3,7 +3,8 @@ extends layout.jade
 //- this logic should be moved to a view at some point
 
 block includes
-	link(href='/stylesheets/archive.css?v=1.0', media='screen, projection' rel='stylesheet' type='text/css')
+	- var canonicalUrlNoTrailingSlash = locals.url.lastIndexOf('/') === locals.url.length - 1 ? locals.url.substring(0, locals.url.length - 1) : locals.url;
+	link(href= canonicalUrlNoTrailingSlash + '/stylesheets/archive.css?v=1.0', media='screen, projection' rel='stylesheet' type='text/css')
 
 block content
 	- var lineHeight = 2.2;
@@ -31,5 +32,5 @@ block content
 									each item in months[monthsK[month]]
 										li
 											time(datetime=moment.utc(item.date).format('YYYY-MM-DD'), pubdate)= moment.utc(item.date).format('MMM Do')
-											a(rel='article', href=item.url, title=item.title)=item.title
+											a(rel='article', href=canonicalUrlNoTrailingSlash + item.url, title=item.title)=item.title
 						- }
