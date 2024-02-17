@@ -1,6 +1,3 @@
-.DS_Store
-Thumbs.db
-node_modules
 drafts/
 dev-pages/
 *.sublime-workspace
@@ -9,3 +6,28 @@ dev-pages/
 0000-00-00-*.md
 *.patch
 *.zip
+
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# Windows-specific files
+Thumbs.db
+
+# macOS-specific files
+.DS_Store
