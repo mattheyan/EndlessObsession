@@ -10,6 +10,8 @@ export default defineConfig({
         inlineStylesheets: 'never'
     },
     markdown: {
+        // Use prism since it creates css classes that can be styled by my theme css
+        // https://docs.astro.build/en/guides/markdown-content/#prism-configuration
         syntaxHighlight: 'prism'
     }
 });
