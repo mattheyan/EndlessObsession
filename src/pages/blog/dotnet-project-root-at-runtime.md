@@ -1,11 +1,14 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
 title: ".NET: Getting the Project Root Directory at Runtime"
+date: 2016-06-02 21:15
 pubDate: 2016-06-02
 description:
 author: Bryan Matthews
 comments: true
-tags: ["dotnet", "asp"]
+tags:
+- dotnet
+- asp
 ---
 
 When developing in .NET, whether it be an ASP.NET website, or a console
