@@ -1,0 +1,5 @@
+Show X articles on home page
+Blog index page
+Blog archive page
+atom.xml RSS feed
+Script to move and fix-up .md posts
