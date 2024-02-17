@@ -1,7 +1,7 @@
 Endless Obsession
 =================
 
-https://endlessobsession.com/
+https://mattheyan.github.io/EndlessObsession/
 
 The professional blog of Bryan Matthews.
 
