@@ -1,11 +1,15 @@
 ---
-import Navigation from "./Navigation.astro";
-import Hamburger from "./Hamburger.astro";
+import Navigation from './Navigation.astro';
+import globals from '../../globals.mjs';
+const canonicalUrl = Astro.site;
 ---
 
-<header>
-    <nav>
-        <Hamburger />
-        <Navigation />
-    </nav>
+<header role='banner'>
+    <hgroup>
+        <h1>
+            <a href={canonicalUrl}>{globals.title}</a>
+        </h1>
+        <small>{globals.subtitle}</small>
+    </hgroup>
+    <Navigation />
 </header>

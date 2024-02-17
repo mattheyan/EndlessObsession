@@ -1,15 +1,15 @@
 ---
-import Social from "./Social.astro";
+import globals from '../../globals.mjs';
+const canonicalUrl = Astro.site;
 ---
 
-<style>
-    footer {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-</style>
-
 <footer>
-    <Social platform="github" username="mattheyan" />
+    <slot />
+    <small>
+        Copyright &copy; { new Date().getFullYear() } - { globals.owner } &mdash; powered by&nbsp;
+        <a href='https://astro.build/'>Astro</a>
+    </small>
+    <!-- TODO: {if (globals.googleAnalyticsID) {
+        <script type='text/javascript' src={canonicalUrl + 'javascripts/analytics.js?v=1.0.0&id=' + globals.googleAnalyticsID}></script>
+    }} -->
 </footer>
