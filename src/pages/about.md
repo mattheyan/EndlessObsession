@@ -1,5 +1,5 @@
 ---
-template: page.jade
+layout: ../layouts/ContentPageLayout.astro
 title: About
 comments: disabled
 ---
