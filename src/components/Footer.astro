@@ -1,0 +1,15 @@
+---
+import globals from '../../globals.mjs';
+const canonicalUrl = Astro.site;
+---
+
+<footer>
+    <slot />
+    <small>
+        Copyright &copy; { new Date().getFullYear() } - { globals.owner } &mdash; powered by&nbsp;
+        <a href='https://astro.build/'>Astro</a>
+    </small>
+    <!-- TODO: {if (globals.googleAnalyticsID) {
+        <script type='text/javascript' src={canonicalUrl + 'javascripts/analytics.js?v=1.0.0&id=' + globals.googleAnalyticsID}></script>
+    }} -->
+</footer>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import globals from '../../globals.mjs';
+const { frontmatter } = Astro.props;
+---
+<BaseLayout pageTitle={frontmatter.title + ' - ' + globals.title}>
+    <article>
+        <header>
+            <h2>{frontmatter.title}</h2>
+        </header>
+        <section>
+            <slot />
+        </section>
+        {globals.disqusName && frontmatter.comments != 'disabled' && <section><h2>Comments</h2><div id='disqus_thread'></div></section>}
+    </article>
+    {globals.disqusName && <script slot="footer" type='text/javascript' src={canonicalUrl + 'javascripts/disqus.js?v=2.0.0&name=' + globals.disqusName}></script>}
+</BaseLayout>

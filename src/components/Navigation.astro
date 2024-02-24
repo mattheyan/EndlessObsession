@@ -1,0 +1,36 @@
+---
+const canonicalUrl = Astro.site;
+---
+
+<nav role='navigation'>
+    <ul>
+    <li>
+        <a href='canonicalUrl'>Home</a>
+    </li>
+    <li>
+        <a href={canonicalUrl + 'about'} rel='author'>About</a>
+    </li>
+    <li>
+        <a href={canonicalUrl + 'blog/archives'}>Blog</a>
+    </li>
+    </ul>
+    <form action='https://google.com/search'>
+        <fieldset role='search'>
+            <input type='hidden' name='q' value={'site:' + Astro.url} />
+            <input class='search' type='text' name='q' results='0' placeholder='Search' autocomplete='off' />
+        </fieldset>
+    </form>
+</nav>
+<nav role='complementary'>
+    <ul>
+        <li>
+            <a href={canonicalUrl + 'atom.xml'} title='RSS'>RSS</a>
+        </li>
+        <li>
+            <a href='https://github.com/mattheyan' title='Github: mattheyan' target='_blank'>Github</a>
+        </li>
+        <li>
+            <a href='https://twitter.com/BryanMatthews' title='Twitter: @BryanMatthews' target='_blank'>Twitter</a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,15 @@
+---
+import Navigation from './Navigation.astro';
+import globals from '../../globals.mjs';
+const canonicalUrl = Astro.site;
+---
+
+<header role='banner'>
+    <hgroup>
+        <h1>
+            <a href={canonicalUrl}>{globals.title}</a>
+        </h1>
+        <small>{globals.subtitle}</small>
+    </hgroup>
+    <Navigation />
+</header>
