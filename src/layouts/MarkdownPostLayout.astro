@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import globals from '../../globals.mjs';
 import moment from 'moment';
+import { getPostDate, formatDate } from "../helpers/date-time-utils";
 const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
@@ -10,7 +11,7 @@ const { frontmatter } = Astro.props;
         <h2 class='title'>{frontmatter.title}</h2>
         <div class='byline'>
             <span class='author'>{frontmatter.author ?? 'Bryan Matthews'}</span>
-            {!frontmatter.status || frontmatter.status === 'publish' ? <time datetime={moment.utc(frontmatter.date).format('YYYY-MM-DD')}>{moment(frontmatter.pubDate).format('MMM Do, YYYY')}</time> : <span>N/A</span>}
+            {!frontmatter.status || frontmatter.status === 'publish' ? <time datetime={formatDate(getPostDate(frontmatter), 'YYYY-MM-DD')}>{formatDate(getPostDate(frontmatter), 'MMM Do, YYYY')}</time> : <span>N/A</span>}
         </div>
     </header>
     {frontmatter.summary && <p class='summary'>{frontmatter.summary}</p>}
