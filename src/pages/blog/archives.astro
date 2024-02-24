@@ -1,10 +1,76 @@
 ---
+import { MarkdownInstance } from "astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-const allPosts = await Astro.glob('./*.md');
 var pageTitle = "Blog";
+
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+type Post = MarkdownInstance<Record<string, any>>;
+type PostsGrouped = { [key: string]: Post[] };
+type PostsDoubleGrouped = { [key: string]: PostsGrouped };
+
+function getDate(item) {
+	return new Date(item.frontmatter.date || item.frontmatter.pubDate);
+}
+
+const allPosts = await Astro.glob('./*.md');
+const postsByYear = allPosts.reduce((map, item) => {
+	const year = getDate(item).getFullYear().toString();
+	if (!(year in map))
+		map[year] = [];
+	map[year].push(item);
+	return map;
+}, {} as PostsGrouped);
+
+const yearsK: string[] = [];
+const archives: PostsDoubleGrouped = {};
+for (var year in postsByYear) {
+	yearsK.splice(0, 0, year);
+	archives[year] = postsByYear[year].reduce((map, item) => {
+		const month = getDate(item).getMonth().toString();
+		if (!(month in map))
+			map[month] = [];
+		map[month].push(item);
+		return map;
+	}, {} as PostsGrouped);
+}
+
+function getMonthsK(months): any[] {
+	monthsK = _.chain(months).keys().reverse().value()
+}
+
+// - var canonicalUrlNoTrailingSlash = locals.url.lastIndexOf('/') === locals.url.length - 1 ? locals.url.substring(0, locals.url.length - 1) : locals.url;
+// link(href= canonicalUrlNoTrailingSlash + '/stylesheets/archive.css?v=1.0', media='screen, projection' rel='stylesheet' type='text/css')
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+	<header>
+		<h2>Blog Archive</h2>
+	</header>
+	<section>
+		<ul class="years-list">
+			{yearsK.forEach(year => {
+				const months = archives[yearsK[year]];
+				<li>
+					<span class="year-label">{yearsK[year]}</span>
+					<ul class="months-list">
+						{getMonthsK(months).forEach(month => {
+							<li>
+								<ul class="month-posts-list">
+									{months[getMonthsK(month)[month]].forEach(item => {
+										<li>
+											<time datetime={moment.utc(item.date).format('YYYY-MM-DD')} pubdate>{moment.utc(item.date).format('MMM Do')}</time>
+											<a rel="article" href={canonicalUrlNoTrailingSlash + item.url} title={item.title}>{item.title}</a>
+										</li>
+									})
+								</ul>
+							</li>
+						})}
+					</ul>
+				</li>
+			})}
+		</ul>
+	</section>
 	<ul>
 		{allPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
 	</ul>
