@@ -19,9 +19,7 @@ for (var year in postsByYear) {
 	archives[year] = groupBy(postsByYear[year], (item) => getPostDate(item.frontmatter).getMonth().toString());
 }
 
-// const url = Astro.url.toString();
-// var canonicalUrlNoTrailingSlash = url.lastIndexOf('/') === url.length - 1 ? url.substring(0, url.length - 1) : url;
-// link(href= canonicalUrlNoTrailingSlash + '/stylesheets/archive.css?v=1.0', media='screen, projection' rel='stylesheet' type='text/css')
+import '../../stylesheets/archive.css';
 ---
 
 <BaseLayout pageTitle={pageTitle}>
