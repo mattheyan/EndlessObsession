@@ -12,7 +12,7 @@ I've always had a penchant for automating repetative tasks. Over the years I've 
 
 These days I serve as scrum master and architect for an agile feature team. This has given me the opportunity to learn and develop skills relevant to two of my biggest professional passions - agile software development and software quality.
 
-For years I read and learned about agile software development, and tried to find ways to apply those principals on the job, even if my team wasn't officially "doing agile". Now I'm working on a team that's putting the theory into practice on a daily basis. Sure, it isn't always easy. Our burndown may not be the smooth, even slope that we want it to be, but we're continually improving, and its been very rewarding to see how the team has grown and progressed. 
+For years I read and learned about agile software development, and tried to find ways to apply those principals on the job, even if my team wasn't officially "doing agile". Now I'm working on a team that's putting the theory into practice on a daily basis. Sure, it isn't always easy. Our burndown may not be the smooth, even slope that we want it to be, but we're continually improving, and its been very rewarding to see how the team has grown and progressed.
 
 At its core, my interest in software quality stems from a desire for excellence. I've always believed that automated testing, rigorous coding standards, and peer review of code are crucial ingredients in maintaining quality software. I'm fortunate to work for an organization that values and invests in those things, and I work to promote them within my team and in the organization at large.
 
