@@ -46,7 +46,7 @@ can easily use it to build your blog.
 Before I migrated my blog, I first had to determine if it would meet my needs,
 and whether I'd want to use it. The first step is to install Wintersmith.
 
-```cli
+```
 npm install wintersmith -g
 ```
 
@@ -54,7 +54,7 @@ Since Wintersmith is a tool, it should be installed globally, thus the `-g` flag
 
 Next, use wintersmith to scaffold a new site.
 
-```cli
+```
 wintersmith new <path>
 ```
 
