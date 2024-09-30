@@ -1,0 +1,56 @@
+---
+import { MarkdownInstance } from "astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { reverse, groupBy } from "../../helpers/array-utils";
+import { getPostDate, formatDate } from "../../helpers/date-time-utils";
+import { combineUrl } from "../../helpers/url-utils";
+
+const canonicalUrl = Astro.site;
+
+type Post = MarkdownInstance<Record<string, any>>;
+type PostsGrouped = { [key: string]: Post[] };
+type PostsDoubleGrouped = { [key: string]: PostsGrouped };
+
+const allPosts = await Astro.glob('./*.md');
+const postsByYear = groupBy(allPosts, (item) => getPostDate(item.frontmatter).getFullYear().toString());
+const yearsK = reverse(Object.keys(postsByYear));
+
+const archives: PostsDoubleGrouped = {};
+for (var year in postsByYear) {
+	archives[year] = groupBy(postsByYear[year], (item) => getPostDate(item.frontmatter).getMonth().toString());
+}
+---
+
+<BaseLayout canonical={combineUrl(canonicalUrl, '/blog/archives')}>
+	<Fragment slot="includes">
+		<link href={canonicalUrl + 'stylesheets/archive.css'} media='screen, projection' rel='stylesheet' type='text/css' />
+	</Fragment>
+	<header>
+		<h2>Blog Archive</h2>
+	</header>
+	<section>
+		<ul class="years-list">
+			{yearsK.map(year => {
+				const months = archives[year];
+				const monthsK = reverse(Object.keys(months));
+				return <li>
+					<span class="year-label">{year}</span>
+					<ul class="months-list">
+						{monthsK.map(month => {
+							return <li>
+								<ul class="month-posts-list">
+									{months[month].map(item => {
+										return <li>
+											<time datetime={formatDate(getPostDate(item.frontmatter), 'YYYY-MM-DD')}>{formatDate(getPostDate(item.frontmatter), 'MMM Do')}</time>
+											<a rel="article" href={combineUrl(canonicalUrl, item.url)} title={item.frontmatter.title}>{item.frontmatter.title}</a>
+										</li>
+									})}
+								</ul>
+							</li>
+						})}
+					</ul>
+				</li>
+			})}
+		</ul>
+	</section>
+</BaseLayout>
