@@ -3,8 +3,9 @@ import { MarkdownInstance } from "astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { reverse, groupBy } from "../../helpers/array-utils";
 import { getPostDate, formatDate } from "../../helpers/date-time-utils";
+import { combineUrl } from "../../helpers/url-utils";
 
-var pageTitle = "Blog";
+const canonicalUrl = Astro.site;
 
 type Post = MarkdownInstance<Record<string, any>>;
 type PostsGrouped = { [key: string]: Post[] };
@@ -18,11 +19,12 @@ const archives: PostsDoubleGrouped = {};
 for (var year in postsByYear) {
 	archives[year] = groupBy(postsByYear[year], (item) => getPostDate(item.frontmatter).getMonth().toString());
 }
-
-import '../../stylesheets/archive.css';
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout canonical={combineUrl(canonicalUrl, '/blog/archives')}>
+	<Fragment slot="includes">
+		<link href={canonicalUrl + 'stylesheets/archive.css'} media='screen, projection' rel='stylesheet' type='text/css' />
+	</Fragment>
 	<header>
 		<h2>Blog Archive</h2>
 	</header>
@@ -40,7 +42,7 @@ import '../../stylesheets/archive.css';
 									{months[month].map(item => {
 										return <li>
 											<time datetime={formatDate(getPostDate(item.frontmatter), 'YYYY-MM-DD')}>{formatDate(getPostDate(item.frontmatter), 'MMM Do')}</time>
-											<a rel="article" href={item.url} title={item.frontmatter.title}>{item.frontmatter.title}</a>
+											<a rel="article" href={combineUrl(canonicalUrl, item.url)} title={item.frontmatter.title}>{item.frontmatter.title}</a>
 										</li>
 									})}
 								</ul>
@@ -51,7 +53,4 @@ import '../../stylesheets/archive.css';
 			})}
 		</ul>
 	</section>
-	<ul>
-		{allPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
-	</ul>
 </BaseLayout>

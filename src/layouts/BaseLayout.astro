@@ -2,7 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import globals from '../../globals.mjs';
-let { pageTitle } = Astro.props;
+let { pageTitle, canonical } = Astro.props;
 if (!pageTitle)
   pageTitle = globals.title + " | Bryan Matthews";
 const canonicalUrl = Astro.site;
@@ -22,7 +22,7 @@ import '../stylesheets/theme-3.0.less';
     <meta name='viewport' content='width=device-width, initial-scale=1' />
     <meta name="generator" content={Astro.generator} />
 
-    <link href={Astro.url} rel='canonical' />
+    <link href={canonical || Astro.url} rel='canonical' />
     <link href={canonicalUrl + 'infinity-symbol.png'} rel='icon' />
     <link href={canonicalUrl + 'atom.xml'} rel='alternate' type='application/atom+xml' title={globals.title} />
 
