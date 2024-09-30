@@ -16,7 +16,7 @@ const canonicalUrl = Astro.site;
     </ul>
     <form action='https://google.com/search'>
         <fieldset role='search'>
-            <input type='hidden' name='q' value={'site:' + Astro.url} />
+            <input type='hidden' name='q' value={'site:' + Astro.site} />
             <input class='search' type='text' name='q' results='0' placeholder='Search' autocomplete='off' />
         </fieldset>
     </form>
